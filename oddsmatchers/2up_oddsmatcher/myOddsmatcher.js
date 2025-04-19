@@ -1,15 +1,8 @@
-// REPLACE ADDEVENTLISTENER, QUERYSELECTOR, GETELEMENTBYID, QUERYSELECTOR ALL WITH SCOPE(THIS.SHADOWROOT)
-
-// TO COMMUNICATE FROM CUSTOM ELEMENT TO WIX SITE USE CUSTOM EVENTS, EXAMPLE BELOW ON SELECT
-
-// HANDLE RESIZE FUNCTION WORKS CORRECTLY, MAKE IT UPDATE THE NEWIDTH EVERYTIME THERE IS A RESIZE THERE
+import { add_loading_row } from '../../mobile_files/helper.js';
+//import { add_loading_row } from 'public/custom-elements/helper.js'
 
 
-
-
-
-// events are 'Select-Event', 'More-Info', 'Upgrade', 'Delete-Filter', 'Save-Filter
-
+// this should work on wix, create a folder for it too - pick out functions and put mobile at same point as desktop versions
 
 
 (function () {
@@ -70,19 +63,15 @@ class TwoUpOddsmatcher extends HTMLElement {
                 this.addStyles()
                 .then(() => {
 
-                    this.make_premium_box_correct_size().then(() => {
-                        setTimeout(() => {
-                            this.style.visibility = 'visible'; 
-                        }, 100);
+                    this.style.visibility = 'visible'; 
 
-                        this.runSpecificScript(); 
-                        this.add_loading_row();
-                        this.isContentLoaded = true;
-                        this.processQueuedAttributeChanges();
-                        this.handleResize();
-                        window.addEventListener('resize', this.handleResize.bind(this));
+                    this.runSpecificScript(); 
+                    add_loading_row(this.shadowRoot);
+                    this.isContentLoaded = true;
+                    this.processQueuedAttributeChanges();
+                    this.handleResize();
+                    window.addEventListener('resize', this.handleResize.bind(this));
 
-                    });
 
                 });
 
@@ -97,8 +86,6 @@ class TwoUpOddsmatcher extends HTMLElement {
         width = '400';
         const contentDiv = this.shadowRoot.getElementById('outer-container-div');
         contentDiv.style.width = `${width}px`; 
-
-        this.make_premium_box_correct_size();
 
     }   
 
@@ -194,11 +181,11 @@ class TwoUpOddsmatcher extends HTMLElement {
     
             if (scope.querySelector('#filters-dropdown-options').style.display == 'block') {
                 scope.querySelector('#filters-dropdown-options').style.display = 'none'
-                container.style.borderRadius = '0.71vw';
+                container.style.borderRadius = '5px';
             } else {
                 this.closeAllDropdowns(scope); // Close all other dropdowns
             scope.querySelector('#filters-dropdown-options').style.display = 'block'; // Show current dropdown
-            container.style.borderRadius = '0.71vw 0.71vw 0 0';
+            container.style.borderRadius = '5px 5px 0 0';
     
             
             }
@@ -212,11 +199,11 @@ class TwoUpOddsmatcher extends HTMLElement {
             dropdown.style.display = 'none';
         });
     
-        let dropdown_corners = scope.querySelectorAll('.custom-select-container');
+        let dropdown_corners = scope.querySelectorAll('.custom-select-container:not(.select-filters-container)');
     
         dropdown_corners.forEach((dropdown) => {
     
-            dropdown.style.borderRadius = '0.36vw';
+            dropdown.style.borderRadius = '5px';
     
         });
     
@@ -224,7 +211,7 @@ class TwoUpOddsmatcher extends HTMLElement {
         // ALSO CLOSE FILTER DROPDOWN
         scope.querySelector('#filters-dropdown-options').style.display = 'none';
     
-        scope.querySelector('#filters-dropdown-select-container').style.borderRadius = '0.71vw';
+        scope.querySelector('#filters-dropdown-select-container').style.borderRadius = '5px';
     
     }
 
@@ -247,7 +234,6 @@ class TwoUpOddsmatcher extends HTMLElement {
                     covering_filters.style.display = 'none';
                 } else {
                     covering_filters.style.display = 'flex';
-                    this.make_premium_box_correct_size();
                 }
             }
                         
@@ -258,13 +244,13 @@ class TwoUpOddsmatcher extends HTMLElement {
 
     
     
-    add_lock_if_premium() {
+    add_lock_if_premium() { 
+
+        return
 
         // adjuts this function across all oddsmatchers
   
         if (!is_premium_member && filteredData.length != 0) {
-
-            this.shadowRoot.querySelector('.mobile-container').classList.add("blurred_tbody");
 
             const placeholderRow = document.createElement('tr');
             placeholderRow.innerHTML = `
@@ -289,9 +275,7 @@ class TwoUpOddsmatcher extends HTMLElement {
             const tableBody = this.shadowRoot.querySelector('.mobile-container');
             tableBody.append(placeholderRow);
       
-        } else {
-            this.shadowRoot.querySelector('.mobile-container').classList.remove("blurred_tbody");
-        }
+        } 
    
    
     }
@@ -384,10 +368,9 @@ class TwoUpOddsmatcher extends HTMLElement {
         card.className = 'mobile-card outer-mobile-card';
         card.setAttribute('data-id', row._id);
 
-        console.log(row_info)
 
         card.innerHTML = `
-                <div class="mobile-card">
+                <div class="mobile-card ${is_premium_member ? '' : 'blurred_tbody'}">
                         <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
                         <div class="mobile-row"><strong>Fixture:</strong> <span>${row.fixture}</span></div>
                         <div class="mobile-row"><strong>Outcome:</strong> <span>${row.outcome}</span></div>
@@ -396,7 +379,9 @@ class TwoUpOddsmatcher extends HTMLElement {
                             <span class="odds-combo">
                                 <a>${row.back_odds}</a> 
                                 <span class="mobile_at_symbol" >@</span>
-                                <img src="${row_info.bookmaker_image}" class="logo-img">
+                                <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${row_info.bookmaker_image}" class="logo-img">
+                                </a>
                             </span>
                         </div>
                         <div class="mobile-row">
@@ -404,7 +389,9 @@ class TwoUpOddsmatcher extends HTMLElement {
                             <span class="odds-combo">
                                 <a>${row.lay_odds}</a> 
                                 <span class="mobile_at_symbol" >@</span>
-                                <img src="${row_info.exchange_image}" class="logo-img">
+                                <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${row_info.exchange_image}" class="logo-img">
+                                </a>
                             </span>
                         </div>
                         <div class="mobile-row data-buttons-row">
@@ -423,51 +410,11 @@ class TwoUpOddsmatcher extends HTMLElement {
         const mobileContainer = scope.querySelector('.mobile-container');
         mobileContainer.appendChild(card);
     
-        if (is_premium_member) {
-            const button = document.createElement('button');
-            button.className = 'select_button';
-            button.innerText = 'Select';
-            button.setAttribute('data-id', row._id);
-            card.appendChild(button);
-        }
     }
 
 
 
 
-
-
-
-
-    add_hover_listener_to_select_boxes_and_calculator() {
-
-
-        const selectBoxes = this.shadowRoot.querySelectorAll('.select_button, .more_info_image');
- 
- 
-        selectBoxes.forEach(box => {
-           
-        box.addEventListener('mouseenter', () => {
-            const dataId = box.getAttribute('data-id');
-            const correspondingTr = this.shadowRoot.querySelectorAll(`tr[data-id="${dataId}"] td`);
-            correspondingTr.forEach((td) => {
-                td.classList.add('highlight');
-            });
-          });
-     
- 
- 
-          box.addEventListener('mouseleave', () => {
-            const dataId = box.getAttribute('data-id');
-            const correspondingTr = this.shadowRoot.querySelectorAll(`tr[data-id="${dataId}"] td`);
-            correspondingTr.forEach((td) => {
-                td.classList.remove('highlight');
-            });
-          });
-        });
- 
- 
-    }
  
 
  
@@ -733,11 +680,8 @@ class TwoUpOddsmatcher extends HTMLElement {
         this.shadowRoot.querySelector('.mobile-container').innerHTML = '';
 
         this.shadowRoot.querySelector('.not_premium_member_row')?.remove();
-        this.shadowRoot.querySelector('.mobile-container').classList.remove("blurred_tbody");
 
-        
-        this.add_loading_row();
-        
+        add_loading_row(this.shadowRoot);
         
         let min = 169;
         let max = 420;
@@ -811,8 +755,6 @@ class TwoUpOddsmatcher extends HTMLElement {
         });
 
         this.handleResize();
-
-        this.add_hover_listener_to_select_boxes_and_calculator();
 
     }
 
@@ -1113,18 +1055,8 @@ class TwoUpOddsmatcher extends HTMLElement {
 
         open_text_box_and_confirm() {
 
-            this.shadowRoot.querySelector('.filter-dropdown-name-div').style.display = 'flex';
-            this.shadowRoot.querySelector('.confirm-filter-name').style.display = 'block';
-            this.shadowRoot.querySelector('.cancel-making-filter').style.display = 'flex';
-
-            this.shadowRoot.querySelector('.div-outside-filter-dropdown').style.display = 'none';
-            this.shadowRoot.querySelector('.save-filter-button').style.display = 'none';
-            this.shadowRoot.querySelector('.get-alerts-button').style.display = 'none';
-
-            this.shadowRoot.querySelector('.div-outside-switch').style.display = 'none';
-            this.shadowRoot.querySelector('#data_timer').style.display = 'none';
-            this.shadowRoot.querySelector('.refresh_results').style.display = 'none';
-
+            this.shadowRoot.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.remove('hidden_row_above_columns')
+            
         }
 
         close_boxes() {
@@ -1134,18 +1066,8 @@ class TwoUpOddsmatcher extends HTMLElement {
 
             this.shadowRoot.querySelector('#get-filter-name').value = '';
 
-            this.shadowRoot.querySelector('.filter-dropdown-name-div').style.display = 'none';
-            this.shadowRoot.querySelector('.confirm-filter-name').style.display = 'none';
-            this.shadowRoot.querySelector('.cancel-making-filter').style.display = 'none';
-
-
-            this.shadowRoot.querySelector('.div-outside-filter-dropdown').style.display = 'flex';
-            this.shadowRoot.querySelector('.save-filter-button').style.display = 'block';
-            this.shadowRoot.querySelector('.get-alerts-button').style.display = 'flex';
-
-            this.shadowRoot.querySelector('.div-outside-switch').style.display = 'flex';
-            this.shadowRoot.querySelector('#data_timer').style.display = 'block';
-            this.shadowRoot.querySelector('.refresh_results').style.display = 'flex';
+            this.shadowRoot.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.add('hidden_row_above_columns')
+            
         }
 
 
@@ -1186,18 +1108,8 @@ class TwoUpOddsmatcher extends HTMLElement {
 
             this.shadowRoot.querySelector('#get-filter-name').value = '';
 
-            this.shadowRoot.querySelector('.filter-dropdown-name-div').style.display = 'none';
-            this.shadowRoot.querySelector('.confirm-filter-name').style.display = 'none';
-            this.shadowRoot.querySelector('.cancel-making-filter').style.display = 'none';
+            this.shadowRoot.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.add('hidden_row_above_columns')
 
-
-            this.shadowRoot.querySelector('.div-outside-filter-dropdown').style.display = 'flex';
-            this.shadowRoot.querySelector('.save-filter-button').style.display = 'block';
-            this.shadowRoot.querySelector('.get-alerts-button').style.display = 'flex';
-
-            this.shadowRoot.querySelector('.div-outside-switch').style.display = 'flex';
-            this.shadowRoot.querySelector('#data_timer').style.display = 'block';
-            this.shadowRoot.querySelector('.refresh_results').style.display = 'flex';
 
             return filter_name;
 
@@ -1263,7 +1175,7 @@ class TwoUpOddsmatcher extends HTMLElement {
 
             // First, ensure all options have a bottom border
             list_of_options.forEach(option => {
-                option.style.borderBottom = '0.07vw solid #444';
+                option.style.borderBottom = '1px solid #444';
             });
 
             // Remove the border from the last option
@@ -1378,32 +1290,7 @@ class TwoUpOddsmatcher extends HTMLElement {
 
 
 
-    add_loading_row() {
-
-        const loadingrow = document.createElement('tr');
-        loadingrow.setAttribute('id', 'loadingScreenRow'); 
-        loadingrow.innerHTML = `
-
-        <td colspan="100%" style="padding: 0;">
-            <div class="loading">
-                <div class="neon-pulse">
-                    <div class="neon-bar"></div>
-                    <div class="neon-bar"></div>
-                    <div class="neon-bar"></div>
-                    <div class="neon-bar"></div>
-                </div>
-                <h2 class="loading-text">Collecting Bookmaker Data...</h2>
-            </div>
-        </td>
-
-    `;
-
-        const tableBody = this.shadowRoot.querySelector('.mobile-container');
-        tableBody.append(loadingrow);
-
-        this.alternateText();
-
-    }
+   
 
 
 
@@ -1663,7 +1550,7 @@ render() {
 
             // Using requestAnimationFrame to make sure changes are visually updated correctly
             requestAnimationFrame(() => {
-                this.make_premium_box_correct_size();
+
             });
 
         })
@@ -1726,21 +1613,6 @@ render() {
 
 
 
-    make_premium_box_correct_size() {
-        return new Promise((resolve) => {
-
-                    const box_for_covering_filters_ = this.shadowRoot.querySelector('#covering_filters');
-                    
-                    let width = window.innerWidth
-                    let filter_cover_width = ((width * 0.98) - 10) - (0.0072 * width);
-
-                    box_for_covering_filters_.style.width = `${filter_cover_width}px`;
-                    box_for_covering_filters_.style.height = `${13.16}vw`; // 13.16 vw from height of filter-panel-container
-                    box_for_covering_filters_.style.top = `${11.3}vw`; // 8.8 vw from above columns height + 2.5 vw from filter-panel-container margin top
-    
-                    resolve(); 
-        });
-    }
 
 
 
@@ -1757,6 +1629,7 @@ render() {
                 link.setAttribute('rel', 'stylesheet');
                 link.setAttribute('href', 'styles.css'); 
                 
+                link.onload = () => { resolve('done'); };
 
                 this.shadowRoot.appendChild(link);
 
@@ -1767,8 +1640,6 @@ render() {
                 this.shadowRoot.appendChild(fontAwesomeLink);
 
                 this.handleResize();
-
-                return resolve('done')
 
             } catch(error) {
                 return reject(error)
@@ -1875,15 +1746,15 @@ render() {
 
     create_event_listeners_for_select_containers() {
 
-        const selectContainers = this.shadowRoot.querySelectorAll('.custom-select-container');
+        const selectContainers = this.shadowRoot.querySelectorAll('.custom-select-container:not(.select-filters-container)');
     
         selectContainers.forEach(container => {
             const selectAll = container.querySelector('.select-all');
+
             const checkboxes = container.querySelectorAll('input[type="checkbox"]:not(.select-all)');
     
     
             // EVENT LISTENERS FOR THE DROPDOWNS, FOR CLICKING AND VALUE CHANGES. IT JUST CALLS THE UPDATEGLOBALFILTERS FOR EACH, AND TOGGLES DISPLAY OF DROPDOWNS
-    
             selectAll.addEventListener('change', (event) => {
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = selectAll.checked;
@@ -1904,12 +1775,12 @@ render() {
     
                 if (container.querySelector('.dropdown-options').style.display == 'block') {
                     container.querySelector('.dropdown-options').style.display = 'none';
-                    container.style.borderRadius = '0.36vw';
+                    container.style.borderRadius = '5px';
     
                 } else {
                     this.closeAllDropdowns(this.shadowRoot); // Close all other dropdowns
                 container.querySelector('.dropdown-options').style.display = 'block'; // Show current dropdown
-                container.style.borderRadius = '0.36vw 0.36vw 0 0';
+                container.style.borderRadius = '5px 5px 0 0';
                 
                 }
             });
@@ -1918,7 +1789,7 @@ render() {
         });
     
         this.shadowRoot.addEventListener('click', (event) => {
-            if (!event.target.closest('.custom-select-container')) {
+            if (!event.target.closest('.custom-select-container:not(.select-filters-container)')) {
                 this.closeAllDropdowns(this.shadowRoot);
             }
         });

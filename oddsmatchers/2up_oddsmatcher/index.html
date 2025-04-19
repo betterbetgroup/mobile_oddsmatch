@@ -14,7 +14,7 @@
         <two-up-oddsmatcher ></two-up-oddsmatcher>
     </div>
 
-    <script src="myOddsmatcher.js"></script>
+    <script type="module" src="myOddsmatcher.js"></script>
 
     <script>
         
@@ -121,6 +121,9 @@
         {
             "_createdDate": null,
             "_id": "aaokUX8syqHwsTBa3Vhh9xCnE9FP25IwvD9b",
+            "_owner": null,
+            "_updatedDate": null,
+            "back_odds": "4.60",
             "_owner": null,
             "_updatedDate": null,
             "back_odds": "4.60",
@@ -831,7 +834,7 @@
             setTimeout(() => {
                 document.querySelector('two-up-oddsmatcher').setAttribute('data-odds', JSON.stringify(finalData))
 
-            }, 500);
+            }, 50000);
 
             document.querySelector('two-up-oddsmatcher').addEventListener('Get-Alerts', (event)=>{
                 console.log(event)
