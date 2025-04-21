@@ -53,6 +53,22 @@ body {
     --gap-between-data-rows: 8px;
 
     --font-size-pagination: 12px;
+
+
+    /* meant to be just for filters and above, but want to use some in other parts as it's button border-radius */
+
+    --padding-left-filter-inputs: 6px;
+    --height-filter-inputs: 35px;
+    --border-radius-filter-inputs: 5px;
+    --font-size-filter-inputs: var(--global-main-font-size);
+
+    --background-colour-filters: #333;
+    --border-width-filters: 1px;
+    --border-filters: var(--border-width-filters) solid #444;
+
+    --width-currency-box: 25px;
+    --font-size-currency-box: 20px;
+    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b)
 }
 
 
@@ -68,33 +84,70 @@ body {
 
 
 
-/* no data row etc */
 
+
+ 
+ 
+.loading, .no-data-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, #0a0010, #330033, #0a0010);
+    background-size: 400% 400%;
+    animation: bgAnimation 8s ease infinite;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    border-radius: var(--global-border-radius);
+    aspect-ratio: 2;
+}
+ 
+.no-data-div {
+    background: linear-gradient(270deg, #150020, #0c0033, #150020);
+}
+.no-data-div h2, .loading-text {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+ 
+.loading {
+    aspect-ratio: 1;
+}
 
 .neon-pulse {
     position: relative;
-    width: 7.14vw;
-    height: 7.14vw;
+    width: 80px;
+    height: 80px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    perspective: 71.43vw;
+    perspective: 600px;
     animation: rotatePulse 2s linear infinite; 
- }
+}
  
- 
- .neon-bar {
-    width: 1.07vw;
-    height: 4.29vw;
+.neon-bar {
+    width: 10px;
+    height: 40px;
     background: #ff00c6;
-    box-shadow: 0.00vw 0.00vw 1.43vw rgba(255, 0, 198, 0.8); 
-    border-radius: 0.36vw;
+    box-shadow: 0px 0px 10px rgba(255, 0, 198, 0.8); 
+    border-radius: 4px;
     transform-origin: center bottom;
     animation: neonGrow 1s ease-in-out infinite;
- }
+}
  
+.loading-text {
+    margin-top: 70px;
+    color: #ff00c6;
+    animation: fadeIn 2s ease-in-out infinite;
+}
  
- @keyframes neonGrow {
+@keyframes contentFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+@keyframes neonGrow {
     0%, 100% {
         transform: scaleY(1);
     }
@@ -112,28 +165,7 @@ body {
     }
  }
  
- 
-.loading, .no-data-div {
-    height: 21.43vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(270deg, #0a0010, #330033, #0a0010);
-    background-size: 400% 400%;
-    animation: bgAnimation 8s ease infinite;
-    color: white;
-    width: 100%;
-}
- 
- 
-.no-data-div {
-    background: linear-gradient(270deg, #0a0010, #0c0033, #0a0010);
-    height: 10.71vw;
-    padding: 2vw 4vw;
-}
- 
-  @keyframes bgAnimation {
+ @keyframes bgAnimation {
     0%, 100% {
         background-position: 0% 50%;
     }
@@ -141,28 +173,6 @@ body {
         background-position: 100% 50%;
     }
  }
- 
-.loading-text {
-    margin-top: 2.86vw;
-    font-size: 1.71vw;
-    color: #ff00c6;
-    text-transform: uppercase;
-    animation: fadeIn 2s ease-in-out infinite;
-}
- 
-.no-data-text {
-    margin: 0;
-    color: white;
-}
- 
-@keyframes contentFadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-
- 
 
 
 
@@ -416,22 +426,6 @@ body {
 
 
 
-#filter-panel-container, .above-columns {
-
-    --padding-left-filter-inputs: 6px;
-    --height-filter-inputs: 35px;
-    --border-radius-filter-inputs: 5px;
-    --font-size-filter-inputs: var(--global-main-font-size);
-
-    --background-colour-filters: #333;
-    --border-width-filters: 1px;
-    --border-filters: var(--border-width-filters) solid #444;
-
-    --width-currency-box: 25px;
-    --font-size-currency-box: 20px;
-    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b)
-}
-
 
 #filter-panel-container, .above-columns {
     padding: 0;
@@ -542,6 +536,11 @@ body {
     align-items: center;
     text-align: center;
     justify-content: center;
+}
+
+.text-input-container-roi:before {
+    content: '%';
+    font-size: calc(var(--font-size-currency-box) * 0.85);
 }
 
 .currency_in_input {
@@ -778,7 +777,7 @@ input[type="checkbox"] {
 .switch_container {
     align-content: center;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
   
 .div-outside-switch, .div-outside-filter-dropdown {
@@ -844,7 +843,7 @@ input[type="checkbox"] {
 
 
 
-.box2 {
+.box2, .box3 {
     position: absolute;
     inset: -1px;
     z-index: 5;
@@ -874,3 +873,34 @@ input[type="checkbox"] {
     pointer-events: none; 
     user-select: none;
 }
+
+
+.outer_div_upgrade {
+    border-radius: var(--global-border-radius);
+    background: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.upgrade-button {
+    background: #ff0000;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.padlock-image-button {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+}
+
+

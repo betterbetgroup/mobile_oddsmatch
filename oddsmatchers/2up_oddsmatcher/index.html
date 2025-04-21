@@ -828,17 +828,22 @@
         }
 },
     "width": 1033,
-    "premium_member": false,
+    "premium_member": true,
     "is_first": true
 }
             setTimeout(() => {
                 document.querySelector('two-up-oddsmatcher').setAttribute('data-odds', JSON.stringify(finalData))
 
-            }, 50000);
+            }, 500);
 
             document.querySelector('two-up-oddsmatcher').addEventListener('Get-Alerts', (event)=>{
                 console.log(event)
             })
+
+            document.querySelector('two-up-oddsmatcher').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
 
     </script>
 
