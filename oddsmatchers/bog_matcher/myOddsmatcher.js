@@ -1,12 +1,12 @@
-import * as Helpers from '/mobile_files/helper.js';
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
 //import * as Helpers from 'public/custom-elements/helper.js'
 
 (function () {
 
-    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js?v=' + new Date().getTime();
-    let html_script = 'z.html';
-    let styles_script = 'styles.css';
+    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js'
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/bog_matcher/z.html';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/bog_matcher/styles.css';
 
     // Create state object
     const state = {

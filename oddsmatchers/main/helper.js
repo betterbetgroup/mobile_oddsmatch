@@ -1,5 +1,5 @@
-let border_dropdown_option_filter = '1px solid #444';
-let border_radius_input = '5px';
+let border_dropdown_option_filter = '0.07vw solid #444';
+let border_radius_input = '0.36vw';
 
 // State management
 const state = {
@@ -1222,7 +1222,6 @@ export function sort_data_on_click(sortValue, scope, state) {
 export function handleResize(scope) {
 
     let width = window.innerWidth;
-    width = '400';
     const contentDiv = scope.getElementById('outer-container-div');
     contentDiv.style.width = `${width}px`; 
 
