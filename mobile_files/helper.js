@@ -342,6 +342,9 @@ export function make_timer_run_and_add_event_listener(scope, state) {
 export function sort_data(sort_by, state) {
     if (sort_by == 'rating') {
         state.globalData = sort_rows_by_rating(state.globalData);
+    } 
+    else if (sort_by == 'Implied Odds') {
+        state.globalData = sort_rows_by_ImpliedOdds(state.globalData);
     } else if (sort_by == 'potential profit') {
         state.globalData = sort_rows_by_potential_profit(state.globalData);
     } else if (sort_by == 'qualifying loss') {
@@ -366,6 +369,16 @@ export function sort_rows_by_rating(rows) {
             : parseFloat(b.rating) || 0;
         return ratingB - ratingA;  // Sort in descending order
     });
+}
+  
+export function sort_rows_by_ImpliedOdds(rows) {
+    return rows.sort((a, b) => {
+
+            const ratingA = parseFloat(a.implied_odds);
+            const ratingB = parseFloat(b.implied_odds);
+            return ratingB - ratingA;  // Sort in descending order
+
+        });
 }
 
 export function sort_rows_by_qualifying_loss(rows) {

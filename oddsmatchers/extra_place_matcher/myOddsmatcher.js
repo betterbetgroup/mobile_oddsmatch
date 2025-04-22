@@ -23,7 +23,7 @@ import * as Helpers from '../../mobile_files/helper.js';
         filteredData: [],
         currentPage: 1,
         rowsPerPage: 10,
-        current_sort: 'rating',
+        current_sort: 'Implied Odds',
         globalFilters: {},
         customFilters: {},
         data_loaded_from_wix: false, 
@@ -73,17 +73,31 @@ import * as Helpers from '../../mobile_files/helper.js';
                 default: null
             },
             {
-                name: 'minRating',
+                name: 'minImpliedOdds',
                 type: 'number',
-                input_id: 'min-rating',
-                filter_id: 'min-rating',
+                input_id: 'min-Implied Odds',
+                filter_id: 'min-Implied Odds',
                 default: null
             },
             {
-                name: 'maxRating',
+                name: 'maxImpliedOdds',
                 type: 'number',
-                input_id: 'max-rating',
-                filter_id: 'max-rating',
+                input_id: 'max-Implied Odds',
+                filter_id: 'max-Implied Odds',
+                default: null
+            },
+            {
+                name: 'minPlaces',
+                type: 'number',
+                input_id: 'min-places',
+                filter_id: 'min-places',
+                default: null
+            },
+            {
+                name: 'minExtraPlaces',
+                type: 'number',
+                input_id: 'min-extra_places',
+                filter_id: 'min-extra_places',
                 default: null
             },
             {
@@ -94,10 +108,10 @@ import * as Helpers from '../../mobile_files/helper.js';
                 default: null
             },
             {
-                name: 'minROI',
+                name: 'minPotentialProfit',
                 type: 'number',
-                input_id: 'min-roi',
-                filter_id: 'min-roi',
+                input_id: 'min-potential-profit',
+                filter_id: 'min-potential-profit',
                 default: null
             }
         ],
@@ -107,7 +121,7 @@ import * as Helpers from '../../mobile_files/helper.js';
         set_bookmakers_and_exchanges_function: null
     };
 
-    class eachWayOddsmatcher extends HTMLElement {
+    class extraPlaceOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -178,7 +192,7 @@ import * as Helpers from '../../mobile_files/helper.js';
                 const [hour, minute] = time.split(':');
                 return new Date(`20${year}`, month - 1, day, hour, minute);
             }
-
+    
             const now = new Date(); 
     
             return globalData.filter(row => {
@@ -188,10 +202,12 @@ import * as Helpers from '../../mobile_files/helper.js';
                 const liquidityMatch = globalFilters.minLiquidity === null || (parseFloat(row.exchange_place_liquidity) >= globalFilters.minLiquidity) && (parseFloat(row.exchange_win_liquidity) >= globalFilters.minLiquidity);
                 const backOddsMatch = (globalFilters.minBackOdds === null || parseFloat(row.bookmaker_each_way_odds) >= globalFilters.minBackOdds) &&
                                       (globalFilters.maxBackOdds === null || parseFloat(row.bookmaker_each_way_odds) <= globalFilters.maxBackOdds);
-                const ratingMatch = (globalFilters.minRating === null || parseFloat(row.rating.replace('%', '')) >= globalFilters.minRating) &&
-                                    (globalFilters.maxRating === null || parseFloat(row.rating.replace('%', '')) <= globalFilters.maxRating);
+                const ImpliedOddsMatch = (globalFilters.minImpliedOdds === null || parseFloat(row.implied_odds) >= globalFilters.minImpliedOdds) &&
+                                    (globalFilters.maxImpliedOdds === null || parseFloat(row.implied_odds) <= globalFilters.maxImpliedOdds);
+                const placesMatch = globalFilters.minPlaces === null || parseFloat(row.bookmaker_places) >= globalFilters.minPlaces;
+                const extraPlacesMatch = globalFilters.minExtraPlaces === null || parseFloat(row.extra_places) >= globalFilters.minExtraPlaces;
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
-                const potentialProfitMatch = globalFilters.minROI === null || parseFloat(row.ROI.replace('%', '')) >= globalFilters.minROI;
+                const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
         
         
                 
@@ -227,7 +243,7 @@ import * as Helpers from '../../mobile_files/helper.js';
                     }
                 }
         
-                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
+                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ImpliedOddsMatch && placesMatch && extraPlacesMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
             });
         
         
@@ -239,6 +255,7 @@ import * as Helpers from '../../mobile_files/helper.js';
             let win_exchange_image = Helpers.get_exchange_image(row.win_exchange)
             let place_exchange_image = Helpers.get_exchange_image(row.place_exchange)
         
+        
             let bookmakerFraction = row.bookmaker_fraction.split('/');
             let numerator = parseInt(bookmakerFraction[0], 10);
             let denominator = parseInt(bookmakerFraction[1], 10);
@@ -247,9 +264,12 @@ import * as Helpers from '../../mobile_files/helper.js';
             
         
             let qualifying_loss_class = 'positive_profit_data'
+            let potential_profit_class = 'positive_profit_data'
         
             let qualifying_loss = 0;
+            let potential_profit = 0;
         
+            let places = row.bookmaker_places + ' (+' + row.extra_places + ')';
         
             if (row.qualifying_loss.toString().includes('-')) {
                 qualifying_loss_class = 'negative_profit_data';
@@ -261,6 +281,16 @@ import * as Helpers from '../../mobile_files/helper.js';
             if (qualifying_loss == '+0.00') {
                 qualifying_loss = '£0.00'
             }
+        
+            if (row.potential_profit.toString().includes('-')) {
+                potential_profit_class = 'negative_profit_data';
+                potential_profit = row.potential_profit;
+            } else {
+                potential_profit = '+' + (row.potential_profit).toString();
+            }
+            if (potential_profit == '+0.00') {
+                potential_profit = '£0.00'
+            }
                 
             
 
@@ -268,11 +298,13 @@ import * as Helpers from '../../mobile_files/helper.js';
             card.className = 'mobile-card outer-mobile-card';
             card.setAttribute('data-id', row._id);
 
+
             card.innerHTML = `
                     <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
                             <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
                             <div class="mobile-row"><strong>Race:</strong> <span>${row.fixture}</span></div>
                             <div class="mobile-row"><strong>Horse:</strong> <span>${row.horse}</span></div>
+                            <div class="mobile-row"><strong>Extra Places:</strong> <span>${row.extra_places}</span></div>
                             <div class="mobile-row">
                                 <strong>Each Way Bet:</strong>
                                 
@@ -313,10 +345,11 @@ import * as Helpers from '../../mobile_files/helper.js';
                             </div>
                             
                             <div class="mobile-row data-buttons-row">
-                                <strong>Profit & Rating:</strong>
+                                <strong>Profit & IO:</strong>
                                 <div class="expected-profit-box">
                                     <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
-                                    <div class="rating-badge">${row.rating}</div>
+                                    <div class="${parseFloat(row.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.potential_profit}</div>
+                                    <div class="rating-badge">${row.implied_odds}</div>
                                 </div>
                             </div>
                     </div>
@@ -333,13 +366,13 @@ import * as Helpers from '../../mobile_files/helper.js';
 
             bookmakerImages = Object.fromEntries(
                 Object.entries(bookmakerImages)
-                .filter(([key]) => EACH_WAY_BOOKMAKERS.includes(key))
+                .filter(([key]) => EXTRA_PLACE_BOOKMAKERS.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
     
             exchangeImages = Object.fromEntries(
                 Object.entries(exchangeImages)
-                .filter(([key]) => EACH_WAY_EXCHANGES.includes(key))
+                .filter(([key]) => EXTRA_PLACE_EXCHANGES.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
     
@@ -352,12 +385,14 @@ import * as Helpers from '../../mobile_files/helper.js';
                         "minLiquidity": "null",
                         "minBackOdds": "null",
                         "maxBackOdds": "null",
-                        "minRating": "null",
-                        "maxRating": "null",
+                        "minImpliedOdds": "null",
+                        "maxImpliedOdds": "null",
+                        "minPlaces": "null",
+                        "minExtraPlaces": "null",
                         "minQualifyingLoss": "null",
-                        "minROI": "null"
+                        "minPotentialProfit": "null"
                     }
-            };
+            }
     
             state.globalFilters = {
                 bookmakers: Object.keys(bookmakerImages),
@@ -366,10 +401,12 @@ import * as Helpers from '../../mobile_files/helper.js';
                 minLiquidity: null,
                 minBackOdds: null,
                 maxBackOdds: null,
-                minRating: null,
-                maxRating: null,
+                minImpliedOdds: null,
+                maxImpliedOdds: null,
+                minPlaces: null,
+                minExtraPlaces: null,
                 minQualifyingLoss: null,
-                minROI: null,
+                minPotentialProfit: null,
             };
     
             Helpers.append_options_for_dropdowns(scope, state);
@@ -379,7 +416,7 @@ import * as Helpers from '../../mobile_files/helper.js';
 
     }
 
-    customElements.define('each-oddsmatcher', eachWayOddsmatcher);
+    customElements.define('extra-place-oddsmatcher', extraPlaceOddsmatcher);
 
 
 

@@ -366,6 +366,11 @@ body {
     gap: 8px;
 } 
 
+
+.odds-combo-each-and-extra {
+    justify-content: flex-end;
+}
+
 .div-outside-odds-combo {
     display: flex;
     flex-direction: column;
@@ -377,6 +382,10 @@ body {
 
 .odds-combo span {
     flex: 0;
+}
+
+.bookmaker_image_each_way {
+    flex: 0 !important;
 }
 
 .expected-profit-box {
