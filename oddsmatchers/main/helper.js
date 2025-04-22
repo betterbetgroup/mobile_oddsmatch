@@ -1,5 +1,5 @@
-let border_dropdown_option_filter = '0.07vw solid #444';
-let border_radius_input = '0.36vw';
+let border_dropdown_option_filter = '0.25vw solid #444';
+let border_radius_input = '1.25vw';
 
 // State management
 const state = {
@@ -13,9 +13,6 @@ const state = {
     customFilters: {},
     is_premium_member: false
 };
-
-
-
 
 
 

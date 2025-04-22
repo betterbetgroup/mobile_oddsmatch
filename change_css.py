@@ -2,7 +2,7 @@ import re
 
 def convert_px_to_vw(match):
     px_value = int(match.group(1))  # Extract the pixel value
-    base_width = 1400  # The viewport width at which the design looks good
+    base_width = 400  # The viewport width at which the design looks good
     vw_value = (px_value / base_width) * 100  # Convert px to vw
     return f"{vw_value:.2f}vw"  # Format the vw value to two decimal places
 
