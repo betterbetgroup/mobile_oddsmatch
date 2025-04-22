@@ -365,6 +365,16 @@ body {
     align-items: center;
     gap: 8px;
 } 
+
+.div-outside-odds-combo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 7px;
+}
+
+
 .odds-combo span {
     flex: 0;
 }

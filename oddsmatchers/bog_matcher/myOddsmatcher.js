@@ -4,7 +4,7 @@ import * as Helpers from '/mobile_files/helper.js';
 
 (function () {
 
-    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
+    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js?v=' + new Date().getTime();
     let html_script = 'z.html';
     let styles_script = 'styles.css';
 
@@ -302,6 +302,18 @@ import * as Helpers from '/mobile_files/helper.js';
                                     </a>
                                 </span>
                             </div>
+                            ${parseInt(row.outcomes) === 3 ? `
+                            <div class="mobile-row">
+                                <strong>Place Lay Odds:</strong>
+                                <span class="odds-combo">
+                                    <a>${row.place_lay_odds || ''}</a> 
+                                    <span class="mobile_at_symbol" >@</span>
+                                    <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
+                                        <img src="${row_info.exchange_image}" class="logo-img">
+                                    </a>
+                                </span>
+                            </div>
+                            ` : ''}
                             <div class="mobile-row data-buttons-row">
                                 <strong>Returns & Rating:</strong>
                                 <div class="expected-profit-box">
@@ -318,7 +330,6 @@ import * as Helpers from '/mobile_files/helper.js';
             mobileContainer.appendChild(card);
         
         }
-
 
         filter_bookmakers_and_exchanges(scope,state) {
 
