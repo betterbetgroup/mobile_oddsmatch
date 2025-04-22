@@ -1,0 +1,11 @@
+@import url('../../mobile_files/styles.css');
+
+
+
+.bookmaker_image_each_way {
+    flex: 0 !important;
+}
+
+.odds-combo {
+    justify-content: flex-end;
+}

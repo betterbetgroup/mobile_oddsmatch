@@ -337,7 +337,7 @@ body {
 
 .mobile-row a,
 .mobile-row .mobile_at_symbol,
-.mobile-row .logo-img {
+.mobile-row .logo-img, .mobile_and_symbol {
     vertical-align: middle;
     line-height: 1.4;
 }

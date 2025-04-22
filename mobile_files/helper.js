@@ -354,9 +354,16 @@ export function sort_data(sort_by, state) {
 }
 
 export function sort_rows_by_rating(rows) {
+
     return rows.sort((a, b) => {
-        const ratingA = parseFloat(a.rating.replace('%', ''));
-        const ratingB = parseFloat(b.rating.replace('%', ''));
+
+        // Handle both string and numeric values
+        const ratingA = typeof a.rating === 'string' 
+            ? parseFloat(a.rating.replace('%', '')) 
+            : parseFloat(a.rating) || 0;
+        const ratingB = typeof b.rating === 'string' 
+            ? parseFloat(b.rating.replace('%', '')) 
+            : parseFloat(b.rating) || 0;
         return ratingB - ratingA;  // Sort in descending order
     });
 }

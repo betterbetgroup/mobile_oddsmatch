@@ -2,6 +2,13 @@ import * as Helpers from '../../mobile_files/helper.js';
 
 //import * as Helpers from 'public/custom-elements/helper.js'
 
+
+
+// BEAR IN MIND THESE FILTERS DO NOT MATCH THE DESKTOP VERSION OF EACH WAY FILTERS
+
+// THEY SHOULD BE LINED UP WHEN REDOING DESKTOP VERSION
+
+
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
@@ -16,7 +23,7 @@ import * as Helpers from '../../mobile_files/helper.js';
         filteredData: [],
         currentPage: 1,
         rowsPerPage: 10,
-        current_sort: 'qualifying loss',
+        current_sort: 'rating',
         globalFilters: {},
         customFilters: {},
         data_loaded_from_wix: false, 
@@ -38,19 +45,32 @@ import * as Helpers from '../../mobile_files/helper.js';
                 list_values_source: 'exchangeImages'
             },
             {
-                name: 'markets', 
-                type: 'list',
-                input_id: 'markets-dropdown-select-container',
-                filter_id: 'markets-dropdown-options',
-                default: [],
-                list_values_source: 'DutchingMarketsList'
-            },
-            {
                 name: 'startTime',
                 type: 'string',
                 input_id: 'date-range',
                 filter_id: 'date-range',
                 default: ''
+            },
+            {
+                name: 'minLiquidity',
+                type: 'number',
+                input_id: 'min-liquidity',
+                filter_id: 'min-liquidity',
+                default: null
+            },
+            {
+                name: 'minBackOdds',
+                type: 'number',
+                input_id: 'min-back-odds',
+                filter_id: 'min-back-odds',
+                default: null
+            },
+            {
+                name: 'maxBackOdds',
+                type: 'number',
+                input_id: 'max-back-odds',
+                filter_id: 'max-back-odds',
+                default: null
             },
             {
                 name: 'minRating',
@@ -74,10 +94,10 @@ import * as Helpers from '../../mobile_files/helper.js';
                 default: null
             },
             {
-                name: 'minPotentialProfit',
+                name: 'minROI',
                 type: 'number',
-                input_id: 'min-potential-profit',
-                filter_id: 'min-potential-profit',
+                input_id: 'min-roi',
+                filter_id: 'min-roi',
                 default: null
             }
         ],
@@ -87,7 +107,7 @@ import * as Helpers from '../../mobile_files/helper.js';
         set_bookmakers_and_exchanges_function: null
     };
 
-    class dutchingOddsmatcher extends HTMLElement {
+    class eachWayOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -160,30 +180,26 @@ import * as Helpers from '../../mobile_files/helper.js';
             }
 
             const now = new Date(); 
-
-            const allPlatforms = globalFilters.bookmakers.concat(globalFilters.exchanges);
-        
+    
             return globalData.filter(row => {
         
-                let allBookmakers = [row.first_bookmaker, row.second_bookmaker, row.third_bookmaker];
-                if (parseInt(row.outcomes) == 2) {
-                    allBookmakers = [row.first_bookmaker, row.second_bookmaker];
-                }
-                const bookmakerMatch = allBookmakers.every(bookmaker => allPlatforms.includes(bookmaker));
-                
-        
-                const marketMatch = globalFilters.markets.includes(row.market_type);
-        
-                
-                const ratingMatch = (globalFilters.minrating === null || parseFloat(row.rating) >= globalFilters.minrating) &&
-                                    (globalFilters.maxrating === null || parseFloat(row.rating) <= globalFilters.maxrating);
+                const bookmakerMatch = globalFilters.bookmakers.includes(row.bookmaker);
+                const exchangeMatch = globalFilters.exchanges.includes(row.win_exchange) && globalFilters.exchanges.includes(row.place_exchange);
+                const liquidityMatch = globalFilters.minLiquidity === null || (parseFloat(row.exchange_place_liquidity) >= globalFilters.minLiquidity) && (parseFloat(row.exchange_win_liquidity) >= globalFilters.minLiquidity);
+                const backOddsMatch = (globalFilters.minBackOdds === null || parseFloat(row.bookmaker_each_way_odds) >= globalFilters.minBackOdds) &&
+                                      (globalFilters.maxBackOdds === null || parseFloat(row.bookmaker_each_way_odds) <= globalFilters.maxBackOdds);
+                const ratingMatch = (globalFilters.minRating === null || parseFloat(row.rating.replace('%', '')) >= globalFilters.minRating) &&
+                                    (globalFilters.maxRating === null || parseFloat(row.rating.replace('%', '')) <= globalFilters.maxRating);
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
-                const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
+                const potentialProfitMatch = globalFilters.minROI === null || parseFloat(row.ROI.replace('%', '')) >= globalFilters.minROI;
+        
         
                 
+        
                 // Parse row date and time
                 const rowDateTime = parseDateAndTime_filterData(row.date_and_time);
                 let timeMatch = true; // Default to true if (No Selected Filter) is set
+        
         
                 if (globalFilters.startTime) {
                     switch (globalFilters.startTime) {
@@ -211,42 +227,28 @@ import * as Helpers from '../../mobile_files/helper.js';
                     }
                 }
         
-                return bookmakerMatch && marketMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
-        
-        
+                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
             });
+        
         
         }
     
         create_row(row, scope) {
 
-
-
-            row.first_image = Helpers.get_bookmaker_image(row.first_bookmaker)
-            row.second_image = Helpers.get_bookmaker_image(row.second_bookmaker)
-            row.third_image = Helpers.get_bookmaker_image(row.third_bookmaker)
+            let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
+            let win_exchange_image = Helpers.get_exchange_image(row.win_exchange)
+            let place_exchange_image = Helpers.get_exchange_image(row.place_exchange)
         
-        
-            let first_outcome = '';
-            let second_outcome = '';
-            let third_outcome = '';
-        
-        
-            if (row.market_type == 'Match Odds') {
-                first_outcome = 'HOME';
-                second_outcome = 'DRAW';
-                third_outcome = 'AWAY'; 
-            } else {
-                first_outcome = row.first_outcome;
-                second_outcome = row.second_outcome;
-            }
-        
+            let bookmakerFraction = row.bookmaker_fraction.split('/');
+            let numerator = parseInt(bookmakerFraction[0], 10);
+            let denominator = parseInt(bookmakerFraction[1], 10);
+            bookmakerFraction = numerator / denominator;
+            let implied_back_place_odds = (((row.bookmaker_each_way_odds - 1) * bookmakerFraction) + 1).toFixed(2)
+            
         
             let qualifying_loss_class = 'positive_profit_data'
-            let potential_profit_class = 'positive_profit_data'
         
             let qualifying_loss = 0;
-            let potential_profit = 0;
         
         
             if (row.qualifying_loss.toString().includes('-')) {
@@ -259,75 +261,59 @@ import * as Helpers from '../../mobile_files/helper.js';
             if (qualifying_loss == '+0.00') {
                 qualifying_loss = '£0.00'
             }
-        
-            if (row.potential_profit.toString().includes('-')) {
-                potential_profit_class = 'negative_profit_data';
-                potential_profit = row.potential_profit;
-            } else {
-                potential_profit = '+' + (row.potential_profit).toString();
-            }
-            if (potential_profit == '+0.00') {
-                potential_profit = '£0.00'
-            }            
+                
             
 
             const card = document.createElement('div');
             card.className = 'mobile-card outer-mobile-card';
             card.setAttribute('data-id', row._id);
 
+            console.log(row);
 
             card.innerHTML = `
                     <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
                             <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
-                            <div class="mobile-row"><strong>Event:</strong> <span>${row.fixture}</span></div>
-                            
+                            <div class="mobile-row"><strong>Race:</strong> <span>${row.fixture}</span></div>
+                            <div class="mobile-row"><strong>Horse:</strong> <span>${row.horse}</span></div>
+                            <div class="mobile-row"><strong>Places:</strong> <span>${row.bookmaker_places}</span></div>
                             <div class="mobile-row">
-                                <strong>First Bet:</strong>
+                                <strong>Each Way Bet:</strong>
                                 
-                                <div class="div-outside-odds-combo">
-                                    <a>${row.first_outcome}</a> 
-                                    <span class="odds-combo">
-                                        <a>${row.first_odds}</a> 
-                                        <span class="mobile_at_symbol" >@</span>
-                                        <a href="${row.first_link}" target="_blank" rel="noopener noreferrer">
-                                            <img src="${row.first_image}" class="logo-img">
-                                        </a>
-                                    </span>
-                                </div>
+                                <span class="odds-combo">
+                                    <div class="double_odds_combo">
+                                        <a>${row.bookmaker_each_way_odds}</a> 
+                                        <span class="mobile_and_symbol" >&</span>
+                                        <a>${implied_back_place_odds}</a> 
+                                    </div>
+                                    <a class="bookmaker_image_each_way" href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
+                                        <img src="${bookmaker_image}" class="logo-img">
+                                    </a>
+                                </span>
                             </div>
 
                             <div class="mobile-row">
-                                <strong>Second Bet:</strong>
+                                <strong>Win Lay Bet:</strong>
 
-                                <div class="div-outside-odds-combo">
-                                    <a>${row.second_outcome}</a> 
-                                    <span class="odds-combo">
-                                        <a>${row.second_odds}</a> 
-                                        <span class="mobile_at_symbol" >@</span>
-                                        <a href="${row.second_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row.second_image}" class="logo-img">
-                                        </a>
-                                    </span>
-                                </div>
+                                <span class="odds-combo">
+                                    <a>${row.exchange_win_odds}</a> 
+                                    <a href="${row.win_exchange_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${win_exchange_image}" class="logo-img">
+                                    </a>
+                                </span>
 
                             </div>
 
-                            ${parseInt(row.outcomes) === 3 ? `
-                                <div class="mobile-row">
-                                    <strong>Third Bet:</strong>
-                                    
-                                    <div class="div-outside-odds-combo">
-                                        <a>${row.third_outcome}</a> 
-                                        <span class="odds-combo">
-                                            <a>${row.third_odds}</a> 
-                                            <span class="mobile_at_symbol" >@</span>
-                                            <a href="${row.third_link}" target="_blank" rel="noopener noreferrer">
-                                                <img src="${row.third_image}" class="logo-img">
-                                            </a>
-                                        </span>
-                                    </div>
-                                </div>
-                                ` : ''}
+                            <div class="mobile-row">
+                                <strong>Place Lay Bet:</strong>
+
+                                <span class="odds-combo">
+                                    <a>${row.exchange_place_odds}</a> 
+                                    <a href="${row.place_exchange_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${place_exchange_image}" class="logo-img">
+                                    </a>
+                                </span>
+
+                            </div>
                             
                             <div class="mobile-row data-buttons-row">
                                 <strong>Profit & Rating:</strong>
@@ -350,13 +336,13 @@ import * as Helpers from '../../mobile_files/helper.js';
 
             bookmakerImages = Object.fromEntries(
                 Object.entries(bookmakerImages)
-                .filter(([key]) => DUTCHING_BOOKMAKERS.includes(key))
+                .filter(([key]) => EACH_WAY_BOOKMAKERS.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
-
+    
             exchangeImages = Object.fromEntries(
                 Object.entries(exchangeImages)
-                .filter(([key]) => DUTCHING_EXCHANGES.includes(key))
+                .filter(([key]) => EACH_WAY_EXCHANGES.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
     
@@ -365,24 +351,28 @@ import * as Helpers from '../../mobile_files/helper.js';
                     {
                         "bookmakers": Object.keys(bookmakerImages),
                         "exchanges": Object.keys(exchangeImages),
-                        "markets": DutchingMarketsList,
                         "startTime": "",
-                        "minrating": "null",
-                        "maxrating": "null",
+                        "minLiquidity": "null",
+                        "minBackOdds": "null",
+                        "maxBackOdds": "null",
+                        "minRating": "null",
+                        "maxRating": "null",
                         "minQualifyingLoss": "null",
-                        "minPotentialProfit": "null"
+                        "minROI": "null"
                     }
             };
     
             state.globalFilters = {
                 bookmakers: Object.keys(bookmakerImages),
                 exchanges: Object.keys(exchangeImages),
-                markets: DutchingMarketsList,
                 startTime: '',
-                minrating: null,
-                maxrating: null,
+                minLiquidity: null,
+                minBackOdds: null,
+                maxBackOdds: null,
+                minRating: null,
+                maxRating: null,
                 minQualifyingLoss: null,
-                minPotentialProfit: null,
+                minROI: null,
             };
     
             Helpers.append_options_for_dropdowns(scope, state);
@@ -392,7 +382,7 @@ import * as Helpers from '../../mobile_files/helper.js';
 
     }
 
-    customElements.define('dutching-oddsmatcher', dutchingOddsmatcher);
+    customElements.define('each-oddsmatcher', eachWayOddsmatcher);
 
 
 
