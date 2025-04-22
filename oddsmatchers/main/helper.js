@@ -648,24 +648,32 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
 
     let rowobj = getRowObjById(event.target.getAttribute('data-id'), state); 
 
+    let message_type;
+
+
+    if (event.target.className === 'upgrade-button' || event.target.closest('.upgrade-button')) {
+        message_type = 'Upgrade';
+    }
+
+    if (event.target.closest('.mobile-card') && !event.target.classList.contains('logo-img') && state.is_premium_member) {
+        if (event.target.classList.contains('outer-mobile-card')) {
+            console.log('already have row id');
+        } else {
+            const outerCard = event.target.closest('.outer-mobile-card');
+            if (outerCard) {
+                rowobj = getRowObjById(outerCard.getAttribute('data-id'), state);
+            }
+        }        
+        message_type = 'Select-Event';
+    }
+
+    if (event.target.className === 'get-alerts-button' || event.target.className === 'get_alerts_img') {
+        message_type = 'Get-Alerts';
+    }
+
     let message = {
         row: rowobj
     };
-
-    let message_type;
-
-    if (event.target.className === 'select_button') {
-        message_type = 'Select-Event';
-    }
-    if (event.target.className === 'more_info_image') {
-        message_type = 'More-Info';
-    }
-    if (event.target.className === 'upgrade-button' || event.target.className === 'padlock-image-button') {
-        message_type = 'Upgrade';
-    }
-    if (event.target.className === 'get-alerts-button') {
-        message_type = 'Get-Alerts';
-    }
         
     const raise_event = new CustomEvent(message_type, {
         detail: message,  
