@@ -438,6 +438,15 @@ export function get_exchange_image(exchange) {
     }
 }
 
+export function get_sport_icon_url(sport) {
+    if (sportIconUrlsStandard[sport]) {
+        return sportIconUrlsStandard[sport];
+    } else {
+        console.log("No icon URL found for sport:", sport);
+        return null; // Or a default URL if you prefer
+    }
+}
+
 
 
 

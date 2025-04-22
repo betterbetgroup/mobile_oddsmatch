@@ -22,6 +22,22 @@ import * as Helpers from '../../mobile_files/helper.js';
         data_loaded_from_wix: false, 
         filter_info: [
             {
+                name: 'sports',
+                type: 'list',
+                input_id: 'sports-dropdown-select-container',
+                filter_id: 'sports-dropdown-options',
+                default: [],
+                list_values_source: 'sportIconUrlsStandard'
+            },
+            {
+                name: 'markets', 
+                type: 'list',
+                input_id: 'markets-dropdown-select-container',
+                filter_id: 'markets-dropdown-options',
+                default: [],
+                list_values_source: 'marketsListStandard'
+            },
+            {
                 name: 'bookmakers',
                 type: 'list',
                 input_id: 'bookmakers-dropdown-select-container',
@@ -100,7 +116,7 @@ import * as Helpers from '../../mobile_files/helper.js';
         set_bookmakers_and_exchanges_function: null
     };
 
-    class TwoUpOddsmatcher extends HTMLElement {
+    class StandardOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -158,6 +174,10 @@ import * as Helpers from '../../mobile_files/helper.js';
         }
 
 
+
+
+
+
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
 
             function parseDateAndTime_filterData(dateString) {
@@ -166,16 +186,17 @@ import * as Helpers from '../../mobile_files/helper.js';
                 const [hour, minute] = time.split(':');
                 return new Date(`20${year}`, month - 1, day, hour, minute);
             }
-
             const now = new Date(); 
-        
+    
             return globalData.filter(row => {
         
+                const sportMatch = globalFilters.sports.includes(row.sport);
+                const marketMatch = globalFilters.markets.includes(row.market_type);
                 const bookmakerMatch = globalFilters.bookmakers.includes(row.bookmaker);
                 const exchangeMatch = globalFilters.exchanges.includes(row.exchange);
                 const liquidityMatch = globalFilters.minLiquidity === null || parseFloat(row.lay_liquidity) >= globalFilters.minLiquidity;
                 const backOddsMatch = (globalFilters.minBackOdds === null || parseFloat(row.back_odds) >= globalFilters.minBackOdds) &&
-                                    (globalFilters.maxBackOdds === null || parseFloat(row.back_odds) <= globalFilters.maxBackOdds);
+                                      (globalFilters.maxBackOdds === null || parseFloat(row.back_odds) <= globalFilters.maxBackOdds);
                 const ratingMatch = (globalFilters.minRating === null || parseFloat(row.rating.replace('%', '')) >= globalFilters.minRating) &&
                                     (globalFilters.maxRating === null || parseFloat(row.rating.replace('%', '')) <= globalFilters.maxRating);
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
@@ -184,6 +205,7 @@ import * as Helpers from '../../mobile_files/helper.js';
                 // Parse row date and time
                 const rowDateTime = parseDateAndTime_filterData(row.date_and_time);
                 let timeMatch = true; // Default to true if (No Selected Filter) is set
+        
         
                 if (globalFilters.startTime) {
                     switch (globalFilters.startTime) {
@@ -209,12 +231,18 @@ import * as Helpers from '../../mobile_files/helper.js';
                         case '3days':
                             timeMatch = rowDateTime >= now && rowDateTime <= new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
                             break;
+                        case '5days':
+                            timeMatch = rowDateTime >= now && rowDateTime <= new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
+                            break;
+                        case 'week':
+                            timeMatch = rowDateTime >= now && rowDateTime <= new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+                            break;
                         default:
                             timeMatch = true;
                     }
                 }
         
-                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
+                return sportMatch && marketMatch && bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
             });
         
         }
@@ -223,6 +251,7 @@ import * as Helpers from '../../mobile_files/helper.js';
 
             function get_row_data(row) {
         
+                let sport_icon_url = Helpers.get_sport_icon_url(row.sport)
                 let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
                 let exchange_image = Helpers.get_exchange_image(row.exchange)
         
@@ -273,8 +302,8 @@ import * as Helpers from '../../mobile_files/helper.js';
             card.innerHTML = `
                     <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
                             <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
-                            <div class="mobile-row"><strong>Fixture:</strong> <span>${row.fixture}</span></div>
-                            <div class="mobile-row"><strong>Team:</strong> <span>${row.outcome}</span></div>
+                            <div class="mobile-row"><strong>Event:</strong> <span>${row.fixture}</span></div>
+                            <div class="mobile-row"><strong>Selection:</strong> <span>${row.outcome}</span></div>
                             <div class="mobile-row">
                                 <strong>Back Odds:</strong>
                                 <span class="odds-combo">
@@ -315,21 +344,25 @@ import * as Helpers from '../../mobile_files/helper.js';
 
         filter_bookmakers_and_exchanges(scope,state) {
 
-            bookmakerImages = Object.fromEntries(
-                Object.entries(bookmakerImages)
-                .filter(([key]) => TWOUP_BOOKMAKERS.includes(key))
-                .sort((a, b) => a[0].localeCompare(b[0]))  
-            );
-    
-            exchangeImages = Object.fromEntries(
-                Object.entries(exchangeImages)
-                .filter(([key]) => TWOUP_EXCHANGES.includes(key))
-                .sort((a, b) => a[0].localeCompare(b[0]))  
-            );
+        bookmakerImages = Object.fromEntries(
+            Object.entries(bookmakerImages)
+            .filter(([key]) => STANDARD_BOOKMAKERS.includes(key))
+            .sort((a, b) => a[0].localeCompare(b[0]))  
+
+        );
+
+        exchangeImages = Object.fromEntries(
+            Object.entries(exchangeImages)
+            .filter(([key]) => STANDARD_EXCHANGES.includes(key))
+            .sort((a, b) => a[0].localeCompare(b[0]))  
+        );
     
             state.customFilters = {
+
                 'No Filter':
                     {
+                        "sports": Object.keys(sportIconUrlsStandard),
+                        "markets": marketsListStandard,
                         "bookmakers": Object.keys(bookmakerImages),
                         "exchanges": Object.keys(exchangeImages),
                         "startTime": "",
@@ -341,9 +374,11 @@ import * as Helpers from '../../mobile_files/helper.js';
                         "minQualifyingLoss": "null",
                         "minPotentialProfit": "null"
                     }
-            };
+            }
     
             state.globalFilters = {
+                sports: Object.keys(sportIconUrlsStandard),
+                markets: marketsListStandard,
                 bookmakers: Object.keys(bookmakerImages),
                 exchanges: Object.keys(exchangeImages),
                 startTime: '',
@@ -353,8 +388,8 @@ import * as Helpers from '../../mobile_files/helper.js';
                 minRating: null,
                 maxRating: null,
                 minQualifyingLoss: null,
-                minPotentialProfit: null,
-            };
+                minPotentialProfit: null
+            }
     
             Helpers.append_options_for_dropdowns(scope, state);
        
@@ -363,7 +398,7 @@ import * as Helpers from '../../mobile_files/helper.js';
 
     }
 
-    customElements.define('two-up-oddsmatcher', TwoUpOddsmatcher);
+    customElements.define('standard-oddsmatcher', StandardOddsmatcher);
 
 
 
