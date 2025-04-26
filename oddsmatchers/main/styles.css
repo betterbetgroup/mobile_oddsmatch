@@ -700,6 +700,10 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.refresh_results {
+    font-weight: normal;
+}
+
 .confirm-filter-name {
     flex: 1;
     margin-right: 3.75vw;
