@@ -545,17 +545,13 @@ body {
     font-size: var(--font-size-currency-box);
     z-index: 1; 
     background: var(--background-currency-box); 
-    height: calc(var(--height-filter-inputs));
+    height: calc(var(--height-filter-inputs) - 2 * var(--border-width-filters));
     width: var(--width-currency-box);
     border-bottom-left-radius: var(--border-radius-filter-inputs);
     border-top-left-radius: var(--border-radius-filter-inputs);
     font-weight: bold;
 
     border: var(--border-filters);
-    border-right-width: var(--border-width-filters);
-    border-left-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
     display: flex;
     align-items: center;
     text-align: center;
