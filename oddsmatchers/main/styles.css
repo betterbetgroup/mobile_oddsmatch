@@ -669,7 +669,7 @@ input[type="checkbox"] {
 }
 .right-above-item {
     flex: 3; 
-    margin-top: 15.5px;
+    margin-top: 3.875vw;
 }
 .right-right-above-item {
     flex: 0;

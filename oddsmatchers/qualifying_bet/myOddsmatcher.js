@@ -8,6 +8,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/qualifying_bet/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/standard_oddsmatcher/styles.css';
 
+
     // Create state object
     const state = {
         is_premium_member: false,
