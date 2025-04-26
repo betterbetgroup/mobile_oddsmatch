@@ -8,8 +8,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
-    styles_script = 'styles.css';
-
 
     // Create state object
     const state = {
