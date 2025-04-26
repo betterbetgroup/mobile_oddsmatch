@@ -58,7 +58,7 @@ body {
     /* meant to be just for filters and above, but want to use some in other parts as it's button border-radius */
 
     --padding-left-filter-inputs: 1.50vw;
-    --height-filter-inputs: 9.4vw;
+    --height-filter-inputs: 10.00vw;
     --border-radius-filter-inputs: 1.25vw;
     --font-size-filter-inputs: var(--global-main-font-size);
 
