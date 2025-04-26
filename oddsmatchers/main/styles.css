@@ -617,7 +617,7 @@ input[type="checkbox"] {
 .filter-delete-button, .confirm-delete-button {
     padding: 1.00vw 2.50vw;
     font-size: 2.50vw;
-    background: linear-gradient(145deg, #ae0404, #e62828);
+    background: #ae0404;
     transition: all 0.3s ease; 
     color: white;
     border: none;
@@ -627,7 +627,6 @@ input[type="checkbox"] {
 }
 
 .confirm-delete-button {
-    background: linear-gradient(145deg, #0303d9, #0b149b);
     display: none; 
 }
 
@@ -670,6 +669,11 @@ input[type="checkbox"] {
 }
 .right-above-item {
     flex: 3; 
+    margin-top: 15.5px;
+}
+.right-right-above-item {
+    flex: 0;
+    width: var(--height-filter-inputs);
 }
 .refresh_row_item {
     text-align: center;
@@ -702,6 +706,8 @@ input[type="checkbox"] {
 
 .refresh_results {
     margin-top: 1.50vw;
+    background: #333;
+    border: 0.07vw solid #444;
 }
 
 .cancel-making-filter {
@@ -717,15 +723,17 @@ input[type="checkbox"] {
 }
 
 .get-alerts-button {
-    background: linear-gradient(145deg, #5165F6, #5165F6);
+    width: var(--height-filter-inputs);
+    aspect-ratio: 1;
 }
-.confirm-filter-name {
-    background: linear-gradient(to right, #057001, #057001); 
-}
+
 
 .get_alerts_img, .refresh_results_img {
     width: 5.00vw;
-    margin-left: 2.00vw;
+}
+
+.refresh_results_img{
+    margin-left: 1.5vw;
 }
 
 .hidden_row_above_columns {
