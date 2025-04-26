@@ -545,12 +545,17 @@ body {
     font-size: var(--font-size-currency-box);
     z-index: 1; 
     background: var(--background-currency-box); 
-    height: calc(var(--height-filter-inputs) - 2 * var(--border-width-filters));
+    height: calc(var(--height-filter-inputs));
     width: var(--width-currency-box);
     border-bottom-left-radius: var(--border-radius-filter-inputs);
     border-top-left-radius: var(--border-radius-filter-inputs);
     font-weight: bold;
+
     border: var(--border-filters);
+    border-right-width: var(--border-width-filters);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
     display: flex;
     align-items: center;
     text-align: center;
@@ -700,9 +705,7 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-.refresh_results {
-    font-weight: normal;
-}
+
 
 .confirm-filter-name {
     flex: 1;
@@ -710,9 +713,10 @@ input[type="checkbox"] {
 }
 
 .refresh_results {
+    font-weight: normal;
     margin-top: 1.50vw;
-    background: #333;
-    border: 0.07vw solid #444;
+    background: var(--background-colour-filters);
+    border: var(--border-filters);;
 }
 
 .cancel-making-filter {
