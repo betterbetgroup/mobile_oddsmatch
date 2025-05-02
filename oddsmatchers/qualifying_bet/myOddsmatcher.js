@@ -120,7 +120,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 value: 'qualifying loss',
                 text: 'Sort By Qualifying Loss'
             }
-        ]
+        ],
+        is_tutorial: true,
     };
 
     class QualBetOddsmatcher extends HTMLElement {
@@ -397,9 +398,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minQualifyingLoss: null,
                 minPotentialProfit: null
             }
-    
-            Helpers.append_options_for_dropdowns(scope, state);
-       
+           
         }
     
 

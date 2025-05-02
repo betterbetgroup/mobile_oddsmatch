@@ -137,7 +137,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 text: 'Sort By Date'
             }
             
-        ]       
+        ]     ,
+        is_tutorial: false,  
     };
 
     class extraPlaceOddsmatcher extends HTMLElement {
@@ -428,7 +429,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minPotentialProfit: null,
             };
     
-            Helpers.append_options_for_dropdowns(scope, state);
        
         }
     

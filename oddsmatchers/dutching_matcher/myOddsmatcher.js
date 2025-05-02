@@ -98,7 +98,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 value: 'date and time',
                 text: 'Sort By Date'
             }
-        ]
+        ],
+        is_tutorial: false,
     };
 
     class dutchingOddsmatcher extends HTMLElement {
@@ -399,7 +400,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minPotentialProfit: null,
             };
     
-            Helpers.append_options_for_dropdowns(scope, state);
        
         }
     

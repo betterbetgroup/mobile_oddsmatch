@@ -118,7 +118,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 value: 'date and time',
                 text: 'Sort By Date'
             }
-        ]
+        ],
+        is_tutorial: false,
     };
 
     class eachWayOddsmatcher extends HTMLElement {
@@ -386,7 +387,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minROI: null,
             };
     
-            Helpers.append_options_for_dropdowns(scope, state);
        
         }
     

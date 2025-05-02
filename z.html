@@ -1,0 +1,299 @@
+<div id="filter-panel-container">
+
+    <div class="box2" id="covering_filters">
+        <svg fill="#ffffff" id="filters_padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <g id="XMLID_509_">
+                    <path id="XMLID_510_"
+                        d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z">
+                    </path>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="filter-row">
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="bookmakers-select">Bookmakers</label>
+            <div id="bookmakers-dropdown-select-container" class="custom-select-container" tabindex="0">
+                <div class="custom-select-trigger">
+                    <input id="bookmakers-select" type="text" value="Bookmakers" readonly>
+                </div>
+                <div class="dropdown-options" id="bookmakers-dropdown-options">
+                    <label><input type="checkbox" checked class="select-all"> <span></span>Select All Bookmakers</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="exchanges-select">Exchanges</label>
+            <div id="exchanges-dropdown-select-container" class="custom-select-container" tabindex="0">
+                <div class="custom-select-trigger">
+                    <input id="exchanges-select" type="text" value="Exchanges" readonly>
+                </div>
+                <div class="dropdown-options" id="exchanges-dropdown-options">
+                    <label><input type="checkbox" checked class="select-all"> <span></span>Select All Exchanges</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="filter-row">
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="date-range">Start Time</label>
+            <select id="date-range" class="custom-input-container">
+                <option value="">All</option>
+                <option value="1h">Next Hour</option>
+                <option value="12h">Next 12 Hours</option>
+                <option value="24h">Next 24 Hours</option>
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="today-tomorrow">Today and Tomorrow</option>
+                <option value="3days">Next 3 Days</option>
+            </select>
+
+        </div>
+
+
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="min-liquidity">Min Liquidity</label>
+            <div class="text-input-container">
+                <input class="text-input currency_in_input" id="min-liquidity" placeholder="Min Liquidity"
+                    autocomplete="off">
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="filter-row">
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="min-back-odds">Min Back Odds</label>
+            <input class="text-input" id="min-back-odds" placeholder="Min Back Odds" autocomplete="off">
+
+        </div>
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="max-back-odds">Max Back Odds</label>
+            <input class="text-input" id="max-back-odds" placeholder="Max Back Odds" autocomplete="off">
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="filter-row">
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="min-rating">Min Rating</label>
+            <input class="text-input" id="min-rating" placeholder="Min Rating" autocomplete="off">
+
+        </div>
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="max-rating">Max Rating</label>
+            <input class="text-input" id="max-rating" placeholder="Max Rating" autocomplete="off">
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <div class="filter-row">
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="min-qualifying-loss">Min Qualifying Loss</label>
+            <div class="text-input-container">
+                <input class="text-input currency_in_input" id="min-qualifying-loss" placeholder="Min Qualifying Loss"
+                    autocomplete="off">
+            </div>
+
+        </div>
+
+
+        <div class="filter-item">
+
+            <label class="filter-label" for="min-potential-profit">Min Potential Profit</label>
+            <div class="text-input-container">
+                <input class="text-input currency_in_input" id="min-potential-profit" placeholder="Min Potential Profit"
+                    autocomplete="off">
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="filter-panel-container" >
+    <!-- Content will be dynamically generated -->
+
+
+
+
+
+    <div class="filter-row">
+        <div class="filter-item">
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="filter-item"><label class="filter-label" for="exchanges-dropdown-select-container">Exchanges</label>
+            <div id="exchanges-dropdown-select-container" class="custom-select-container" tabindex="0"
+                style="border-radius: 1.25vw;">
+                <div class="custom-select-trigger"><input id="exchanges-dropdown-select-container" type="text"
+                        readonly=""></div>
+                <div class="dropdown-options" id="exchanges-dropdown-options" style="display: none;"><label><input
+                            type="checkbox" class="select-all"><span></span>Select All exchanges</label><label><input
+                            type="checkbox"><span></span>Betfair Exchange</label><label><input
+                            type="checkbox"><span></span>Matchbook</label><label><input
+                            type="checkbox"><span></span>Smarkets</label></div>
+            </div>
+        </div>
+    </div>
+    <div class="filter-row">
+        <div class="filter-item"><label class="filter-label" for="date-range">Start Time</label><select id="date-range"
+                class="custom-input-container">
+                <option value="">All</option>
+                <option value="1h">Next Hour</option>
+                <option value="12h">Next 12 Hours</option>
+                <option value="24h">Next 24 Hours</option>
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="today-tomorrow">Today and Tomorrow</option>
+                <option value="3days">Next 3 Days</option>
+            </select></div>
+        <div class="filter-item"><label class="filter-label" for="min-liquidity">Min Liquidity</label>
+            <div class="text-input-container"><input class="text-input" id="min-liquidity"
+                    placeholder="Min Min Liquidity" autocomplete="off"></div>
+        </div>
+    </div>
+    <div class="filter-row">
+        <div class="filter-item"><label class="filter-label" for="min-back-odds">Min Back Odds</label>
+            <div class="text-input-container"><input class="text-input" id="min-back-odds"
+                    placeholder="Min Min Back Odds" autocomplete="off"></div>
+        </div>
+        <div class="filter-item"><label class="filter-label" for="max-back-odds">Max Back Odds</label>
+            <div class="text-input-container"><input class="text-input" id="max-back-odds"
+                    placeholder="Min Max Back Odds" autocomplete="off"></div>
+        </div>
+    </div>
+    <div class="filter-row">
+        <div class="filter-item"><label class="filter-label" for="min-rating">Min Rating</label>
+            <div class="text-input-container"><input class="text-input" id="min-rating" placeholder="Min Min Rating"
+                    autocomplete="off"></div>
+        </div>
+        <div class="filter-item"><label class="filter-label" for="max-rating">Max Rating</label>
+            <div class="text-input-container"><input class="text-input" id="max-rating" placeholder="Min Max Rating"
+                    autocomplete="off"></div>
+        </div>
+    </div>
+
+
+    <div class="filter-row">
+
+
+
+            <label class="filter-label" for="min-qualifying-loss">Min Qualifying Loss</label>
+            <div class="text-input-container"><input class="text-input" id="min-qualifying-loss"
+                    placeholder="Min Min Qualifying Loss" autocomplete="off"></div>
+        </div>
+
+        <label class="filter-label" for="min-qualifying-loss">Min Qualifying Loss</label>
+        <div class="text-input-container">
+            <input class="text-input currency_in_input" id="min-qualifying-loss" placeholder="Min Qualifying Loss"
+                autocomplete="off">
+        </div>
+
+
+
+
+        <div class="filter-item"><label class="filter-label" for="min-potential-profit">Min Potential Profit</label>
+            <div class="text-input-container"><input class="text-input" id="min-potential-profit"
+                    placeholder="Min Min Potential Profit" autocomplete="off"></div>
+        </div>
+    </div>
+
+
+
+
+
+</div>

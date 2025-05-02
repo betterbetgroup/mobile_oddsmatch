@@ -1374,6 +1374,10 @@ export function render(scope, state, html_script, general_info_script) {
 
 export function runSpecificScript(scope, state) {
 
+    // Generate the filter panel dynamically
+    generateFilterPanel(scope, state);
+
+
     scope.querySelector('.save-filter-button').addEventListener('click', () => { open_text_box_and_confirm(scope); });
     scope.querySelector('.cancel-making-filter').addEventListener('click', () => { close_boxes(scope); });
     scope.querySelector('.confirm-filter-name').addEventListener('click', () => { confirm_filter_click(scope, state); });
@@ -1388,14 +1392,40 @@ export function runSpecificScript(scope, state) {
     });
     
 
-
     add_listener_for_whole_oddsmatcher(scope, state);
     add_event_listener_for_show_filters_switch(scope, state);
     make_timer_run_and_add_event_listener(scope, state);
+
+
+    append_options_for_dropdowns(scope, state)
+
+
+    // if is tutorial is true, make it select all .above_columns_row and add the class .hidden_row_above_columns EXCEPT FOR THE LAST ROW
+    // so tutorial only shows refresh and timer
+    if (state.is_tutorial) {
+        const rows = scope.querySelectorAll('.above_columns_row');
+        rows.forEach((row, index) => {
+            if (index < rows.length - 1) {
+                row.classList.add('hidden_row_above_columns');
+            }
+        });
+    }
     
 }
 
+
+
+
+
+
+
+
+
+
+
+
 export function generateFilterPanel(scope, state) {
+
     const filterPanel = scope.getElementById('filter-panel-container');
     
     // Add the covering filters div with padlock
@@ -1403,12 +1433,15 @@ export function generateFilterPanel(scope, state) {
     coveringFilters.className = 'box2';
     coveringFilters.id = 'covering_filters';
     coveringFilters.innerHTML = `
-        <svg fill="#ffffff" id="filters_padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff">
+        <svg fill="#ffffff" id="filters_padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
                 <g id="XMLID_509_">
-                    <path id="XMLID_510_" d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z"></path>
+                    <path id="XMLID_510_"
+                        d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z">
+                    </path>
                 </g>
             </g>
         </svg>
@@ -1437,6 +1470,7 @@ export function generateFilterPanel(scope, state) {
 }
 
 function createFilterItem(filter, state) {
+
     const filterItem = document.createElement('div');
     filterItem.className = 'filter-item';
 
@@ -1510,20 +1544,24 @@ function createFilterItem(filter, state) {
         filterItem.appendChild(select);
     } else if (filter.type === 'number') {
         // Create input for number values
-        const inputContainer = document.createElement('div');
-        inputContainer.className = 'text-input-container';
-        
         const input = document.createElement('input');
         input.className = 'text-input';
-        if (filter.name.includes('liquidity') || filter.name.includes('loss') || filter.name.includes('profit')) {
+        if (filter.name.toLowerCase().includes('liquidity') || filter.name.toLowerCase().includes('loss') || filter.name.toLowerCase().includes('profit') || filter.name.toLowerCase().includes('roi')) {
             input.className += ' currency_in_input';
+            // Create container div only for currency inputs
+            const inputContainer = document.createElement('div');
+            inputContainer.className = 'text-input-container';
+            inputContainer.appendChild(input);
+            if (filter.name.toLowerCase().includes('roi')) {
+                inputContainer.className += ' text-input-container-roi';
+            }
+            filterItem.appendChild(inputContainer);
+        } else {
+            filterItem.appendChild(input);
         }
         input.id = filter.input_id;
-        input.placeholder = `Min ${filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1')}`;
+        input.placeholder = `${filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1')}`;
         input.autocomplete = 'off';
-        
-        inputContainer.appendChild(input);
-        filterItem.appendChild(inputContainer);
     }
 
     return filterItem;

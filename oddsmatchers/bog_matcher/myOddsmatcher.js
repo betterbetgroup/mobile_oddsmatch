@@ -116,6 +116,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 text: 'Sort By Date'
             }
         ],
+        is_tutorial: false,
     };
 
     class bogOddsmatcher extends HTMLElement {
@@ -392,7 +393,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minROI: null,
             };
     
-            Helpers.append_options_for_dropdowns(scope, state);
        
         }
     

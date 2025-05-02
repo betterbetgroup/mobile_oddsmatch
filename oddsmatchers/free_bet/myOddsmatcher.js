@@ -119,7 +119,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 value: 'potential profit',
                 text: 'Sort By Potential Profit'
             },      
-        ]
+        ],
+        is_tutorial: true,
     };
 
     class FreeBetOddsmatcher extends HTMLElement {
@@ -396,9 +397,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 minQualifyingLoss: null,
                 minPotentialProfit: null
             }
-    
-            Helpers.append_options_for_dropdowns(scope, state);
-       
+           
         }
     
 

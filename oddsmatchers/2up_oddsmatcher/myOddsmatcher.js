@@ -121,6 +121,7 @@ import * as Helpers from '../main/helper.js';
                 text: 'Sort By Date'
             }
         ],
+        is_tutorial: false,
     };
 
     class TwoUpOddsmatcher extends HTMLElement {
@@ -380,8 +381,7 @@ import * as Helpers from '../main/helper.js';
                 minPotentialProfit: null,
             };
     
-            Helpers.append_options_for_dropdowns(scope, state);
-       
+    
         }
     
 
