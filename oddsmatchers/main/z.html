@@ -1,0 +1,205 @@
+
+
+<body>
+
+
+    <div id="outer-container-div">
+
+
+
+    <div class="above-columns">
+
+
+        <div class="above_columns_row">
+
+            <div class="above_columns_item left-above-item">
+
+                <div class="div-outside-switch">
+
+                    <label class="filter-label" for="filters-select">Show Filters</label>
+
+                    <div class="switch_container">
+                        <label class="switch">
+                            <input type="checkbox" class="show_filters_switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="above_columns_item right-above-item">
+
+                <button class="save-filter-button">Save Filter</button>
+                    
+            </div>
+
+
+            <div class="above_columns_item right-above-item right-right-above-item">
+
+                <button class="get-alerts-button"><img src="https://img.icons8.com/?size=100&id=84025&format=png&color=ffffff" alt="Get Better Bet Alerts Icon" class="get_alerts_img"></button>
+            </div>
+
+
+
+
+
+        </div>
+
+
+    
+        <div class="above_columns_row init_hidden_row_above_columns hidden_row_above_columns">
+
+            <div class="above_columns_item">
+
+                <div class="filter-dropdown-name-div">
+
+                    <div class="div-outside-filter-dropdown">
+
+                        <label class="filter-label" id="type-filter-name" for="get-filter-name">Filter Name</label>
+
+                        <input class="text-input-filter-name"  id="get-filter-name" placeholder="Enter a Filter Name" autocomplete="off">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="above_columns_item confirm_or_cancel_row">
+                <button class="confirm-filter-name">Confirm</button>
+
+                <button class="cancel-making-filter" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.3,5.71a1,1,0,0,0-1.41,0L12,10.59,7.11,5.7A1,1,0,0,0,5.7,7.11L10.59,12,5.7,16.89a1,1,0,1,0,1.41,1.41L12,13.41l4.89,4.89a1,1,0,0,0,1.41-1.41L13.41,12l4.89-4.89A1,1,0,0,0,18.3,5.71Z"/>
+                    </svg>            
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="above_columns_row">
+            
+
+            <div class="above_columns_item">
+
+                <div class="div-outside-filter-dropdown">
+    
+                    <label class="filter-label" for="filters-select">Saved Filters</label>
+    
+                    <div id="filters-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
+    
+                        <div class="custom-select-trigger" >
+                            <input id="filters-select" type="text" value="Select Filter" readonly>
+                        </div>
+    
+                        <div class="dropdown-options" id="filters-dropdown-options">
+                
+                        </div>
+    
+                    </div>
+    
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+                
+
+        <div class="above_columns_row">
+
+            <div class="above_columns_item">
+
+                <div class="div-outside-filter-dropdown">
+
+                    <label class="filter-label" for="sorting-input">Sort By</label>
+
+
+                    
+                    <!-- Sorting Dropdown -->
+                    <div id="sorting-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
+    
+                        <div class="custom-select-trigger" >
+                            <input id="sorting-select" type="text" value="Sort By" readonly>
+                        </div>
+    
+                        <div class="dropdown-options" id="sorting-dropdown-options">
+                
+                        </div>
+    
+                    </div>
+
+
+
+
+
+                </div>
+
+    
+                
+
+    
+
+            </div>
+
+        </div>
+
+
+        
+        <div class="above_columns_row">
+
+            <div class="above_columns_item timer_div refresh_row_item">
+                <span id="data_timer" >00:00</span>
+                <button id="refresh_results" class="refresh_results" >Refresh Results <img src="https://img.icons8.com/?size=100&id=59872&format=png&color=ffffff" alt="Refresh Oddsmatcher Data" class="refresh_results_img"></button>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+        
+
+
+
+
+
+
+
+
+
+    <div id="filter-panel-container">
+        <!-- Content will be dynamically generated -->
+    </div>
+
+
+
+    <div id="content">
+
+
+        <div class="mobile-container">
+            <!-- MOBILE CARDS GET ADDED HERE -->
+        </div>
+
+
+        <div id="pagination-container" >
+            <button id="prev-page">Previous</button>
+            <span id="pagination-info"></span>
+            <button id="next-page">Next</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>

@@ -1,18 +1,18 @@
-//import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
-import * as Helpers from '../main/helper.js';
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+
+
+// import * as Helpers from '../main/helper.js';
+
+
 //import * as Helpers from 'public/custom-elements/mobile-helper.js'
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
-    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/z.html';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
-    html_script = 'z.html';
-    styles_script = 'styles.css';
-
-
-
+    
     // Create state object
     const state = {
         is_premium_member: false,
