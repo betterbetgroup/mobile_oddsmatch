@@ -1,5 +1,6 @@
 import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
+
 //import * as Helpers from 'public/custom-elements/mobile-helper.js'
 
 
@@ -112,7 +113,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             },
             {
                 value: 'qualifying loss',
-                text: 'Sort By profit'
+                text: 'Sort By Profit'
             },
             {
                 value: 'date and time',
@@ -120,6 +121,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: false,
+        oddsmatcher_type: 'each_way'
     };
 
     class eachWayOddsmatcher extends HTMLElement {

@@ -1,7 +1,7 @@
 import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
 
-// import * as Helpers from '../main/helper.js';
+//import * as Helpers from '../main/helper.js';
 
 
 //import * as Helpers from 'public/custom-elements/mobile-helper.js'
@@ -122,6 +122,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: false,
+        oddsmatcher_type: '2up'
     };
 
     class TwoUpOddsmatcher extends HTMLElement {

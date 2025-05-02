@@ -117,6 +117,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: false,
+        oddsmatcher_type: 'bog'
     };
 
     class bogOddsmatcher extends HTMLElement {

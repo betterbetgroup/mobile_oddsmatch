@@ -133,6 +133,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }   
         ],
         is_tutorial: false,
+        oddsmatcher_type: 'standard_free'
     };
 
     class StandardFreeOddsmatcher extends HTMLElement {

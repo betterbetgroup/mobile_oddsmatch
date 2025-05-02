@@ -12,7 +12,8 @@ const state = {
     globalFilters: {},
     customFilters: {},
     is_premium_member: false,
-    sort_options: [] 
+    sort_options: [], 
+    oddsmatcher_type: null
 };
 
 
@@ -1469,15 +1470,33 @@ export function generateFilterPanel(scope, state) {
     }
 }
 
-function createFilterItem(filter, state) {
+function formatFilterText(text, state) {
+    let formattedText = text;
+    
+    // Handle special cases based on oddsmatcher type
+    if (state.oddsmatcher_type === 'each_way' || state.oddsmatcher_type === 'extra_place') {
+        if (text.toLowerCase().includes('back')) {
+            formattedText = text.replace(/back/i, ' E/W ');
+            return formattedText.charAt(0).toUpperCase() + formattedText.slice(1); // Return early to avoid the space-adding regex
+        }
+    }
+    
+    // Handle ROI case
+    if (formattedText.toLowerCase().includes('roi')) {
+        return formattedText.charAt(0).toUpperCase() + formattedText.slice(1).replace('ROI', ' ROI');
+    }
+    
+    return formattedText.charAt(0).toUpperCase() + formattedText.slice(1).replace(/([A-Z])/g, ' $1');
+}
 
+function createFilterItem(filter, state) {
     const filterItem = document.createElement('div');
     filterItem.className = 'filter-item';
 
     const label = document.createElement('label');
     label.className = 'filter-label';
     label.htmlFor = filter.input_id;
-    label.textContent = filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1');
+    label.textContent = formatFilterText(filter.name, state);
     filterItem.appendChild(label);
 
     if (filter.type === 'list') {
@@ -1493,7 +1512,7 @@ function createFilterItem(filter, state) {
         const input = document.createElement('input');
         input.id = filter.input_id;
         input.type = 'text';
-        input.value = filter.name.charAt(0).toUpperCase() + filter.name.slice(1);
+        input.value = formatFilterText(filter.name, state);
         input.readOnly = true;
         trigger.appendChild(input);
         dropdownContainer.appendChild(trigger);
@@ -1512,7 +1531,7 @@ function createFilterItem(filter, state) {
         const selectAllSpan = document.createElement('span');
         selectAllLabel.appendChild(selectAllCheckbox);
         selectAllLabel.appendChild(selectAllSpan);
-        selectAllLabel.appendChild(document.createTextNode(`Select All ${filter.name}`));
+        selectAllLabel.appendChild(document.createTextNode(`Select All ${formatFilterText(filter.name, state)}`));
         options.appendChild(selectAllLabel);
 
         dropdownContainer.appendChild(options);
@@ -1560,7 +1579,7 @@ function createFilterItem(filter, state) {
             filterItem.appendChild(input);
         }
         input.id = filter.input_id;
-        input.placeholder = `${filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1')}`;
+        input.placeholder = formatFilterText(filter.name, state);
         input.autocomplete = 'off';
     }
 

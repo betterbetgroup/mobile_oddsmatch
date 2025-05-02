@@ -122,6 +122,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: true,
+        oddsmatcher_type: 'qualifying_bet_tutorial'
     };
 
     class QualBetOddsmatcher extends HTMLElement {
