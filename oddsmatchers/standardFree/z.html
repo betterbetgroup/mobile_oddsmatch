@@ -124,12 +124,18 @@
                 <div class="div-outside-filter-dropdown">
 
                     <label class="filter-label" for="sorting-input">Sort By</label>
-                    <select id="sorting-input" class="custom-input-container">
-                        <option value="potential profit">Sort By Potential Profit</option>
-                        <option value="qualifying loss">Sort By Qualifying Loss</option>
-                        <option value="rating">Sort By Rating</option>
-                        <option value="date and time">Sort By Date</option>
-                    </select>
+                    <!-- Sorting Dropdown -->
+                    <div id="sorting-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
+    
+                        <div class="custom-select-trigger" >
+                            <input id="sorting-select" type="text" value="Sort By" readonly>
+                        </div>
+    
+                        <div class="dropdown-options" id="sorting-dropdown-options">
+                
+                        </div>
+    
+                    </div>
 
                 </div>
 

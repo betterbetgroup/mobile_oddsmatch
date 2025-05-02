@@ -11,7 +11,8 @@ const state = {
     current_sort: 'qualifying loss',
     globalFilters: {},
     customFilters: {},
-    is_premium_member: false
+    is_premium_member: false,
+    sort_options: [] 
 };
 
 
@@ -71,6 +72,96 @@ export function add_filters(filterObject, scope, state) {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function append_sort_to_sort_options(name_for_sort, value, scope, state) {
+
+    const container = scope.getElementById('sorting-dropdown-options');
+
+    // Create the option container
+    const optionDiv = document.createElement('div');
+    optionDiv.className = 'dropdown-option-sorting';
+    optionDiv.dataset.value = value; 
+    optionDiv.textContent = name_for_sort;
+
+    optionDiv.addEventListener('click', () => {
+
+        sort_data_on_click(value, scope, state)
+
+        set_background_for_current_option(name_for_sort, scope, '.dropdown-option-sorting')
+
+        scope.querySelector('#sorting-select').value = name_for_sort;
+
+    });
+
+    // Append the option container to the dropdown
+    container.appendChild(optionDiv);
+
+    check_options_filter_border_bottom(scope, '.dropdown-option-sorting');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function append_filter_name_to_filter_options_in_dropdown(name_for_filter, scope, state) {
 
     if (name_for_filter == "") {
@@ -91,7 +182,7 @@ export function append_filter_name_to_filter_options_in_dropdown(name_for_filter
 
             const filter = state.customFilters[name_for_filter];
 
-            set_background_for_current_option(name_for_filter, scope)
+            set_background_for_current_option(name_for_filter, scope, '.dropdown-option-filter')
 
             set_input_values_using_filter(filter, scope, state);
 
@@ -99,9 +190,9 @@ export function append_filter_name_to_filter_options_in_dropdown(name_for_filter
             
             scope.querySelector('#filters-select').value = name_for_filter;
 
-            remove_all_option_style(scope);
+            remove_all_option_style(scope, '.dropdown-option-filter');
 
-            set_background_for_current_option(name_for_filter, scope)
+            set_background_for_current_option(name_for_filter, scope, '.dropdown-option-filter')
 
             filterData(scope, state);
     
@@ -125,7 +216,7 @@ export function append_filter_name_to_filter_options_in_dropdown(name_for_filter
 
         check_if_dropdown_matches_global_filter_settings(scope, state);
 
-        check_options_filter_border_bottom(scope);
+        check_options_filter_border_bottom(scope, '.dropdown-option-filter');
 
         const raise_event = new CustomEvent('Delete-Filter', {
             detail: { filter_name: name_for_filter },  
@@ -170,7 +261,7 @@ export function append_filter_name_to_filter_options_in_dropdown(name_for_filter
     container.appendChild(optionDiv);
 
 
-    check_options_filter_border_bottom(scope);
+    check_options_filter_border_bottom(scope, '.dropdown-option-filter');
 
 }
 
@@ -253,9 +344,9 @@ export function set_global_filters_as_filters_selected_in_dropdown(filters, stat
 }
 
 
-export function check_options_filter_border_bottom(scope) {
+export function check_options_filter_border_bottom(scope, option_name) {
 
-    const list_of_options = scope.querySelectorAll('.dropdown-option-filter');
+    const list_of_options = scope.querySelectorAll(option_name);
 
     // First, ensure all options have a bottom border
     list_of_options.forEach(option => {
@@ -637,7 +728,8 @@ export function add_listener_for_whole_oddsmatcher(scope, state) {
         
     });
 
-    add_event_listener_for_saved_filters(scope);
+    add_event_listener_for_saved_filters(scope, '#filters-dropdown-select-container', '#filters-dropdown-options');
+    add_event_listener_for_saved_filters(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options');
 }
 
 
@@ -684,22 +776,23 @@ export function getRowObjById(rowId, state) {
     return state.globalData.find(item => item._id === rowId);
 }
 
-export function add_event_listener_for_saved_filters(scope) {
-    let container = scope.querySelector('#filters-dropdown-select-container')
+export function add_event_listener_for_saved_filters(scope, button_select, button_options) {
+    let container = scope.querySelector(button_select)
 
     container.addEventListener('click', (event) => {
         event.stopPropagation();
 
-        if (scope.querySelector('#filters-dropdown-options').style.display == 'block') {
-            scope.querySelector('#filters-dropdown-options').style.display = 'none'
+        if (scope.querySelector(button_options).style.display == 'block') {
+            scope.querySelector(button_options).style.display = 'none'
             container.style.borderRadius = border_radius_input;
         } else {
             closeAllDropdowns(scope);
-            scope.querySelector('#filters-dropdown-options').style.display = 'block';
+            scope.querySelector(button_options).style.display = 'block';
             container.style.borderRadius = `${border_radius_input} ${border_radius_input} 0 0`;
         }
     });
 }
+
 
 export function closeAllDropdowns(scope) {
     const dropdowns = scope.querySelectorAll('.dropdown-options');
@@ -715,6 +808,9 @@ export function closeAllDropdowns(scope) {
 
     scope.querySelector('#filters-dropdown-options').style.display = 'none';
     scope.querySelector('#filters-dropdown-select-container').style.borderRadius = border_radius_input;
+
+    scope.querySelector('#sorting-dropdown-options').style.display = 'none';
+    scope.querySelector('#sorting-dropdown-select-container').style.borderRadius = border_radius_input;
 }
 
 
@@ -784,7 +880,7 @@ export function check_if_dropdown_matches_global_filter_settings(scope, state) {
 
     let filtersDropdown = scope.querySelector('#filters-select');
 
-    remove_all_option_style(scope);
+    remove_all_option_style(scope, '.dropdown-option-filter');
 
     let found_match = false;
 
@@ -809,7 +905,7 @@ export function check_if_dropdown_matches_global_filter_settings(scope, state) {
 
             filtersDropdown.value = key;
 
-            set_background_for_current_option(key, scope)
+            set_background_for_current_option(key, scope, '.dropdown-option-filter')
 
             found_match = true;
 
@@ -824,8 +920,8 @@ export function check_if_dropdown_matches_global_filter_settings(scope, state) {
     }
 }
 
-export function remove_all_option_style(scope) {
-    let option_divs = scope.querySelectorAll('.dropdown-option-filter');
+export function remove_all_option_style(scope, option_name) {
+    let option_divs = scope.querySelectorAll(option_name);
     option_divs.forEach((option) => {
         option.classList.remove('active');
     });
@@ -855,10 +951,14 @@ export function deepEqual(obj1, obj2) {
     return true;
 }
 
-export function set_background_for_current_option(name, scope) {
-    remove_all_option_style(scope);
 
-    let option_divs = scope.querySelectorAll('.dropdown-option-filter');
+
+
+
+export function set_background_for_current_option(name, scope, option_name) {
+    remove_all_option_style(scope, option_name);
+
+    let option_divs = scope.querySelectorAll(option_name);
     option_divs.forEach((option) => {
         if (option.dataset.value == name) {
             option.classList.add('active');
@@ -1067,9 +1167,9 @@ export function confirm_filter_click(scope, state) {
 
     make_filter_selection_value_as_saved(filter_name, scope);
 
-    remove_all_option_style(scope);
+    remove_all_option_style(scope, '.dropdown-option-filter');
 
-    set_background_for_current_option(filter_name, scope)
+    set_background_for_current_option(filter_name, scope, '.dropdown-option-filter')
 
     const raise_event = new CustomEvent('Save-Filter', {
         detail: { filter_name: filter_name, filters: obj.filters_to_send },  
@@ -1277,13 +1377,154 @@ export function runSpecificScript(scope, state) {
     scope.querySelector('.save-filter-button').addEventListener('click', () => { open_text_box_and_confirm(scope); });
     scope.querySelector('.cancel-making-filter').addEventListener('click', () => { close_boxes(scope); });
     scope.querySelector('.confirm-filter-name').addEventListener('click', () => { confirm_filter_click(scope, state); });
-    scope.querySelector('#sorting-input').addEventListener('change', (event) => { sort_data_on_click(event.target.value, scope, state); });
     
     let filter_name_first = 'No Filter';
     append_filter_name_to_filter_options_in_dropdown(filter_name_first, scope, state);
+
+
+    // add in sorting options using js
+    state.sort_options.forEach(option => {
+        append_sort_to_sort_options(option.text, option.value, scope, state);
+    });
     
+
+
     add_listener_for_whole_oddsmatcher(scope, state);
     add_event_listener_for_show_filters_switch(scope, state);
     make_timer_run_and_add_event_listener(scope, state);
     
+}
+
+export function generateFilterPanel(scope, state) {
+    const filterPanel = scope.getElementById('filter-panel-container');
+    
+    // Add the covering filters div with padlock
+    const coveringFilters = document.createElement('div');
+    coveringFilters.className = 'box2';
+    coveringFilters.id = 'covering_filters';
+    coveringFilters.innerHTML = `
+        <svg fill="#ffffff" id="filters_padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <g id="XMLID_509_">
+                    <path id="XMLID_510_" d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z"></path>
+                </g>
+            </g>
+        </svg>
+    `;
+    filterPanel.appendChild(coveringFilters);
+
+    // Group filters into pairs
+    for (let i = 0; i < state.filter_info.length; i += 2) {
+        const filterRow = document.createElement('div');
+        filterRow.className = 'filter-row';
+        
+        // Process first filter in pair
+        const filter1 = state.filter_info[i];
+        const filterItem1 = createFilterItem(filter1, state);
+        filterRow.appendChild(filterItem1);
+
+        // Process second filter in pair if it exists
+        if (i + 1 < state.filter_info.length) {
+            const filter2 = state.filter_info[i + 1];
+            const filterItem2 = createFilterItem(filter2, state);
+            filterRow.appendChild(filterItem2);
+        }
+
+        filterPanel.appendChild(filterRow);
+    }
+}
+
+function createFilterItem(filter, state) {
+    const filterItem = document.createElement('div');
+    filterItem.className = 'filter-item';
+
+    const label = document.createElement('label');
+    label.className = 'filter-label';
+    label.htmlFor = filter.input_id;
+    label.textContent = filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1');
+    filterItem.appendChild(label);
+
+    if (filter.type === 'list') {
+        // Create dropdown container
+        const dropdownContainer = document.createElement('div');
+        dropdownContainer.id = filter.input_id;
+        dropdownContainer.className = 'custom-select-container';
+        dropdownContainer.tabIndex = '0';
+
+        // Create trigger
+        const trigger = document.createElement('div');
+        trigger.className = 'custom-select-trigger';
+        const input = document.createElement('input');
+        input.id = filter.input_id;
+        input.type = 'text';
+        input.value = filter.name.charAt(0).toUpperCase() + filter.name.slice(1);
+        input.readOnly = true;
+        trigger.appendChild(input);
+        dropdownContainer.appendChild(trigger);
+
+        // Create options container
+        const options = document.createElement('div');
+        options.className = 'dropdown-options';
+        options.id = filter.filter_id;
+
+        // Add select all option
+        const selectAllLabel = document.createElement('label');
+        const selectAllCheckbox = document.createElement('input');
+        selectAllCheckbox.type = 'checkbox';
+        selectAllCheckbox.className = 'select-all';
+        selectAllCheckbox.checked = true;
+        const selectAllSpan = document.createElement('span');
+        selectAllLabel.appendChild(selectAllCheckbox);
+        selectAllLabel.appendChild(selectAllSpan);
+        selectAllLabel.appendChild(document.createTextNode(`Select All ${filter.name}`));
+        options.appendChild(selectAllLabel);
+
+        dropdownContainer.appendChild(options);
+        filterItem.appendChild(dropdownContainer);
+    } else if (filter.type === 'string') {
+        // Create select for date range
+        const select = document.createElement('select');
+        select.id = filter.input_id;
+        select.className = 'custom-input-container';
+        
+        const options = [
+            { value: '', text: 'All' },
+            { value: '1h', text: 'Next Hour' },
+            { value: '12h', text: 'Next 12 Hours' },
+            { value: '24h', text: 'Next 24 Hours' },
+            { value: 'today', text: 'Today' },
+            { value: 'tomorrow', text: 'Tomorrow' },
+            { value: 'today-tomorrow', text: 'Today and Tomorrow' },
+            { value: '3days', text: 'Next 3 Days' }
+        ];
+
+        options.forEach(option => {
+            const optionElement = document.createElement('option');
+            optionElement.value = option.value;
+            optionElement.textContent = option.text;
+            select.appendChild(optionElement);
+        });
+
+        filterItem.appendChild(select);
+    } else if (filter.type === 'number') {
+        // Create input for number values
+        const inputContainer = document.createElement('div');
+        inputContainer.className = 'text-input-container';
+        
+        const input = document.createElement('input');
+        input.className = 'text-input';
+        if (filter.name.includes('liquidity') || filter.name.includes('loss') || filter.name.includes('profit')) {
+            input.className += ' currency_in_input';
+        }
+        input.id = filter.input_id;
+        input.placeholder = `Min ${filter.name.charAt(0).toUpperCase() + filter.name.slice(1).replace(/([A-Z])/g, ' $1')}`;
+        input.autocomplete = 'off';
+        
+        inputContainer.appendChild(input);
+        filterItem.appendChild(inputContainer);
+    }
+
+    return filterItem;
 }

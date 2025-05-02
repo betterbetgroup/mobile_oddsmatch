@@ -114,7 +114,13 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         // Add null placeholders for the functions
         filter_function: null,
         create_row_function: null,
-        set_bookmakers_and_exchanges_function: null
+        set_bookmakers_and_exchanges_function: null,
+        sort_options: [
+            {
+                value: 'qualifying loss',
+                text: 'Sort By Qualifying Loss'
+            }
+        ]
     };
 
     class QualBetOddsmatcher extends HTMLElement {

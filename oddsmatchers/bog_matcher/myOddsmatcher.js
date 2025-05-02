@@ -97,7 +97,25 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         // Add null placeholders for the functions
         filter_function: null,
         create_row_function: null,
-        set_bookmakers_and_exchanges_function: null
+        set_bookmakers_and_exchanges_function: null,
+        sort_options: [
+            {
+                value: 'roi',
+                text: 'Sort By ROI'
+            },
+            {
+                value: 'rating', 
+                text: 'Sort By Rating'
+            },
+            {
+                value: 'qualifying loss',
+                text: 'Sort By Qualifying Loss'
+            },
+            {
+                value: 'date and time',
+                text: 'Sort By Date'
+            }
+        ],
     };
 
     class bogOddsmatcher extends HTMLElement {
