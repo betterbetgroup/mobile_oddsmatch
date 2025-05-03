@@ -1,7 +1,9 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+//import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 //import * as Helpers from 'public/custom-elements/mobile-helper.js'
+
 
 (function () {
 
@@ -9,7 +11,10 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
+    html_script = '../main/z.html';
+    styles_script = '../main/styles.css';
     
+
     // Create state object
     const state = {
         is_premium_member: false,
@@ -119,8 +124,11 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: false,
-        oddsmatcher_type: '2up'
+        oddsmatcher_type: '2up',
+        is_desktop: true,
     };
+
+
 
     class TwoUpOddsmatcher extends HTMLElement {
 
