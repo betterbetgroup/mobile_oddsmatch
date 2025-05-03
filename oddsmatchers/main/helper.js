@@ -1,6 +1,10 @@
 let border_dropdown_option_filter = '0.25vw solid #444';
 let border_radius_input = '1.25vw';
 
+// CHANGE THIS SO THAT IT'S IN THE CSS AND IT JUST ADDS THE CLASS AND REMOVES IT
+
+
+
 // State management
 const state = {
     globalData: [],
@@ -585,17 +589,23 @@ export function displayRows(scope, rows, state, totalPages) {
     const end = start + state.rowsPerPage;
     const paginatedItems = rows.slice(start, end);
 
-    scope.querySelector('.mobile-container').innerHTML = '';
+        
+    let body_selector = '.mobile-container';
+    if (state.is_desktop) {
+        body_selector = 'table.table tbody';
+    }
+
+    scope.querySelector(body_selector).innerHTML = '';
     scope.querySelector('.not_premium_member_row')?.remove();
 
-    add_loading_row(scope);
+    add_loading_row(scope, state);
 
     let min = 169;
     let max = 420;
 
     setTimeout(() => {
 
-        scope.querySelector('.mobile-container').innerHTML = '';
+        scope.querySelector(body_selector).innerHTML = '';
         scope.querySelector('.not_premium_member_row')?.remove();
 
         if (state.filteredData.length == 0) {
@@ -632,11 +642,16 @@ export function add_no_data_row(scope) {
             <h2>No Data Collected Yet... Please Wait or Adjust the Filters</h2>
     `;
 
-    const tableBody = scope.querySelector('.mobile-container');
+    let body_selector = '.mobile-container';
+    if (state.is_desktop) {
+        body_selector = 'table.table tbody';
+    }
+
+    const tableBody = scope.querySelector(body_selector);
     tableBody.append(no_data_row);
 }
 
-export function add_loading_row(scope) {
+export function add_loading_row(scope, state) {
     const loadingrow = document.createElement('div');
     loadingrow.setAttribute('id', 'loadingScreenRow'); 
     loadingrow.innerHTML = `
@@ -650,7 +665,13 @@ export function add_loading_row(scope) {
             <h2 class="loading-text">Collecting Bookmaker Data...</h2>
         </div>
     `;
-    const tableBody = scope.querySelector('.mobile-container');
+
+    let body_selector = '.mobile-container';
+    if (state.is_desktop) {
+        body_selector = 'table.table tbody';
+    }
+
+    const tableBody = scope.querySelector(body_selector);
     tableBody.append(loadingrow);
 }
 
@@ -1377,7 +1398,7 @@ export function runSpecificScript(scope, state) {
 
     // set the inner html of the header using the js
     if (state.is_desktop) {
-        scope.querySelector('thead.table-header').innerHTML = state.desktop_button_container_html;
+        scope.querySelector('thead.table-header').innerHTML = state.desktop_table_header_html;
     }
 
     // Generate the filter panel dynamically

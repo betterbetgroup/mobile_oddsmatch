@@ -1,3 +1,29 @@
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/styles.css');
 
 
+
+
+
+#outer-container-div {
+    --global-border-radius: 15px;
+    --global-container-width: 95%;
+    --global-main-font-size: 18px;
+    --global-gap-between-main-items: 50px;
+    --global-border-width-main: 1px;
+
+    --gap-between-data-rows: 20px;
+
+    --font-size-pagination: 18px;
+
+
+    /* meant to be just for filters and above, but want to use some in other parts as it's button border-radius */
+
+    --padding-left-filter-inputs: 10px;
+    --height-filter-inputs: 46px;
+    --border-radius-filter-inputs: 8px;
+
+    --border-width-filters: 1px;
+
+    --width-currency-box: 20px;
+    --font-size-currency-box: 26px;
+}

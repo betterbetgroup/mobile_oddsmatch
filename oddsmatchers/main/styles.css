@@ -2,47 +2,76 @@
     box-sizing: border-box; 
 }
 
-body {
-
-    background: rgb(27, 0, 25);
-    color: white;
-    font-family: 'Arial', sans-serif;
-    padding: 1.43vw;
-    margin: 0;
-    justify-content: center;  
-    min-height: 100vh;        
-    display: flex;
-    align-items: center;   
-
-}
-
-#outer-container-div {
-    background: none;
-    color: white;
-    font-family: 'Arial', sans-serif;
-    padding: 1.43vw;
-    padding-left: 0.36vw;
-    padding-right: 0.36vw;
-    margin: 0 auto;
-    justify-content: center;  
-    align-items: center;
-    justify-content: center; 
-    align-items: center;   
-    padding-bottom: 11.52vw;
-    padding-top: 0;
-    width: 100.00vw;
-    display: flex;
-    flex-direction: column;
-}
-
 
 
 #outer-container-div {
+
+    /* body */
+    --body-padding: 1.43vw;
+
+    /* outer container div */
+    --outer-container-div-padding-horizontal: 0.36vw;
+    --outer-container-div-padding-bottom: 11.52vw;
+    --outer-container-div-width: 100.00vw;
+
+
+    /* loading and no data div */
+    --loading-and-no-data-div-padding: 5.00vw;
+    --loading-and-no-data-div-aspect-ratio: 2;
+    --loading-aspect-ratio: 1;
+    --loading-and-no-data-div-font-size: 4.00vw;
+
+    /* neon part */
+    --neon-pulse-width-and-height: 20.00vw;
+    --neon-pulse-perspective: 150.00vw;
+    --neon-bar-width: 2.50vw;
+    --neon-bar-height: 10.00vw;
+    --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 17.50vw;
+
+
+    /* mobile card */
+    --mobile-card-padding: 4.00vw 5.00vw;
+    --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+    --outer-mobile-card-total-padding: 2.00vw;
+
+
+    /* mobile row */
+    --gap-in-mobile-row: 1.25vw;
+    --margin-bottom-mobile-row: 3.00vw;
+    --width-mobile-row-strong: 25.00vw; 
+    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
+
+
+    /* content items i.e. logo img, odds combo, etc */
+    --height-of-img-logo: 5.50vw;
+    --gap-in-odds-combo: 2.00vw;
+    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
+    --gap-between-profit-and-loss-and-rating: 1.25vw;
+    --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
+
+
+    /* filter panel container and above columns */
+    --padding-main-containers: 4.00vw;
+    --gap-between-filters-horizontal-and-vertical: 3.00vw;
+
+    /* filter stuff */
+    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw;
+    --font-size-multiplier-for-percentage: 0.85;
+
+
+    /* global */
+
     --global-border-radius: 3.50vw;
     --global-container-width: 95%;
     --global-main-font-size: 3.50vw;
     --global-gap-between-main-items: 3.75vw;
     --global-border-width-main: 0.25vw;
+
+
+
+    --global-smaller-border-radius: 1vw;
+
 
     --global-border-main: var(--global-border-width-main) solid #1f1f1f;
 
@@ -75,6 +104,44 @@ body {
 
 
 
+body {
+
+    background: rgb(27, 0, 25);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    padding: var(--body-padding);
+    margin: 0;
+    justify-content: center;  
+    min-height: 100vh;        
+    display: flex;
+    align-items: center;   
+
+}
+
+
+#outer-container-div {
+    background: none;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    padding-left: var(--outer-container-div-padding-horizontal);
+    padding-right: var(--outer-container-div-padding-horizontal);
+    margin: 0 auto;
+    justify-content: center;  
+    align-items: center;
+    justify-content: center; 
+    align-items: center;   
+    padding-bottom: var(--outer-container-div-padding-bottom);
+    padding-top: 0;
+    width: var(--outer-container-div-width);
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
 
 
 
@@ -98,46 +165,46 @@ body {
     animation: bgAnimation 8s ease infinite;
     color: white;
     width: 100%;
-    padding: 5.00vw;
+    padding: var(--loading-and-no-data-div-padding);
     border-radius: var(--global-border-radius);
-    aspect-ratio: 2;
+    aspect-ratio: var(--loading-and-no-data-div-aspect-ratio);
 }
  
 .no-data-div {
     background: linear-gradient(270deg, #150020, #0c0033, #150020);
 }
 .no-data-div h2, .loading-text {
-    font-size: 4.00vw;
+    font-size: var(--loading-and-no-data-div-font-size);
     text-transform: uppercase;
 }
  
 .loading {
-    aspect-ratio: 1;
+    aspect-ratio: var(--loading-aspect-ratio);
 }
 
 .neon-pulse {
     position: relative;
-    width: 20.00vw;
-    height: 20.00vw;
+    width: var(--neon-pulse-width-and-height);
+    height: var(--neon-pulse-width-and-height);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    perspective: 150.00vw;
+    perspective: var(--neon-pulse-perspective);
     animation: rotatePulse 2s linear infinite; 
 }
  
 .neon-bar {
-    width: 2.50vw;
-    height: 10.00vw;
+    width: var(--neon-bar-width);
+    height: var(--neon-bar-height);
     background: #ff00c6;
-    box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
-    border-radius: 1.00vw;
+    box-shadow: var(--neon-bar-box-shadow); 
+    border-radius: var(--global-smaller-border-radius);
     transform-origin: center bottom;
     animation: neonGrow 1s ease-in-out infinite;
 }
  
 .loading-text {
-    margin-top: 17.50vw;
+    margin-top: var(--loading-text-margin-top);
     color: #ff00c6;
     animation: fadeIn 2s ease-in-out infinite;
 }
@@ -289,14 +356,14 @@ body {
     background: var(--mobile-card-inner-colour);
     color: #f5f5f5;
     border-radius: var(--global-border-radius);
-    padding: 4.00vw 5.00vw;
-    box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+    padding: var(--mobile-card-padding);
+    box-shadow: var(--mobile-card-box-shadow);
     width: 100%;
 }
 
 .outer-mobile-card {    
     background: var(--global-main-background-colour);
-    padding: 2.00vw;
+    padding: var(--outer-mobile-card-total-padding);
     border: var(--global-border-main);
 }
 
@@ -304,17 +371,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start; 
-    gap: 1.25vw;               
-    margin-bottom: 3.00vw;
+    gap: var(--gap-in-mobile-row);               
+    margin-bottom: var(--margin-bottom-mobile-row);
     font-size: var(--global-main-font-size);
     line-height: 1.4;
 }
 
 .mobile-row strong {
-    font-weight: 600;
+    font-weight: var(--font-weight-mobile-row-strong);
     color: #ccc;
     flex-shrink: 0;
-    width: 25.00vw;       
+    width: var(--width-mobile-row-strong);       
     text-align: left;
 }
 
@@ -354,18 +421,17 @@ body {
 
 
 .logo-img {
-    height: 5.50vw;
+    height: var(--height-of-img-logo);
     width: auto;
     vertical-align: middle;
-    border-radius: 1.00vw;
+    border-radius: var(--global-smaller-border-radius);
 }
 
 .odds-combo {
     display: inline-flex;
     align-items: center;
-    gap: 2.00vw;
+    gap: var(--gap-in-odds-combo);
 } 
-
 
 .odds-combo-each-and-extra {
     justify-content: flex-end;
@@ -376,9 +442,8 @@ body {
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    gap: 1.75vw;
+    gap: var(--gap-outside-odds-combo-think-this-is-for-extra-place-etc);
 }
-
 
 .odds-combo span {
     flex: 0;
@@ -391,7 +456,7 @@ body {
 .expected-profit-box {
     display: flex;
     flex-direction: row;
-    gap: 1.25vw;
+    gap: var(--gap-between-profit-and-loss-and-rating);
     text-align: right;
     align-self: center;
 }
@@ -399,9 +464,9 @@ body {
 .profit-badge,
 .loss-badge,
 .rating-badge {
-    padding: 1.50vw 2.00vw;
-    border-radius: 1.00vw;
-    font-weight: 600;
+    padding: var(--padding-profit-loss-rating-badge);
+    border-radius: var(--global-smaller-border-radius);
+    font-weight: var(--font-weight-mobile-row-strong);
     display: inline-block;
     width: fit-content;
     margin-left: auto;
@@ -458,13 +523,13 @@ body {
     width: var(--global-container-width);
     border: var(--global-border-main);
     text-align: center;
-    padding: 4.00vw;
+    padding: var(--padding-main-containers);
 }
 
 #filter-panel-container {
     display: none;
     margin-top: var(--global-gap-between-main-items);
-    gap: 3.00vw;
+    gap: var(--gap-between-filters-horizontal-and-vertical);
     position: relative;
 }
 
@@ -472,7 +537,7 @@ body {
 .filter-row {
     display: flex;
     width: 100%;
-    gap: 3.00vw;
+    gap: var(--gap-between-filters-horizontal-and-vertical);
 }
 
 .filter-item {
@@ -512,7 +577,7 @@ body {
 
 
 .custom-select-trigger input, .custom-select-trigger-filter input {
-    padding-left: 5.00vw;    
+    padding-left: var(--padding-left-filter-inputs-select-boxes-arrow);    
     background: none;
     border: 0;
 }
@@ -560,7 +625,7 @@ body {
 
 .text-input-container-roi:before {
     content: '%';
-    font-size: calc(var(--font-size-currency-box) * 0.85);
+    font-size: calc(var(--font-size-currency-box) * var(--font-size-multiplier-for-percentage));
 }
 
 .currency_in_input {

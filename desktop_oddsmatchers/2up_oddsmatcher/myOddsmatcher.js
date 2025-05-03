@@ -372,6 +372,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
         }
 
+
+        
+
         filter_bookmakers_and_exchanges(scope,state) {
 
             bookmakerImages = Object.fromEntries(
