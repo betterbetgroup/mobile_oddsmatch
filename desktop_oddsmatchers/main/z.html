@@ -168,15 +168,6 @@
     </div>
 
 
-        
-
-
-
-
-
-
-
-
 
     <div id="filter-panel-container">
         <!-- Content will be dynamically generated -->
@@ -184,21 +175,43 @@
 
 
 
-    <div id="content">
+
+    <!-- ! DIFFERENT FROM MOBILE HERE AS IT HAS AN ADDITIONAL DIV SO THAT SELECT BUTTONS ARE ON THE SIDE -->
+    <div id="outer-content-div">-->
+
+        <div id="content">
+                
 
 
-        <div class="mobile-container">
-            <!-- MOBILE CARDS GET ADDED HERE -->
+                <!-- ! ALSO HAS TABLE INSTEAD OF MOBILE CONTAINER - this should be different and copied from desktop-->
+                <table>
+                    <thead class="table-header" >
+                        <!-- This is dynamically added in by the js, the html is in the state-->
+                    </thead>
+                    <tbody>
+            
+                        <!-- ROWS GET ADDED TO THE TABLE HERE  -->
+            
+                    </tbody>
+                </table>
+
+
+                <div id="pagination-container" >
+                    <button id="prev-page">Previous</button>
+                    <span id="pagination-info"></span>
+                    <button id="next-page">Next</button>
+                </div>
+
         </div>
 
 
-        <div id="pagination-container" >
-            <button id="prev-page">Previous</button>
-            <span id="pagination-info"></span>
-            <button id="next-page">Next</button>
+        <!-- ! DIFFERENT FROM MOBILE HERE AS IT HAS AN ADDITIONAL DIV SO THAT SELECT BUTTONS ARE ON THE SIDE -->
+        <div id="button-container">
+            <!-- SELECT BUTTONS ADDED HERE -->
         </div>
 
     </div>
+
 
 </div>
 

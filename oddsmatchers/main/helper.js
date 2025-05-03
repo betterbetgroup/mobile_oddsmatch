@@ -1375,6 +1375,11 @@ export function render(scope, state, html_script, general_info_script) {
 
 export function runSpecificScript(scope, state) {
 
+    // set the inner html of the header using the js
+    if (state.is_desktop) {
+        scope.querySelector('thead.table-header').innerHTML = state.desktop_button_container_html;
+    }
+
     // Generate the filter panel dynamically
     generateFilterPanel(scope, state);
 

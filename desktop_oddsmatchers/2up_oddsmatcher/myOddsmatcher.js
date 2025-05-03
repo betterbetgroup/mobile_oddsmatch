@@ -126,6 +126,34 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         is_tutorial: false,
         oddsmatcher_type: '2up',
         is_desktop: true,
+        desktop_table_header_html: `<tr>
+                            <th id="date_and_time_header">Date & Time
+            
+                                <div class = 'next_to_date_and_time'>
+                                    <img id='sort_by_img_dt' class="sort_by" data-sort="date and time" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+                                </div>
+                            </th>
+                            <th id="fixture_header">Fixture</th>
+                            <th id="outcome_header">Team</th>
+                            <th id="back_odds_header" >Back Odds & Bookmaker</th>
+                            <th id="lay_odds_header" >Lay Odds & Exchange</th>
+                            <th id="expected_profit_header" >Profit on £10 Stake<br>(No FTA / FTA)
+            
+                                <div class="container_in_expected_profit_header">
+                                    <div class = 'next_to_date_and_time'>
+                                        <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+                                    </div>
+                                    <div class = 'next_to_date_and_time'>
+                                        <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+                                    </div>
+                                </div>
+                            </th>
+                            <th id='rating_header' ><span class="rating_header_span">Bet Rating</span>
+                                <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+                            </th>
+            
+            
+                                    </tr>`,
     };
 
 
