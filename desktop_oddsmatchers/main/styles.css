@@ -5,25 +5,146 @@
 
 
 #outer-container-div {
-    --global-border-radius: 15px;
+
+
+
+
+    /* global */
+
+    --blur-amount: 1.25vw;
+
+    --global-border-radius: 3.50vw;
     --global-container-width: 95%;
-    --global-main-font-size: 18px;
-    --global-gap-between-main-items: 50px;
-    --global-border-width-main: 1px;
+    --global-main-font-size: 3.50vw;
+    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+    --global-border-width-main: 0.25vw;
 
-    --gap-between-data-rows: 20px;
+    --global-smaller-border-radius: 1vw;
 
-    --font-size-pagination: 18px;
+    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+
+    --global-main-background-colour: #121212;
 
 
-    /* meant to be just for filters and above, but want to use some in other parts as it's button border-radius */
 
-    --padding-left-filter-inputs: 10px;
-    --height-filter-inputs: 46px;
-    --border-radius-filter-inputs: 8px;
 
-    --border-width-filters: 1px;
 
-    --width-currency-box: 20px;
-    --font-size-currency-box: 26px;
+    /* body */
+    --body-padding: 1.43vw;
+
+    /* outer container div */
+    --outer-container-div-padding-horizontal: 0.36vw;
+    --outer-container-div-padding-bottom: 11.52vw;
+    --outer-container-div-width: 100.00vw;
+
+
+    /* loading and no data div */
+    --loading-and-no-data-div-padding: 5.00vw;
+    --loading-and-no-data-div-aspect-ratio: 2;
+    --loading-aspect-ratio: 1;
+    --loading-and-no-data-div-font-size: 4.00vw;
+
+    /* neon part */
+    --neon-pulse-width-and-height: 20.00vw;
+    --neon-pulse-perspective: 150.00vw;
+    --neon-bar-width: 2.50vw;
+    --neon-bar-height: 10.00vw;
+    --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 17.50vw;
+
+
+    /* mobile card */
+    --mobile-card-padding: 4.00vw 5.00vw;
+    --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+    --outer-mobile-card-total-padding: 2.00vw;
+    --gap-between-data-rows: 2.00vw;
+    --inner-background-colour: #000000;
+
+
+
+    /* mobile row */
+    --gap-in-mobile-row: 1.25vw;
+    --margin-bottom-mobile-row: 3.00vw;
+    --width-mobile-row-strong: 25.00vw; 
+    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
+
+
+    /* content items i.e. logo img, odds combo, etc */
+    --height-of-img-logo: 5.50vw;
+    --gap-in-odds-combo: 2.00vw;
+    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
+    --gap-between-profit-and-loss-and-rating: 1.25vw;
+    --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
+
+
+    /* filter panel container and above columns */
+    --padding-main-containers: 4.00vw;
+    --gap-between-filters-horizontal-and-vertical: 3.00vw;
+
+
+    /* filter stuff */
+    --background-colour-filters: #333;
+    --border-filters: var(--global-border-width-main) solid #444;
+    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
+    --height-filter-inputs: 10.00vw;
+    --padding-left-filter-inputs: 1.50vw;
+    --border-radius-filter-inputs: 1.25vw;
+    --font-size-filter-inputs: var(--global-main-font-size);
+    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
+    --font-size-currency-box: 5.00vw;
+    --font-size-multiplier-for-percentage: 0.85;
+    --max-height-dropdown-options: 50.00vw;
+    --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
+    --padding-dropdown-options: 1.75vw 3.00vw;
+    --padding-left-dropdown-options-label: 1.25vw;
+    --margin-right-checkbox: 2.50vw;
+    --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
+    --margin-left-and-bottom-filter-label: 1.00vw;
+    --width-currency-box: 6.25vw;
+
+
+
+
+    /* selecting filter section specifically now */
+    --padding-filter-delete-buttons: 1.00vw 2.50vw;
+    --border-radius-filter-delete-buttons: 0.75vw;
+
+
+    /* above columns */ 
+    --gap-in-above-columns: 6.25vw;
+    --gap-between-above-column-rows: 3.75vw;
+
+    /* above columns items stuff */
+    --margin-right-confirm-filter-name: 3.75vw;
+    --refresh-results-margin-against-timer: 1.50vw;
+    --width-height-cancel-making-filter-svg: 5.00vw;
+    --width-height-button-images: 5.00vw;
+    --margin-left-refresh-results-img: 1.5vw;
+    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+
+
+    /* pagination */
+    --padding-pagination-container: 3.00vw 0.00vw;
+    --width-pagination-button: 18.75vw;
+    --padding-pagination-button: 0.00vw 3.75vw;
+    --font-size-pagination: 3.00vw;
+
+
+    /* covering filter box */
+    --covering-filter-box-inset: -0.25vw;
+    --height-width-covering-filter-box-padlock: 30.00vw;
+    
+
+    /* upgrade div box */   
+    --padding-outer-div-upgrade: 3.75vw;
+
+    /* upgrade button in upgrade div */
+    --upgrade-button-border-radius: 2.50vw;
+    --padding-upgrade-button: 2.50vw 6.25vw;
+    --font-size-upgrade-button: 4.50vw;
+    --width-height-padlock-image-in-button: 6.25vw;
+    --margin-left-padlock-image-in-button: 2.50vw;
+
+
+
 }

@@ -1,10 +1,3 @@
-let border_dropdown_option_filter = '0.25vw solid #444';
-let border_radius_input = '1.25vw';
-
-// CHANGE THIS SO THAT IT'S IN THE CSS AND IT JUST ADDS THE CLASS AND REMOVES IT
-
-
-
 // State management
 const state = {
     globalData: [],
@@ -353,15 +346,16 @@ export function check_options_filter_border_bottom(scope, option_name) {
 
     const list_of_options = scope.querySelectorAll(option_name);
 
-    // First, ensure all options have a bottom border
+    // Add border bottom class to all options
     list_of_options.forEach(option => {
-        option.style.borderBottom = border_dropdown_option_filter
+        option.classList.remove('border-bottom-filters-off');
     });
 
-    // Remove the border from the last option
+    // Remove border bottom class from last option
     if (list_of_options.length > 0) {
-        list_of_options[list_of_options.length - 1].style.borderBottom = 'none';
+        list_of_options[list_of_options.length - 1].classList.add('border-bottom-filters-off');
     }
+    
 }
 
 export function removeNonQualifyingBetOptions(scope) {
@@ -806,11 +800,11 @@ export function add_event_listener_for_saved_filters(scope, button_select, butto
 
         if (scope.querySelector(button_options).style.display == 'block') {
             scope.querySelector(button_options).style.display = 'none'
-            container.style.borderRadius = border_radius_input;
+            container.classList.remove('border-radius-bottom-none')
         } else {
             closeAllDropdowns(scope);
             scope.querySelector(button_options).style.display = 'block';
-            container.style.borderRadius = `${border_radius_input} ${border_radius_input} 0 0`;
+            container.classList.add('border-radius-bottom-none')
         }
     });
 }
@@ -825,14 +819,14 @@ export function closeAllDropdowns(scope) {
     let dropdown_corners = scope.querySelectorAll('.custom-select-container:not(.select-filters-container)');
 
     dropdown_corners.forEach((dropdown) => {
-        dropdown.style.borderRadius = border_radius_input;
+        dropdown.classList.remove('border-radius-bottom-none')
     });
 
     scope.querySelector('#filters-dropdown-options').style.display = 'none';
-    scope.querySelector('#filters-dropdown-select-container').style.borderRadius = border_radius_input;
+    scope.querySelector('#filters-dropdown-select-container').classList.remove('border-radius-bottom-none')
 
     scope.querySelector('#sorting-dropdown-options').style.display = 'none';
-    scope.querySelector('#sorting-dropdown-select-container').style.borderRadius = border_radius_input;
+    scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
 }
 
 
@@ -1272,12 +1266,12 @@ export function create_event_listeners_for_select_containers(scope, state) {
 
             if (container.querySelector('.dropdown-options').style.display == 'block') {
                 container.querySelector('.dropdown-options').style.display = 'none';
-                container.style.borderRadius = border_radius_input;
+                container.classList.remove('border-radius-bottom-none')
 
             } else {
                 closeAllDropdowns(scope); // Close all other dropdowns
             container.querySelector('.dropdown-options').style.display = 'block'; // Show current dropdown
-            container.style.borderRadius = `${border_radius_input} ${border_radius_input} 0 0`;
+            container.classList.add('border-radius-bottom-none')
             
             }
         });
