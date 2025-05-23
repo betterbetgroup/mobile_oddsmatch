@@ -339,7 +339,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         
         }
 
-        filter_bookmakers_and_exchanges(scope,state) {
+        filter_bookmakers_and_exchanges(scope, state) {
 
             bookmakerImages = Object.fromEntries(
                 Object.entries(bookmakerImages)

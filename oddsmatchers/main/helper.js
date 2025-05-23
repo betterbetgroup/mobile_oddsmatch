@@ -15,6 +15,49 @@ const state = {
 
 
 
+// make a dictionary that matches the keys to the appropriate html
+const DesktopHeaderDictionary = {
+    'date and time': `<th id="date_and_time_header" class="header_with_sorting" >Date &<br>Time
+        <div >
+            <img id='sort_by_img_dt' class="sort_by" data-sort="date and time" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by date and time" >
+        </div>
+    </th>`,
+    
+    'fixture': `<th id="fixture_header">Fixture</th>`,
+    
+    'outcome': `<th id="outcome_header">Team</th>`,
+
+    'race': `<th id="fixture_header">Race</th>`,
+    
+    'horse': `<th id="outcome_header">Horse</th>`,
+    
+    'back odds': `<th id="back_odds_header" >Back Odds & Bookmaker</th>`,
+    
+    'lay odds': `<th id="lay_odds_header" >Lay Odds & Exchange</th>`,
+    
+    'rating': `<th class="header_with_sorting" ><span>Bet<br>Rating</span>
+        <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+    </th>`,
+
+    'expected profit 2up': `<th id="expected_profit_header" class="header_with_sorting" >Profit on £10 Stake<br>(No FTA / FTA)
+        <div class="container_in_expected_profit_header">
+            <div >
+                <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+            </div>
+            <div >
+                <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by potential profit" >
+            </div>
+        </div>
+    </th>`,
+
+    'qualifying loss': `<th id="expected_profit_header" class="header_with_sorting" >Qualifying<br>Loss
+        <div >
+            <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+        </div>
+    </th>`,
+};
+
+
 
 export function loadExternalScript(scriptUrl) {
     return new Promise((resolve, reject) => {
@@ -93,6 +136,10 @@ export function add_filters(filterObject, scope, state) {
 
 
 export function append_sort_to_sort_options(name_for_sort, value, scope, state) {
+
+    if (state.is_desktop) {
+        return;
+    }
 
     const container = scope.getElementById('sorting-dropdown-options');
 
@@ -583,7 +630,6 @@ export function displayRows(scope, rows, state, totalPages) {
     const end = start + state.rowsPerPage;
     const paginatedItems = rows.slice(start, end);
 
-        
     let body_selector = '.mobile-container';
     if (state.is_desktop) {
         body_selector = 'table.table tbody';
@@ -592,32 +638,20 @@ export function displayRows(scope, rows, state, totalPages) {
     scope.querySelector(body_selector).innerHTML = '';
     scope.querySelector('.not_premium_member_row')?.remove();
 
-    add_loading_row(scope, state);
+    if (state.filteredData.length == 0) {
+        add_no_data_row(scope, state);
+    }
 
-    let min = 169;
-    let max = 420;
+    appendRows(paginatedItems, scope, state);
 
-    setTimeout(() => {
+    add_lock_if_premium(scope, state);
 
-        scope.querySelector(body_selector).innerHTML = '';
-        scope.querySelector('.not_premium_member_row')?.remove();
+    scope.getElementById('pagination-info').textContent = `Page ${state.currentPage} of ${totalPages}`;
+    
+    if (totalPages == 0) {
+        scope.getElementById('pagination-info').textContent = `Page 0 of 0`;
+    }
 
-        if (state.filteredData.length == 0) {
-            add_no_data_row(scope);
-        }
-
-        appendRows(paginatedItems, scope, state);
-   
-        add_lock_if_premium(scope, state);
-
-        scope.getElementById('pagination-info').textContent = `Page ${state.currentPage} of ${totalPages}`;
-       
-        if (totalPages == 0) {
-            scope.getElementById('pagination-info').textContent = `Page 0 of 0`;
-        }
-
-
-    }, Math.floor(Math.random() * (max - min + 1) + min));
 
 }
 
@@ -627,14 +661,27 @@ export function appendRows(rows, scope, state) {
     });
 }
 
-
-export function add_no_data_row(scope) {
-
-    const no_data_row = document.createElement('div');
-    no_data_row.setAttribute('class', 'no-data-div');
-    no_data_row.innerHTML = `
+export function add_no_data_row(scope, state) {
+    let no_data_row;
+    let no_data_content = `
+        <div class="no-data-div">
             <h2>No Data Collected Yet... Please Wait or Adjust the Filters</h2>
+        </div>
     `;
+
+    if (state.is_desktop) {
+        no_data_row = document.createElement('tr');
+        no_data_row.setAttribute('id', 'noDataRow');
+        const td = document.createElement('td');
+        td.setAttribute('colspan', '100%');
+        td.setAttribute('class', 'no-data-div-td');
+        td.innerHTML = no_data_content;
+        no_data_row.appendChild(td);
+    } else {
+        no_data_row = document.createElement('div');
+        no_data_row.setAttribute('id', 'noDataRow');
+        no_data_row.innerHTML = no_data_content;
+    }
 
     let body_selector = '.mobile-container';
     if (state.is_desktop) {
@@ -646,9 +693,8 @@ export function add_no_data_row(scope) {
 }
 
 export function add_loading_row(scope, state) {
-    const loadingrow = document.createElement('div');
-    loadingrow.setAttribute('id', 'loadingScreenRow'); 
-    loadingrow.innerHTML = `
+    let loadingrow;
+    let loadingContent = `
         <div class="loading">
             <div class="neon-pulse">
                 <div class="neon-bar"></div>
@@ -659,6 +705,20 @@ export function add_loading_row(scope, state) {
             <h2 class="loading-text">Collecting Bookmaker Data...</h2>
         </div>
     `;
+
+    if (state.is_desktop) {
+        loadingrow = document.createElement('tr');
+        loadingrow.setAttribute('id', 'loadingScreenRow');
+        const td = document.createElement('td');
+        td.setAttribute('colspan', '100%');
+        td.setAttribute('class', 'loading-row-td');
+        td.innerHTML = loadingContent;
+        loadingrow.appendChild(td);
+    } else {
+        loadingrow = document.createElement('div');
+        loadingrow.setAttribute('id', 'loadingScreenRow');
+        loadingrow.innerHTML = loadingContent;
+    }
 
     let body_selector = '.mobile-container';
     if (state.is_desktop) {
@@ -671,10 +731,40 @@ export function add_loading_row(scope, state) {
 
 
 export function add_lock_if_premium(scope, state) {
+
     if (!state.is_premium_member && state.filteredData.length != 0) {
-        const blurredRows = scope.querySelectorAll('.outer-mobile-card');
         
-        blurredRows.forEach(row => {
+        if (!state.is_desktop) {
+            const blurredRows = scope.querySelectorAll('.outer-mobile-card');
+            blurredRows.forEach(row => {
+                const box = document.createElement('div');
+                box.setAttribute('class', 'box3');
+                box.innerHTML = `
+                    <div class="outer_div_upgrade">
+                        <a class="upgrade-button">Upgrade to Premium <svg fill="#ffffff" class="padlock-image-button" alt="Padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_509_"> <path id="XMLID_510_" d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z"></path> </g> </g></svg></a>
+                    </div>
+                `;
+                
+                row.style.position = 'relative';
+                row.appendChild(box);
+                box.style.display = 'flex';
+            });
+
+            // set the pagination to hidden
+            scope.querySelector('#pagination-container').style.display = 'none';
+
+        } else {
+            
+            let body = scope.querySelector('table.table tbody');
+            body.classList.add('blurred_tbody');
+
+            const box3 = scope.querySelector('.box3');
+            if (box3) {
+                box3.remove();
+            }
+
+            // then need to add upgrade to premium button to the table
+            const row = scope.querySelector('table.table');
             const box = document.createElement('div');
             box.setAttribute('class', 'box3');
             box.innerHTML = `
@@ -683,13 +773,18 @@ export function add_lock_if_premium(scope, state) {
                 </div>
             `;
             
-            row.style.position = 'relative';
-            row.appendChild(box);
+            row.insertBefore(box, row.firstChild);
             box.style.display = 'flex';
-        });
+            
 
-        // set the pagination to hidden
-        scope.querySelector('#pagination-container').style.display = 'none';
+        }
+
+    } else if (state.is_desktop) {
+        scope.querySelector('table.table tbody').classList.remove("blurred_tbody");
+        const box3 = scope.querySelector('.box3');
+        if (box3) {
+            box3.remove();
+        }
     }
 }
 
@@ -744,8 +839,10 @@ export function add_listener_for_whole_oddsmatcher(scope, state) {
         
     });
 
-    add_event_listener_for_saved_filters(scope, '#filters-dropdown-select-container', '#filters-dropdown-options');
-    add_event_listener_for_saved_filters(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options');
+    add_event_listener_for_saved_filters(scope, '#filters-dropdown-select-container', '#filters-dropdown-options', state);
+    if (!state.is_desktop) {
+        add_event_listener_for_saved_filters(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options', state);
+    }
 }
 
 
@@ -776,6 +873,11 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
         message_type = 'Get-Alerts';
     }
 
+    if (event.target.className === 'select_button') {
+        rowobj = getRowObjById(event.target.getAttribute('data-id'), state);
+        message_type = 'Select-Event';
+    }
+
     let message = {
         row: rowobj
     };
@@ -792,7 +894,7 @@ export function getRowObjById(rowId, state) {
     return state.globalData.find(item => item._id === rowId);
 }
 
-export function add_event_listener_for_saved_filters(scope, button_select, button_options) {
+export function add_event_listener_for_saved_filters(scope, button_select, button_options, state) {
     let container = scope.querySelector(button_select)
 
     container.addEventListener('click', (event) => {
@@ -802,7 +904,7 @@ export function add_event_listener_for_saved_filters(scope, button_select, butto
             scope.querySelector(button_options).style.display = 'none'
             container.classList.remove('border-radius-bottom-none')
         } else {
-            closeAllDropdowns(scope);
+            closeAllDropdowns(scope, state);
             scope.querySelector(button_options).style.display = 'block';
             container.classList.add('border-radius-bottom-none')
         }
@@ -810,7 +912,7 @@ export function add_event_listener_for_saved_filters(scope, button_select, butto
 }
 
 
-export function closeAllDropdowns(scope) {
+export function closeAllDropdowns(scope, state) {
     const dropdowns = scope.querySelectorAll('.dropdown-options');
     dropdowns.forEach(dropdown => {
         dropdown.style.display = 'none';
@@ -825,8 +927,10 @@ export function closeAllDropdowns(scope) {
     scope.querySelector('#filters-dropdown-options').style.display = 'none';
     scope.querySelector('#filters-dropdown-select-container').classList.remove('border-radius-bottom-none')
 
-    scope.querySelector('#sorting-dropdown-options').style.display = 'none';
-    scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
+    if (!state.is_desktop) {
+        scope.querySelector('#sorting-dropdown-options').style.display = 'none';
+        scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
+    }
 }
 
 
@@ -1095,24 +1199,55 @@ export function removeOptionFromDropdown(name_for_filter, scope) {
 
 
 
-export function open_text_box_and_confirm(scope) {
+export function open_text_box_and_confirm(scope, state) {
 
-    scope.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.remove('hidden_row_above_columns')
-    
+    if (!state.is_desktop) {
+        scope.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.remove('hidden_row_above_columns')
+    } else {
+
+        let all_items = scope.querySelectorAll('.above_columns_item')
+        all_items.forEach(item => {
+            item.classList.add('hidden_row_above_columns')
+        })
+
+        let hidden_items = scope.querySelectorAll('.above_columns_item.init_hidden_row_above_columns')
+        hidden_items.forEach(item => {
+            item.classList.remove('hidden_row_above_columns')
+        })
+
+        scope.querySelector('.above_columns_row').style.justifyContent = 'center';
+
+    }
 }
 
-export function close_boxes(scope) {
+
+export function close_boxes(scope, state) {
 
     let filter_name_label = scope.querySelector('#type-filter-name');
     filter_name_label.textContent = 'Filter Name';
 
     scope.querySelector('#get-filter-name').value = '';
 
-    scope.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.add('hidden_row_above_columns')
-    
+    if (!state.is_desktop) {
+        scope.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.add('hidden_row_above_columns')
+    } else {
+
+        let all_items = scope.querySelectorAll('.above_columns_item')
+        all_items.forEach(item => {
+            item.classList.remove('hidden_row_above_columns')
+        })
+
+        let hidden_items = scope.querySelectorAll('.above_columns_item.init_hidden_row_above_columns')
+        hidden_items.forEach(item => {
+            item.classList.add('hidden_row_above_columns')
+        })
+
+        scope.querySelector('.above_columns_row').style.justifyContent = 'space-evenly';
+
+    }
 }
 
-export function get_name_and_close_boxes(scope) {
+export function get_name_and_close_boxes(scope, state) {
 
     let filter_name_label = scope.querySelector('#type-filter-name');
 
@@ -1145,12 +1280,7 @@ export function get_name_and_close_boxes(scope) {
 
     }
 
-    filter_name_label.textContent = 'Filter Name';
-
-    scope.querySelector('#get-filter-name').value = '';
-
-    scope.querySelector('.above_columns_row.init_hidden_row_above_columns').classList.add('hidden_row_above_columns')
-
+    close_boxes(scope, state);
 
     return filter_name;
 
@@ -1165,7 +1295,7 @@ export function make_filter_selection_value_as_saved(filter_name, scope) {
 
 export function confirm_filter_click(scope, state) {
 
-    let filter_name = get_name_and_close_boxes(scope);
+    let filter_name = get_name_and_close_boxes(scope, state);
 
     // FUNCTION THAT TAKES GLOBAL FILTERS AND ADDS IT TO CUSTOM FILTERS BEFORE IT GOES INTO THE OPTIONS FOR THE DROPDOWN
     const obj = function_that_takes_global_filters_and_appends_it_to_current_with_name(filter_name, state);
@@ -1269,7 +1399,7 @@ export function create_event_listeners_for_select_containers(scope, state) {
                 container.classList.remove('border-radius-bottom-none')
 
             } else {
-                closeAllDropdowns(scope); // Close all other dropdowns
+                closeAllDropdowns(scope, state); // Close all other dropdowns
             container.querySelector('.dropdown-options').style.display = 'block'; // Show current dropdown
             container.classList.add('border-radius-bottom-none')
             
@@ -1281,7 +1411,7 @@ export function create_event_listeners_for_select_containers(scope, state) {
 
     scope.addEventListener('click', (event) => {
         if (!event.target.closest('.custom-select-container:not(.select-filters-container)')) {
-            closeAllDropdowns(scope);
+            closeAllDropdowns(scope, state);
         }
     });
 
@@ -1387,20 +1517,60 @@ export function render(scope, state, html_script, general_info_script) {
 }
 
 
+function make_sort_button_highlighted_desktop(scope, state) {
+
+    let sort_icons = scope.querySelectorAll('.sort_by');
+
+    sort_icons.forEach(icon => {
+        if (icon.getAttribute('data-sort') === state.current_sort) {
+            icon.classList.add('sort_by_highlighted');
+        } else {
+            icon.classList.remove('sort_by_highlighted');
+        }
+    })
+
+}
+
+
+function add_event_listener_for_sorting_desktop(scope, state) {
+
+    scope.querySelector('.table-header').addEventListener('click', (event) => {
+        if (event.target.className === 'sort_by') {
+            sort_data_on_click(event.target.getAttribute('data-sort'), scope, state)
+            make_sort_button_highlighted_desktop(scope, state);
+        }
+    })
+
+    make_sort_button_highlighted_desktop(scope, state);
+
+}
+
+
+function add_desktop_table_header(scope, state) {
+    // loop through the desktop_header_columns array and add the html to the table header
+    const tr = document.createElement('tr');
+    state.desktop_header_columns.forEach(column => {
+        tr.innerHTML += DesktopHeaderDictionary[column];
+    });
+    scope.querySelector('thead.table-header').appendChild(tr);
+}
+
 
 export function runSpecificScript(scope, state) {
 
     // set the inner html of the header using the js
     if (state.is_desktop) {
-        scope.querySelector('thead.table-header').innerHTML = state.desktop_table_header_html;
+        add_desktop_table_header(scope, state);
+        add_event_listener_for_sorting_desktop(scope, state);
     }
+
 
     // Generate the filter panel dynamically
     generateFilterPanel(scope, state);
 
 
-    scope.querySelector('.save-filter-button').addEventListener('click', () => { open_text_box_and_confirm(scope); });
-    scope.querySelector('.cancel-making-filter').addEventListener('click', () => { close_boxes(scope); });
+    scope.querySelector('.save-filter-button').addEventListener('click', () => { open_text_box_and_confirm(scope, state); });
+    scope.querySelector('.cancel-making-filter').addEventListener('click', () => { close_boxes(scope, state); });
     scope.querySelector('.confirm-filter-name').addEventListener('click', () => { confirm_filter_click(scope, state); });
     
     let filter_name_first = 'No Filter';

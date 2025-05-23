@@ -12,7 +12,8 @@
 
         <div class="above_columns_row">
 
-            <div class="above_columns_item left-above-item">
+
+            <div class="above_columns_item above-columns-item-switch-item">
 
                 <div class="div-outside-switch">
 
@@ -30,29 +31,17 @@
 
 
 
-            <div class="above_columns_item right-above-item">
+            <div class="above_columns_item">
 
                 <button class="save-filter-button">Save Filter</button>
                     
             </div>
 
 
-            <div class="above_columns_item right-above-item right-right-above-item">
-
-                <button class="get-alerts-button"><img src="https://img.icons8.com/?size=100&id=84025&format=png&color=ffffff" alt="Get Better Bet Alerts Icon" class="get_alerts_img"></button>
-            </div>
 
 
 
-
-
-        </div>
-
-
-    
-        <div class="above_columns_row init_hidden_row_above_columns hidden_row_above_columns">
-
-            <div class="above_columns_item">
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns">
 
                 <div class="filter-dropdown-name-div">
 
@@ -67,8 +56,13 @@
 
             </div>
 
-            <div class="above_columns_item confirm_or_cancel_row">
+
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns">
                 <button class="confirm-filter-name">Confirm</button>
+            </div>
+
+
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns cancel-making-filter-div">
 
                 <button class="cancel-making-filter" aria-label="Close">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -78,16 +72,15 @@
 
             </div>
 
-        </div>
 
 
 
-        <div class="above_columns_row">
             
 
             <div class="above_columns_item">
 
-                <div class="div-outside-filter-dropdown">
+
+                <div class="div-outside-filter-dropdown div-outside-filter-dropdown-select-filters">
     
                     <label class="filter-label" for="filters-select">Saved Filters</label>
     
@@ -106,60 +99,27 @@
                 </div>
 
 
+                <button class="get-alerts-button"><img src="https://img.icons8.com/?size=100&id=84025&format=png&color=ffffff" alt="Get Better Bet Alerts Icon" class="get_alerts_img"></button>
+
+
             </div>
 
 
-        </div>
 
 
                 
 
-        <div class="above_columns_row">
 
-            <div class="above_columns_item">
-
-                <div class="div-outside-filter-dropdown">
-
-                    <label class="filter-label" for="sorting-input">Sort By</label>
-
-
-                    
-                    <!-- Sorting Dropdown -->
-                    <div id="sorting-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
-    
-                        <div class="custom-select-trigger" >
-                            <input id="sorting-select" type="text" value="Sort By" readonly>
-                        </div>
-    
-                        <div class="dropdown-options" id="sorting-dropdown-options">
-                
-                        </div>
-    
-                    </div>
-
-
-
-
-
-                </div>
-
-    
-                
-
-    
-
-            </div>
-
-        </div>
 
 
         
-        <div class="above_columns_row">
-
             <div class="above_columns_item timer_div refresh_row_item">
                 <span id="data_timer" >00:00</span>
                 <button id="refresh_results" class="refresh_results" >Refresh Results <img src="https://img.icons8.com/?size=100&id=59872&format=png&color=ffffff" alt="Refresh Oddsmatcher Data" class="refresh_results_img"></button>
             </div>
+
+
+
 
         </div>
 
@@ -184,16 +144,18 @@
 
 
                 <!-- ! ALSO HAS TABLE INSTEAD OF MOBILE CONTAINER - this should be different and copied from desktop-->
-                <table class="table" >
-                    <thead class="table-header" >
-                        <!-- This is dynamically added in by the js, the html is in the state-->
-                    </thead>
-                    <tbody>
-            
-                        <!-- ROWS GET ADDED TO THE TABLE HERE  -->
-            
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="table" >
+                        <thead class="table-header" >
+                            <!-- This is dynamically added in by the js, the html is in the state-->
+                        </thead>
+                        <tbody>
+                
+                            <!-- ROWS GET ADDED TO THE TABLE HERE  -->
+                
+                        </tbody>
+                    </table>
+                </div>
 
 
                 <div id="pagination-container" >
@@ -206,9 +168,7 @@
 
 
         <!-- ! DIFFERENT FROM MOBILE HERE AS IT HAS AN ADDITIONAL DIV SO THAT SELECT BUTTONS ARE ON THE SIDE -->
-        <div id="button-container">
-            <!-- SELECT BUTTONS ADDED HERE -->
-        </div>
+
 
     </div>
 

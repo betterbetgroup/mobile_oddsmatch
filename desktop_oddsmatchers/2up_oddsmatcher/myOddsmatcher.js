@@ -12,7 +12,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
     html_script = '../main/z.html';
-    styles_script = '../main/styles.css';
+    styles_script = 'styles.css';
     
 
     // Create state object
@@ -126,34 +126,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         is_tutorial: false,
         oddsmatcher_type: '2up',
         is_desktop: true,
-        desktop_table_header_html: `<tr>
-                            <th id="date_and_time_header">Date & Time
-            
-                                <div class = 'next_to_date_and_time'>
-                                    <img id='sort_by_img_dt' class="sort_by" data-sort="date and time" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
-                                </div>
-                            </th>
-                            <th id="fixture_header">Fixture</th>
-                            <th id="outcome_header">Team</th>
-                            <th id="back_odds_header" >Back Odds & Bookmaker</th>
-                            <th id="lay_odds_header" >Lay Odds & Exchange</th>
-                            <th id="expected_profit_header" >Profit on £10 Stake<br>(No FTA / FTA)
-            
-                                <div class="container_in_expected_profit_header">
-                                    <div class = 'next_to_date_and_time'>
-                                        <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
-                                    </div>
-                                    <div class = 'next_to_date_and_time'>
-                                        <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
-                                    </div>
-                                </div>
-                            </th>
-                            <th id='rating_header' ><span class="rating_header_span">Bet Rating</span>
-                                <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
-                            </th>
-            
-            
-                                    </tr>`,
+        desktop_header_columns: ['date and time', 'fixture', 'outcome', 'back odds', 'lay odds', 'expected profit 2up', 'rating']
+        
     };
 
 
@@ -324,52 +298,67 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
             let row_info = get_row_data(row);
         
-            const card = document.createElement('div');
-            card.className = 'mobile-card outer-mobile-card';
-            card.setAttribute('data-id', row._id);
+            const tr = document.createElement('tr');
 
-
-            card.innerHTML = `
-                    <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
-                            <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
-                            <div class="mobile-row"><strong>Fixture:</strong> <span>${row.fixture}</span></div>
-                            <div class="mobile-row"><strong>Team:</strong> <span>${row.outcome}</span></div>
-                            <div class="mobile-row">
-                                <strong>Back Odds:</strong>
-                                <span class="odds-combo">
-                                    <a>${row.back_odds}</a> 
-                                    <span class="mobile_at_symbol" >@</span>
-                                    <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row_info.bookmaker_image}" class="logo-img">
-                                    </a>
-                                </span>
-                            </div>
-                            <div class="mobile-row">
-                                <strong>Lay Odds:</strong>
-                                <span class="odds-combo">
-                                    <a>${row.lay_odds}</a> 
-                                    <span class="mobile_at_symbol" >@</span>
-                                    <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row_info.exchange_image}" class="logo-img">
-                                    </a>
-                                </span>
-                            </div>
-                            <div class="mobile-row data-buttons-row">
-                                <strong>Returns & Rating:</strong>
-                                <div class="expected-profit-box">
-                                    <div class="${parseFloat(row_info.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row_info.qualifying_loss}</div>
-                                    <div class="${parseFloat(row_info.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row_info.potential_profit}</div>
-                                    <div class="rating-badge">${row.rating}</div>
-                                </div>
-                            </div>
+            tr.className = 'table_data_row';
+            tr.setAttribute('data-id', row._id)
+        
+            tr.innerHTML = `
+            <td class="date_and_time_data" id="date_time_${row._id}">${row.date_and_time.replace(' ', '<br>')}</td>
+            <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
+                <td class="outcome_data" id="outcome_${row._id}">${row.outcome}</td>
+        
+                <td id="back_odds_data_${row._id}" class="no_padding_margin">
+                    <div class="odds_and_bookmaker">
+                        <div id="back_odds_value_${row._id}" class="back_odds_value">
+                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.back_odds}</a>
+                        </div>    
+                        <div class="at_symbol">@</div>
+                        <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
+                            <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
+                                <img class='bookmaker_logo_img' src="${row_info.bookmaker_image}" alt="${row.sport} ${row.bookmaker} 2up bet">
+                            </a>
+                        </div>
+                    </div>                
+                </td>
+                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
+                    <div class="odds_and_bookmaker">
+                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
+                            <a ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} class="odds-link">${row.lay_odds}</a>
+                        </div>
+                        <div class="at_symbol">@</div>
+                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
+                            <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} >
+                                <img class='exchange_logo_img' src="${row_info.exchange_image}" alt="${row.sport} ${row.exchange}" >
+                            </a>
+                        </div>
+                    </div>                
+                </td>
+                <td class="no_padding_margin">
+                    <div class="expected_profit_data">
+                        <div id='qualifying_loss_${row._id}' class='${row_info.qualifying_loss_class}'>${row_info.qualifying_loss}</div>
+                        <div id='potential_profit_${row._id}' class='${row_info.potential_profit_class}'>${row_info.potential_profit}</div>
                     </div>
+                </td>
+                <td id="rating_${row._id}">
+                    ${row.rating}
+                </td>
             `;
         
-            //<button class="select_button">Select</button>
-
-            const mobileContainer = scope.querySelector('.mobile-container');
-            mobileContainer.appendChild(card);
+            const tableBody = scope.querySelector('table tbody');
+            tableBody.appendChild(tr);
         
+            // Create and append button directly to the row
+            if (state.is_premium_member) {
+                let selectButton = document.createElement('button');
+                selectButton.innerHTML = '+';
+                selectButton.className = 'select_button';
+                selectButton.setAttribute('data-id', row._id);
+                selectButton.setAttribute('aria-label', row._id);
+                tr.appendChild(selectButton);
+            }
+
+            
         }
 
 

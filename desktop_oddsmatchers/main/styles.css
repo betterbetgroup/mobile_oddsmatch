@@ -11,140 +11,685 @@
 
     /* global */
 
-    --blur-amount: 1.25vw;
+    --global-container-width: 90%;
+    --blur-amount: 5px;
+    --global-border-radius: 15px;
+    --global-main-font-size: 16px;
+    --global-gap-between-main-items: 30px; /* this is gap between above and filter panel and table/mobile-container */
+    --global-border-width-main: 1px;
+    --global-smaller-border-radius: 4px;
 
-    --global-border-radius: 3.50vw;
-    --global-container-width: 95%;
-    --global-main-font-size: 3.50vw;
-    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
-    --global-border-width-main: 0.25vw;
-
-    --global-smaller-border-radius: 1vw;
-
-    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
-
-    --global-main-background-colour: #121212;
-
-
-
+    /* upgrade box */
+    --padding-top-box-so-upgrade-button-is-in-middle: calc(var(--global-gap-between-main-items) + 86px); /* this is as it's in table so not blurred - and it's height of table header */
 
 
     /* body */
-    --body-padding: 1.43vw;
+    --body-padding: 0;
+
 
     /* outer container div */
-    --outer-container-div-padding-horizontal: 0.36vw;
-    --outer-container-div-padding-bottom: 11.52vw;
-    --outer-container-div-width: 100.00vw;
+    --outer-container-div-padding-horizontal: 0;
+    --outer-container-div-padding-bottom: 50px;
 
 
     /* loading and no data div */
-    --loading-and-no-data-div-padding: 5.00vw;
-    --loading-and-no-data-div-aspect-ratio: 2;
-    --loading-aspect-ratio: 1;
-    --loading-and-no-data-div-font-size: 4.00vw;
+    --loading-and-no-data-div-padding: 40px;
+    --loading-and-no-data-div-font-size: 28px;
+    --loading-and-no-data-div-aspect-ratio: 4;
+    --loading-aspect-ratio: 3;
 
     /* neon part */
-    --neon-pulse-width-and-height: 20.00vw;
-    --neon-pulse-perspective: 150.00vw;
-    --neon-bar-width: 2.50vw;
-    --neon-bar-height: 10.00vw;
-    --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
-    --loading-text-margin-top: 17.50vw;
-
-
-    /* mobile card */
-    --mobile-card-padding: 4.00vw 5.00vw;
-    --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
-    --outer-mobile-card-total-padding: 2.00vw;
-    --gap-between-data-rows: 2.00vw;
-    --inner-background-colour: #000000;
+    --neon-pulse-width-and-height: 130px;
+    --neon-pulse-perspective: 1200px;
+    --neon-bar-width: 15px;
+    --neon-bar-height: 70px;
+    --neon-bar-box-shadow: 0px 0px 10px rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 70px;
 
 
 
-    /* mobile row */
-    --gap-in-mobile-row: 1.25vw;
-    --margin-bottom-mobile-row: 3.00vw;
-    --width-mobile-row-strong: 25.00vw; 
-    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
-
-
-    /* content items i.e. logo img, odds combo, etc */
-    --height-of-img-logo: 5.50vw;
-    --gap-in-odds-combo: 2.00vw;
-    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
-    --gap-between-profit-and-loss-and-rating: 1.25vw;
-    --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
 
 
     /* filter panel container and above columns */
-    --padding-main-containers: 4.00vw;
-    --gap-between-filters-horizontal-and-vertical: 3.00vw;
+    --gap-between-filters-horizontal-and-vertical: 20px;
+    --padding-main-containers: 25px;
+
+    --larger-border-radius-above-columns-panel: 50px;
+
 
 
     /* filter stuff */
-    --background-colour-filters: #333;
-    --border-filters: var(--global-border-width-main) solid #444;
-    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
-    --height-filter-inputs: 10.00vw;
-    --padding-left-filter-inputs: 1.50vw;
-    --border-radius-filter-inputs: 1.25vw;
-    --font-size-filter-inputs: var(--global-main-font-size);
-    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
-    --font-size-currency-box: 5.00vw;
-    --font-size-multiplier-for-percentage: 0.85;
-    --max-height-dropdown-options: 50.00vw;
-    --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
-    --padding-dropdown-options: 1.75vw 3.00vw;
-    --padding-left-dropdown-options-label: 1.25vw;
-    --margin-right-checkbox: 2.50vw;
-    --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
-    --margin-left-and-bottom-filter-label: 1.00vw;
-    --width-currency-box: 6.25vw;
 
+    --border-radius-filter-inputs: 6px;
+    --height-filter-inputs: 42px;
+    --padding-left-filter-inputs: 10px;
+    --padding-left-filter-inputs-select-boxes-arrow: 25px; /* this is the text from the arrow for list filter items */
+    --font-size-currency-box: 24px;
+    --font-size-multiplier-for-percentage: 0.85;
+    --max-height-dropdown-options: 300px;
+    --padding-dropdown-options: 10px 14px;
+    --padding-left-dropdown-options-label: 3px;
+    --margin-right-checkbox: 7px;
+    --smaller-font-size-filter-label-and-filter-delete-buttons: 12px;
+    --height-of-filter-label: 14px;
+    --margin-left-and-bottom-filter-label: 5px;
+    --width-currency-box: 30px;
 
 
 
     /* selecting filter section specifically now */
-    --padding-filter-delete-buttons: 1.00vw 2.50vw;
-    --border-radius-filter-delete-buttons: 0.75vw;
+    --padding-filter-delete-buttons: 4px 10px;
+    --border-radius-filter-delete-buttons: 4px;
 
 
     /* above columns */ 
-    --gap-in-above-columns: 6.25vw;
-    --gap-between-above-column-rows: 3.75vw;
+
+    --padding-left-right-above-columns: 30px;
+    --gap-between-above-column-rows: 5px;
+    --width-buttons-above-columns: 250px;
+    --width-filter-details-above-columns: 280px;
+
+    
 
     /* above columns items stuff */
-    --margin-right-confirm-filter-name: 3.75vw;
-    --refresh-results-margin-against-timer: 1.50vw;
-    --width-height-cancel-making-filter-svg: 5.00vw;
-    --width-height-button-images: 5.00vw;
-    --margin-left-refresh-results-img: 1.5vw;
-    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+    --margin-right-confirm-filter-name: 20px;
+    --refresh-results-margin-against-timer: 15px;
+    --width-height-cancel-making-filter-svg: 25px;
+    --width-height-button-images: 25px;
+    --margin-left-refresh-results-img: 10px;
+    --border-radius-switch-slider: 50px; /* Round borders for the slider - think could be 100 */
 
 
     /* pagination */
-    --padding-pagination-container: 3.00vw 0.00vw;
-    --width-pagination-button: 18.75vw;
-    --padding-pagination-button: 0.00vw 3.75vw;
-    --font-size-pagination: 3.00vw;
+    --padding-pagination-container: 14px 0px;
+    --width-pagination-button: 80px;
+    --padding-pagination-button: 0px 18px;
+    --font-size-pagination: 14px;
 
 
     /* covering filter box */
-    --covering-filter-box-inset: -0.25vw;
-    --height-width-covering-filter-box-padlock: 30.00vw;
+    --covering-filter-box-inset: -1px;
+    --height-width-covering-filter-box-padlock: 120px;
     
 
     /* upgrade div box */   
-    --padding-outer-div-upgrade: 3.75vw;
+    --padding-outer-div-upgrade: 15px;
+
 
     /* upgrade button in upgrade div */
-    --upgrade-button-border-radius: 2.50vw;
-    --padding-upgrade-button: 2.50vw 6.25vw;
-    --font-size-upgrade-button: 4.50vw;
-    --width-height-padlock-image-in-button: 6.25vw;
-    --margin-left-padlock-image-in-button: 2.50vw;
+    --upgrade-button-border-radius: 15px;
+    --padding-upgrade-button: 13px 45px;
+    --font-size-upgrade-button: 22px;
+    --width-height-padlock-image-in-button: 30px;
+    --margin-left-padlock-image-in-button: 15px;
 
 
 
+
+
+
+    /* table stuff ( this is where the mobile part was ) */
+    --table-header-and-data-items-padding-top-and-bottom: 12px;
+    --table-header-and-data-items-padding-sides: 16px;
+    --padding-bottom-header-with-sorting: calc(var(--table-header-and-data-items-padding-top-and-bottom) / 2);
+    --margin-top-sort-by: var(--padding-bottom-header-with-sorting);
+    --font-size-header: 16px;
+    --width-sort-by: 24px;
+
+    /* table body */
+    --table-data-first-background-colour: #222;
+    --table-data-second-background-colour: #1e1e1e;
+    --table-data-hover-colour: #333;
+    --font-size-data: 14px;
+
+    /* line height for date and time data */
+    --line-height-for-date-and-time-data: 1.4;
+
+    /* expected profit header */
+    --min-width-container-in-expected-profit-header: 180px; /* this is important so the expected profit header is 2 lines */
+
+
+    /* ROW HEIGHT IS SET BY THE EXPECTED PROFIT DATA HEIGHT */
+    --row-height-set-by-expected-profit-data: 65px;
+
+    /* background colours for positive and negative profit data */
+    --background-colour-for-positive-profit-data: linear-gradient( 145deg, #00ab00, #27d427); /* A green to light green gradient */
+    --background-colour-for-negative-profit-data: linear-gradient( 145deg, #e40000, #ec4747); /* A red to orange gradient */
+
+
+
+
+
+
+
+    /* odds and bookmaker */
+    --width-odds-and-bookmaker: 240px;
+    --padding-left-and-right-odds-and-bookmaker: 10px;
+
+    /* at symbol */
+    --font-size-at-symbol: 16px;
+
+
+
+
+
+    /* select buttons */
+    --width-height-select-button: 35px;
+    --margin-left-select-button: 10px;
+    --select-button-background-colour: #ff00c6;
+    --font-size-select-button: 22px;
+    --select-button-background-colour-hover: #ff33d1;
+
+
+
+
+
+
+    /* pagintion */
+
+    --margin-between-pagination-buttons-and-pages: 100px;
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+button:hover, a:hover {
+    cursor: pointer;
+}
+
+
+
+/* above columns and filter panel container */
+
+.above-columns, #filter-panel-container {
+    flex-direction: row;
+}
+
+.above-columns {
+    border-radius: var(--larger-border-radius-above-columns-panel)
+}
+
+
+
+
+
+
+/* above columns items */
+
+.above_columns_row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: calc(var(--padding-left-right-above-columns) / 1.8) var(--padding-left-right-above-columns);
+}
+
+.above-columns-item-switch-item, .get-alerts-above-item {
+    flex: 0;
+}
+
+
+.above_columns_item {
+    display: flex;
+    align-items: center;
+    flex: 0;
+}
+
+
+.refresh_row_item {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+} 
+
+.save-filter-button, .refresh_results {
+    width: var(--width-buttons-above-columns);
+}
+
+.switch_container:hover, .switch:hover, .slider:hover {
+    cursor: pointer;
+}
+
+.confirm-filter-name {
+    width: calc(var(--width-buttons-above-columns) / 1.7);
+    margin-right: 0;
+}
+
+.init_hidden_row_above_columns {
+    margin-right: var(--refresh-results-margin-against-timer)
+}
+
+.cancel-making-filter-div {
+    align-items: center;
+    margin: auto 0;
+    margin-right: 0;
+}
+
+.div-outside-filter-dropdown {
+    width: var(--width-filter-details-above-columns);
+}
+
+.filter-dropdown-name-div .div-outside-filter-dropdown {
+    width: calc(var(--width-filter-details-above-columns) * 1.2);
+}
+
+.div-outside-filter-dropdown, .div-outside-switch {
+    margin-top: calc((var(--margin-left-and-bottom-filter-label) + var(--height-of-filter-label)) * -1);
+}
+
+.div-outside-filter-dropdown-select-filters, .div-outside-filter-dropdown-name-filter {
+    margin-right: var(--refresh-results-margin-against-timer);
+}
+
+#data_timer {
+    margin-right: var(--refresh-results-margin-against-timer);
+    font-size: calc(1.4 * var(--global-main-font-size));
+}
+
+.refresh_results {
+    margin-top: 0;
+}
+
+.get-alerts-button {
+    background: var(--background-colour-filters);
+    border: var(--border-filters);
+}
+
+
+
+
+
+
+/* filter panel container items */
+.filter-row {
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* content around table and select buttons */
+
+#outer-content-div {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    width: var(--global-container-width);
+}
+
+#content {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add table wrapper styles */
+.table-wrapper {
+    position: relative;
+    overflow: visible;
+    border-collapse: collapse;
+    width: 100%; 
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--global-border-radius);
+    width: 100%;
+    margin: 0;
+    background: var(--global-main-background-colour);
+    border: var(--global-border-main);
+    box-shadow: var(--global-box-shadow-main);
+    overflow: visible;
+    transition: box-shadow 0.3s;
+    margin-top: var(--global-gap-between-main-items);
+}
+
+
+ 
+.table-header {
+    background: linear-gradient(180deg, var(--inner-background-colour), var(--global-main-background-colour));
+    z-index: 1;
+}
+
+.table-header th:first-child {
+    border-top-left-radius: var(--global-border-radius);
+}
+
+.table-header th:last-child {
+    border-top-right-radius: var(--global-border-radius);
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--global-border-radius);
+}
+
+tbody tr:last-child td:last-child:first-child:last-child, /* this is for making sure it always gets corners right by checking if it's both first and last child */
+tbody tr:last-child td:nth-last-child(2) {
+    border-bottom-right-radius: var(--global-border-radius);
+}
+
+th, td {
+    padding: var(--table-header-and-data-items-padding-top-and-bottom) var(--table-header-and-data-items-padding-sides); 
+    text-align: center;
+    font-size: var(--font-size-header);
+    width: 1%;
+}
+ 
+th {
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: var(--table-data-first-background-colour); 
+}
+tbody tr:nth-child(odd) td {
+    background-color: var(--table-data-second-background-colour);
+}
+tbody tr:hover td {
+    background-color: var(--table-data-hover-colour);
+}
+ 
+td {
+    font-size: var(--font-size-data);
+    transition: background-color 0.3s; 
+}
+
+.header_with_sorting {
+    padding-bottom: var(--padding-bottom-header-with-sorting);
+    width: min-content;
+    white-space: nowrap;
+}
+
+.header_with_sorting span,
+.header_with_sorting img {
+    display: block;
+    margin: 0 auto;
+}
+
+.sort_by {
+    width: var(--width-sort-by);
+    margin-top: var(--margin-top-sort-by) !important;
+}
+
+.sort_by:hover {
+    cursor: pointer;
+}
+
+.sort_by_highlighted {
+    content: url("https://img.icons8.com/?size=100&id=69881&format=png&color=ff00c6");
+}
+
+.container_in_expected_profit_header {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: var(--min-width-container-in-expected-profit-header);
+
+}
+
+td[id^='date_time_'] {
+    line-height: var(--line-height-for-date-and-time-data);
+}
+
+
+td[id^='fixture'], td[id^='outcome'], th[id^='fixture'], th[id^='outcome'] {
+    text-align: left;
+    width: auto;
+}
+
+
+
+div[class='expected_profit_data'] {
+    display: flex;  
+}
+
+td[id^='rating_'] {
+    font-weight: bold;
+}
+
+.negative_profit_data, .positive_profit_data {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    height: var(--row-height-set-by-expected-profit-data);
+    transition: background 0.3s ease-in-out;
+    background: var(--background-colour-for-positive-profit-data); 
+
+}
+
+.negative_profit_data {
+    background: var(--background-colour-for-negative-profit-data); 
+}
+
+
+
+.no_padding_margin {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div[class='odds_and_bookmaker'] {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: var(--width-odds-and-bookmaker);
+    padding: 0 var(--padding-left-and-right-odds-and-bookmaker);
+    justify-self: center;
+}
+
+.bookmaker_logo_img, .exchange_logo_img, .back_odds_value, .lay_odds_value {
+    display: flex;
+    align-items: center;
+    height: calc(var(--row-height-set-by-expected-profit-data) / 2);
+    border-radius: var(--border-radius-filter-inputs);
+    color: white;
+}
+
+.back_odds_value {
+    background: linear-gradient( 145deg, #007bff, #5396de); /* A green to light green gradient */
+}
+
+.lay_odds_value {
+    background: linear-gradient( 145deg, rgb(225, 104, 124), rgb(230, 127, 144)); /* A green to light green gradient */
+}
+
+.back_odds_value a, .lay_odds_value a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--padding-left-and-right-odds-and-bookmaker);
+}
+
+.at_symbol {
+    font-size: var(--font-size-at-symbol);
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table_data_row {
+    position: relative;
+}
+
+.select_button {
+    position: absolute;
+    right: calc(-1 * (var(--width-height-select-button) + var(--margin-left-select-button)));
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--width-height-select-button);
+    height: var(--width-height-select-button);
+    background: var(--select-button-background-colour);
+    border-radius: 50%;
+    color: white;
+    font-size: var(--font-size-select-button);
+    border: 0;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.select_button:hover {
+    background: var(--select-button-background-colour-hover);
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+#pagination-container {
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+}
+
+#pagination-container button {
+    padding: var(--padding-pagination-container);
+}
+
+#pagination-container span {
+    margin: 0 var(--margin-between-pagination-buttons-and-pages);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.loading, .no-data-div {
+    border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+}
+.loading-row-td, .no-data-div-td {
+    padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* this is important as it will otherwise show the hidden items */ 
+.hidden_row_above_columns {
+    display: none;
+}
+
+
+/* necessary so the upgrade box is in middle of items */
+
+.box3 {
+    padding-top: var(--padding-top-box-so-upgrade-button-is-in-middle);
 }
