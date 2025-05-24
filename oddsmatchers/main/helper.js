@@ -22,6 +22,8 @@ const DesktopHeaderDictionary = {
             <img id='sort_by_img_dt' class="sort_by" data-sort="date and time" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by date and time" >
         </div>
     </th>`,
+
+    'sport': `<th id="sport_header">Sport</th>`,
     
     'fixture': `<th id="fixture_header">Fixture</th>`,
 
@@ -30,6 +32,8 @@ const DesktopHeaderDictionary = {
     'race': `<th id="fixture_header">Race</th>`,
     
     'outcome': `<th id="outcome_header">Team</th>`,
+
+    'selection': `<th id="outcome_header">Selection</th>`,
     
     'horse': `<th id="outcome_header">Horse</th>`,
     
@@ -67,6 +71,17 @@ const DesktopHeaderDictionary = {
     </th>`,
 
     'expected profit extra place': `<th id="expected_profit_header" class="header_with_sorting" >£10 E/W Stake Profit<br>(No EP / EP)
+        <div class="container_in_expected_profit_header">
+            <div >
+                <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+            </div>
+            <div >
+                <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by potential profit" >
+            </div>
+        </div>
+    </th>`,
+
+    'expected profit standard': `<th id="expected_profit_header" class="header_with_sorting" >Expected Profit<br>(£10 Stake / £30 Free Bet)
         <div class="container_in_expected_profit_header">
             <div >
                 <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
@@ -1653,12 +1668,23 @@ export function runSpecificScript(scope, state) {
     // if is tutorial is true, make it select all .above_columns_row and add the class .hidden_row_above_columns EXCEPT FOR THE LAST ROW
     // so tutorial only shows refresh and timer
     if (state.is_tutorial) {
-        const rows = scope.querySelectorAll('.above_columns_row');
-        rows.forEach((row, index) => {
-            if (index < rows.length - 1) {
-                row.classList.add('hidden_row_above_columns');
-            }
-        });
+
+        if (state.is_desktop) {
+            let above_columns_items = scope.querySelectorAll('.above_columns_item');
+            above_columns_items.forEach((item) => {
+                if (!item.classList.contains('refresh_row_item')) {
+                    item.classList.add('hidden_row_above_columns');
+                }
+            });
+
+        } else {
+            const rows = scope.querySelectorAll('.above_columns_row');
+            rows.forEach((row, index) => {
+                if (index < rows.length - 1) {
+                    row.classList.add('hidden_row_above_columns');
+                }
+            });
+        }
     }
     
 }
