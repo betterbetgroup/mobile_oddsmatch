@@ -467,6 +467,10 @@ td {
     margin: 0 auto;
 }
 
+.header_with_sorting_horse_race {
+    justify-items: flex-start;
+}
+
 .sort_by {
     width: var(--width-sort-by);
     margin-top: var(--margin-top-sort-by) !important;

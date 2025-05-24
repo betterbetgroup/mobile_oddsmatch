@@ -51,7 +51,22 @@ const DesktopHeaderDictionary = {
         <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
     </th>`,
 
+    'implied odds': `<th class="header_with_sorting" ><span>Implied<br>Odds</span>
+        <img id='sort_by_img_implied_odds' class="sort_by" data-sort="Implied Odds" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
+    </th>`,
+
     'expected profit 2up': `<th id="expected_profit_header" class="header_with_sorting" >Profit on £10 Stake<br>(No FTA / FTA)
+        <div class="container_in_expected_profit_header">
+            <div >
+                <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+            </div>
+            <div >
+                <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by potential profit" >
+            </div>
+        </div>
+    </th>`,
+
+    'expected profit extra place': `<th id="expected_profit_header" class="header_with_sorting" >£10 E/W Stake Profit<br>(No EP / EP)
         <div class="container_in_expected_profit_header">
             <div >
                 <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
