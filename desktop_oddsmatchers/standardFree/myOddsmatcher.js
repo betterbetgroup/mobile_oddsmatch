@@ -1,7 +1,7 @@
 
 //import * as Helpers from '../../oddsmatchers/main/helper.js';
 
-import * as Helpers from 'public/custom-elements/oddsmatcher-helper.js'
+import * as Helpers from 'public/custom-elements/main-helper.js'
 
 
 (function () {
