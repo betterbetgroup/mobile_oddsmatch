@@ -24,17 +24,23 @@ const DesktopHeaderDictionary = {
     </th>`,
     
     'fixture': `<th id="fixture_header">Fixture</th>`,
-    
-    'outcome': `<th id="outcome_header">Team</th>`,
+
+    'event': `<th id="fixture_header">Event</th>`,
 
     'race': `<th id="fixture_header">Race</th>`,
+    
+    'outcome': `<th id="outcome_header">Team</th>`,
     
     'horse': `<th id="outcome_header">Horse</th>`,
     
     'back odds': `<th id="back_odds_header" >Back Odds & Bookmaker</th>`,
-    
     'lay odds': `<th id="lay_odds_header" >Lay Odds & Exchange</th>`,
-    
+    'place lay odds': `<th id="lay_odds_header" >Lay Odds & Exchange</th>`,
+
+    'first bet': `<th id="back_odds_header" >First Bet</th>`,
+    'second bet': `<th id="lay_odds_header" >Second Bet</th>`,
+    'third bet': `<th id="place_lay_odds_header" >Third Bet</th>`,
+
     'rating': `<th class="header_with_sorting" ><span>Bet<br>Rating</span>
         <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
     </th>`,
@@ -51,6 +57,12 @@ const DesktopHeaderDictionary = {
     </th>`,
 
     'qualifying loss': `<th id="expected_profit_header" class="header_with_sorting" >Qualifying<br>Loss
+        <div >
+            <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+        </div>
+    </th>`,
+
+    'profit': `<th id="expected_profit_header" class="header_with_sorting" >Bet<br>Profit
         <div >
             <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
         </div>
@@ -596,6 +608,7 @@ export function filterData(scope, state) {
     state.filteredData = state.filter_function(state.globalData, state.globalFilters);
         
     setupPagination(scope, state);
+
 }
 
 export function setupPagination(scope, state) {
@@ -659,6 +672,10 @@ export function appendRows(rows, scope, state) {
     rows.forEach(row => {
         state.create_row_function(row, scope, state);
     });
+
+    if (state.is_desktop && state.oddsmatcher_type == 'dutching') {
+        check_if_showing_third_bet_dutching(scope, state);
+    }
 }
 
 export function add_no_data_row(scope, state) {
@@ -798,9 +815,30 @@ export function add_lock_if_premium(scope, state) {
 
 
 
+function check_if_showing_third_bet_dutching(scope, state) {
+
+    const placeLayOddsItems = scope.querySelectorAll('.place_lay_odds_data');
+
+    let has_third_bet_display = 'none';
+    
+    for (const rowItem of placeLayOddsItems) {
+        if (!rowItem.classList.contains('hide_data')) {
+            has_third_bet_display = 'table-cell';
+        }
+    }
+
+    const layOddsHeader = scope.querySelector('#place_lay_odds_header');
+    const layOddsTds = scope.querySelectorAll('td.hide_data');
 
 
+    if (layOddsHeader) {
+        layOddsHeader.style.display = has_third_bet_display;
+    }
+    layOddsTds.forEach(td => {
+        td.style.display = has_third_bet_display;
+    });
 
+}
 
 
 

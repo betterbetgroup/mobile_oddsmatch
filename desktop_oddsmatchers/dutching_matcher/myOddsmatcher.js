@@ -1,12 +1,19 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+//import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 //import * as Helpers from 'public/custom-elements/mobile-helper.js'
+
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/dutching_matcher/styles.css';
+
+    html_script = '../main/z.html';
+    styles_script = 'styles.css';
+    
 
     // Create state object
     const state = {
@@ -100,8 +107,13 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
         ],
         is_tutorial: false,
-        oddsmatcher_type: 'dutching'
+        oddsmatcher_type: 'dutching',
+        is_desktop: true,
+        desktop_header_columns: ['date and time', 'event', 'first bet', 'second bet', 'third bet', 'profit', 'rating']
+        
     };
+
+
 
     class dutchingOddsmatcher extends HTMLElement {
 
@@ -138,6 +150,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
+                    window.addEventListener('resize', () => Helpers.handleResize(this.shadowRoot));
                 });
             });
         }
@@ -159,11 +172,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 this.attributeChangeQueue.push({ name, oldValue, newValue });
             }
         }
-
-
-
-
-
 
 
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
@@ -234,20 +242,18 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         
         }
     
+
         create_row(row, scope) {
 
 
-
-            row.first_image = Helpers.get_bookmaker_image(row.first_bookmaker)
-            row.second_image = Helpers.get_bookmaker_image(row.second_bookmaker)
-            row.third_image = Helpers.get_bookmaker_image(row.third_bookmaker)
-        
-        
+            let bookmaker_image = Helpers.get_bookmaker_image(row.first_bookmaker)
+            let win_exchange_image = Helpers.get_bookmaker_image(row.second_bookmaker)
+            let place_exchange_image = Helpers.get_bookmaker_image(row.third_bookmaker)
+                
             let first_outcome = '';
             let second_outcome = '';
             let third_outcome = '';
-        
-        
+                
             if (row.market_type == 'Match Odds') {
                 first_outcome = 'HOME';
                 second_outcome = 'DRAW';
@@ -284,83 +290,118 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             }
             if (potential_profit == '+0.00') {
                 potential_profit = '£0.00'
-            }            
-            
+            }
+        
+            const tr = document.createElement('tr');
+        
+            tr.className = 'table_data_row';
+            tr.setAttribute('data-id', row._id)
+        
+            tr.innerHTML = `
+        
+                <td id="date_time_${row._id}" class="date_and_time_data" >${row.date_and_time}</td>
+        
+                <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
+        
+        
+        
+        
+                <td id="back_odds_data_${row._id}" class="no_padding_margin">
+                    <div class="odds_and_bookmaker" id='back_each_way_odds_and_bookmaker'>
+        
+        
+                        <div id="first_outcome_${row._id}" class="outcome_value">
+                            <a ${row.first_link ? `href="${row.first_link}" target="_blank"` : ''} class="odds-link">${first_outcome}</a>
+                        </div>    
+        
+                        <div id="back_odds_value_${row._id}" class="back_odds_value">
+                            <a ${row.first_link ? `href="${row.first_link}" target="_blank"` : ''} class="odds-link">${row.first_odds}</a>
+                        </div>    
+        
+                        <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
+                            <a class="div_around_logo" ${row.first_link ? `href="${row.first_link}" target="_blank"` : ''} >
+                                <img class='bookmaker_logo_img' src="${bookmaker_image}" alt="${row.sport} ${row.bookmaker} each way bet">
+                            </a>
+                        </div>
+                    </div>                
+                </td>
+        
+                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
+        
+        
+                    <div class="odds_and_bookmaker" id='win_lay_odds_and_bookmaker'>
+        
+                        <div id="second_outcome_${row._id}" class="outcome_value">
+                            <a ${row.second_link ? `href="${row.second_link}" target="_blank"` : ''} class="odds-link">${second_outcome}</a>
+                        </div>    
+        
+                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
+                            <a ${row.second_link ? `href="${row.second_link}" target="_blank"` : ''} class="odds-link">${row.second_odds}</a>
+                        </div>
+                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
+                            <a class="div_around_logo" ${row.second_link ? `href="${row.second_link}" target="_blank"` : ''} >
+                                <img class='exchange_logo_img' src="${win_exchange_image}" alt="${row.sport}" >
+                            </a>
+                        </div>
+                    </div>                
+                </td>
 
-            const card = document.createElement('div');
-            card.className = 'mobile-card outer-mobile-card';
-            card.setAttribute('data-id', row._id);
-
-
-            card.innerHTML = `
-                    <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
-                            <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
-                            <div class="mobile-row"><strong>Event:</strong> <span>${row.fixture}</span></div>
-                            
-                            <div class="mobile-row">
-                                <strong>First Bet:</strong>
-                                
-                                <div class="div-outside-odds-combo">
-                                    <a>${row.first_outcome}</a> 
-                                    <span class="odds-combo">
-                                        <a>${row.first_odds}</a> 
-                                        <span class="mobile_at_symbol" >@</span>
-                                        <a href="${row.first_link}" target="_blank" rel="noopener noreferrer">
-                                            <img src="${row.first_image}" class="logo-img">
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="mobile-row">
-                                <strong>Second Bet:</strong>
-
-                                <div class="div-outside-odds-combo">
-                                    <a>${row.second_outcome}</a> 
-                                    <span class="odds-combo">
-                                        <a>${row.second_odds}</a> 
-                                        <span class="mobile_at_symbol" >@</span>
-                                        <a href="${row.second_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row.second_image}" class="logo-img">
-                                        </a>
-                                    </span>
-                                </div>
-
-                            </div>
-
-                            ${parseInt(row.outcomes) === 3 ? `
-                                <div class="mobile-row">
-                                    <strong>Third Bet:</strong>
-                                    
-                                    <div class="div-outside-odds-combo">
-                                        <a>${row.third_outcome}</a> 
-                                        <span class="odds-combo">
-                                            <a>${row.third_odds}</a> 
-                                            <span class="mobile_at_symbol" >@</span>
-                                            <a href="${row.third_link}" target="_blank" rel="noopener noreferrer">
-                                                <img src="${row.third_image}" class="logo-img">
-                                            </a>
-                                        </span>
-                                    </div>
-                                </div>
-                                ` : ''}
-                            
-                            <div class="mobile-row data-buttons-row">
-                                <strong>Profit & Rating:</strong>
-                                <div class="expected-profit-box">
-                                    <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
-                                    <div class="rating-badge">${row.rating}</div>
-                                </div>
-                            </div>
+        
+                <td id="place_lay_odds_data_${row._id}" class="place_lay_odds_data no_padding_margin ${parseInt(row.outcomes) !== 3 ? 'hide_data' : ''}">
+                    
+                    <div class="odds_and_bookmaker" id='place_lay_odds_and_bookmaker'>
+        
+                        <div id="third_outcome_${row._id}" class="outcome_value">
+                            <a ${row.third_link ? `href="${row.third_link}" target="_blank"` : ''} class="odds-link">${third_outcome}</a>
+                        </div>    
+        
+                        <div id="lay_odds_value_${row._id}" class="lay_odds_value lay_odds_value_2">
+                            <a ${row.third_link ? `href="${row.third_link}" target="_blank"` : ''} class="odds-link">${row.third_odds}</a>
+                        </div>
+                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
+                            <a class="div_around_logo" ${row.third_link ? `href="${row.third_link}" target="_blank"` : ''} >
+                                <img class='exchange_logo_img' src=${parseInt(row.outcomes) === 3 ? place_exchange_image : win_exchange_image} alt="${row.sport}" >
+                            </a>
+                        </div>
+                    </div>  
+        
+                </td>
+                
+        
+        
+        
+        
+                <td class="no_padding_margin">
+                    <div class="expected_profit_data">
+                        <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
                     </div>
+                </td>
+        
+        
+                <td id="rating_${row._id}" class="rating_data">
+                    ${row.rating}
+                </td>
+        
             `;
         
-            //<button class="select_button">Select</button>
-
-            const mobileContainer = scope.querySelector('.mobile-container');
-            mobileContainer.appendChild(card);
         
+
+            const tableBody = scope.querySelector('table tbody');
+            tableBody.appendChild(tr);
+        
+            // Create and append button directly to the row
+            if (state.is_premium_member) {
+                let selectButton = document.createElement('button');
+                selectButton.innerHTML = '+';
+                selectButton.className = 'select_button';
+                selectButton.setAttribute('data-id', row._id);
+                selectButton.setAttribute('aria-label', row._id);
+                tr.appendChild(selectButton);
+            }
+
+            
         }
+
 
         filter_bookmakers_and_exchanges(scope, state) {
 

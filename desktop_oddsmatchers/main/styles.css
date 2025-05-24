@@ -152,10 +152,15 @@
     /* ROW HEIGHT IS SET BY THE EXPECTED PROFIT DATA HEIGHT */
     --row-height-set-by-expected-profit-data: 65px;
 
+    /* height for odds and bookmaker images */
+    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2);
+
     /* background colours for positive and negative profit data */
     --background-colour-for-positive-profit-data: linear-gradient( 145deg, #00ab00, #27d427); /* A green to light green gradient */
     --background-colour-for-negative-profit-data: linear-gradient( 145deg, #e40000, #ec4747); /* A red to orange gradient */
 
+    /* max width for outcome value in dutching matcher */
+    --max-width-outcome-value-dutching-matcher: 60px;
 
 
 
@@ -165,6 +170,8 @@
     /* odds and bookmaker */
     --width-odds-and-bookmaker: 240px;
     --padding-left-and-right-odds-and-bookmaker: 10px;
+
+    --min-width-odds-button: 55px;
 
     /* at symbol */
     --font-size-at-symbol: 16px;
@@ -552,7 +559,7 @@ div[class='odds_and_bookmaker'] {
 .bookmaker_logo_img, .exchange_logo_img, .back_odds_value, .lay_odds_value {
     display: flex;
     align-items: center;
-    height: calc(var(--row-height-set-by-expected-profit-data) / 2);
+    height: var(--height-odds-and-bookmaker-images);
     border-radius: var(--border-radius-filter-inputs);
     color: white;
 }
@@ -565,7 +572,7 @@ div[class='odds_and_bookmaker'] {
     background: linear-gradient( 145deg, rgb(225, 104, 124), rgb(230, 127, 144)); /* A green to light green gradient */
 }
 
-.back_odds_value a, .lay_odds_value a {
+.back_odds_value a, .lay_odds_value a, .outcome_value a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -574,13 +581,20 @@ div[class='odds_and_bookmaker'] {
     font-weight: bold;
     width: 100%;
     height: 100%;
-    padding: 0 var(--padding-left-and-right-odds-and-bookmaker);
+    padding: 0;
+    min-width: var(--min-width-odds-button);
 }
 
 .at_symbol {
     font-size: var(--font-size-at-symbol);
     display: none;
 }
+
+.outcome_value {
+    max-width: var(--max-width-outcome-value-dutching-matcher);
+    min-width: var(--max-width-outcome-value-dutching-matcher);
+}
+
 
 
 
@@ -693,3 +707,11 @@ div[class='odds_and_bookmaker'] {
 .box3 {
     padding-top: var(--padding-top-box-so-upgrade-button-is-in-middle);
 }
+
+
+
+
+
+
+
+
