@@ -11,16 +11,16 @@
 #outer-container-div {
 
     /* odds and bookmaker */
-    --width-odds-and-bookmaker: 270px;
+    --width-odds-and-bookmaker: 19.29vw;
 
     /* height for odds and bookmaker images */
     --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2.4);
 
     /* padding around bookmaker images and odds */ 
-    --padding-left-and-right-odds-and-bookmaker: 3px;
+    --padding-left-and-right-odds-and-bookmaker: 0.21vw;
 
     /* padding around odds anchor */
-    --min-width-odds-button: 50px;
+    --min-width-odds-button: 3.57vw;
 
 }
 
