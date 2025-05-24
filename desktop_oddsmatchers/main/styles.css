@@ -158,8 +158,8 @@
     --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2);
 
     /* background colours for positive and negative profit data */
-    --background-colour-for-positive-profit-data: linear-gradient( 145deg, rgba(0,171,0,0.5), rgba(39,212,39,0.2)); /* A green to light green gradient at 50% opacity */
-    --background-colour-for-negative-profit-data: linear-gradient( 145deg, rgba(228,0,0,0.5), rgba(236,71,71,0.2)); /* A red to orange gradient at 50% opacity */
+    --background-colour-for-positive-profit-data: linear-gradient( 145deg, rgba(0,171,0,0.5), rgba(39,212,39,0.15)); /* A green to light green gradient at 50% opacity */
+    --background-colour-for-negative-profit-data: linear-gradient( 145deg, rgba(228,0,0,0.5), rgba(236,71,71,0.15)); /* A red to orange gradient at 50% opacity */
 
     /* max width for outcome value in dutching matcher */
     --max-width-outcome-value-dutching-matcher: 60px;
