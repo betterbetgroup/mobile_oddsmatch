@@ -8,8 +8,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
-    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/free_bet/styles.css';
 
     html_script = '../main/z.html';
     styles_script = 'styles.css';
@@ -132,7 +132,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 
-    class TwoUpOddsmatcher extends HTMLElement {
+    class freeBetOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -413,7 +413,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
     }
 
-    customElements.define('two-up-oddsmatcher', TwoUpOddsmatcher);
+    customElements.define('freebet-oddsmatcher', freeBetOddsmatcher);
 
 
 
