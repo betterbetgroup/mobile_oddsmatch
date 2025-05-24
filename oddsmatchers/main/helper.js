@@ -41,6 +41,12 @@ const DesktopHeaderDictionary = {
     'second bet': `<th id="lay_odds_header" >Second Bet</th>`,
     'third bet': `<th id="place_lay_odds_header" >Third Bet</th>`,
 
+    'each way back bet': `<th id="each_way_back_bet_header" >Each Way Odds & Bookmaker</th>`,
+    'win lay bet': `<th id="lay_odds_header" >Win Lay Odds & Exchange</th>`,    
+    'place lay bet': `<th id="place_lay_odds_header" >Place Lay Odds & Exchange</th>`,    
+
+    'places': `<th id="extra_places_header"><span class="extra_places_header_span">Places</span></th>`,
+
     'rating': `<th class="header_with_sorting" ><span>Bet<br>Rating</span>
         <img id='sort_by_img_rating' class="sort_by" data-sort="rating" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by rating" >
     </th>`,

@@ -148,6 +148,8 @@
     /* expected profit header */
     --min-width-container-in-expected-profit-header: 180px; /* this is important so the expected profit header is 2 lines */
 
+    /* each way back bet */
+    --min-width-each-way-back-bet: 290px;
 
     /* ROW HEIGHT IS SET BY THE EXPECTED PROFIT DATA HEIGHT */
     --row-height-set-by-expected-profit-data: 65px;
@@ -156,8 +158,8 @@
     --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2);
 
     /* background colours for positive and negative profit data */
-    --background-colour-for-positive-profit-data: linear-gradient( 145deg, #00ab00, #27d427); /* A green to light green gradient */
-    --background-colour-for-negative-profit-data: linear-gradient( 145deg, #e40000, #ec4747); /* A red to orange gradient */
+    --background-colour-for-positive-profit-data: linear-gradient( 145deg, rgba(0,171,0,0.5), rgba(39,212,39,0.2)); /* A green to light green gradient at 50% opacity */
+    --background-colour-for-negative-profit-data: linear-gradient( 145deg, rgba(228,0,0,0.5), rgba(236,71,71,0.2)); /* A red to orange gradient at 50% opacity */
 
     /* max width for outcome value in dutching matcher */
     --max-width-outcome-value-dutching-matcher: 60px;
@@ -478,6 +480,7 @@ td {
     content: url("https://img.icons8.com/?size=100&id=69881&format=png&color=ff00c6");
 }
 
+
 .container_in_expected_profit_header {
     flex-direction: row;
     display: flex;
@@ -496,7 +499,6 @@ td[id^='fixture'], td[id^='outcome'], th[id^='fixture'], th[id^='outcome'] {
     text-align: left;
     width: auto;
 }
-
 
 
 div[class='expected_profit_data'] {
@@ -547,13 +549,18 @@ td[id^='rating_'] {
 
 
 
-div[class='odds_and_bookmaker'] {
+
+div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: var(--width-odds-and-bookmaker);
     padding: 0 var(--padding-left-and-right-odds-and-bookmaker);
     justify-self: center;
+}
+
+.each_way_back_bet_odds_and_bookmaker {
+    min-width: var(--min-width-each-way-back-bet);
 }
 
 .bookmaker_logo_img, .exchange_logo_img, .back_odds_value, .lay_odds_value {
