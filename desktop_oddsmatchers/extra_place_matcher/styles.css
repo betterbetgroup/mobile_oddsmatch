@@ -10,18 +10,26 @@
 #outer-container-div {
 
     /* width odds and bookmaker */
-    --width-odds-and-bookmaker: 210px;
+    --width-odds-and-bookmaker: 190px;
 
     /* height for odds and bookmaker images */
-    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2.4);
+    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2.6);
 
     /* padding around bookmaker images and odds */ 
-    --padding-left-and-right-odds-and-bookmaker: 10px;
+    --padding-left-and-right-odds-and-bookmaker: 5px;
 
     /* padding around odds anchor */
-    --min-width-odds-button: 50px;
+    --min-width-odds-button: 48px;
 
+
+    /* new width for each way back bet */
+    --min-width-each-way-back-bet: 265px;
+
+
+    /* padding around expected profit extra place */
     --padding-left-and-right-for-expected-profit-extra-place: 2px;
+
+
 
 }
 
@@ -33,4 +41,9 @@ td.hide_data > * {
 #expected_profit_header {
     padding-left: var(--padding-left-and-right-for-expected-profit-extra-place);
     padding-right: var(--padding-left-and-right-for-expected-profit-extra-place);
+}
+
+.outcome_data, .fixture_data {
+    padding-bottom: 0;
+    padding-top: 0;
 }

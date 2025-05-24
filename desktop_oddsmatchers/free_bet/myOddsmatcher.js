@@ -9,7 +9,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/extra_place_matcher/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
     html_script = '../main/z.html';
     styles_script = 'styles.css';
@@ -23,7 +23,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         filteredData: [],
         currentPage: 1,
         rowsPerPage: 10,
-        current_sort: 'date and time',
+        current_sort: 'qualifying loss',
         globalFilters: {},
         customFilters: {},
         data_loaded_from_wix: false, 
@@ -60,7 +60,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             },
             {
                 name: 'minBackOdds',
-                type: 'number',
+                type: 'number', 
                 input_id: 'min-back-odds',
                 filter_id: 'min-back-odds',
                 default: null
@@ -73,31 +73,17 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 default: null
             },
             {
-                name: 'minImpliedOdds',
+                name: 'minRating',
                 type: 'number',
-                input_id: 'min-Implied Odds',
-                filter_id: 'min-Implied Odds',
+                input_id: 'min-rating',
+                filter_id: 'min-rating',
                 default: null
             },
             {
-                name: 'maxImpliedOdds',
+                name: 'maxRating',
                 type: 'number',
-                input_id: 'max-Implied Odds',
-                filter_id: 'max-Implied Odds',
-                default: null
-            },
-            {
-                name: 'minPlaces',
-                type: 'number',
-                input_id: 'min-places',
-                filter_id: 'min-places',
-                default: null
-            },
-            {
-                name: 'minExtraPlaces',
-                type: 'number',
-                input_id: 'min-extra_places',
-                filter_id: 'min-extra_places',
+                input_id: 'max-rating',
+                filter_id: 'max-rating',
                 default: null
             },
             {
@@ -121,33 +107,32 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         set_bookmakers_and_exchanges_function: null,
         sort_options: [
             {
-                value: 'Implied Odds',
-                text: 'Sort By Implied Odds'
-            },
-            {
                 value: 'qualifying loss',
                 text: 'Sort By Qualifying Loss'
-            },  
+            },
             {
-                value: 'potential profit',
+                value: 'potential profit', 
                 text: 'Sort By Potential Profit'
+            },
+            {
+                value: 'rating',
+                text: 'Sort By Rating'
             },
             {
                 value: 'date and time',
                 text: 'Sort By Date'
             }
-            
-        ]     ,
-        is_tutorial: false,  
-        oddsmatcher_type: 'extra_place',
+        ],
+        is_tutorial: false,
+        oddsmatcher_type: '2up',
         is_desktop: true,
-        desktop_header_columns: ['race', 'horse', 'places', 'each way back bet', 'win lay bet', 'place lay bet', 'expected profit extra place', 'implied odds']
+        desktop_header_columns: ['date and time', 'fixture', 'outcome', 'back odds', 'lay odds', 'expected profit 2up', 'rating']
         
     };
 
 
 
-    class extraPlaceOddsmatcher extends HTMLElement {
+    class TwoUpOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -206,8 +191,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         }
 
 
-
-
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
 
             function parseDateAndTime_filterData(dateString) {
@@ -216,30 +199,24 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 const [hour, minute] = time.split(':');
                 return new Date(`20${year}`, month - 1, day, hour, minute);
             }
-    
+
             const now = new Date(); 
-    
+        
             return globalData.filter(row => {
         
                 const bookmakerMatch = globalFilters.bookmakers.includes(row.bookmaker);
-                const exchangeMatch = globalFilters.exchanges.includes(row.win_exchange) && globalFilters.exchanges.includes(row.place_exchange);
-                const liquidityMatch = globalFilters.minLiquidity === null || (parseFloat(row.exchange_place_liquidity) >= globalFilters.minLiquidity) && (parseFloat(row.exchange_win_liquidity) >= globalFilters.minLiquidity);
-                const backOddsMatch = (globalFilters.minBackOdds === null || parseFloat(row.bookmaker_each_way_odds) >= globalFilters.minBackOdds) &&
-                                      (globalFilters.maxBackOdds === null || parseFloat(row.bookmaker_each_way_odds) <= globalFilters.maxBackOdds);
-                const ImpliedOddsMatch = (globalFilters.minImpliedOdds === null || parseFloat(row.implied_odds) >= globalFilters.minImpliedOdds) &&
-                                    (globalFilters.maxImpliedOdds === null || parseFloat(row.implied_odds) <= globalFilters.maxImpliedOdds);
-                const placesMatch = globalFilters.minPlaces === null || parseFloat(row.bookmaker_places) >= globalFilters.minPlaces;
-                const extraPlacesMatch = globalFilters.minExtraPlaces === null || parseFloat(row.extra_places) >= globalFilters.minExtraPlaces;
+                const exchangeMatch = globalFilters.exchanges.includes(row.exchange);
+                const liquidityMatch = globalFilters.minLiquidity === null || parseFloat(row.lay_liquidity) >= globalFilters.minLiquidity;
+                const backOddsMatch = (globalFilters.minBackOdds === null || parseFloat(row.back_odds) >= globalFilters.minBackOdds) &&
+                                    (globalFilters.maxBackOdds === null || parseFloat(row.back_odds) <= globalFilters.maxBackOdds);
+                const ratingMatch = (globalFilters.minRating === null || parseFloat(row.rating.replace('%', '')) >= globalFilters.minRating) &&
+                                    (globalFilters.maxRating === null || parseFloat(row.rating.replace('%', '')) <= globalFilters.maxRating);
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
                 const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
-        
-        
-                
         
                 // Parse row date and time
                 const rowDateTime = parseDateAndTime_filterData(row.date_and_time);
                 let timeMatch = true; // Default to true if (No Selected Filter) is set
-        
         
                 if (globalFilters.startTime) {
                     switch (globalFilters.startTime) {
@@ -262,139 +239,112 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                             timeMatch = rowDateTime >= now && (now.toDateString() === rowDateTime.toDateString() ||
                                         new Date(now.getTime() + 24 * 60 * 60 * 1000).toDateString() === rowDateTime.toDateString());
                             break;
+                        case '3days':
+                            timeMatch = rowDateTime >= now && rowDateTime <= new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+                            break;
                         default:
                             timeMatch = true;
                     }
                 }
         
-                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ImpliedOddsMatch && placesMatch && extraPlacesMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
+                return bookmakerMatch && exchangeMatch && liquidityMatch && backOddsMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
             });
-        
         
         }
     
-
         create_row(row, scope) {
 
+            function get_row_data(row) {
+        
+                let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
+                let exchange_image = Helpers.get_exchange_image(row.exchange)
+        
+                let qualifying_loss_class = 'positive_profit_data'
+                let potential_profit_class = 'positive_profit_data'
+        
+                let qualifying_loss = 0;
+                let potential_profit = 0;
+        
+                if (row.qualifying_loss.toString().includes('-')) {
+                    qualifying_loss_class = 'negative_profit_data';
+                    qualifying_loss = row.qualifying_loss;
+                } else {
+                    qualifying_loss = '+' + (row.qualifying_loss).toString();
+                }
+        
+                if (qualifying_loss == '+0.00') {
+                    qualifying_loss = '£0.00'
+                }
+        
+                if (row.potential_profit.toString().includes('-')) {
+                    potential_profit_class = 'negative_profit_data';
+                    potential_profit = row.potential_profit;
+                } else {
+                    potential_profit = '+' + (row.potential_profit).toString();
+                }
+                if (potential_profit == '+0.00') {
+                    potential_profit = '£0.00'
+                }
+        
+                return {
+                    bookmaker_image: bookmaker_image,
+                    exchange_image: exchange_image,
+                    qualifying_loss: qualifying_loss,
+                    potential_profit: potential_profit,
+                    qualifying_loss_class: qualifying_loss_class, 
+                    potential_profit_class: potential_profit_class
+                }
+            }
 
-            let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
-            let win_exchange_image = Helpers.get_exchange_image(row.win_exchange)
-            let place_exchange_image = Helpers.get_exchange_image(row.place_exchange)
-        
-        
-            let bookmakerFraction = row.bookmaker_fraction.split('/');
-            let numerator = parseInt(bookmakerFraction[0], 10);
-            let denominator = parseInt(bookmakerFraction[1], 10);
-            bookmakerFraction = numerator / denominator;
-            let implied_back_place_odds = (((row.bookmaker_each_way_odds - 1) * bookmakerFraction) + 1).toFixed(2)
-            
-        
-            let qualifying_loss_class = 'positive_profit_data'
-            let potential_profit_class = 'positive_profit_data'
-        
-            let qualifying_loss = 0;
-            let potential_profit = 0;
-        
-            let places = row.bookmaker_places + ' (+' + row.extra_places + ')';
-        
-            if (row.qualifying_loss.toString().includes('-')) {
-                qualifying_loss_class = 'negative_profit_data';
-                qualifying_loss = row.qualifying_loss;
-            } else {
-                qualifying_loss = '+' + (row.qualifying_loss).toString();
-            }
-        
-            if (qualifying_loss == '+0.00') {
-                qualifying_loss = '£0.00'
-            }
-        
-            if (row.potential_profit.toString().includes('-')) {
-                potential_profit_class = 'negative_profit_data';
-                potential_profit = row.potential_profit;
-            } else {
-                potential_profit = '+' + (row.potential_profit).toString();
-            }
-            if (potential_profit == '+0.00') {
-                potential_profit = '£0.00'
-            }
+            let row_info = get_row_data(row);
         
             const tr = document.createElement('tr');
-    
+
             tr.className = 'table_data_row';
             tr.setAttribute('data-id', row._id)
         
             tr.innerHTML = `
-                
-                <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
-                <td class="outcome_data" id="outcome_${row._id}">${row.horse}</td>
-
-                <td id="extra_places_${row._id}" class="extra_places_data" >
-                    ${places}
-                </td>
-        
+            <td class="date_and_time_data" id="date_time_${row._id}">${row.date_and_time.replace(' ', '<br>')}</td>
+            <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
+                <td class="outcome_data" id="outcome_${row._id}">${row.outcome}</td>
         
                 <td id="back_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker each_way_back_bet_odds_and_bookmaker" id='back_each_way_odds_and_bookmaker'>
+                    <div class="odds_and_bookmaker">
                         <div id="back_odds_value_${row._id}" class="back_odds_value">
-                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.bookmaker_each_way_odds}</a>
-                        </div>    
-                        <div class="and_symbol">&</div>
-                        <div id="back_ew_odds_value_${row._id}" class="back_odds_value">
-                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${implied_back_place_odds}</a>
+                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.back_odds}</a>
                         </div>    
                         <div class="at_symbol">@</div>
                         <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
                             <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
-                                <img class='bookmaker_logo_img' src="${bookmaker_image}" alt="${row.sport} ${row.bookmaker} extra place bet">
+                                <img class='bookmaker_logo_img' src="${row_info.bookmaker_image}" alt="${row.sport} ${row.bookmaker} 2up bet">
                             </a>
                         </div>
                     </div>                
                 </td>
-        
                 <td id="lay_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker" id='win_lay_odds_and_bookmaker'>
+                    <div class="odds_and_bookmaker">
                         <div id="lay_odds_value_${row._id}" class="lay_odds_value">
-                            <a ${row.win_exchange_link ? `href="${row.win_exchange_link}" target="_blank"` : ''} class="odds-link">${row.exchange_win_odds}</a>
+                            <a ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} class="odds-link">${row.lay_odds}</a>
                         </div>
                         <div class="at_symbol">@</div>
                         <div id="exchange_logo_${row._id}" class="exchange_logo_div">
-                            <a class="div_around_logo" ${row.win_exchange_link ? `href="${row.win_exchange_link}" target="_blank"` : ''} >
-                                <img class='exchange_logo_img' src="${win_exchange_image}" alt="${row.sport} ${row.win_exchange}" >
+                            <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} >
+                                <img class='exchange_logo_img' src="${row_info.exchange_image}" alt="${row.sport} ${row.exchange}" >
                             </a>
                         </div>
                     </div>                
                 </td>
-        
-                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker" id='place_lay_odds_and_bookmaker'>
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
-                            <a ${row.place_exchange_link ? `href="${row.place_exchange_link}" target="_blank"` : ''} class="odds-link">${row.exchange_place_odds}</a>
-                        </div>
-                        <div class="at_symbol">@</div>
-                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
-                            <a class="div_around_logo" ${row.place_exchange_link ? `href="${row.place_exchange_link}" target="_blank"` : ''} >
-                                <img class='exchange_logo_img' src="${place_exchange_image}" alt="${row.sport} ${row.place_exchange}" >
-                            </a>
-                        </div>
-                    </div>                
-                </td>
-                
                 <td class="no_padding_margin">
                     <div class="expected_profit_data">
-                        <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
-                        <div id='potential_profit_${row._id}' class='${potential_profit_class}'>${potential_profit}</div>
+                        <div id='qualifying_loss_${row._id}' class='${row_info.qualifying_loss_class}'>${row_info.qualifying_loss}</div>
+                        <div id='potential_profit_${row._id}' class='${row_info.potential_profit_class}'>${row_info.potential_profit}</div>
                     </div>
                 </td>
-        
                 <td id="rating_${row._id}">
-                    ${row.implied_odds}
+                    ${row.rating}
                 </td>
-        
             `;
         
-        
-        
-
             const tableBody = scope.querySelector('table tbody');
             tableBody.appendChild(tr);
         
@@ -412,17 +362,19 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         }
 
 
-        filter_bookmakers_and_exchanges(scope, state) {
+        
+
+        filter_bookmakers_and_exchanges(scope,state) {
 
             bookmakerImages = Object.fromEntries(
                 Object.entries(bookmakerImages)
-                .filter(([key]) => EXTRA_PLACE_BOOKMAKERS.includes(key))
+                .filter(([key]) => TWOUP_BOOKMAKERS.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
     
             exchangeImages = Object.fromEntries(
                 Object.entries(exchangeImages)
-                .filter(([key]) => EXTRA_PLACE_EXCHANGES.includes(key))
+                .filter(([key]) => TWOUP_EXCHANGES.includes(key))
                 .sort((a, b) => a[0].localeCompare(b[0]))  
             );
     
@@ -435,14 +387,12 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                         "minLiquidity": "null",
                         "minBackOdds": "null",
                         "maxBackOdds": "null",
-                        "minImpliedOdds": "null",
-                        "maxImpliedOdds": "null",
-                        "minPlaces": "null",
-                        "minExtraPlaces": "null",
+                        "minRating": "null",
+                        "maxRating": "null",
                         "minQualifyingLoss": "null",
                         "minPotentialProfit": "null"
                     }
-            }
+            };
     
             state.globalFilters = {
                 bookmakers: Object.keys(bookmakerImages),
@@ -451,21 +401,19 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 minLiquidity: null,
                 minBackOdds: null,
                 maxBackOdds: null,
-                minImpliedOdds: null,
-                maxImpliedOdds: null,
-                minPlaces: null,
-                minExtraPlaces: null,
+                minRating: null,
+                maxRating: null,
                 minQualifyingLoss: null,
                 minPotentialProfit: null,
             };
     
-       
+    
         }
     
 
     }
 
-    customElements.define('extra-place-oddsmatcher', extraPlaceOddsmatcher);
+    customElements.define('two-up-oddsmatcher', TwoUpOddsmatcher);
 
 
 
