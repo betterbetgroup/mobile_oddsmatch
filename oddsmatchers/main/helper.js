@@ -1297,8 +1297,10 @@ export function open_text_box_and_confirm(scope, state) {
 
 export function close_boxes(scope, state) {
 
-    let filter_name_label = scope.querySelector('#type-filter-name');
-    filter_name_label.textContent = 'Filter Name';
+    if (!state.is_desktop) {
+        let filter_name_label = scope.querySelector('#type-filter-name');
+        filter_name_label.textContent = 'Filter Name';
+    }
 
     scope.querySelector('#get-filter-name').value = '';
 
@@ -1323,34 +1325,36 @@ export function close_boxes(scope, state) {
 
 export function get_name_and_close_boxes(scope, state) {
 
-    let filter_name_label = scope.querySelector('#type-filter-name');
 
     let filter_name = scope.querySelector('#get-filter-name').value;
 
     if (filter_name == '') {
 
+        if (!state.is_desktop) {
+            
+            let filter_name_label = scope.querySelector('#type-filter-name');
 
-        if (!filter_name_label.textContent.includes('Enter a Valid Name')) {
+            if (!filter_name_label.textContent.includes('Enter a Valid Name')) {
 
-            let newSpan = document.createElement('span');
-            let nSpan = document.createElement('span');
-            nSpan.textContent = ' ------ ';
-            newSpan.textContent = 'Enter a Valid Name';
-            newSpan.style.color = '#ff0000'; // Red color for the appended text
-            filter_name_label.appendChild(nSpan);
-            filter_name_label.appendChild(newSpan);
-
-            setTimeout(() => {
-
-                filter_name_label.textContent = 'Filter Name';
-                
-            }, 6000);
-        
+                let newSpan = document.createElement('span');
+                let nSpan = document.createElement('span');
+                nSpan.textContent = ' ------ ';
+                newSpan.textContent = 'Enter a Valid Name';
+                newSpan.style.color = '#ff0000'; // Red color for the appended text
+                filter_name_label.appendChild(nSpan);
+                filter_name_label.appendChild(newSpan);
+    
+                setTimeout(() => {
+    
+                    filter_name_label.textContent = 'Filter Name';
+                    
+                }, 6000);
+            
+            }
         }
 
 
         return '';
-
 
     }
 

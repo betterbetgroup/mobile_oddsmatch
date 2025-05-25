@@ -290,9 +290,12 @@ button:hover, a:hover {
     width: calc(var(--width-filter-details-above-columns) * 1.2);
 }
 
+/* this is for the filter label, however they currently aren't showing to see how it looks 
 .div-outside-filter-dropdown, .div-outside-switch {
     margin-top: calc((var(--margin-left-and-bottom-filter-label) + var(--height-of-filter-label)) * -1);
 }
+
+*/
 
 .div-outside-filter-dropdown-select-filters, .div-outside-filter-dropdown-name-filter {
     margin-right: var(--refresh-results-margin-against-timer);
