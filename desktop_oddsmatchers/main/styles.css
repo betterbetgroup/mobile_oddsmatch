@@ -724,8 +724,10 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
 
-
-
+/* changes since there are no longer filter labels */
+.above_columns_row {
+    padding: 0;
+}
 
 
 
