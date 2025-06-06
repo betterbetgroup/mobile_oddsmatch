@@ -1,17 +1,4 @@
-// State management
-const state = {
-    globalData: [],
-    waiting_globalData: [],
-    filteredData: [],
-    currentPage: 1,
-    rowsPerPage: 10,
-    current_sort: 'qualifying loss',
-    globalFilters: {},
-    customFilters: {},
-    is_premium_member: false,
-    sort_options: [], 
-    oddsmatcher_type: null
-};
+
 
 
 

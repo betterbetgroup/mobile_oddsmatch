@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Bet Club Offers</title>
+
+
+</head>
+
+
+<body style="background: black; margin-top: 0;">
+
+    <div id="app"  >
+        <weekly-list ></weekly-list>
+    </div>
+
+    <script type="module" src="myList.js"></script>
+
+    <script>
+        
+        let finalData = {
+    "user_suo_object": [
+    {
+        "bookmaker_name": "BetVictor",
+        "is_available": false,
+        "updated_time": "2024-09-20T22:12:03.736Z"
+    },
+    {
+        "bookmaker_name": "Vickers Bet",
+        "is_available": false,
+        "updated_time": "2024-09-20T18:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "TalkSPORT BET",
+        "is_available": false,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "StarSports",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "BetUK",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "Kwiff",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "BetWay",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "The Pools",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "BetMGM",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "CopyBet",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "Midnite",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "BetZone",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "888Sport",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "PlanetSportBet",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "Virgin Bet",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "Sky Bet",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    },
+    {
+        "bookmaker_name": "Paddy Power",
+        "is_available": true,
+        "updated_time": "2024-09-30T15:20:03.736Z"
+    }
+],
+    "premium_member": false
+}
+            setTimeout(() => {
+                document.querySelector('weekly-list').setAttribute('data-odds', JSON.stringify(finalData));
+            }, 500);
+
+
+            document.querySelector('weekly-list').addEventListener('Delete-Filter', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('weekly-list').addEventListener('Save-Filter', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('weekly-list').addEventListener('Select-Event', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('weekly-list').addEventListener('suo_array', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('weekly-list').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
+
+
+    </script>
+
+</body>
+</html>
