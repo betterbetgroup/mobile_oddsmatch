@@ -308,19 +308,6 @@ function get_availability_text(scope, state,bookmaker) {
     }
 }
 
-
-
-function add_event_listener_for_upgrade_button(scope, state) {
-    
-    scope.querySelector('#outer-container-div').addEventListener('click', (event) => {
-        if (event.target.className === 'upgrade-button' || event.target.className === 'padlock-image-button') {
-            process_upgrade_click(scope, state);
-            return;
-        }
-    });
-    
-}
-
 function process_upgrade_click(scope, state) {
     let message = {
         Upgrade: true
@@ -333,66 +320,6 @@ function process_upgrade_click(scope, state) {
     });
 
     scope.dispatchEvent(raise_event); 
-}
-
-
-export function runSpecificScript(scope, state) {
-
-    state.get_availability_text_function = get_availability_text;
-    
-    add_event_listeners(scope, state);
-
-}
-
-function add_event_listeners(scope, state) {
-
-    add_event_listener_for_sorting_dropdown(scope, state);
-
-    add_event_listener_for_search_text(scope, state);
-
-    add_event_listener_for_toggle_button(scope, state);
-
-    add_event_listener_for_upgrade_button(scope, state);
-
-}
-
-function add_event_listener_for_toggle_button(scope, state) {
-    
-    scope.querySelectorAll('.toggle-button').forEach(button => {
-        button.addEventListener('click',() => {
-            scope.querySelectorAll('.toggle-button').forEach(b => b.classList.remove('active'));
-            button.classList.add('active');
-            if (button.id == 'available') {
-                state.is_available = true;
-            } else {
-                state.is_available = false;
-            }
-
-            filterData(scope, state);
-        });
-    });
-
-}
-
-function add_event_listener_for_sorting_dropdown(scope, state) {
-    
-    const dropdown = scope.querySelector('#sort_items');
-
-    dropdown.addEventListener('change', () => {
-        state.current_sort = dropdown.value; 
-        filterData(scope, state);
-    });
-
-}
-
-function add_event_listener_for_search_text(scope, state) {
-    
-    const search_input = scope.querySelector('#search-bookmakers');
-
-    search_input.addEventListener('input', () => {
-        filterData(scope, state);
-    });
-
 }
 
 export function add_loading_row(scope, state) {
@@ -421,6 +348,152 @@ export function add_loading_row(scope, state) {
 }
 
 
+function append_sort_to_sort_options(name_for_sort, value, scope, state) {
+
+    const container = scope.getElementById('sorting-dropdown-options');
+
+    // Create the option container
+    const optionDiv = document.createElement('div');
+    optionDiv.className = 'dropdown-option-sorting';
+    optionDiv.dataset.value = value; 
+    optionDiv.textContent = name_for_sort;
+
+
+    optionDiv.addEventListener('click', () => {
+
+        state.current_sort = optionDiv.dataset.value; 
+
+        filterData(scope, state);
+
+        set_background_for_current_option(value, scope, '.dropdown-option-sorting')
+
+        scope.querySelector('#sorting-select').value = name_for_sort;
+
+    });
+
+    // Append the option container to the dropdown
+    container.appendChild(optionDiv);
+    check_options_filter_border_bottom(scope, '.dropdown-option-sorting');
+
+    if (state.current_sort == value) {
+        scope.querySelector('#sorting-select').value = name_for_sort;
+        set_background_for_current_option(value, scope, '.dropdown-option-sorting')
+    }
+
+}
+
+
+function closeAllDropdowns(scope, state) {
+
+    const dropdowns = scope.querySelectorAll('.dropdown-options');
+    dropdowns.forEach(dropdown => {
+        dropdown.style.display = 'none';
+    });
+
+    let dropdown_corners = scope.querySelectorAll('.custom-select-container:not(.select-filters-container)');
+
+    dropdown_corners.forEach((dropdown) => {
+        dropdown.classList.remove('border-radius-bottom-none')
+    });
+
+    scope.querySelector('#sorting-dropdown-options').style.display = 'none';
+    scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
+
+}
+
+
+
+
+
+
+
+
+export function runSpecificScript(scope, state) {
+
+    state.get_availability_text_function = get_availability_text;
+
+    // add in sorting options using js
+    state.sort_options.forEach(option => {
+        append_sort_to_sort_options(option.text, option.value, scope, state);
+    });
+    
+    add_event_listeners(scope, state);
+
+}
+
+
+// event listener functions for start of script
+
+function add_event_listeners(scope, state) {
+
+    add_event_listener_for_search_text(scope, state);
+
+    add_event_listener_for_toggle_button(scope, state);
+
+    add_event_listener_for_upgrade_button(scope, state);
+
+    add_event_listener_for_closing_dropdowns(scope, state);
+
+    add_event_listener_for_sorting(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options', state);
+
+}
+
+function add_event_listener_for_toggle_button(scope, state) {
+    
+    // this should be for the switch that changes from hidden to available
+
+}
+
+function add_event_listener_for_search_text(scope, state) {
+    
+    const search_input = scope.querySelector('#search-bookmakers');
+
+    search_input.addEventListener('input', () => {
+        filterData(scope, state);
+    });
+
+}
+
+function add_event_listener_for_sorting(scope, button_select, button_options, state) {
+    let container = scope.querySelector(button_select)
+
+    container.addEventListener('click', (event) => {
+        event.stopPropagation();
+
+        if (scope.querySelector(button_options).style.display == 'block') {
+            scope.querySelector(button_options).style.display = 'none'
+            container.classList.remove('border-radius-bottom-none')
+        } else {
+            closeAllDropdowns(scope, state);
+            scope.querySelector(button_options).style.display = 'block';
+            container.classList.add('border-radius-bottom-none')
+        }
+    });
+}
+
+function add_event_listener_for_upgrade_button(scope, state) {
+    
+    scope.querySelector('#outer-container-div').addEventListener('click', (event) => {
+        if (event.target.className === 'upgrade-button' || event.target.className === 'padlock-image-button') {
+            process_upgrade_click(scope, state);
+            return;
+        }
+    });
+    
+}
+
+function add_event_listener_for_closing_dropdowns(scope, state) {
+
+    scope.addEventListener('click', (event) => {
+        if (!event.target.closest('.custom-select-container:not(.select-filters-container)')) {
+            closeAllDropdowns(scope, state);
+        }
+    });
+
+}
+
+
+
 
 
 
@@ -444,7 +517,6 @@ export function loadExternalScript(scriptUrl) {
         document.head.appendChild(script);
     });
 }
-
 
 export function addStyles(scope, state, styles_script) {
 
@@ -472,7 +544,6 @@ export function addStyles(scope, state, styles_script) {
     });
 }
 
-
 export function get_bookmaker_image(bookmaker) {
     if (bookmakerImages[bookmaker]) {
         return bookmakerImages[bookmaker];
@@ -488,4 +559,39 @@ export function get_exchange_image(exchange) {
         console.log("No image found for exchange:", exchange);
         return null; // Or a default URL if you prefer
     }
+}
+
+function set_background_for_current_option(name, scope, option_name) {
+
+    remove_all_option_style(scope, option_name);
+
+    let option_divs = scope.querySelectorAll(option_name);
+    option_divs.forEach((option) => {
+        if (option.dataset.value == name) {
+            option.classList.add('active');
+        }
+    });
+}
+
+function check_options_filter_border_bottom(scope, option_name) {
+
+    const list_of_options = scope.querySelectorAll(option_name);
+
+    // Add border bottom class to all options
+    list_of_options.forEach(option => {
+        option.classList.remove('border-bottom-filters-off');
+    });
+
+    // Remove border bottom class from last option
+    if (list_of_options.length > 0) {
+        list_of_options[list_of_options.length - 1].classList.add('border-bottom-filters-off');
+    }
+    
+}
+
+function remove_all_option_style(scope, option_name) {
+    let option_divs = scope.querySelectorAll(option_name);
+    option_divs.forEach((option) => {
+        option.classList.remove('active');
+    });
 }

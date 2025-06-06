@@ -1,1 +1,81 @@
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
+
+
+#outer-container-div {
+
+    /* above columns */
+
+    
+    /* info divs at top for profit info etc */
+    --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 2);
+
+
+    /* tooltip */
+    --padding-tooltip: 8px;
+
+}
+
+.div-outside-info {
+    width: var(--width-info-items-at-top);
+    height: var(--height-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-outside-info div {
+    align-self: baseline;
+}
+
+.title_text {
+    font-weight: bold;
+}
+
+.info_text {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+
+
+
+
+
+
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--padding-tooltip);
+    background: black;
+    color: white;
+    border-radius: var(--border-radius-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    border: var(--global-border-main);
+}
+
+[data-tooltip]:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+

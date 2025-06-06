@@ -19,7 +19,13 @@ import * as Helpers from '../main/helper.js';
         globalData: {},
         filteredData: [],
         current_sort: 'none',
-        data_loaded_from_wix: false
+        data_loaded_from_wix: false,
+        sort_options: [
+            { text: 'No Sort', value: 'none' },
+            { text: 'Sort by Profit', value: 'profit' },
+            { text: 'Sort A-Z', value: 'a-z' },
+            { text: 'Sort Z-A', value: 'z-a' },
+        ]
     };
     
     class WeeklyBetClubList extends HTMLElement {
@@ -263,7 +269,7 @@ import * as Helpers from '../main/helper.js';
 
 
 
-        
+
     
 
 
