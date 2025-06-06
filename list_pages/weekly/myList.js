@@ -25,7 +25,8 @@ import * as Helpers from '../main/helper.js';
             { text: 'Sort by Profit', value: 'profit' },
             { text: 'Sort A-Z', value: 'a-z' },
             { text: 'Sort Z-A', value: 'z-a' },
-        ]
+        ], 
+        above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch']
     };
     
     class WeeklyBetClubList extends HTMLElement {
@@ -274,6 +275,13 @@ import * as Helpers from '../main/helper.js';
 
 
     }
+
+
+
+
+
+
+    
     
     customElements.define('weekly-list', WeeklyBetClubList);
     

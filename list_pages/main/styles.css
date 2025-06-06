@@ -35,6 +35,7 @@
 .info_text {
     margin-top: auto;
     margin-bottom: 0;
+    visibility: hidden;
 }
 
 
