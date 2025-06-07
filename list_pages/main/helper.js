@@ -101,10 +101,16 @@ export function add_loading_row(scope, state) {
 }
 
 function add_no_data_row(scope, state) {
+
+    let no_data_text = 'No Offers Here...'
+    if (state.list_type == 'reload') {
+        no_data_text = 'No Reload Offers Left Today...'
+    }
+
     let no_data_row;
     let no_data_content = `
         <div class="no-data-div">
-            <h2>No Offers Here...</h2>
+            <h2>${no_data_text}</h2>
         </div>
     `;
 
@@ -127,6 +133,10 @@ export function process_new_final_data(data, scope, state, page) {
 
     state.is_premium_member = data.premium_member;
     state.is_desktop = data.is_desktop;
+
+    if (state.list_type == 'reload') {
+        state.globalData = data.offer_data;
+    }
 
     adjust_classes_based_on_is_desktop(scope, state);
 
@@ -171,7 +181,11 @@ export function render(scope, state, html_script, general_info_script) {
         .then(response => response.text())
         .then(html => {
             scope.innerHTML = html;
-            return loadExternalScript(general_info_script);
+            if (state.list_type == 'reload') {
+                return;
+            } else {
+                return loadExternalScript(general_info_script);
+            }
         })
         .then(() => {
             if (state.list_type == 'weekly') {

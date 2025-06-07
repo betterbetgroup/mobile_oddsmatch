@@ -296,7 +296,7 @@
     font-weight: bold;
     font-size: var(--font-size-filter-inputs);
     z-index: 2;
-    color: white;
+    color: #02bc55;
     background: var(--global-main-background-colour);
     border-top-right-radius: var(--global-border-radius);
     border-bottom-left-radius: var(--global-border-radius);

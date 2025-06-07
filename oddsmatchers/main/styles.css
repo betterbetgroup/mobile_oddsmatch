@@ -217,10 +217,15 @@ body {
     padding: var(--loading-and-no-data-div-padding);
     border-radius: var(--global-border-radius);
     aspect-ratio: var(--loading-and-no-data-div-aspect-ratio);
+
+    background: 0;
+    border: 0;
 }
  
 .no-data-div {
     background: linear-gradient(270deg, #150020, #0c0033, #150020);
+
+    background: 0;
 }
 .no-data-div h2, .loading-text {
     font-size: var(--loading-and-no-data-div-font-size);

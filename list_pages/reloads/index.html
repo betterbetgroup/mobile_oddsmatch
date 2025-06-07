@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reload Offers</title>
+
+
+</head>
+
+<body style="background: black; margin-top: 0;">
+
+    <div id="app"  >
+        <reload-list ></reload-list>
+    </div>
+
+    <script type="module" src="myList.js"></script>
+
+    <script>
+        
+        let finalData = {
+            "user_suo_object": [],
+            "offer_data": [],
+            "premium_member": true,
+            "is_desktop": true
+        }
+            setTimeout(() => {
+                document.querySelector('reload-list').setAttribute('data-odds', JSON.stringify(finalData));
+            }, 500);
+
+
+            document.querySelector('reload-list').addEventListener('Delete-Filter', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('reload-list').addEventListener('Save-Filter', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('reload-list').addEventListener('Select-Event', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('reload-list').addEventListener('suo_array', (event)=>{
+                console.log(event)
+            })
+            document.querySelector('reload-list').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
+
+
+    </script>
+
+</body>
+</html>
