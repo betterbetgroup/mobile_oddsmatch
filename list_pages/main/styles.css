@@ -313,6 +313,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-decoration: none;
 }
 
 .offer_guide_icon {
@@ -442,7 +443,7 @@
 }
 
 .item_title_div_mobile {
-    margin-right: 80px;
+    margin-right: 90px;
 }
 
 .item_complete_switch_mobile {

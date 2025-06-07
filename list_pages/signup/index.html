@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Bet Club Offers</title>
+    <title>Profit Tracker</title>
 
 
 </head>
 
-
 <body style="background: black; margin-top: 0;">
 
     <div id="app"  >
-        <weekly-list ></weekly-list>
+        <sign-up-offer-list ></sign-up-offer-list>
     </div>
 
     <script type="module" src="myList.js"></script>
@@ -20,101 +19,28 @@
     <script>
         
         let finalData = {
-            "user_suo_object": [
-                {
-                    "bookmaker_name": "Skybet",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "skybet_bet__30__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "BetUK",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "betuk_bet__10__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "Midnite",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "midnite_bet__25__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "BetVictor",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "betvictor_bet__50__get__10_free_bet"
-                },
-                {
-                    "bookmaker_name": "TalkSPORT BET",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "talksport_bet_bet__50__get__10_free_bet"
-                },
-                {
-                    "bookmaker_name": "StarSports",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "starsports_bet__50__get__10_free_bet"
-                },
-                {
-                    "bookmaker_name": "Betway",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "betway_bet__100__get__10_free_bet"
-                },
-                {
-                    "bookmaker_name": "The Pools",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "the_pools_bet__10__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "888Sport",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "888sport_bet__20__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "Virgin Bet",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "virgin_bet_bet__20__get__5_free_bet"
-                },
-                {
-                    "bookmaker_name": "Paddy Power",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "paddy_power_bet__x__get__x_free_bet"
-                },
-                {
-                    "bookmaker_name": "Lottoland",
-                    "is_available": true,
-                    "updated_time": "2025-06-07T08:32:54.938Z",
-                    "offer_id": "lottoland_bet__25__get__8_free_bet"
-                }
-        ],
-            "premium_member": false, 
+            "user_suo_object": [],
+            "premium_member": true,
             "is_desktop": true
-}
+        }
             setTimeout(() => {
-                document.querySelector('weekly-list').setAttribute('data-odds', JSON.stringify(finalData));
+                document.querySelector('sign-up-offer-list').setAttribute('data-odds', JSON.stringify(finalData));
             }, 500);
 
 
-            document.querySelector('weekly-list').addEventListener('Delete-Filter', (event)=>{
+            document.querySelector('sign-up-offer-list').addEventListener('Delete-Filter', (event)=>{
                 console.log(event)
             })
-            document.querySelector('weekly-list').addEventListener('Save-Filter', (event)=>{
+            document.querySelector('sign-up-offer-list').addEventListener('Save-Filter', (event)=>{
                 console.log(event)
             })
-            document.querySelector('weekly-list').addEventListener('Select-Event', (event)=>{
+            document.querySelector('sign-up-offer-list').addEventListener('Select-Event', (event)=>{
                 console.log(event)
             })
-            document.querySelector('weekly-list').addEventListener('suo_array', (event)=>{
+            document.querySelector('sign-up-offer-list').addEventListener('suo_array', (event)=>{
                 console.log(event)
             })
-            document.querySelector('weekly-list').addEventListener('Upgrade', (event)=>{
+            document.querySelector('sign-up-offer-list').addEventListener('Upgrade', (event)=>{
                 console.log(event)
             })
 

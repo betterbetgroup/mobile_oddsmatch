@@ -180,6 +180,12 @@ export function render(scope, state, html_script, general_info_script, type_of_s
                 } else {
                     console.error('weekly_bet_club_list is undefined');
                 }
+            } else if (type_of_script == 'sign_up') {
+                if (typeof sign_up_offer_list !== 'undefined') {
+                    state.globalData = sign_up_offer_list;
+                } else {
+                    console.error('sign_up_offer_list is undefined');
+                }
             }
         })
         .catch(error => {

@@ -8,7 +8,7 @@ import * as Helpers from '../main/helper.js';
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/weekly.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/weekly/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
     html_script = '../main/z.html';

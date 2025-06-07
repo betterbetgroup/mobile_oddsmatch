@@ -4,11 +4,11 @@ import * as Helpers from '../main/helper.js';
 
 (function () {
 
-    let weekly_bookmakers_allowed = ['BetUK', 'Skybet', 'Midnite']
+    let sign_up_offer_bookmakers_allowed = ['Bet365', 'Betfred', 'Skybet']
 
-    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/weekly.js'
+    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/sign_up.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/weekly/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
     html_script = '../main/z.html';
@@ -32,7 +32,7 @@ import * as Helpers from '../main/helper.js';
         is_desktop: true,
     };
     
-    class WeeklyBetClubList extends HTMLElement {
+    class SignUpOfferList extends HTMLElement {
     
         constructor() {
             
@@ -55,7 +55,7 @@ import * as Helpers from '../main/helper.js';
         connectedCallback() {
             this.style.visibility = 'hidden';
 
-            Helpers.render(this.shadowRoot, this.state, html_script, general_info_script, 'weekly')  
+            Helpers.render(this.shadowRoot, this.state, html_script, general_info_script, 'sign_up')  
             .then(() => {
                 Helpers.addStyles(this.shadowRoot, this.state, styles_script)
                 .then(() => {
@@ -106,7 +106,8 @@ import * as Helpers from '../main/helper.js';
             if (state.is_premium_member) {
                 show_premium_cover = false;
             }
-            if (weekly_bookmakers_allowed.includes(row.bookmaker)) {
+            // ! THIS IS A MINOR DIFFERENCE BETWEEN WEEKLY AND SIGN UP
+            if (sign_up_offer_bookmakers_allowed.includes(row.bookmaker)) {
                 show_premium_cover = false;
             }
 
@@ -122,21 +123,23 @@ import * as Helpers from '../main/helper.js';
 
             let odds_details = `${row.odds_details} Minimum Odds`
 
-            let availability_text = 'Available';
-    
-            if (!state.is_available) {
-                availability_text = state.get_availability_text_function(scope, state, offer_id);
-                if (availability_text.includes('In 1 ')) {
-                    availability_text = availability_text.replace('Hours', 'Hour').replace('Minutes', 'Minute').replace('Days', 'Day')
-                }
+            
+
+            // ! THIS IS THE ONLY REAL DIFFERENCE BETWEEN WEEKLY AND SIGN UP
+            // ! INSTEAD OF AVAILABILITY INFO, IT HAS PROMO CODE INFO
+            let promo_code_details = `Use Promo Code '${row.promo}'`
+            if (!row.promo || row.promo == 'N/A') {
+                promo_code_details = 'No Promo Code Required'
+            } 
+
+
+
+            let profit_odds_and_availability_text = `${odds_details} \u00A0\u00A0•\u00A0\u00A0 ${promo_code_details}`
+            if (!state.is_desktop) {
+                profit_odds_and_availability_text = `•\u00A0\u00A0${odds_details} <br> •\u00A0\u00A0${promo_code_details}`
             }
 
-            let profit_odds_and_availability_text = `${odds_details} \u00A0\u00A0•\u00A0\u00A0 ${availability_text}`
-
             div.innerHTML = `
-
-
-
 
                 ${show_premium_cover ?
                     
@@ -147,8 +150,6 @@ import * as Helpers from '../main/helper.js';
                     </div>
                 
                 </div>` : ''}
-
-
 
 
                 
@@ -182,9 +183,10 @@ import * as Helpers from '../main/helper.js';
                         ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
                         
                         <div class="item_button">
-                            <button class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide}" target="_blank">
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide}" target="_blank">
                                 Offer Guide
-                            <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
+                                <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
+                            </a>
                         </div>
 
 
@@ -228,7 +230,7 @@ import * as Helpers from '../main/helper.js';
     }
 
 
-    customElements.define('weekly-list', WeeklyBetClubList);
+    customElements.define('sign-up-offer-list', SignUpOfferList);
     
     
 })();
