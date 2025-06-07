@@ -696,6 +696,10 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 .loading, .no-data-div {
     border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+    background: linear-gradient(270deg, #0a0010, #330033, #0a0010);
+}
+.no-data-div {
+    background: linear-gradient(270deg, #150020, #0c0033, #150020);
 }
 .loading-row-td, .no-data-div-td {
     padding: 0;

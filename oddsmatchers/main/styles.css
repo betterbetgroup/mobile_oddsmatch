@@ -219,7 +219,6 @@ body {
     aspect-ratio: var(--loading-and-no-data-div-aspect-ratio);
 
     background: 0;
-    border: 0;
 }
  
 .no-data-div {
