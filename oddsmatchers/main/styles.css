@@ -657,7 +657,7 @@ body {
     position: absolute;
     color: #ffffff;
     font-size: var(--font-size-currency-box);
-    z-index: 1; 
+    z-index: 3; 
     background: var(--background-currency-box); 
     height: calc(var(--height-filter-inputs) - 2 * var(--global-border-width-main));
     width: var(--width-currency-box);

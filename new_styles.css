@@ -14,6 +14,8 @@
     --padding-tooltip: 0.57vw;
 
 
+
+
     /* ITEM STUFF */
     --font-size-item-title: 1.57vw;
     --gap-between-items-in-item: 1.43vw;
@@ -31,79 +33,11 @@
     --font-size-offer-button: 1.14vw;
     --padding-left-and-right-of-offer-button: 2.50vw;
 
+
+
     /* loading div */
     --margin-top-loading-div: 7.14vw;
-
-
 }
-
-#outer-container-div.outer-container-div-mobile {
-    
-    /* MOBILE SIZE CHANGES - MAKE THIS OUTER-CONTAINER-DIV-MOBILE */
-
-    /* global - includes stuff taken from original mobile */
-    --global-border-radius: 3.50vw;
-    --global-main-font-size: 3.8vw;
-    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
-    --padding-main-containers: 5vw;
-
-    --border-radius-filter-inputs: 1.25vw;
-
-    --padding-left-filter-inputs: 1.50vw;
-    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
-    --padding-dropdown-options: 1.75vw 3.00vw;
-
-    --max-height-dropdown-options: 50.00vw;
-
-    --loading-and-no-data-div-font-size: 6.00vw;
-
-    --blur-amount: 1.3vw;
-
-
-
-    
-    /* upgrade button in upgrade div */
-    --upgrade-button-border-radius: 2.50vw;
-    --padding-upgrade-button: 2.50vw 6.25vw;
-    --font-size-upgrade-button: 4.50vw;
-    --width-height-padlock-image-in-button: 6.25vw;
-    --margin-left-padlock-image-in-button: 2.50vw;
-
-
-
-
-    /* above columns stuff */
-    --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 0.5);
-    --width-filter-details-above-columns: 100%;
-
-    --width-info-items-at-top: 100%;
-
-    --margin-top-info-text-mobile: 0.9375vw;
-
-
-    /* item stuff */
-    --font-size-item-title: 4.7vw;
-    --gap-between-items-in-item: 4vw;
-
-    --interaction-row-items-height: 9.5vw;
-    --height-filter-inputs: var(--interaction-row-items-height);
-
-
-    /* offer button */
-    --font-size-offer-button: 3.7vw;
-
-
-    /* slider */
-    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
-
-}
-
-
-
-
-
-
-
 
 
 
@@ -358,33 +292,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .above_columns_row_mobile_outer {
-    gap: calc(var(--gap-between-items-in-item) * 1.5);
+    gap: var(--gap-between-items-in-item);
 }
 
 .side_by_side_divs_in_row {
     display: flex;
     flex-direction: row;
-    width: 100%;
-}
-
-.side_by_side_divs_in_row .above_columns_item .div-outside-info {
-    height: auto;
-}
-
-.side_by_side_divs_in_row .above_columns_item .div-outside-info div {
-    align-self: center;
-}
-
-.side_by_side_divs_in_row .above_columns_item {
-    flex: 1;
-}
-
-.side_by_side_divs_in_row .above_columns_item .div-outside-info .info_text {
-    margin-top: var(--margin-top-info-text-mobile);
+    justify-content: space-around;
 }
 
 .new-above-columns {
@@ -393,35 +310,3 @@
 
 
 
-.bottom_div_interaction_rows_mobile {
-    display: flex;
-    flex-direction: row;
-    margin-top: var(--gap-between-items-in-item);
-    width: 100%;
-
-}
-
-
-
-
-.bottom_div_for_interaction_items_mobile {
-    flex-direction: column;
-}
-
-.offer_button_mobile {
-    margin-left: 0;
-    width: 50.47vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: calc(var(--interaction-row-items-height) * 4.79);
-}
-
-.item_title_div_mobile {
-    margin-right: 80px;
-}
-
-
-.item_complete_switch_mobile {
-    margin-left: auto;
-}

@@ -155,7 +155,7 @@ import * as Helpers from '../main/helper.js';
 
                 <div class="inner_div ${!show_premium_cover ? '' : 'blurred_tbody'}" >
 
-                    <div class="item_title_div" >
+                    <div class="item_title_div ${!state.is_desktop ? 'item_title_div_mobile' : ''}" >
                         ${title}
                     </div>
 
@@ -169,7 +169,7 @@ import * as Helpers from '../main/helper.js';
                         ${profit_odds_and_availability_text}
                     </div>
 
-                    <div class="bottom_div_for_interaction_items">
+                    <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
 
                         <div class="div_around_bookmaker_exhange_images"> 
                             <a class="anchor_round_bookmaker" ${row.offer ? `href="${row.offer}"` : ''} target="_blank" >
@@ -177,8 +177,12 @@ import * as Helpers from '../main/helper.js';
                             </a>
                         </div>
 
+
+
+                        ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
+                        
                         <div class="item_button">
-                            <button class="offer_button" href="${row.guide}" target="_blank">
+                            <button class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide}" target="_blank">
                                 Offer Guide
                             <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
                         </div>
@@ -187,11 +191,13 @@ import * as Helpers from '../main/helper.js';
                         <div class="div-outside-switch item-complete-switch">
                             <div class="switch_container" >
                                 <label class="switch">
-                                    <input type="checkbox" class="show_filters_switch item_complete_switch" data-id=${offer_id} id="item-complete-switch-${title}" ${!state.is_available ? 'checked' : ''}>
+                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${title}" ${!state.is_available ? 'checked' : ''}>
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
+
+                        ${!state.is_desktop ? `</div>` : ``}
 
 
 

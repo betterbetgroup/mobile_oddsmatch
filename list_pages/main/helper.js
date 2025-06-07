@@ -75,6 +75,8 @@ let above_columns_items_dict = {
 // !! THIS SHOULD BE NO BACKGROUND LOADIN THING
 export function add_loading_row(scope, state) {
 
+    // this doesn't run as it waits for is_desktop first
+
     const loadingrow = document.createElement('div');
     loadingrow.setAttribute('id', 'loadingScreenRow'); 
     loadingrow.innerHTML = `
@@ -119,7 +121,6 @@ function add_no_data_row(scope, state) {
     tableBody.append(no_data_row);
 }
 
-
 export function process_new_final_data(data, scope, state, page) {
     state.data_loaded_from_wix = true;
     data = JSON.parse(data);
@@ -155,6 +156,13 @@ function adjust_classes_based_on_is_desktop(scope, state) {
     
     // first change it to be single file 
     scope.querySelector('.item_container_div').classList.add('item_container_div_mobile');
+
+    scope.querySelector('.above_columns_row').classList.add('above_columns_row_mobile_outer');
+
+    scope.querySelector('.above-columns').classList.add('new-above-columns');
+
+    scope.querySelector('#outer-container-div').classList.add('outer-container-div-mobile');
+
 }
 
 // ! requires list specific changes
@@ -290,13 +298,13 @@ function display_items(scope, state) {
     
     scope.querySelector('.item_container_div').innerHTML = '';
 
+    scope.querySelectorAll('#noDataRow').forEach(noDataRow => {
+        noDataRow.style.display = 'none';
+    });
+
     if (state.filteredData.length == 0) {
         add_no_data_row(scope, state);
-    } else {
-        scope.querySelectorAll('#noDataRow').forEach(noDataRow => {
-            noDataRow.style.display = 'none';
-        });
-    }
+    } 
 
     state.filteredData.forEach(row => {
         state.create_item_function(scope, state, row);
@@ -398,14 +406,51 @@ function display_profit_and_offers_left(scope, state, offers_left, profit_left, 
 // the rest of these kinds of functions are at the bottom where it matched the oddsmatcher functions
 function add_in_above_columns_items(scope, state) {
 
-    state.above_columns_items.forEach(item => {
-        const item_html = above_columns_items_dict[item];
-        const new_div = document.createElement('div');
-        new_div.className = 'above_columns_item';
-        new_div.innerHTML = item_html;
-        scope.querySelector('.above_columns_row').appendChild(new_div);
+    if (state.is_desktop) {
+        state.above_columns_items.forEach(item => {
+            const item_html = above_columns_items_dict[item];
+            const new_div = document.createElement('div');
+            new_div.className = 'above_columns_item';
+            new_div.innerHTML = item_html;
+            scope.querySelector('.above_columns_row').appendChild(new_div);
         
-    });
+        });
+    } else {
+
+        // First row with 2 items side by side
+        const firstRow = document.createElement('div');
+        firstRow.className = 'above_columns_row_mobile side_by_side_divs_in_row';
+
+        // First item
+        const item1_html = above_columns_items_dict[state.above_columns_items[0]];
+        const div1 = document.createElement('div');
+        div1.className = 'above_columns_item';
+        div1.innerHTML = item1_html;
+        firstRow.appendChild(div1);
+
+        // Second item
+        const item2_html = above_columns_items_dict[state.above_columns_items[1]];
+        const div2 = document.createElement('div');
+        div2.className = 'above_columns_item';
+        div2.innerHTML = item2_html;
+        firstRow.appendChild(div2);
+
+        scope.querySelector('.above_columns_row').appendChild(firstRow);
+
+        // Remaining items each in their own row
+        for (let i = 2; i < state.above_columns_items.length; i++) {
+            const row = document.createElement('div');
+            row.className = 'above_columns_row_mobile';
+
+            const itemHtml = above_columns_items_dict[state.above_columns_items[i]];
+            const div = document.createElement('div');
+            div.className = 'above_columns_item';
+            div.innerHTML = itemHtml;
+            row.appendChild(div);
+
+            scope.querySelector('.above_columns_row').appendChild(row);
+        }
+    }
     
 }
 
