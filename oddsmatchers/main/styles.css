@@ -695,7 +695,7 @@ body {
     transition: all 0.3s ease; 
     color: #fff;
     width: calc(100% + 2 * var(--global-border-width-main));
-    z-index: 2;
+    z-index: 6;
     font-size: var(--font-size-filter-inputs);
     left: calc(-1 * var(--global-border-width-main));
     right: 0;

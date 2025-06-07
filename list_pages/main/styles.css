@@ -1,6 +1,24 @@
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
 
 
+
+
+/* ! INDEX FOR CSS ! */
+
+/* 1. VARIABLES */
+/* 2. VARIABLES MOBILE */
+/* 3. ABOVE COLUMNS STUFF */
+/* 4. LOADING AND NO DATA DIV */
+/* 5. PREMIUM COVERING STUFF */
+/* 6. WEEKLY/OFFER SPECIFIC ITEM CSS */
+/* 7. MOBILE CHANGES */
+
+
+
+
+
+
+
 #outer-container-div {
 
     /* above columns */
@@ -107,8 +125,74 @@
 
 
 
-.box3 {
-    padding-top: 0;
+
+/* ABOUT COLUMNS STUFF FIRST */
+
+.above-columns {
+    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 3);
+
+}
+
+.div-outside-info {
+    width: var(--width-info-items-at-top);
+    height: var(--height-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-outside-info div {
+    align-self: baseline;
+}
+
+.title_text {
+    font-weight: bold;
+}
+
+.info_text {
+    margin-top: auto;
+    margin-bottom: 0;
+    visibility: hidden;
+}
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--padding-tooltip);
+    background: black;
+    color: white;
+    border-radius: var(--border-radius-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    border: var(--global-border-main);
+}
+
+[data-tooltip]:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+
+/* LOADING AND NO DATA DIV */
+
+.loading, .no-data-div {
+    background: 0;
+    margin-top: var(--margin-top-loading-div);
 }
 
 
@@ -117,6 +201,19 @@
 
 
 
+
+/* NOT PREMIUM MEMBERS COVERING ADJUSTED FOR HAVING NO PADLOCK */
+
+.box3 {
+    padding-top: 0;
+}
+
+
+
+
+
+/* weekly specific item css */ 
+/* extra places and say guide stuff might be different */
 
 .item_container_div {
     margin-top: calc(var(--global-gap-between-main-items) * 1.5);
@@ -127,9 +224,6 @@
     width: var(--global-container-width);
     justify-content: start; /* Aligns items to the start (left) when there's an odd number */
 }
-
-
-
 .container_div_around_each_item {
     position: relative;
     width: 100%; 
@@ -144,14 +238,11 @@
     margin: auto;
     margin-top: 0;
 }
-
-
 .item_title_div {
     font-size: var(--font-size-item-title);
     font-weight: bold;
     align-self: start;
 }
-
 
 .bottom_div_for_interaction_items {
     display: flex;
@@ -192,7 +283,6 @@
     border-radius: var(--interaction-row-items-border-radius);
 }
 
-
 .profit_div {
     position: absolute;
     top: 0;
@@ -209,8 +299,6 @@
     border-top-right-radius: var(--global-border-radius);
     border-bottom-left-radius: var(--global-border-radius);
 }
-
-
 
 .offer_button {
     height: var(--interaction-row-items-height);
@@ -235,7 +323,6 @@
     align-self: center;
 }
 
-
 .item-complete-switch {
     margin-left: auto ;
 }
@@ -251,87 +338,6 @@
 
 
 
-
-
-.loading, .no-data-div {
-    background: 0;
-    margin-top: var(--margin-top-loading-div);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.above-columns {
-    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 3);
-}
-
-.div-outside-info {
-    width: var(--width-info-items-at-top);
-    height: var(--height-filter-inputs);
-    font-size: var(--font-size-filter-inputs);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.div-outside-info div {
-    align-self: baseline;
-}
-
-.title_text {
-    font-weight: bold;
-}
-
-.info_text {
-    margin-top: auto;
-    margin-bottom: 0;
-    visibility: hidden;
-}
-
-
-
-
-
-
-
-
-[data-tooltip] {
-    position: relative;
-}
-
-[data-tooltip]:before {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: var(--padding-tooltip);
-    background: black;
-    color: white;
-    border-radius: var(--border-radius-filter-inputs);
-    font-size: var(--font-size-filter-inputs);
-    white-space: nowrap;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.2s, visibility 0.2s;
-    border: var(--global-border-main);
-}
-
-[data-tooltip]:hover:before {
-    visibility: visible;
-    opacity: 1;
-}
 
 
 
@@ -350,9 +356,27 @@
 
 /* MOBILE CHANGES */
 
+
+
+/* ! INDEX FOR MOBILE CHANGES ! */
+/* 1. ITEM ORGANISATION */
+/* 2. ABOVE COLUMNS STUFF */
+/* 3. WEEKLY/OFFER SPECIFIC ITEM CSS */
+
+
+
+
+
+
+/* ITEM ORGANISATION */ 
+
 .item_container_div_mobile {
     grid-template-columns: repeat(1, 1fr);
 }
+
+
+
+/* ABOVE COLUMNS STUFF */
 
 .above_columns_row_mobile, .above_columns_row_mobile_outer {
     display: flex;
@@ -393,6 +417,9 @@
 
 
 
+
+/* WEEKLY/OFFER SPECIFIC ITEM CSS */
+
 .bottom_div_interaction_rows_mobile {
     display: flex;
     flex-direction: row;
@@ -400,9 +427,6 @@
     width: 100%;
 
 }
-
-
-
 
 .bottom_div_for_interaction_items_mobile {
     flex-direction: column;
@@ -421,7 +445,8 @@
     margin-right: 80px;
 }
 
-
 .item_complete_switch_mobile {
     margin-left: auto;
 }
+
+
