@@ -13,6 +13,203 @@
     /* tooltip */
     --padding-tooltip: 8px;
 
+
+
+
+    /* ITEM STUFF */
+    --font-size-item-title: 22px;
+    --gap-between-items-in-item: 20px;
+
+
+    --interaction-row-items-height: 40px;
+    --interaction-row-items-border-radius: calc(var(--global-border-radius) / 2);
+
+
+    --blur-amount: 0.4vw;
+
+
+    /* offer button */
+    --offer-button-background-colour: #539ce0;
+    --font-size-offer-button: 16px;
+    --padding-left-and-right-of-offer-button: 35px;
+
+
+
+    /* loading div */
+    --margin-top-loading-div: 100px;
+}
+
+
+
+.box3 {
+    padding-top: 0;
+}
+
+
+
+
+
+
+
+
+.item_container_div {
+    margin-top: calc(var(--global-gap-between-main-items) * 1.5);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates exactly 2 columns of equal width */
+    grid-row-gap: calc(var(--global-gap-between-main-items) / 1); /* Slightly larger vertical gap */
+    grid-column-gap: calc(var(--global-gap-between-main-items) / 1.25); /* Keep same horizontal gap */
+    width: var(--global-container-width);
+    justify-content: start; /* Aligns items to the start (left) when there's an odd number */
+}
+
+.item_container_div_mobile {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.container_div_around_each_item {
+    position: relative;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: var(--global-border-main);
+    border-radius: var(--global-border-radius);
+    background: var(--global-main-background-colour);
+    padding: calc(var(--padding-main-containers) / 2);
+    margin: auto;
+    margin-top: 0;
+}
+
+
+.item_title_div {
+    font-size: var(--font-size-item-title);
+    font-weight: bold;
+    align-self: start;
+}
+
+
+.bottom_div_for_interaction_items {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.data_div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    font-size: var(--font-size-filter-inputs);
+    width: 100%;
+
+}
+
+.inner_div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--inner-background-colour);
+    border-radius: calc(var(--global-border-radius) / 1.5);
+    padding: calc(var(--padding-main-containers) / 1.5);
+    gap: var(--gap-between-items-in-item);
+}
+
+.div_around_bookmaker_exhange_images {
+    display: flex;
+    align-self: start;
+}
+
+.bookmaker_img {
+    height: var(--interaction-row-items-height);
+    border-radius: var(--interaction-row-items-border-radius);
+}
+
+
+.profit_div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: calc(var(--gap-between-items-in-item) / 2.5) calc(var(--gap-between-items-in-item) / 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: bold;
+    font-size: var(--font-size-filter-inputs);
+    z-index: 2;
+    color: white;
+    background: var(--global-main-background-colour);
+    border-top-right-radius: var(--global-border-radius);
+    border-bottom-left-radius: var(--global-border-radius);
+}
+
+
+
+.offer_button {
+    height: var(--interaction-row-items-height);
+    border-radius: var(--interaction-row-items-border-radius);
+    color: inherit;
+    background: var(--offer-button-background-colour);
+    border: 0;
+    font-size: var(--font-size-offer-button);
+    padding: 0 var(--padding-left-and-right-of-offer-button);
+    font-weight: bold;
+    margin-left: calc(var(--gap-between-items-in-item) / 1.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.offer_guide_icon {
+    width: var(--font-size-offer-button);
+    height: var(--font-size-offer-button);
+    margin-left: calc(var(--font-size-offer-button) / 1.5);
+    display: flex;
+    align-self: center;
+}
+
+
+.item-complete-switch {
+    margin-left: auto ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.loading, .no-data-div {
+    background: 0;
+    margin-top: var(--margin-top-loading-div);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.above-columns {
+    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 3);
 }
 
 .div-outside-info {
@@ -71,6 +268,11 @@
     visibility: visible;
     opacity: 1;
 }
+
+
+
+
+
 
 
 

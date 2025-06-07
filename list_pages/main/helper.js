@@ -44,6 +44,10 @@ let above_columns_items_dict = {
 
 
 
+
+
+
+
 // ! CODE INDEX
 // First section is functions called at beggining of script - including functions within
 // Second section is functions called when filtering and displaying items and offers left info etc
@@ -83,7 +87,7 @@ export function add_loading_row(scope, state) {
                     <div class="neon-bar"></div>
                     <div class="neon-bar"></div>
                 </div>
-                <h2 class="loading-text">Collecting Bookmaker Data...</h2>
+                <h2 class="loading-text">Collecting Offer Data...</h2>
             </div>
         </td>
 
@@ -94,11 +98,40 @@ export function add_loading_row(scope, state) {
 
 }
 
-export function process_new_final_data(data, scope, state) {
+function add_no_data_row(scope, state) {
+    let no_data_row;
+    let no_data_content = `
+        <div class="no-data-div">
+            <h2>No Offers Here...</h2>
+        </div>
+    `;
+
+    no_data_row = document.createElement('tr');
+    no_data_row.setAttribute('id', 'noDataRow');
+    const td = document.createElement('td');
+    td.setAttribute('colspan', '100%');
+    td.setAttribute('class', 'no-data-div-td');
+    td.innerHTML = no_data_content;
+    no_data_row.appendChild(td);
+    
+
+    const tableBody = scope.querySelector('#outer-container-div');
+    tableBody.append(no_data_row);
+}
+
+
+export function process_new_final_data(data, scope, state, page) {
     state.data_loaded_from_wix = true;
     data = JSON.parse(data);
 
     state.is_premium_member = data.premium_member;
+    state.is_desktop = data.is_desktop;
+
+    adjust_classes_based_on_is_desktop(scope, state);
+
+    runSpecificScript(scope, state);
+
+    page.style.visibility = 'visible'; 
 
     if (data.user_suo_object) {
         state.user_suo_object = data.user_suo_object;
@@ -111,6 +144,17 @@ export function process_new_final_data(data, scope, state) {
         }
         display_items(scope, state);
     }
+
+}
+
+function adjust_classes_based_on_is_desktop(scope, state) {
+
+    if (state.is_desktop) {
+        return;
+    }
+    
+    // first change it to be single file 
+    scope.querySelector('.item_container_div').classList.add('item_container_div_mobile');
 }
 
 // ! requires list specific changes
@@ -138,7 +182,9 @@ export function render(scope, state, html_script, general_info_script, type_of_s
 export function runSpecificScript(scope, state) {
 
     state.get_availability_text_function = get_availability_text;
+    state.create_offer_id_using_bookmaker_and_description_function = create_offer_id_using_bookmaker_and_description;
 
+    // SHOULD CHANGE THE HTML BASED ON IS_DESKTOP
     add_in_above_columns_items(scope, state);
 
     // add in sorting options using js
@@ -159,10 +205,15 @@ function create_user_suo_object_new(scope, state) {
         const obj = {
             bookmaker_name: bookmaker.bookmaker,
             is_available: true,
-            updated_time: new Date().toISOString()
+            updated_time: new Date().toISOString(),
+            offer_id: create_offer_id_using_bookmaker_and_description(bookmaker.bookmaker, bookmaker.offer_description),
         }
         state.user_suo_object.push(obj)
     });
+}
+
+function create_offer_id_using_bookmaker_and_description(bookmaker, offer_description) {
+    return (bookmaker + '_' + offer_description).toLowerCase().replace(/[^a-z0-9]/g, '_');
 }
 
 
@@ -198,7 +249,7 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
 
         state.user_suo_object.forEach((userBookmaker) => {
 
-            if (bookie.bookmaker === userBookmaker.bookmaker_name) {
+            if (create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description) === userBookmaker.offer_id) {
                 foundMatch = true;  
 
                 if ((userBookmaker.is_available === true && state.is_available) ||
@@ -215,7 +266,8 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
             state.user_suo_object.push({
                 bookmaker_name: bookie.bookmaker,
                 is_available: true,
-                updated_time: new Date().toISOString()
+                updated_time: new Date().toISOString(),
+                offer_id: create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description),
             })
             send_user_suo_object_to_wix(scope, state);
         }
@@ -238,6 +290,14 @@ function display_items(scope, state) {
     
     scope.querySelector('.item_container_div').innerHTML = '';
 
+    if (state.filteredData.length == 0) {
+        add_no_data_row(scope, state);
+    } else {
+        scope.querySelectorAll('#noDataRow').forEach(noDataRow => {
+            noDataRow.style.display = 'none';
+        });
+    }
+
     state.filteredData.forEach(row => {
         state.create_item_function(scope, state, row);
     });
@@ -251,11 +311,11 @@ function display_items(scope, state) {
 
 function add_event_listener_for_switches(scope, state) {
     
-    scope.querySelectorAll('.available_switch').forEach(checkbox => {
+    scope.querySelectorAll('.item_complete_switch').forEach(checkbox => {
 
         checkbox.addEventListener('change', () => {
 
-            let rowobj = getRowObjById(scope, state, checkbox.getAttribute('data-id').replace(/-/g, ' ')); 
+            let rowobj = getRowObjById(scope, state, checkbox.getAttribute('data-id')); 
 
             rowobj.is_available = !checkbox.checked;
 
@@ -273,8 +333,8 @@ function add_event_listener_for_switches(scope, state) {
 
 }
 
-function getRowObjById(scope, state, bookmaker) {
-    return state.user_suo_object.find(item => item.bookmaker_name === bookmaker);
+function getRowObjById(scope, state, offer_id) {
+    return state.user_suo_object.find(item => item.offer_id === offer_id);
 }
 
 function get_and_display_profit_left_and_offers_left(scope, state) {
@@ -286,7 +346,7 @@ function get_and_display_profit_left_and_offers_left(scope, state) {
 
     state.globalData.forEach(item => {
 
-        const userEntry = state.user_suo_object.find(userItem => userItem.bookmaker_name === item.bookmaker);
+        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id_using_bookmaker_and_description(item.bookmaker, item.offer_description));
 
         total_offers += 1;
         total_profit += parseFloat(item.profit.replace('£', ''));
@@ -469,6 +529,10 @@ function add_event_listeners(scope, state) {
 function add_event_listener_for_toggle_button(scope, state) {
     
     // this should be for the switch that changes from hidden to available
+    scope.querySelector('#show-hidden-offers-switch').addEventListener('change', () => {
+        state.is_available = !state.is_available;
+        display_items(scope, state);
+    });
 
 }
 
@@ -502,12 +566,11 @@ function add_event_listener_for_sorting(scope, button_select, button_options, st
 function add_event_listener_for_upgrade_button(scope, state) {
     
     scope.querySelector('#outer-container-div').addEventListener('click', (event) => {
-        if (event.target.className === 'upgrade-button' || event.target.className === 'padlock-image-button') {
+        if (event.target.closest('.upgrade-button') || event.target.closest('.padlock-image-button')) {
             process_upgrade_click(scope, state);
             return;
         }
     });
-    
 }
 
 function add_event_listener_for_closing_dropdowns(scope, state) {
@@ -672,11 +735,11 @@ function remove_all_option_style(scope, option_name) {
 
 // ! WEEKLY ONLY FUNCTION
 // This is a weekly only function - getting the days until it's available based on weekly
-function get_availability_text(scope, state,bookmaker) {
+function get_availability_text(scope, state, offer_id) {
 
-    const bookmakerData = state.user_suo_object.find(b => b.bookmaker_name === bookmaker);
+    const bookmakerData = state.user_suo_object.find(b => b.offer_id === offer_id);
     if (!bookmakerData) {
-        return 'Now';
+        return 'Available Now';
     }
 
     const updatedTime = new Date(bookmakerData.updated_time);
@@ -689,7 +752,7 @@ function get_availability_text(scope, state,bookmaker) {
     const timeDifference = sevenDaysLater - currentTime;
 
     if (timeDifference <= 0) {
-        return 'Now';
+        return 'Available Now';
     }
 
     // Convert time difference to a more understandable format
@@ -698,11 +761,11 @@ function get_availability_text(scope, state,bookmaker) {
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
     if (days > 0) {
-        return `In ${days} Days`;
+        return `Available In ${days} Days`;
     } else if (hours > 0) {
-        return `In ${hours} Hours`;
+        return `Available In ${hours} Hours`;
     } else {
-        return `In ${minutes} Minutes`;
+        return `Available In ${minutes} Minutes`;
     }
 }
 
