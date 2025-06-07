@@ -21,6 +21,7 @@ import * as Helpers from '../main/helper.js';
         globalData: {},
         filteredData: [],
         current_sort: 'none',
+        list_type: 'weekly',
         data_loaded_from_wix: false,
         sort_options: [
             { text: 'No Sort', value: 'none' },
@@ -55,11 +56,10 @@ import * as Helpers from '../main/helper.js';
         connectedCallback() {
             this.style.visibility = 'hidden';
 
-            Helpers.render(this.shadowRoot, this.state, html_script, general_info_script, 'weekly')  
+            Helpers.render(this.shadowRoot, this.state, html_script, general_info_script)  
             .then(() => {
                 Helpers.addStyles(this.shadowRoot, this.state, styles_script)
                 .then(() => {
-                    Helpers.add_loading_row(this.shadowRoot, this.state);
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
@@ -121,6 +121,10 @@ import * as Helpers from '../main/helper.js';
             }
 
             let odds_details = `${row.odds_details} Minimum Odds`
+            if (!row.odds_details || isNaN(row.odds_details) || row.odds_details == 'N/A') {
+                odds_details = 'No Minimum Odds'
+            }
+
 
             let availability_text = 'Available';
     

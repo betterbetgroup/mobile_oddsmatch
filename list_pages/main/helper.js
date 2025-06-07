@@ -72,7 +72,7 @@ let above_columns_items_dict = {
 
 // these are called from main js at the start
 // kind of in order - some parts also require list specific changes
-// !! THIS SHOULD BE NO BACKGROUND LOADIN THING
+// !! THIS SHOULD BE NO BACKGROUND LOADING THING
 export function add_loading_row(scope, state) {
 
     // this doesn't run as it waits for is_desktop first
@@ -166,7 +166,7 @@ function adjust_classes_based_on_is_desktop(scope, state) {
 }
 
 // ! requires list specific changes
-export function render(scope, state, html_script, general_info_script, type_of_script) {
+export function render(scope, state, html_script, general_info_script) {
     return fetch(html_script)
         .then(response => response.text())
         .then(html => {
@@ -174,13 +174,13 @@ export function render(scope, state, html_script, general_info_script, type_of_s
             return loadExternalScript(general_info_script);
         })
         .then(() => {
-            if (type_of_script == 'weekly') {
+            if (state.list_type == 'weekly') {
                 if (typeof weekly_bet_club_list !== 'undefined') {
                     state.globalData = weekly_bet_club_list;
                 } else {
                     console.error('weekly_bet_club_list is undefined');
                 }
-            } else if (type_of_script == 'sign_up') {
+            } else if (state.list_type == 'sign_up') {
                 if (typeof sign_up_offer_list !== 'undefined') {
                     state.globalData = sign_up_offer_list;
                 } else {
@@ -195,7 +195,10 @@ export function render(scope, state, html_script, general_info_script, type_of_s
 
 export function runSpecificScript(scope, state) {
 
+    // this is only used for weekly
     state.get_availability_text_function = get_availability_text;
+
+    // this is only used for offer list pages
     state.create_offer_id_using_bookmaker_and_description_function = create_offer_id_using_bookmaker_and_description;
 
     // SHOULD CHANGE THE HTML BASED ON IS_DESKTOP
@@ -316,8 +319,6 @@ function display_items(scope, state) {
         state.create_item_function(scope, state, row);
     });
     add_event_listener_for_switches(scope, state);
-
-    scope.querySelector('#loadingScreenRow').style.display = 'none';
 
     get_and_display_profit_left_and_offers_left(scope, state);
 
@@ -821,6 +822,10 @@ function get_availability_text(scope, state, offer_id) {
 }
 
 function change_available_status_on_object(scope, state) {
+
+    if (state.list_type != 'weekly') {
+        return;
+    }
     
     const currentDate = new Date();
     const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);

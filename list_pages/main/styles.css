@@ -106,6 +106,8 @@
     --interaction-row-items-height: 9.5vw;
     --height-filter-inputs: var(--interaction-row-items-height);
 
+    --margin-right-of-item-title-div-mobile: 28.125vw;
+
 
     /* offer button */
     --font-size-offer-button: 3.7vw;
@@ -435,7 +437,6 @@
 
 .offer_button_mobile {
     margin-left: 0;
-    width: 50.47vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -443,7 +444,7 @@
 }
 
 .item_title_div_mobile {
-    margin-right: 90px;
+    margin-right: var(--margin-right-of-item-title-div-mobile);
 }
 
 .item_complete_switch_mobile {
