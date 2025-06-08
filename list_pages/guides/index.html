@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides List</title>
+
+
+</head>
+
+
+
+<body style="background: black; margin-top: 0;">
+
+    <div id="app"  >
+        <allguides-page ></allguides-page>
+    </div>
+
+    <script type="module" src="myList.js"></script>
+
+    <script>
+        
+        let finalData = {
+        
+            "user_suo_object": [
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": false,
+        "updated_time": "2025-06-08T13:16:37.261Z",
+        "offer_id": "guide____signup_offer_tutorial"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": false,
+        "updated_time": "2025-06-08T13:16:38.248Z",
+        "offer_id": "guide____backing_and_laying_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": false,
+        "updated_time": "2025-06-08T13:16:39.007Z",
+        "offer_id": "guide____betting_exchange_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____price_boost_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____arbitrage_betting_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____2up_betting_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____extra_place_betting_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____guide_to_laying_accumulators"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____dutching_betting_guide"
+    },
+    {
+        "bookmaker_name": "Guide - ",
+        "is_available": true,
+        "updated_time": "2025-06-08T13:16:35.944Z",
+        "offer_id": "guide____sequential_lay_betting_guide"
+    }
+], 
+            "is_premium_member": false,
+            "is_desktop": true
+        }
+
+            setTimeout(() => {
+                document.querySelector('allguides-page').setAttribute('data-odds', JSON.stringify(finalData));
+            }, 500);
+
+
+
+            document.querySelector('allguides-page').addEventListener('suo_array', (event)=>{
+                console.log(event)
+            })
+
+
+
+
+    </script>
+
+</body>
+</html>

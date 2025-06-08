@@ -177,7 +177,7 @@ import * as Helpers from '../main/helper.js';
 
                         <div class="div_around_bookmaker_exhange_images"> 
                             <a class="anchor_round_bookmaker" ${row.offer ? `href="${row.offer}"` : ''} target="_blank" >
-                                <img class='bookmaker_img' src="${row.logo}" alt='${row.bookmaker} Weekly Bet Club Offer'>
+                                <img class='bookmaker_img' src="${row.logo}" alt='${row.bookmaker} Sign Up Offer'>
                             </a>
                         </div>
 

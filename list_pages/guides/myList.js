@@ -4,7 +4,7 @@ import * as Helpers from '../main/helper.js';
 
 (function () {
 
-    let general_info_script = 'not used'
+    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/guides.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
@@ -18,19 +18,18 @@ import * as Helpers from '../main/helper.js';
         globalData: {},
         filteredData: [],
         current_sort: 'none',
-        list_type: 'reload',
+        list_type: 'guides',
         data_loaded_from_wix: false,
         sort_options: [
-            { text: 'No Sort', value: 'none' },
-            { text: 'Sort by Profit', value: 'profit' },
+            { text: 'Sort By Difficulty', value: 'none' },
             { text: 'Sort A-Z', value: 'a-z' },
             { text: 'Sort Z-A', value: 'z-a' },
         ], 
-        above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch'],
+        above_columns_items: ['guides read', 'search guides', 'sort', 'hidden switch guides'],
         is_desktop: true,
     };
     
-    class ReloadList extends HTMLElement {
+    class GuidesList extends HTMLElement {
     
         constructor() {
             
@@ -90,35 +89,12 @@ import * as Helpers from '../main/helper.js';
         
         create_row(scope, state, row) {
 
+
             const div = document.createElement('div');
             div.className = 'container_div_around_each_item';
 
             let offer_id = state.create_offer_id_using_bookmaker_and_description_function(row.bookmaker, row.offer_description);
                 
-
-            
-    
-            let show_premium_cover = false;
-            // this is where premium cover processing is for the others
-
-
-
-
-
-            if (!state.is_desktop) {
-                row.final_profit_text = row.final_profit_text.replace('Guaranteed', '').replace('Potential Profit', 'Profit Varies').trim();
-            }
-
-        
-
-            row.expiry_and_repeats_text = row.expiry_and_repeats_text.replace(' | ', '\u00A0\u00A0•\u00A0\u00A0').trim();
-
-            
-
-            // ! THIS IS THE ONLY REAL DIFFERENCE BETWEEN WEEKLY AND SIGN UP
-            // ! INSTEAD OF AVAILABILITY INFO, IT HAS PROMO CODE INFO
-            // THIS IS WHERE PROCESSING FOR AVAILABILITY OR PROMO OR MIN ODDS PROCESSING IS FOR OTHERS
-
 
 
 
@@ -126,62 +102,43 @@ import * as Helpers from '../main/helper.js';
             div.innerHTML = `
 
                     
-                <div class="inner_div ${!show_premium_cover ? '' : 'blurred_tbody'}" >
+                <div class="inner_div inner_div_guides" >
 
-                    <div class="item_title_div ${!state.is_desktop ? 'item_title_div_mobile' : ''}" >
-                        ${row.reworded_title}
+                    <div class="div_around_bookmaker_exhange_images"> 
+                        <a class="anchor_round_bookmaker" ${row.guide ? `href="${row.guide}"` : ''} target="_blank" >
+                            <img class='guide_image_main' src="${row.main_image}" alt='${row.title}'>
+                        </a>
+                    </div>
+
+                    <div class="item_title_div item_title_div_guides ${!state.is_desktop ? 'item_title_div_mobile item_title_div_guides_mobile' : ''}" >
+                        ${row.title}
                     </div>
 
 
-                    <div class="data_div description_text" >
-                        ${row.reworded_description}
-                    </div>
-
-
-                    <div class="data_div lower_data_div" >
-                        ${row.expiry_and_repeats_text}
-                    </div>
-
-                    <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
-
-                        <div class="div_around_bookmaker_exhange_images"> 
-                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''} target="_blank" >
-                                <img class='bookmaker_img' src="${row.bookmaker_image}" alt='${row.bookmaker} Reload Offer'>
-                            </a>
-                        </div>
-
-
-
-                        ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
-                        
+                    <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile bottom_div_for_interaction_items_mobile_guides' : ''}"
+                    
+                    
                         <div class="item_button">
-                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
-                                Offer Guide
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile offer_button_mobile_guides' : ''}" href="${row.guide}" target="_blank">
+                                Read Guide
                                 <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
                             </a>
                         </div>
 
 
-                        <div class="div-outside-switch item-complete-switch">
+                        <div class="div-outside-switch item-complete-switch item-complete-switch-guides">
                             <div class="switch_container" >
                                 <label class="switch">
-                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${row.reworded_title}" ${!state.is_available ? 'checked' : ''}>
+                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${row.title}" ${!state.is_available ? 'checked' : ''}>
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
 
-                        ${!state.is_desktop ? `</div>` : ``}
-
 
                     </div>
 
 
-                </div>
-
-
-                <div class="profit_div">
-                    ${row.final_profit_text}
                 </div>
 
 
@@ -201,7 +158,7 @@ import * as Helpers from '../main/helper.js';
     }
 
 
-    customElements.define('reload-list', ReloadList);
+    customElements.define('allguides-page', GuidesList);
     
     
 })();

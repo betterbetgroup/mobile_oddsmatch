@@ -12,9 +12,19 @@ let above_columns_items_dict = {
                             <div class="info_text profit_value" >£0</div>
                         </div>`,
 
+    'guides read': `<div class="div-outside-info">
+                        <div class="title_text" >Guides Read</div>
+                        <div class="info_text guides_read_value" >0/0</div>
+                    </div>`,
+
     'search': `<div class="div-outside-filter-dropdown">
                     <input class="text-input"  id="search-bookmakers" placeholder="Search bookmakers..." autocomplete="off">
                 </div>`,
+
+    'search guides': `<div class="div-outside-filter-dropdown">
+        <input class="text-input"  id="search-bookmakers" placeholder="Search guides..." autocomplete="off">
+    </div>`,
+
 
     'sort': `<div class="div-outside-filter-dropdown">
                 <div id="sorting-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
@@ -33,7 +43,16 @@ let above_columns_items_dict = {
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div>`
+                    </div>`, 
+
+    'hidden switch guides': `<div class="div-outside-switch">
+                    <div class="switch_container" data-tooltip="Show Guides Read">
+                        <label class="switch">
+                            <input type="checkbox" class="show_filters_switch" id="show-hidden-offers-switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>`
 }
 
 
@@ -111,6 +130,10 @@ function add_no_data_row(scope, state) {
         }
     }
 
+    if (state.list_type == 'guides') {
+        no_data_text = 'No Guides Here...'
+    }
+
     let no_data_row;
     let no_data_content = `
         <div class="no-data-div">
@@ -169,6 +192,11 @@ export function process_new_final_data(data, scope, state, page) {
 function adjust_classes_based_on_is_desktop(scope, state) {
 
     if (state.is_desktop) {
+
+        if (state.list_type == 'guides') {
+            scope.querySelector('.above-columns').classList.add('guides-above-columns');
+            scope.querySelector('.item_container_div').classList.add('item_container_div_guides');
+        }
         return;
     }
     
@@ -208,6 +236,18 @@ export function render(scope, state, html_script, general_info_script) {
                 } else {
                     console.error('sign_up_offer_list is undefined');
                 }
+            } else if (state.list_type == 'guides') {
+                if (typeof all_guides !== 'undefined') {
+                    state.globalData = all_guides;
+                    // make it create a bookmaker and offer description column
+                    state.globalData = state.globalData.map(item => ({
+                        ...item,
+                        bookmaker: 'Guide - ',
+                        offer_description: item.title
+                    }));
+                } else {
+                    console.error('all_guides_object is undefined');
+                }
             }
         })
         .catch(error => {
@@ -240,12 +280,13 @@ export function runSpecificScript(scope, state) {
 // ! involves list specific changes
 function create_user_suo_object_new(scope, state) {
     
-    state.globalData.forEach((bookmaker) => {
+    state.globalData.forEach((row) => {
+
         const obj = {
-            bookmaker_name: bookmaker.bookmaker,
+            bookmaker_name: row.bookmaker,
             is_available: true,
             updated_time: new Date().toISOString(),
-            offer_id: create_offer_id_using_bookmaker_and_description(bookmaker.bookmaker, bookmaker.offer_description),
+            offer_id: create_offer_id_using_bookmaker_and_description(row.bookmaker, row.offer_description),
         }
         state.user_suo_object.push(obj)
     });
@@ -311,11 +352,12 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
             state.filteredData.push(bookie);
         }
         if (!foundMatch) {
+
             state.user_suo_object.push({
                 bookmaker_name: bookie.bookmaker,
                 is_available: true,
                 updated_time: new Date().toISOString(),
-                offer_id: create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description),
+                offer_id: create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description)
             })
             send_user_suo_object_to_wix(scope, state);
         }
@@ -351,7 +393,11 @@ function display_items(scope, state) {
     });
     add_event_listener_for_switches(scope, state);
 
-    get_and_display_profit_left_and_offers_left(scope, state);
+    if (state.list_type == 'guides') {
+        get_and_display_guides_read(scope, state);
+    } else {
+        get_and_display_profit_left_and_offers_left(scope, state);
+    }
 
 }
 
@@ -442,6 +488,38 @@ function display_profit_and_offers_left(scope, state, offers_left, profit_left, 
 
 }
 
+function get_and_display_guides_read(scope, state) {
+
+    let guides_read = 0;
+    let total_guides = 0;
+
+    state.globalData.forEach(item => {
+
+        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id_using_bookmaker_and_description(item.bookmaker, item.offer_description));
+
+        total_guides += 1;
+
+        if (userEntry && !userEntry.is_available) {
+            guides_read += 1;
+        }
+
+    });
+
+    display_guides_read(scope, state, guides_read, total_guides);
+
+}
+
+function display_guides_read(scope, state, guides_read, total_guides) {
+
+    let guides_read_text = scope.querySelector('.guides_read_value');
+
+    guides_read_text.textContent = guides_read + '/' + total_guides;
+
+    scope.querySelectorAll('.info_text').forEach(text => {
+        text.style.visibility = 'visible';
+    });
+
+}
 
 
 
@@ -478,25 +556,41 @@ function add_in_above_columns_items(scope, state) {
         });
     } else {
 
-        // First row with 2 items side by side
-        const firstRow = document.createElement('div');
-        firstRow.className = 'above_columns_row_mobile side_by_side_divs_in_row';
+        if (state.list_type == 'guides') {
+            // For guides, put first 2 items in separate rows
+            for (let i = 0; i < 2; i++) {
+                const row = document.createElement('div');
+                row.className = 'above_columns_row_mobile';
 
-        // First item
-        const item1_html = above_columns_items_dict[state.above_columns_items[0]];
-        const div1 = document.createElement('div');
-        div1.className = 'above_columns_item';
-        div1.innerHTML = item1_html;
-        firstRow.appendChild(div1);
+                const itemHtml = above_columns_items_dict[state.above_columns_items[i]];
+                const div = document.createElement('div');
+                div.className = 'above_columns_item';
+                div.innerHTML = itemHtml;
+                row.appendChild(div);
 
-        // Second item
-        const item2_html = above_columns_items_dict[state.above_columns_items[1]];
-        const div2 = document.createElement('div');
-        div2.className = 'above_columns_item';
-        div2.innerHTML = item2_html;
-        firstRow.appendChild(div2);
+                scope.querySelector('.above_columns_row').appendChild(row);
+            }
+        } else {
+            // First row with 2 items side by side
+            const firstRow = document.createElement('div');
+            firstRow.className = 'above_columns_row_mobile side_by_side_divs_in_row';
 
-        scope.querySelector('.above_columns_row').appendChild(firstRow);
+            // First item
+            const item1_html = above_columns_items_dict[state.above_columns_items[0]];
+            const div1 = document.createElement('div');
+            div1.className = 'above_columns_item';
+            div1.innerHTML = item1_html;
+            firstRow.appendChild(div1);
+
+            // Second item
+            const item2_html = above_columns_items_dict[state.above_columns_items[1]];
+            const div2 = document.createElement('div');
+            div2.className = 'above_columns_item';
+            div2.innerHTML = item2_html;
+            firstRow.appendChild(div2);
+
+            scope.querySelector('.above_columns_row').appendChild(firstRow);
+        }
 
         // Remaining items each in their own row
         for (let i = 2; i < state.above_columns_items.length; i++) {
@@ -551,35 +645,65 @@ function append_sort_to_sort_options(name_for_sort, value, scope, state) {
 
 function sort_filtered_data(scope, state) {
     
-    switch (state.current_sort) {
-        case 'profit':
-            if (state.list_type == 'reload') {
-                state.filteredData.sort((a, b) => parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) - parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')));
-            } else {
-                state.filteredData.sort((a, b) => parseFloat(b.profit.replace('Varies', '0').replace('£', '')) - parseFloat(a.profit.replace('Varies', '0').replace('£', '')));
-            }
-            break;
-        case 'a-z':
-            state.filteredData.sort((a, b) => a.bookmaker.localeCompare(b.bookmaker));
-            break;
-        case 'z-a':
-            state.filteredData.sort((a, b) => b.bookmaker.localeCompare(a.bookmaker));
-            break;
-        case 'none':
-        default:
-            // No sort applied, data could be reset to initial state if needed
-            break;
+
+    if (state.list_type == 'guides') {
+
+        switch (state.current_sort) {
+            case 'a-z':
+                state.filteredData.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            case 'z-a':
+                state.filteredData.sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            case 'none':
+            default:
+                // No sort applied, data could be reset to initial state if needed
+                break;
+        }
+
+    } else {
+
+        switch (state.current_sort) {
+            case 'profit':
+                if (state.list_type == 'reload') {
+                    state.filteredData.sort((a, b) => parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) - parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')));
+                } else {
+                    state.filteredData.sort((a, b) => parseFloat(b.profit.replace('Varies', '0').replace('£', '')) - parseFloat(a.profit.replace('Varies', '0').replace('£', '')));
+                }
+                break;
+            case 'a-z':
+                state.filteredData.sort((a, b) => a.bookmaker.localeCompare(b.bookmaker));
+                break;
+            case 'z-a':
+                state.filteredData.sort((a, b) => b.bookmaker.localeCompare(a.bookmaker));
+                break;
+            case 'none':
+            default:
+                // No sort applied, data could be reset to initial state if needed
+                break;
+        }
+
     }
+
 }
 
 function filter_bookmakers_using_search(scope, state) {
     
     const searchText = scope.getElementById('search-bookmakers').value.trim().toLowerCase();
 
-    if (searchText.length === 0) {
-        state.filteredData = state.filteredData.slice(); 
+    if (state.list_type == 'guides') {
+        if (searchText.length === 0) {
+            state.filteredData = state.filteredData.slice(); 
+        } else {
+            state.filteredData = state.filteredData.filter(item => item.title.toLowerCase().includes(searchText));
+        }
     } else {
-        state.filteredData = state.filteredData.filter(item => item.bookmaker.toLowerCase().includes(searchText));
+
+        if (searchText.length === 0) {
+            state.filteredData = state.filteredData.slice(); 
+        } else {
+            state.filteredData = state.filteredData.filter(item => item.bookmaker.toLowerCase().includes(searchText));
+        }
     }
 
 }
