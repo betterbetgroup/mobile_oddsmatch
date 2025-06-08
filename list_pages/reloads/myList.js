@@ -95,86 +95,57 @@ import * as Helpers from '../main/helper.js';
 
             let offer_id = state.create_offer_id_using_bookmaker_and_description_function(row.bookmaker, row.offer_description);
                 
-            if (row.odds_details != 'N/A') {
-                row.odds_details = parseFloat(row.odds_details).toFixed(2);
-            }
+
+            
     
-            let show_premium_cover = true;
-            if (state.is_premium_member) {
-                show_premium_cover = false;
-            }
-            // ! THIS IS A MINOR DIFFERENCE BETWEEN WEEKLY AND SIGN UP
-            if (sign_up_offer_bookmakers_allowed.includes(row.bookmaker)) {
-                show_premium_cover = false;
-            }
+            let show_premium_cover = false;
+            // this is where premium cover processing is for the others
 
-            // this should be collected data
-            let description = 'Sign up with Bet UK and get £30 in free bets. Place a £10+ bet on any sport at minimum odds of 1.80 (4/5). Once settled, you’ll receive 3 x £10 free bets, valid on horse racing, any Bet Builder and football. The free bets will be valid for 7 days, and the free bet stakes will not be returned with any winnings.'
 
-            let title = row.bookmaker + ' - ' + row.offer_description;
 
-            let profit_text = `${row.profit} Profit`
-            if (row.profit == 'Varies') {
-                profit_text = 'Profit Varies'
+
+
+            if (!state.is_desktop) {
+                row.final_profit_text = row.final_profit_text.replace('Guaranteed', '').replace('Potential Profit', 'Profit Varies').trim();
             }
 
-            let odds_details = `${row.odds_details} Minimum Odds`
-            if (!row.odds_details || isNaN(row.odds_details) || row.odds_details == 'N/A') {
-                odds_details = 'No Minimum Odds'
-            }
+        
+
 
             
 
             // ! THIS IS THE ONLY REAL DIFFERENCE BETWEEN WEEKLY AND SIGN UP
             // ! INSTEAD OF AVAILABILITY INFO, IT HAS PROMO CODE INFO
-            let promo_code_details = `Use Promo Code '${row.promo}'`
-            if (!row.promo || row.promo == 'N/A') {
-                promo_code_details = 'No Promo Code Required'
-            } 
+            // THIS IS WHERE PROCESSING FOR AVAILABILITY OR PROMO OR MIN ODDS PROCESSING IS FOR OTHERS
 
 
 
-            let profit_odds_and_availability_text = `${odds_details} \u00A0\u00A0•\u00A0\u00A0 ${promo_code_details}`
-            if (!state.is_desktop) {
-                profit_odds_and_availability_text = `•\u00A0\u00A0${odds_details} <br> •\u00A0\u00A0${promo_code_details}`
-            }
+
 
             div.innerHTML = `
 
-                ${show_premium_cover ?
                     
-                `<div class="box3" style="display: flex;" >
-    
-                    <div class="outer_div_upgrade">
-                        <a class="upgrade-button">Upgrade to Premium <svg fill="#ffffff" class="padlock-image-button" alt="Padlock" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="XMLID_509_"> <path id="XMLID_510_" d="M65,330h200c8.284,0,15-6.716,15-15V145c0-8.284-6.716-15-15-15h-15V85c0-46.869-38.131-85-85-85 S80,38.131,80,85v45H65c-8.284,0-15,6.716-15,15v170C50,323.284,56.716,330,65,330z M180,234.986V255c0,8.284-6.716,15-15,15 s-15-6.716-15-15v-20.014c-6.068-4.565-10-11.824-10-19.986c0-13.785,11.215-25,25-25s25,11.215,25,25 C190,223.162,186.068,230.421,180,234.986z M110,85c0-30.327,24.673-55,55-55s55,24.673,55,55v45H110V85z"></path> </g> </g></svg></a>
-                    </div>
-                
-                </div>` : ''}
-
-
-                
-
                 <div class="inner_div ${!show_premium_cover ? '' : 'blurred_tbody'}" >
 
                     <div class="item_title_div ${!state.is_desktop ? 'item_title_div_mobile' : ''}" >
-                        ${title}
+                        ${row.reworded_title}
                     </div>
 
 
                     <div class="data_div description_text" >
-                        ${description}
+                        ${row.reworded_description}
                     </div>
 
 
                     <div class="data_div lower_data_div" >
-                        ${profit_odds_and_availability_text}
+                        ${row.expiry_and_repeats_text}
                     </div>
 
                     <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
 
                         <div class="div_around_bookmaker_exhange_images"> 
-                            <a class="anchor_round_bookmaker" ${row.offer ? `href="${row.offer}"` : ''} target="_blank" >
-                                <img class='bookmaker_img' src="${row.logo}" alt='${row.bookmaker} Weekly Bet Club Offer'>
+                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''} target="_blank" >
+                                <img class='bookmaker_img' src="${row.bookmaker_image}" alt='${row.bookmaker} Weekly Bet Club Offer'>
                             </a>
                         </div>
 
@@ -183,7 +154,7 @@ import * as Helpers from '../main/helper.js';
                         ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
                         
                         <div class="item_button">
-                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide}" target="_blank">
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
                                 Offer Guide
                                 <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
                             </a>
@@ -193,14 +164,13 @@ import * as Helpers from '../main/helper.js';
                         <div class="div-outside-switch item-complete-switch">
                             <div class="switch_container" >
                                 <label class="switch">
-                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${title}" ${!state.is_available ? 'checked' : ''}>
+                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${row.reworded_title}" ${!state.is_available ? 'checked' : ''}>
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </div>
 
                         ${!state.is_desktop ? `</div>` : ``}
-
 
 
                     </div>
@@ -210,7 +180,7 @@ import * as Helpers from '../main/helper.js';
 
 
                 <div class="profit_div">
-                    ${profit_text}
+                    ${row.final_profit_text}
                 </div>
 
 

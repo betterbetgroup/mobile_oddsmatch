@@ -104,7 +104,11 @@ function add_no_data_row(scope, state) {
 
     let no_data_text = 'No Offers Here...'
     if (state.list_type == 'reload') {
-        no_data_text = 'No Reload Offers Left Today...'
+        if (state.is_available) {
+            no_data_text = 'No Reload Offers Left Today...'
+        } else {
+            no_data_text = 'No Reload Offers Complete...'
+        }
     }
 
     let no_data_row;
@@ -136,6 +140,10 @@ export function process_new_final_data(data, scope, state, page) {
 
     if (state.list_type == 'reload') {
         state.globalData = data.offer_data;
+        state.globalData = state.globalData.map(offer => ({
+            ...offer,
+            offer_description: offer.reworded_title
+        }));
     }
 
     adjust_classes_based_on_is_desktop(scope, state);
@@ -271,24 +279,33 @@ function create_offer_id_using_bookmaker_and_description(bookmaker, offer_descri
 // ON FILTERING AND DISPLAYING ITEMS - in order - will obviously require list specific changes
 // ! lots of list specific changes
 function make_filtered_data_using_global_and_suo_object(scope, state) {
-    
+
     state.filteredData = [];
 
     state.globalData.forEach((bookie) => {
 
         let foundMatch = false;  
 
-        state.user_suo_object.forEach((userBookmaker) => {
-
+        for (const userBookmaker of state.user_suo_object) {
             if (create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description) === userBookmaker.offer_id) {
-                foundMatch = true;  
-
+                foundMatch = true;
+                
                 if ((userBookmaker.is_available === true && state.is_available) ||
                     (userBookmaker.is_available === false && !state.is_available)) {
-                    state.filteredData.push(bookie);
+                    if (state.list_type == 'reload') {
+                        const now = new Date();
+                        const expiryDate = parseCustomDateReloads(bookie.expiry);
+                        if (expiryDate > now) {
+                            state.filteredData.push(bookie);
+                        }
+                    } else {
+                        state.filteredData.push(bookie);
+                    }
                 }
+                
+                break; // Exit the loop once we find a match
             }
-        });
+        }
 
         if (!foundMatch && state.is_available) {
             state.filteredData.push(bookie);
@@ -338,6 +355,15 @@ function display_items(scope, state) {
 
 }
 
+function parseCustomDateReloads(dateString) {
+    const [dayName, day, month, time] = dateString.split(" ");
+    const year = new Date().getFullYear();
+    const monthIndex = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].indexOf(month);
+    
+    // Construct a full date string and return the Date object
+    return new Date(`${year}-${String(monthIndex + 1).padStart(2, "0")}-${day}T${time}:00`);
+}
+
 function add_event_listener_for_switches(scope, state) {
     
     scope.querySelectorAll('.item_complete_switch').forEach(checkbox => {
@@ -377,12 +403,26 @@ function get_and_display_profit_left_and_offers_left(scope, state) {
 
         const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id_using_bookmaker_and_description(item.bookmaker, item.offer_description));
 
+        if (state.list_type == 'reload') {
+            if (parseCustomDateReloads(item.expiry) <= new Date()) {
+                return;
+            }
+        } 
+
         total_offers += 1;
-        total_profit += parseFloat(item.profit.replace('£', ''));
+        if (state.list_type == 'reload') {
+            total_profit += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
+        } else {
+            total_profit += parseFloat(item.profit.replace('£', ''));
+        }
 
         if (userEntry && userEntry.is_available) {
             offers_left += 1;
-            profit_left += parseFloat(item.profit.replace('Varies', '0').replace('£', ''));
+            if (state.list_type == 'reload') {
+                profit_left += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
+            } else {
+                profit_left += parseFloat(item.profit.replace('Varies', '0').replace('£', ''));
+            }
         }
     });
 
@@ -513,7 +553,11 @@ function sort_filtered_data(scope, state) {
     
     switch (state.current_sort) {
         case 'profit':
-            state.filteredData.sort((a, b) => parseFloat(b.profit.replace('Varies', '0').replace('£', '')) - parseFloat(a.profit.replace('Varies', '0').replace('£', '')));
+            if (state.list_type == 'reload') {
+                state.filteredData.sort((a, b) => parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) - parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')));
+            } else {
+                state.filteredData.sort((a, b) => parseFloat(b.profit.replace('Varies', '0').replace('£', '')) - parseFloat(a.profit.replace('Varies', '0').replace('£', '')));
+            }
             break;
         case 'a-z':
             state.filteredData.sort((a, b) => a.bookmaker.localeCompare(b.bookmaker));
