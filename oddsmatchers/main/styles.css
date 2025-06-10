@@ -21,9 +21,9 @@
 
     --global-smaller-border-radius: 1vw;
 
-    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+    --global-border-main: var(--global-border-width-main) solid rgba(155, 155, 155, 0.2);
 
-    --global-main-background-colour: #121212;
+    --global-main-background-colour: rgba(255, 255, 255, 0.05);
 
 
 
@@ -578,6 +578,9 @@ body {
     text-align: center;
     padding: var(--padding-main-containers);
 }
+
+
+
 
 #filter-panel-container {
     display: none;

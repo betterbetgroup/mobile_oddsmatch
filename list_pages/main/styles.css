@@ -12,7 +12,8 @@
 /* 5. PREMIUM COVERING STUFF */
 /* 6. WEEKLY/OFFER SPECIFIC ITEM CSS */
 /* 7. GUIDES SPECIFIC CSS */
-/* 8. MOBILE CHANGES */
+/* 8. EXTRA PLACES SPECIFIC CSS */
+/* 9. MOBILE CHANGES */
 
 
 
@@ -376,6 +377,47 @@
 
 
 
+/* EXTRA PLACES SPECIFIC CSS */
+
+.extra-places-above-columns .above_columns_row .above_columns_item .div-outside-info {
+    width: calc(var(--width-info-items-at-top) / 1.5);
+}
+
+.item_container_div_extra_places {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.container_div_around_each_item_extra_places {
+    width: 45%;
+}
+
+.inner_div_extra_places {
+    width: 100%;
+}
+
+.item_title_div_extra_places {
+    font-size: calc(var(--font-size-item-title) * 1.25);
+
+}
+
+.place_title_div {
+    font-weight: bold;
+    align-self: center;
+    font-size: calc(var(--font-size-filter-inputs) * 1.25);
+
+}
+
+.bookmakers_container {
+    font-size: calc(var(--font-size-filter-inputs) * 1.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+
+
+
 
 
 
@@ -399,6 +441,8 @@
 /* 2. ABOVE COLUMNS STUFF */
 /* 3. WEEKLY/OFFER SPECIFIC ITEM CSS */
 /* 4. GUIDES SPECIFIC MOBILE CHANGES */
+/* 5. EXTRA PLACES SPECIFIC MOBILE CHANGES */
+
 
 
 
@@ -506,6 +550,25 @@
 .bottom_div_for_interaction_items_mobile_guides {
     align-items: center;
 }
+
+
+
+
+
+/* EXTRA PLACES SPECIFIC MOBILE CHANGES */
+
+.container_div_around_each_item_extra_places_mobile {
+    width: 100%;
+}
+
+.item_title_div_extra_places_mobile {
+    font-size: calc(var(--font-size-item-title) * 1.15);
+}
+
+.place_title_div_mobile, .bookmakers_container_mobile {
+    font-size: var(--font-size-filter-inputs);
+}
+
 
 
 

@@ -17,12 +17,21 @@ let above_columns_items_dict = {
                         <div class="info_text guides_read_value" >0/0</div>
                     </div>`,
 
+    'races left': `<div class="div-outside-info">
+                    <div class="title_text" >Races Left</div>
+                    <div class="info_text races_left_value" >0</div>
+                </div>`,
+
     'search': `<div class="div-outside-filter-dropdown">
                     <input class="text-input"  id="search-bookmakers" placeholder="Search bookmakers..." autocomplete="off">
                 </div>`,
 
     'search guides': `<div class="div-outside-filter-dropdown">
         <input class="text-input"  id="search-bookmakers" placeholder="Search guides..." autocomplete="off">
+    </div>`,
+
+    'search races': `<div class="div-outside-filter-dropdown">
+        <input class="text-input"  id="search-bookmakers" placeholder="Search races..." autocomplete="off">
     </div>`,
 
 
@@ -134,6 +143,10 @@ function add_no_data_row(scope, state) {
         no_data_text = 'No Guides Here...'
     }
 
+    if (state.list_type == 'extra_places') {
+        no_data_text = 'No Extra Places Races Left...'
+    }
+
     let no_data_row;
     let no_data_content = `
         <div class="no-data-div">
@@ -169,6 +182,10 @@ export function process_new_final_data(data, scope, state, page) {
         }));
     }
 
+    if (state.list_type == 'extra_places') {
+        state.globalData = data.offer_data;
+    }
+
     adjust_classes_based_on_is_desktop(scope, state);
 
     runSpecificScript(scope, state);
@@ -197,6 +214,11 @@ function adjust_classes_based_on_is_desktop(scope, state) {
             scope.querySelector('.above-columns').classList.add('guides-above-columns');
             scope.querySelector('.item_container_div').classList.add('item_container_div_guides');
         }
+        if (state.list_type == 'extra_places') {
+            scope.querySelector('.above-columns').classList.add('guides-above-columns');
+            scope.querySelector('.above-columns').classList.add('extra-places-above-columns');            
+            scope.querySelector('.item_container_div').classList.add('item_container_div_extra_places');
+        }
         return;
     }
     
@@ -217,7 +239,7 @@ export function render(scope, state, html_script, general_info_script) {
         .then(response => response.text())
         .then(html => {
             scope.innerHTML = html;
-            if (state.list_type == 'reload') {
+            if (state.list_type == 'reload' || state.list_type == 'extra_places') {
                 return;
             } else {
                 return loadExternalScript(general_info_script);
@@ -333,15 +355,26 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
                 
                 if ((userBookmaker.is_available === true && state.is_available) ||
                     (userBookmaker.is_available === false && !state.is_available)) {
-                    if (state.list_type == 'reload') {
-                        const now = new Date();
-                        const expiryDate = parseCustomDateReloads(bookie.expiry);
-                        if (expiryDate > now) {
+                        if (state.list_type == 'reload') {
+                            const now = new Date();
+                            const expiryDate = parseCustomDateReloads(bookie.expiry);
+                            if (expiryDate > now) {
+                                state.filteredData.push(bookie);
+                            }
+                        } 
+                        else if (state.list_type == 'extra_places') {
+                            // Check if race time has passed
+                            const now = new Date();
+                            const [hours, minutes] = bookie.race_time.split(':');
+                            const raceTime = new Date();
+                            raceTime.setHours(parseInt(hours), parseInt(minutes), 0);
+                            if (raceTime > now) {
+                                state.filteredData.push(bookie);
+                            }
+                        }
+                        else {
                             state.filteredData.push(bookie);
                         }
-                    } else {
-                        state.filteredData.push(bookie);
-                    }
                 }
                 
                 break; // Exit the loop once we find a match
@@ -395,6 +428,8 @@ function display_items(scope, state) {
 
     if (state.list_type == 'guides') {
         get_and_display_guides_read(scope, state);
+    } else if (state.list_type == 'extra_places') {
+        get_and_display_races_left(scope, state);
     } else {
         get_and_display_profit_left_and_offers_left(scope, state);
     }
@@ -521,9 +556,36 @@ function display_guides_read(scope, state, guides_read, total_guides) {
 
 }
 
+function get_and_display_races_left(scope, state) {
 
+    let races_left = 0;
 
+    state.globalData.forEach(item => {
 
+        const now = new Date();
+        const [hours, minutes] = item.race_time.split(':');
+        const raceTime = new Date();
+        raceTime.setHours(parseInt(hours), parseInt(minutes), 0);
+        if (raceTime > now) {
+            races_left += 1;
+        }
+
+    });
+
+    display_races_left(scope, state, races_left);
+
+}
+
+function display_races_left(scope, state, races_left) {
+
+    let races_left_text = scope.querySelector('.races_left_value');
+    races_left_text.textContent = races_left;
+
+    scope.querySelectorAll('.info_text').forEach(text => {
+        text.style.visibility = 'visible';
+    });
+
+}
 
 
 
@@ -556,7 +618,7 @@ function add_in_above_columns_items(scope, state) {
         });
     } else {
 
-        if (state.list_type == 'guides') {
+        if (state.list_type == 'guides' || state.list_type == 'extra_places') {
             // For guides, put first 2 items in separate rows
             for (let i = 0; i < 2; i++) {
                 const row = document.createElement('div');
@@ -677,6 +739,16 @@ function sort_filtered_data(scope, state) {
             case 'z-a':
                 state.filteredData.sort((a, b) => b.bookmaker.localeCompare(a.bookmaker));
                 break;
+            case 'most bookmakers':
+                state.filteredData.sort((a, b) => {
+                    const countBookmakers = (item) => {
+                        return item.places_and_bookmakers.reduce((total, place) => {
+                            return total + place.bookmaker_list.length;
+                        }, 0);
+                    };
+                    return countBookmakers(b) - countBookmakers(a);
+                });
+                break;
             case 'none':
             default:
                 // No sort applied, data could be reset to initial state if needed
@@ -696,6 +768,12 @@ function filter_bookmakers_using_search(scope, state) {
             state.filteredData = state.filteredData.slice(); 
         } else {
             state.filteredData = state.filteredData.filter(item => item.title.toLowerCase().includes(searchText));
+        }
+    } else if (state.list_type == 'extra_places') {
+        if (searchText.length === 0) {
+            state.filteredData = state.filteredData.slice(); 
+        } else {
+            state.filteredData = state.filteredData.filter(item => item.race_title.toLowerCase().includes(searchText));
         }
     } else {
 
@@ -748,9 +826,11 @@ function closeAllDropdowns(scope, state) {
 
 function add_event_listeners(scope, state) {
 
-    add_event_listener_for_search_text(scope, state);
+    if (state.list_type != 'extra_places') {
+        add_event_listener_for_toggle_button(scope, state);
+    }
 
-    add_event_listener_for_toggle_button(scope, state);
+    add_event_listener_for_search_text(scope, state);
 
     add_event_listener_for_upgrade_button(scope, state);
 
