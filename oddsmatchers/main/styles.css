@@ -21,7 +21,7 @@
 
     --global-smaller-border-radius: 1vw;
 
-    --global-border-main: var(--global-border-width-main) solid rgba(155, 155, 155, 0.2);
+    --global-border-main: var(--global-border-width-main) solid rgba(55, 55, 55, 0.2);
 
     --global-main-background-colour: rgba(255, 255, 255, 0.05);
 
