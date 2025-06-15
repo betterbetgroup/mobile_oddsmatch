@@ -176,13 +176,9 @@ export function process_new_final_data(data, scope, state, page) {
 
     if (state.list_type == 'reload') {
         state.globalData = data.offer_data;
-        state.globalData = state.globalData.map(offer => ({
-            ...offer,
-            offer_description: offer.reworded_title
-        }));
     }
 
-    if (state.list_type == 'extra_places') {
+    if (state.list_type == 'extra_places' || state.list_type == 'weekly' || state.list_type == 'sign_up') {
         state.globalData = data.offer_data;
     }
 
@@ -239,33 +235,20 @@ export function render(scope, state, html_script, general_info_script) {
         .then(response => response.text())
         .then(html => {
             scope.innerHTML = html;
-            if (state.list_type == 'reload' || state.list_type == 'extra_places') {
+            if (state.list_type != 'guides') {
                 return;
             } else {
                 return loadExternalScript(general_info_script);
             }
         })
         .then(() => {
-            if (state.list_type == 'weekly') {
-                if (typeof weekly_bet_club_list !== 'undefined') {
-                    state.globalData = weekly_bet_club_list;
-                } else {
-                    console.error('weekly_bet_club_list is undefined');
-                }
-            } else if (state.list_type == 'sign_up') {
-                if (typeof sign_up_offer_list !== 'undefined') {
-                    state.globalData = sign_up_offer_list;
-                } else {
-                    console.error('sign_up_offer_list is undefined');
-                }
-            } else if (state.list_type == 'guides') {
+            if (state.list_type == 'guides') {
                 if (typeof all_guides !== 'undefined') {
                     state.globalData = all_guides;
                     // make it create a bookmaker and offer description column
                     state.globalData = state.globalData.map(item => ({
                         ...item,
-                        bookmaker: 'Guide - ',
-                        offer_description: item.title
+                        bookmaker: 'Guide - '
                     }));
                 } else {
                     console.error('all_guides_object is undefined');
@@ -283,7 +266,7 @@ export function runSpecificScript(scope, state) {
     state.get_availability_text_function = get_availability_text;
 
     // this is only used for offer list pages
-    state.create_offer_id_using_bookmaker_and_description_function = create_offer_id_using_bookmaker_and_description;
+    state.create_offer_id_function = create_offer_id;
 
     // SHOULD CHANGE THE HTML BASED ON IS_DESKTOP
     add_in_above_columns_items(scope, state);
@@ -308,14 +291,30 @@ function create_user_suo_object_new(scope, state) {
             bookmaker_name: row.bookmaker,
             is_available: true,
             updated_time: new Date().toISOString(),
-            offer_id: create_offer_id_using_bookmaker_and_description(row.bookmaker, row.offer_description),
+            offer_id: create_offer_id(row, state),
         }
         state.user_suo_object.push(obj)
     });
 }
 
-function create_offer_id_using_bookmaker_and_description(bookmaker, offer_description) {
-    return (bookmaker + '_' + offer_description).toLowerCase().replace(/[^a-z0-9]/g, '_');
+function create_offer_id(row, state) {
+
+
+    // ADD IN FUNCTIONALITY SO IT DEPENDS ON STATE TYPE
+
+    if (state.list_type == 'guides') {
+        return (row.title).replace(/\s+/g, '-');
+    } else if (state.list_type == 'extra_places') {
+        return ('extra_places_id');
+    } else if (state.list_type == 'weekly') {
+        return (row.adjusted_title).toLowerCase().replace(/[^a-z0-9]/g, '_');
+    } else if (state.list_type == 'sign_up') {
+        return (row.bookmaker).replace(/\s+/g, '-');
+    } else if (state.list_type == 'reload') {
+        return (row.bookmaker + '_' + row.reworded_title + '_' + new Date().toISOString().split('T')[0]).toLowerCase().replace(/[^a-z0-9]/g, '_');
+    }
+
+
 }
 
 
@@ -350,7 +349,7 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
         let foundMatch = false;  
 
         for (const userBookmaker of state.user_suo_object) {
-            if (create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description) === userBookmaker.offer_id) {
+            if (create_offer_id(bookie, state) === userBookmaker.offer_id) {
                 foundMatch = true;
                 
                 if ((userBookmaker.is_available === true && state.is_available) ||
@@ -390,7 +389,7 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
                 bookmaker_name: bookie.bookmaker,
                 is_available: true,
                 updated_time: new Date().toISOString(),
-                offer_id: create_offer_id_using_bookmaker_and_description(bookie.bookmaker, bookie.offer_description)
+                offer_id: create_offer_id(bookie, state)
             })
             send_user_suo_object_to_wix(scope, state);
         }
@@ -470,6 +469,8 @@ function add_event_listener_for_switches(scope, state) {
 }
 
 function getRowObjById(scope, state, offer_id) {
+    console.log(offer_id)
+    console.log(state.user_suo_object)
     return state.user_suo_object.find(item => item.offer_id === offer_id);
 }
 
@@ -482,7 +483,7 @@ function get_and_display_profit_left_and_offers_left(scope, state) {
 
     state.globalData.forEach(item => {
 
-        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id_using_bookmaker_and_description(item.bookmaker, item.offer_description));
+        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id(item, state));
 
         if (state.list_type == 'reload') {
             if (parseCustomDateReloads(item.expiry) <= new Date()) {
@@ -491,18 +492,22 @@ function get_and_display_profit_left_and_offers_left(scope, state) {
         } 
 
         total_offers += 1;
-        if (state.list_type == 'reload') {
-            total_profit += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
-        } else {
-            total_profit += parseFloat(item.profit.replace('£', ''));
+        if (item.profit_amount) {
+            if (state.list_type == 'reload') {
+                total_profit += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
+            } else {
+                total_profit += parseFloat(item.profit_amount.replace('£', '').replace('Varies', '0'));
+            }
         }
 
         if (userEntry && userEntry.is_available) {
             offers_left += 1;
-            if (state.list_type == 'reload') {
-                profit_left += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
-            } else {
-                profit_left += parseFloat(item.profit.replace('Varies', '0').replace('£', ''));
+            if (item.profit_amount) {
+                if (state.list_type == 'reload') {
+                    profit_left += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
+                } else {
+                    profit_left += parseFloat(item.profit_amount.replace('£', '').replace('Varies', '0'));
+                }
             }
         }
     });
@@ -530,7 +535,7 @@ function get_and_display_guides_read(scope, state) {
 
     state.globalData.forEach(item => {
 
-        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id_using_bookmaker_and_description(item.bookmaker, item.offer_description));
+        const userEntry = state.user_suo_object.find(userItem => userItem.offer_id === create_offer_id(item, state));
 
         total_guides += 1;
 
@@ -728,9 +733,17 @@ function sort_filtered_data(scope, state) {
         switch (state.current_sort) {
             case 'profit':
                 if (state.list_type == 'reload') {
-                    state.filteredData.sort((a, b) => parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) - parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')));
+                    state.filteredData.sort((a, b) => {
+                        const aProfit = a.profit_amount ? parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+                        const bProfit = b.profit_amount ? parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+                        return bProfit - aProfit;
+                    });
                 } else {
-                    state.filteredData.sort((a, b) => parseFloat(b.profit.replace('Varies', '0').replace('£', '')) - parseFloat(a.profit.replace('Varies', '0').replace('£', '')));
+                    state.filteredData.sort((a, b) => {
+                        const aProfit = a.profit_amount ? parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+                        const bProfit = b.profit_amount ? parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+                        return bProfit - aProfit;
+                    });
                 }
                 break;
             case 'a-z':

@@ -93,10 +93,9 @@ import * as Helpers from '../main/helper.js';
             const div = document.createElement('div');
             div.className = 'container_div_around_each_item';
 
-            let offer_id = state.create_offer_id_using_bookmaker_and_description_function(row.bookmaker, row.offer_description);
+            let offer_id = state.create_offer_id_function(row, state);
                 
 
-            
     
             let show_premium_cover = false;
             // this is where premium cover processing is for the others

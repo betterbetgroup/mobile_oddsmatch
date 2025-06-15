@@ -96,11 +96,8 @@ import * as Helpers from '../main/helper.js';
             const div = document.createElement('div');
             div.className = 'container_div_around_each_item';
 
-            let offer_id = state.create_offer_id_using_bookmaker_and_description_function(row.bookmaker, row.offer_description);
+            let offer_id = state.create_offer_id_function(row, state);
                 
-            if (row.odds_details != 'N/A') {
-                row.odds_details = parseFloat(row.odds_details).toFixed(2);
-            }
     
             let show_premium_cover = true;
             if (state.is_premium_member) {
@@ -110,19 +107,9 @@ import * as Helpers from '../main/helper.js';
                 show_premium_cover = false;
             }
 
-            // this should be collected data
-            let description = 'Sign up with Bet UK and get £30 in free bets. Place a £10+ bet on any sport at minimum odds of 1.80 (4/5). Once settled, you’ll receive 3 x £10 free bets, valid on horse racing, any Bet Builder and football. The free bets will be valid for 7 days, and the free bet stakes will not be returned with any winnings.'
-
-            let title = row.bookmaker + ' - ' + row.offer_description;
-
-            let profit_text = `${row.profit} Profit`
-            if (row.profit == 'Varies') {
-                profit_text = 'Profit Varies'
-            }
-
-            let odds_details = `${row.odds_details} Minimum Odds`
-            if (!row.odds_details || isNaN(row.odds_details) || row.odds_details == 'N/A') {
-                odds_details = 'No Minimum Odds'
+            let profit_text = "Potential Profit";
+            if (row.profit_type == 'Guaranteed profit') {
+                profit_text = `£${row.profit_amount} Profit`
             }
 
 
@@ -135,7 +122,7 @@ import * as Helpers from '../main/helper.js';
                 }
             }
 
-            let profit_odds_and_availability_text = `${odds_details} \u00A0\u00A0•\u00A0\u00A0 ${availability_text}`
+            let profit_odds_and_availability_text = `•\u00A0\u00A0 ${availability_text}`
 
             div.innerHTML = `
 
@@ -160,12 +147,12 @@ import * as Helpers from '../main/helper.js';
                 <div class="inner_div ${!show_premium_cover ? '' : 'blurred_tbody'}" >
 
                     <div class="item_title_div ${!state.is_desktop ? 'item_title_div_mobile' : ''}" >
-                        ${title}
+                        ${row.title}
                     </div>
 
 
                     <div class="data_div description_text" >
-                        ${description}
+                        ${row.reworded_description}
                     </div>
 
 
@@ -176,8 +163,8 @@ import * as Helpers from '../main/helper.js';
                     <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
 
                         <div class="div_around_bookmaker_exhange_images"> 
-                            <a class="anchor_round_bookmaker" ${row.offer ? `href="${row.offer}"` : ''} target="_blank" >
-                                <img class='bookmaker_img' src="${row.logo}" alt='${row.bookmaker} Weekly Bet Club Offer'>
+                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''} target="_blank" >
+                                <img class='bookmaker_img' src="${row.bookmaker_image}" alt='${row.bookmaker} Weekly Bet Club Offer'>
                             </a>
                         </div>
 
@@ -186,16 +173,17 @@ import * as Helpers from '../main/helper.js';
                         ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
                         
                         <div class="item_button">
-                            <button class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide}" target="_blank">
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
                                 Offer Guide
-                            <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
+                                <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
+                            </a>
                         </div>
 
 
                         <div class="div-outside-switch item-complete-switch">
                             <div class="switch_container" >
                                 <label class="switch">
-                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${title}" ${!state.is_available ? 'checked' : ''}>
+                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${row.title}" ${!state.is_available ? 'checked' : ''}>
                                     <span class="slider"></span>
                                 </label>
                             </div>
