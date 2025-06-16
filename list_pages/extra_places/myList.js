@@ -11,22 +11,7 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
     /*html_script = '../main/z.html';
     styles_script = '../main/styles.css';*/
     
-    let state = {
-        is_available: true,
-        user_suo_object: [],
-        is_premium_member: false,
-        globalData: {},
-        filteredData: [],
-        current_sort: 'none',
-        list_type: 'extra_places',
-        data_loaded_from_wix: false,
-        sort_options: [
-            { text: 'Sort By Time', value: 'none' },
-            { text: 'Sort By Most Bookmakers', value: 'most bookmakers' },
-        ], 
-        above_columns_items: ['races left', 'search races', 'sort'],
-        is_desktop: true,
-    };
+
     
     class ExtraPlacesList extends HTMLElement {
     
@@ -38,9 +23,26 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
-            this.state = state; 
+            
+            this.state = {
+                is_available: true,
+                user_suo_object: [],
+                is_premium_member: false,
+                globalData: {},
+                filteredData: [],
+                current_sort: 'none',
+                list_type: 'extra_places',
+                data_loaded_from_wix: false,
+                sort_options: [
+                    { text: 'Sort By Time', value: 'none' },
+                    { text: 'Sort By Most Bookmakers', value: 'most bookmakers' },
+                ], 
+                above_columns_items: ['races left', 'search races', 'sort'],
+                is_desktop: true,
+            };
 
-            state.create_item_function = this.create_row;
+
+            this.state.create_item_function = this.create_row;
             
         }
 

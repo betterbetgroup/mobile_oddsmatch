@@ -11,23 +11,7 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
     /*html_script = '../main/z.html';
     styles_script = '../main/styles.css';*/
     
-    let state = {
-        is_available: true,
-        user_suo_object: [],
-        is_premium_member: false,
-        globalData: {},
-        filteredData: [],
-        current_sort: 'none',
-        list_type: 'guides',
-        data_loaded_from_wix: false,
-        sort_options: [
-            { text: 'Sort By Difficulty', value: 'none' },
-            { text: 'Sort A-Z', value: 'a-z' },
-            { text: 'Sort Z-A', value: 'z-a' },
-        ], 
-        above_columns_items: ['guides read', 'search guides', 'sort', 'hidden switch guides'],
-        is_desktop: true,
-    };
+
     
     class GuidesList extends HTMLElement {
     
@@ -39,9 +23,26 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
-            this.state = state; 
+            
+            this.state = {
+                is_available: true,
+                user_suo_object: [],
+                is_premium_member: false,
+                globalData: {},
+                filteredData: [],
+                current_sort: 'none',
+                list_type: 'guides',
+                data_loaded_from_wix: false,
+                sort_options: [
+                    { text: 'Sort By Difficulty', value: 'none' },
+                    { text: 'Sort A-Z', value: 'a-z' },
+                    { text: 'Sort Z-A', value: 'z-a' },
+                ], 
+                above_columns_items: ['guides read', 'search guides', 'sort', 'hidden switch guides'],
+                is_desktop: true,
+            };
 
-            state.create_item_function = this.create_row;
+            this.state.create_item_function = this.create_row;
             
         }
 

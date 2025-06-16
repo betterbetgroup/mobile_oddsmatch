@@ -8,100 +8,6 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/dutching_matcher/styles.css';
 
-    // Create state object
-    const state = {
-        is_premium_member: false,
-        waiting_globalData: [],
-        globalData: [],
-        filteredData: [],
-        currentPage: 1,
-        rowsPerPage: 10,
-        current_sort: 'qualifying loss',
-        globalFilters: {},
-        customFilters: {},
-        data_loaded_from_wix: false, 
-        filter_info: [
-            {
-                name: 'bookmakers',
-                type: 'list',
-                input_id: 'bookmakers-dropdown-select-container',
-                filter_id: 'bookmakers-dropdown-options',
-                default: [],
-                list_values_source: 'bookmakerImages'
-            },
-            {
-                name: 'exchanges', 
-                type: 'list',
-                input_id: 'exchanges-dropdown-select-container',
-                filter_id: 'exchanges-dropdown-options',
-                default: [],
-                list_values_source: 'exchangeImages'
-            },
-            {
-                name: 'markets', 
-                type: 'list',
-                input_id: 'markets-dropdown-select-container',
-                filter_id: 'markets-dropdown-options',
-                default: [],
-                list_values_source: 'DutchingMarketsList'
-            },
-            {
-                name: 'startTime',
-                type: 'string',
-                input_id: 'date-range',
-                filter_id: 'date-range',
-                default: ''
-            },
-            {
-                name: 'minRating',
-                type: 'number',
-                input_id: 'min-rating',
-                filter_id: 'min-rating',
-                default: null
-            },
-            {
-                name: 'maxRating',
-                type: 'number',
-                input_id: 'max-rating',
-                filter_id: 'max-rating',
-                default: null
-            },
-            {
-                name: 'minQualifyingLoss',
-                type: 'number',
-                input_id: 'min-qualifying-loss',
-                filter_id: 'min-qualifying-loss',
-                default: null
-            },
-            {
-                name: 'minPotentialProfit',
-                type: 'number',
-                input_id: 'min-potential-profit',
-                filter_id: 'min-potential-profit',
-                default: null
-            }
-        ],
-        // Add null placeholders for the functions
-        filter_function: null,
-        create_row_function: null,
-        set_bookmakers_and_exchanges_function: null,
-        sort_options: [
-            {
-                value: 'qualifying loss',
-                text: 'Sort By Profit'
-            },
-            {
-                value: 'rating',
-                text: 'Sort By Rating'
-            },
-            {
-                value: 'date and time',
-                text: 'Sort By Date'
-            }
-        ],
-        is_tutorial: false,
-        oddsmatcher_type: 'dutching'
-    };
 
     class dutchingOddsmatcher extends HTMLElement {
 
@@ -113,8 +19,104 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
 
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
-            this.state = state; 
-            
+
+
+            // Create state object
+            this.state = {
+                is_premium_member: false,
+                waiting_globalData: [],
+                globalData: [],
+                filteredData: [],
+                currentPage: 1,
+                rowsPerPage: 10,
+                current_sort: 'qualifying loss',
+                globalFilters: {},
+                customFilters: {},
+                data_loaded_from_wix: false, 
+                filter_info: [
+                    {
+                        name: 'bookmakers',
+                        type: 'list',
+                        input_id: 'bookmakers-dropdown-select-container',
+                        filter_id: 'bookmakers-dropdown-options',
+                        default: [],
+                        list_values_source: 'bookmakerImages'
+                    },
+                    {
+                        name: 'exchanges', 
+                        type: 'list',
+                        input_id: 'exchanges-dropdown-select-container',
+                        filter_id: 'exchanges-dropdown-options',
+                        default: [],
+                        list_values_source: 'exchangeImages'
+                    },
+                    {
+                        name: 'markets', 
+                        type: 'list',
+                        input_id: 'markets-dropdown-select-container',
+                        filter_id: 'markets-dropdown-options',
+                        default: [],
+                        list_values_source: 'DutchingMarketsList'
+                    },
+                    {
+                        name: 'startTime',
+                        type: 'string',
+                        input_id: 'date-range',
+                        filter_id: 'date-range',
+                        default: ''
+                    },
+                    {
+                        name: 'minRating',
+                        type: 'number',
+                        input_id: 'min-rating',
+                        filter_id: 'min-rating',
+                        default: null
+                    },
+                    {
+                        name: 'maxRating',
+                        type: 'number',
+                        input_id: 'max-rating',
+                        filter_id: 'max-rating',
+                        default: null
+                    },
+                    {
+                        name: 'minQualifyingLoss',
+                        type: 'number',
+                        input_id: 'min-qualifying-loss',
+                        filter_id: 'min-qualifying-loss',
+                        default: null
+                    },
+                    {
+                        name: 'minPotentialProfit',
+                        type: 'number',
+                        input_id: 'min-potential-profit',
+                        filter_id: 'min-potential-profit',
+                        default: null
+                    }
+                ],
+                // Add null placeholders for the functions
+                filter_function: null,
+                create_row_function: null,
+                set_bookmakers_and_exchanges_function: null,
+                sort_options: [
+                    {
+                        value: 'qualifying loss',
+                        text: 'Sort By Profit'
+                    },
+                    {
+                        value: 'rating',
+                        text: 'Sort By Rating'
+                    },
+                    {
+                        value: 'date and time',
+                        text: 'Sort By Date'
+                    }
+                ],
+                is_tutorial: false,
+                oddsmatcher_type: 'dutching'
+            };
+
+    
             // Assign the actual functions to the state
             this.state.filter_function = this.function_using_global_data_and_global_filters_to_make_filtered_data;
             this.state.create_row_function = this.create_row;

@@ -1,4 +1,3 @@
-
 //import * as Helpers from '../main/helper.js';
 
 import * as Helpers from 'public/custom-elements/list-page-helper.js'
@@ -15,24 +14,7 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
     /*html_script = '../main/z.html';
     styles_script = '../main/styles.css';*/
     
-    let state = {
-        is_available: true,
-        user_suo_object: [],
-        is_premium_member: false,
-        globalData: {},
-        filteredData: [],
-        current_sort: 'none',
-        list_type: 'sign_up',
-        data_loaded_from_wix: false,
-        sort_options: [
-            { text: 'No Sort', value: 'none' },
-            { text: 'Sort by Profit', value: 'profit' },
-            { text: 'Sort A-Z', value: 'a-z' },
-            { text: 'Sort Z-A', value: 'z-a' },
-        ], 
-        above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch'],
-        is_desktop: true,
-    };
+
     
     class SignUpOfferList extends HTMLElement {
     
@@ -44,9 +26,27 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
-            this.state = state; 
 
-            state.create_item_function = this.create_row;
+            this.state = {
+                is_available: true,
+                user_suo_object: [],
+                is_premium_member: false,
+                globalData: {},
+                filteredData: [],
+                current_sort: 'none',
+                list_type: 'sign_up',
+                data_loaded_from_wix: false,
+                sort_options: [
+                    { text: 'No Sort', value: 'none' },
+                    { text: 'Sort by Profit', value: 'profit' },
+                    { text: 'Sort A-Z', value: 'a-z' },
+                    { text: 'Sort Z-A', value: 'z-a' },
+                ], 
+                above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch'],
+                is_desktop: true,
+            };
+
+            this.state.create_item_function = this.create_row;
             
         }
 

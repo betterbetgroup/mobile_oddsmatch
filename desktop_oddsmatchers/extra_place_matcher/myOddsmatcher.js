@@ -14,137 +14,6 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
     styles_script = 'styles.css';*/
     
 
-    // Create state object
-    const state = {
-        is_premium_member: false,
-        waiting_globalData: [],
-        globalData: [],
-        filteredData: [],
-        currentPage: 1,
-        rowsPerPage: 10,
-        current_sort: 'date and time',
-        globalFilters: {},
-        customFilters: {},
-        data_loaded_from_wix: false, 
-        filter_info: [
-            {
-                name: 'bookmakers',
-                type: 'list',
-                input_id: 'bookmakers-dropdown-select-container',
-                filter_id: 'bookmakers-dropdown-options',
-                default: [],
-                list_values_source: 'bookmakerImages'
-            },
-            {
-                name: 'exchanges', 
-                type: 'list',
-                input_id: 'exchanges-dropdown-select-container',
-                filter_id: 'exchanges-dropdown-options',
-                default: [],
-                list_values_source: 'exchangeImages'
-            },
-            {
-                name: 'startTime',
-                type: 'string',
-                input_id: 'date-range',
-                filter_id: 'date-range',
-                default: ''
-            },
-            {
-                name: 'minLiquidity',
-                type: 'number',
-                input_id: 'min-liquidity',
-                filter_id: 'min-liquidity',
-                default: null
-            },
-            {
-                name: 'minBackOdds',
-                type: 'number',
-                input_id: 'min-back-odds',
-                filter_id: 'min-back-odds',
-                default: null
-            },
-            {
-                name: 'maxBackOdds',
-                type: 'number',
-                input_id: 'max-back-odds',
-                filter_id: 'max-back-odds',
-                default: null
-            },
-            {
-                name: 'minImpliedOdds',
-                type: 'number',
-                input_id: 'min-Implied Odds',
-                filter_id: 'min-Implied Odds',
-                default: null
-            },
-            {
-                name: 'maxImpliedOdds',
-                type: 'number',
-                input_id: 'max-Implied Odds',
-                filter_id: 'max-Implied Odds',
-                default: null
-            },
-            {
-                name: 'minPlaces',
-                type: 'number',
-                input_id: 'min-places',
-                filter_id: 'min-places',
-                default: null
-            },
-            {
-                name: 'minExtraPlaces',
-                type: 'number',
-                input_id: 'min-extra_places',
-                filter_id: 'min-extra_places',
-                default: null
-            },
-            {
-                name: 'minQualifyingLoss',
-                type: 'number',
-                input_id: 'min-qualifying-loss',
-                filter_id: 'min-qualifying-loss',
-                default: null
-            },
-            {
-                name: 'minPotentialProfit',
-                type: 'number',
-                input_id: 'min-potential-profit',
-                filter_id: 'min-potential-profit',
-                default: null
-            }
-        ],
-        // Add null placeholders for the functions
-        filter_function: null,
-        create_row_function: null,
-        set_bookmakers_and_exchanges_function: null,
-        sort_options: [
-            {
-                value: 'Implied Odds',
-                text: 'Sort By Implied Odds'
-            },
-            {
-                value: 'qualifying loss',
-                text: 'Sort By Qualifying Loss'
-            },  
-            {
-                value: 'potential profit',
-                text: 'Sort By Potential Profit'
-            },
-            {
-                value: 'date and time',
-                text: 'Sort By Date'
-            }
-            
-        ]     ,
-        is_tutorial: false,  
-        oddsmatcher_type: 'extra_place',
-        is_desktop: true,
-        desktop_header_columns: ['race', 'horse', 'places', 'each way back bet', 'win lay bet', 'place lay bet', 'expected profit extra place', 'implied odds']
-        
-    };
-
-
 
     class extraPlaceOddsmatcher extends HTMLElement {
 
@@ -156,7 +25,137 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
 
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
-            this.state = state; 
+
+            // Create state object
+            this.state = {
+                is_premium_member: false,
+                waiting_globalData: [],
+                globalData: [],
+                filteredData: [],
+                currentPage: 1,
+                rowsPerPage: 10,
+                current_sort: 'date and time',
+                globalFilters: {},
+                customFilters: {},
+                data_loaded_from_wix: false, 
+                filter_info: [
+                    {
+                        name: 'bookmakers',
+                        type: 'list',
+                        input_id: 'bookmakers-dropdown-select-container',
+                        filter_id: 'bookmakers-dropdown-options',
+                        default: [],
+                        list_values_source: 'bookmakerImages'
+                    },
+                    {
+                        name: 'exchanges', 
+                        type: 'list',
+                        input_id: 'exchanges-dropdown-select-container',
+                        filter_id: 'exchanges-dropdown-options',
+                        default: [],
+                        list_values_source: 'exchangeImages'
+                    },
+                    {
+                        name: 'startTime',
+                        type: 'string',
+                        input_id: 'date-range',
+                        filter_id: 'date-range',
+                        default: ''
+                    },
+                    {
+                        name: 'minLiquidity',
+                        type: 'number',
+                        input_id: 'min-liquidity',
+                        filter_id: 'min-liquidity',
+                        default: null
+                    },
+                    {
+                        name: 'minBackOdds',
+                        type: 'number',
+                        input_id: 'min-back-odds',
+                        filter_id: 'min-back-odds',
+                        default: null
+                    },
+                    {
+                        name: 'maxBackOdds',
+                        type: 'number',
+                        input_id: 'max-back-odds',
+                        filter_id: 'max-back-odds',
+                        default: null
+                    },
+                    {
+                        name: 'minImpliedOdds',
+                        type: 'number',
+                        input_id: 'min-Implied Odds',
+                        filter_id: 'min-Implied Odds',
+                        default: null
+                    },
+                    {
+                        name: 'maxImpliedOdds',
+                        type: 'number',
+                        input_id: 'max-Implied Odds',
+                        filter_id: 'max-Implied Odds',
+                        default: null
+                    },
+                    {
+                        name: 'minPlaces',
+                        type: 'number',
+                        input_id: 'min-places',
+                        filter_id: 'min-places',
+                        default: null
+                    },
+                    {
+                        name: 'minExtraPlaces',
+                        type: 'number',
+                        input_id: 'min-extra_places',
+                        filter_id: 'min-extra_places',
+                        default: null
+                    },
+                    {
+                        name: 'minQualifyingLoss',
+                        type: 'number',
+                        input_id: 'min-qualifying-loss',
+                        filter_id: 'min-qualifying-loss',
+                        default: null
+                    },
+                    {
+                        name: 'minPotentialProfit',
+                        type: 'number',
+                        input_id: 'min-potential-profit',
+                        filter_id: 'min-potential-profit',
+                        default: null
+                    }
+                ],
+                // Add null placeholders for the functions
+                filter_function: null,
+                create_row_function: null,
+                set_bookmakers_and_exchanges_function: null,
+                sort_options: [
+                    {
+                        value: 'Implied Odds',
+                        text: 'Sort By Implied Odds'
+                    },
+                    {
+                        value: 'qualifying loss',
+                        text: 'Sort By Qualifying Loss'
+                    },  
+                    {
+                        value: 'potential profit',
+                        text: 'Sort By Potential Profit'
+                    },
+                    {
+                        value: 'date and time',
+                        text: 'Sort By Date'
+                    }
+                    
+                ]     ,
+                is_tutorial: false,  
+                oddsmatcher_type: 'extra_place',
+                is_desktop: true,
+                desktop_header_columns: ['race', 'horse', 'places', 'each way back bet', 'win lay bet', 'place lay bet', 'expected profit extra place', 'implied odds']
+                
+            };
+
             
             // Assign the actual functions to the state
             this.state.filter_function = this.function_using_global_data_and_global_filters_to_make_filtered_data;
