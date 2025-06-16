@@ -1,7 +1,7 @@
 
-import * as Helpers from '../main/helper.js';
+//import * as Helpers from '../main/helper.js';
 
-//import * as Helpers from 'public/custom-elements/list-page-helper.js'
+import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
 (function () {
 
@@ -12,8 +12,8 @@ import * as Helpers from '../main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
-    html_script = '../main/z.html';
-    styles_script = '../main/styles.css';
+    /*html_script = '../main/z.html';
+    styles_script = '../main/styles.css';*/
     
     let state = {
         is_available: true,

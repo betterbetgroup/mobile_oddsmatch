@@ -67,6 +67,9 @@
     --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
     --padding-main-containers: 5vw;
 
+    --outer-container-div-margin-bottom: 50.00vw;
+
+
     --border-radius-filter-inputs: 1.25vw;
 
     --padding-left-filter-inputs: 1.50vw;

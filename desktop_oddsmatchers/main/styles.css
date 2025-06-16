@@ -19,6 +19,10 @@
     --global-border-width-main: 0.07vw;
     --global-smaller-border-radius: 0.29vw;
 
+
+    --outer-container-div-margin-bottom: 50.00vw;
+
+
     /* upgrade box */
     --padding-top-box-so-upgrade-button-is-in-middle: calc(var(--global-gap-between-main-items) + 6.14vw); /* this is as it's in table so not blurred - and it's height of table header */
 
