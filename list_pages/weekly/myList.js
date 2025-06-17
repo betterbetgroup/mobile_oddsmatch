@@ -1,6 +1,6 @@
-//import * as Helpers from '../main/helper.js';
+import * as Helpers from '../main/helper.js';
 
-import * as Helpers from 'public/custom-elements/list-page-helper.js'
+//import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
 (function () {
 

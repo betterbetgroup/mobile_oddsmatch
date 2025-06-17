@@ -492,6 +492,9 @@ function get_and_display_profit_left_and_offers_left(scope, state) {
         } 
 
         total_offers += 1;
+        if (item.profit_amount == 'N/A') {
+            item.profit_amount = '0';
+        }
         if (item.profit_amount) {
             if (state.list_type == 'reload') {
                 total_profit += parseFloat(item.profit_amount.replace('£', '').replace('N/A', '0'));
@@ -734,14 +737,29 @@ function sort_filtered_data(scope, state) {
             case 'profit':
                 if (state.list_type == 'reload') {
                     state.filteredData.sort((a, b) => {
+
+                        if (a.profit_amount == 'N/A') {
+                            a.profit_amount = '0';
+                        }
+                        if (b.profit_amount == 'N/A') {
+                            b.profit_amount = '0';
+                        }
                         const aProfit = a.profit_amount ? parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
                         const bProfit = b.profit_amount ? parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+
                         return bProfit - aProfit;
                     });
                 } else {
                     state.filteredData.sort((a, b) => {
+                        if (a.profit_amount == 'N/A') {
+                            a.profit_amount = '0';
+                        }
+                        if (b.profit_amount == 'N/A') {
+                            b.profit_amount = '0';
+                        }
                         const aProfit = a.profit_amount ? parseFloat(a.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
                         const bProfit = b.profit_amount ? parseFloat(b.profit_amount.replace('£', '').replace('N/A', '0')) : 0;
+
                         return bProfit - aProfit;
                     });
                 }
