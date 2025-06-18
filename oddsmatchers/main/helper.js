@@ -94,6 +94,19 @@ const DesktopHeaderDictionary = {
 
 
 
+
+// COULD ALSO ADD IN UNREALISED PROFIT
+const addition_above_columns_items = {
+    'total profit': `<div class="above_columns_item">
+                        <div class="div-outside-info">
+                            <div class="title_text" >Total Profit</div>
+                            <div class="info_text total_profit_value" >£3200</div>
+                        </div>
+                    </div>`,
+}
+
+
+
 export function loadExternalScript(scriptUrl) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -115,18 +128,37 @@ export function process_new_final_data(data, scope, state) {
 
     state.is_premium_member = data.premium_member;
     if (window.getComputedStyle(scope.querySelector('#filter-panel-container')).display == 'flex') {
-        scope.querySelector('#covering_filters').style.display = state.is_premium_member ? 'none' : 'flex';
+        scope.querySelector('#covering_filters').style.display = 
+            state.oddsmatcher_type == 'profit tracker' || state.is_premium_member ? 'none' : 'flex';
     }
 
     if (data.rows) {
         state.waiting_globalData = data.rows;
-        if (data.is_first) {
-            state.globalData = data.rows;
+        if (data.is_first || state.oddsmatcher_type == 'profit tracker') {
+            if (state.oddsmatcher_type == 'profit tracker') {
+                state.globalData = process_profit_tracker_data(data.rows)
+            } else {
+                state.globalData = data.rows;
+            }
             filterData(scope, state);
         }
     }   
 }
 
+
+// creates date_and_time and automates time to 12:00
+function process_profit_tracker_data(rows) {
+    return rows.map(row => {
+        if (row.date) {
+            // Split the date into parts
+            const [day, month, year] = row.date.split('/');
+            
+            // Create the new date_and_time format
+            row.date_and_time = `${day}/${month}/${year.substring(2)} 12:00`;
+        }
+        return row;
+    });
+}
 
 
 
@@ -392,7 +424,7 @@ export function set_input_values_using_filter(filters, scope, state) {
                 `Select All ${name.charAt(0).toUpperCase() + name.slice(1)}`,
                 scope
             );
-        } else if (filter.type === 'string') {
+        } else if (filter.type === 'string' || filter.type === 'date') {
             scope.getElementById(filter.filter_id).value = value || '';
         } else if (filter.type === 'number') {
             setInputValue(filter.filter_id, value, scope);
@@ -414,7 +446,7 @@ export function set_global_filters_as_filters_selected_in_dropdown(filters, stat
         if (filter.type === 'list') {
             state.globalFilters[name] = value || [];
         }
-        else if (filter.type === 'string') {
+        else if (filter.type === 'string' || filter.type === 'date') {
             state.globalFilters[name] = value || '';
         }
         else if (filter.type === 'number') {
@@ -522,6 +554,8 @@ export function sort_data(sort_by, state) {
         state.globalData = sort_rows_by_date_and_time(state.globalData);
     } else if (sort_by == 'ROI') {
         state.globalData = sort_rows_by_ROI(state.globalData);
+    } else if (sort_by == 'final profit') {
+        state.globalData = sort_rows_by_final_profit(state.globalData);
     }
 }
 
@@ -565,6 +599,15 @@ export function sort_rows_by_potential_profit(rows) {
         return ratingB - ratingA;  // Sort in descending order
     });
 }
+
+export function sort_rows_by_final_profit(rows) {
+    return rows.sort((a, b) => {
+        const ratingA = parseFloat(a.actualprofit.replace('£', '').replace('+', ''));
+        const ratingB = parseFloat(b.actualprofit.replace('£', '').replace('+', ''));
+        return ratingB - ratingA;  // Sort in descending order
+    });
+}
+
 
 export function sort_rows_by_ROI(rows) {
     return rows.sort((a, b) => {
@@ -629,7 +672,7 @@ export function filterData(scope, state) {
     state.currentPage = 1;
     sort_data(state.current_sort, state);
     state.filteredData = state.filter_function(state.globalData, state.globalFilters);
-        
+
     setupPagination(scope, state);
 
 }
@@ -1050,6 +1093,16 @@ export function go_to_input_and_update_global_for_the_input(filterId, scope, glo
             const value = scope.getElementById(filterInfo.filter_id).value;
             globalFilters[filterName] = parseFloat(value) || null;
             break;
+
+        case 'date':
+            const dateValue = scope.getElementById(filterInfo.filter_id).value;
+            if (dateValue) {
+                const [year, month, day] = dateValue.split('-');
+                globalFilters[filterName] = `${day}/${month}/${year}`;
+            } else {
+                globalFilters[filterName] = '';
+            }
+            break;
     }
 
     return globalFilters;
@@ -1075,7 +1128,7 @@ export function check_if_dropdown_matches_global_filter_settings(scope, state) {
             
             if (filter.type === 'list') {
                 adjusted_global_filters[name] = value ? value.slice() : [];
-            } else if (filter.type === 'string') {
+            } else if (filter.type === 'string' || filter.type === 'date') {
                 adjusted_global_filters[name] = value || "";
             } else if (filter.type === 'number') {
                 adjusted_global_filters[name] = value || "null";
@@ -1188,7 +1241,7 @@ export function function_that_takes_global_filters_and_appends_it_to_current_wit
         
         if (filter.type === 'list') {
             state.customFilters[name_for_filter][name] = value ? value.slice() : [];
-        } else if (filter.type === 'string') {
+        } else if (filter.type === 'string' || filter.type === 'date') {
             state.customFilters[name_for_filter][name] = value || "";
         } else if (filter.type === 'number') {
             state.customFilters[name_for_filter][name] = value || "null";
@@ -1486,11 +1539,14 @@ export function create_event_listeners_for_select_containers(scope, state) {
         input.addEventListener('input', () => updateGlobalFilters(input.id, scope, state));
     });
 
-
     state.filter_info.forEach(filter => {
         if (filter.type === 'string') {
             scope.getElementById(filter.input_id).addEventListener('change', () => 
                 updateGlobalFilters(filter.input_id, scope, state)
+            );
+        } else if (filter.type === 'date') {
+            scope.getElementById(filter.input_id).addEventListener('input', () => 
+                validateDateRange(filter.input_id, scope, state)
             );
         }
     });
@@ -1499,7 +1555,19 @@ export function create_event_listeners_for_select_containers(scope, state) {
 }
 
 
+function validateDateRange(filter_id, scope, state) {
 
+    const startDate = scope.getElementById('date-range-start').value;
+    const endDate = scope.getElementById('date-range-end').value;
+
+    if (startDate && endDate && startDate > endDate) {
+        alert('End date must be after start date.');
+        scope.getElementById('date-range-end').value = ''; // Reset end date
+    }
+
+    updateGlobalFilters(filter_id, scope, state)
+
+}
 
 
 
@@ -1659,33 +1727,64 @@ export function runSpecificScript(scope, state) {
     // if is tutorial is true, make it select all .above_columns_row and add the class .hidden_row_above_columns EXCEPT FOR THE LAST ROW
     // so tutorial only shows refresh and timer
     if (state.is_tutorial) {
-
-        if (state.is_desktop) {
-            let above_columns_items = scope.querySelectorAll('.above_columns_item');
-            above_columns_items.forEach((item) => {
-                if (!item.classList.contains('refresh_row_item')) {
-                    item.classList.add('hidden_row_above_columns');
-                }
-            });
-
-        } else {
-            const rows = scope.querySelectorAll('.above_columns_row');
-            rows.forEach((row, index) => {
-                if (index < rows.length - 1) {
-                    row.classList.add('hidden_row_above_columns');
-                }
-            });
-        }
+        run_script_for_tutorial(scope, state);
     }
+
+    if (state.oddsmatcher_type == 'profit tracker') {
+        run_script_for_profit_tracker(scope, state);
+    }
+
+
     
 }
 
 
+function run_script_for_tutorial(scope, state) {
+
+    if (state.is_desktop) {
+        let above_columns_items = scope.querySelectorAll('.above_columns_item');
+        above_columns_items.forEach((item) => {
+            if (!item.classList.contains('refresh_row_item')) {
+                item.classList.add('hidden_row_above_columns');
+            }
+        });
+
+    } else {
+        const rows = scope.querySelectorAll('.above_columns_row');
+        rows.forEach((row, index) => {
+            if (index < rows.length - 1) {
+                row.classList.add('hidden_row_above_columns');
+            }
+        });
+    }
+}
 
 
+function run_script_for_profit_tracker(scope, state) {
+
+    let above_columns_items = scope.querySelectorAll('.above_columns_item');
+    above_columns_items.forEach((item) => {
+        if (item.classList.contains('refresh_row_item') || item.classList.contains('get-alerts-button-item')) {
+            item.classList.add('hidden_row_above_columns');
+        }
+    });
+
+    let above_columns_row_timer = scope.querySelector('.above_columns_row_timer');
+    above_columns_row_timer.classList.add('side_by_side_divs_in_row');
+    above_columns_row_timer.innerHTML = addition_above_columns_items['total profit'];
 
 
+    get_total_profit_and_set_text(scope, state);
 
+}
+
+
+function get_total_profit_and_set_text(scope, state) {
+    //let total_profit = state.globalData.reduce((acc, row) => acc + parseFloat(row.actualprofit.replace('£', '').replace('+', '')), 0);
+    let total_profit = 3200;
+    scope.querySelector('.total_profit_value').textContent = `£${total_profit}`;
+    scope.querySelector('.total_profit_value').style.visibility = 'visible';
+}
 
 
 
@@ -1847,6 +1946,21 @@ function createFilterItem(filter, state) {
         input.id = filter.input_id;
         input.placeholder = formatFilterText(filter.name, state);
         input.autocomplete = 'off';
+    } else if (filter.type === 'date') {
+
+        // Create input for date range
+        const dateWrapper = document.createElement('div');
+        dateWrapper.className = 'custom-date-wrapper';
+        
+        const input = document.createElement('input');
+        input.type = 'date';
+        input.className = 'date-range-input';
+        input.value = '';
+        input.id = filter.input_id;
+        input.placeholder = formatFilterText(filter.name, state);
+        dateWrapper.appendChild(input);
+        filterItem.appendChild(dateWrapper);
+
     }
 
     return filterItem;

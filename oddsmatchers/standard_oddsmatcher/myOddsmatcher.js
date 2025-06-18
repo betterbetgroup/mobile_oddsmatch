@@ -1,6 +1,6 @@
-//import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
-import * as Helpers from 'public/custom-elements/main-helper.js'
+//import * as Helpers from 'public/custom-elements/main-helper.js'
 
 (function () {
 
@@ -270,7 +270,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
         
         }
     
-        create_row(row, scope) {
+        create_row(row, scope, state) {
 
             function get_row_data(row) {
         

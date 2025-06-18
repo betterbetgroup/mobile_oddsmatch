@@ -150,6 +150,18 @@
 
 
 
+
+
+
+
+
+    /* profit tracker mobile change */
+
+    --margin-top-info-text-mobile: 0.9375vw;
+
+
+
+
 }
 
 
@@ -1063,5 +1075,54 @@ input[type="checkbox"] {
     height: var(--width-height-padlock-image-in-button);
     margin-left: var(--margin-left-padlock-image-in-button);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* STUFF ADDED FOR PROFIT TRACKER */
+
+
+.div-outside-info {
+    width: var(--width-info-items-at-top);
+    height: var(--height-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-outside-info div {
+    align-self: baseline;
+}
+
+.title_text {
+    font-weight: bold;
+}
+
+.info_text {
+    margin-top: auto;
+    margin-bottom: 0;
+    visibility: hidden;
+}
+
+
+
+
+/* AND WHEN MOBILE FOR PROFIT TRACKER */
+
+
+
+.side_by_side_divs_in_row .above_columns_item .div-outside-info div {
+    align-self: center;
+}
+
 
 

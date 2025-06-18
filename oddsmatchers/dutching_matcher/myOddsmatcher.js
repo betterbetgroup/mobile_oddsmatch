@@ -236,7 +236,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
         
         }
     
-        create_row(row, scope) {
+        create_row(row, scope, state) {
 
 
 

@@ -261,7 +261,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
         
         }
     
-        create_row(row, scope) {
+        create_row(row, scope, state) {
 
             let sport_icon_url = Helpers.get_sport_icon_url(row.sport)
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)

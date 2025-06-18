@@ -272,7 +272,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
         
         }
     
-        create_row(row, scope) {
+        create_row(row, scope, state) {
 
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
             let win_exchange_image = Helpers.get_exchange_image(row.win_exchange)

@@ -241,7 +241,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
         }
     
 
-        create_row(row, scope) {
+        create_row(row, scope, state) {
 
 
             let bookmaker_image = Helpers.get_bookmaker_image(row.first_bookmaker)
