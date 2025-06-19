@@ -1,13 +1,13 @@
 //import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
-import * as Helpers from '../main/helper.js';
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 //import * as Helpers from 'public/custom-elements/main-helper.js'
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
-    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/profit_tracker/styles.css';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/index.html';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/styles.css';
 
     html_script = '../main/z.html';
     styles_script = 'styles.css';
@@ -136,7 +136,9 @@ import * as Helpers from '../main/helper.js';
                     }
                 ],
                 is_tutorial: false,
-                oddsmatcher_type: 'profit tracker'
+                oddsmatcher_type: 'profit tracker',
+                is_desktop: true,
+                desktop_header_columns: ['date and time', 'sport', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard', 'rating']
             };
             
     
@@ -252,7 +254,6 @@ import * as Helpers from '../main/helper.js';
     
         create_row(row, scope, state) {
 
-            
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
             let exchange_image = Helpers.get_exchange_image(row.exchange)
@@ -296,9 +297,6 @@ import * as Helpers from '../main/helper.js';
                 }
             }
 
-        
-
-            
             const card = document.createElement('div');
             card.className = 'mobile-card outer-mobile-card';
             card.setAttribute('data-id', row._id);
