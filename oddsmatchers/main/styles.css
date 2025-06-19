@@ -645,6 +645,10 @@ body {
     padding-left: var(--padding-left-filter-inputs);
 }
 
+.date-range-input {
+    font-family: Arial, sans-serif; /* You can change this to any font you prefer */
+}
+
 
 
 .custom-select-trigger input, .custom-select-trigger-filter input {

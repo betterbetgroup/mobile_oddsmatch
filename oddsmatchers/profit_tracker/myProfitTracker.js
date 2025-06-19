@@ -202,8 +202,7 @@ import * as Helpers from '../main/helper.js';
         
             return globalData.filter(row => {
 
-                const allPlatforms = globalFilters.bookmakers.concat(globalFilters.exchanges)
-                let bookmakerMatch = allPlatforms.includes(row.bookie);
+                let bookmakerMatch = globalFilters.bookmakers.includes(row.bookie);
 
                 // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
     

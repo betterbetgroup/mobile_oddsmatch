@@ -1764,6 +1764,9 @@ function add_desktop_table_header(scope, state) {
 
 export function runSpecificScript(scope, state) {
 
+    // use scope and on window resize run the function handleResize
+    window.addEventListener('resize', () => { handleResize(scope); });
+
     // set the inner html of the header using the js
     if (state.is_desktop) {
         add_desktop_table_header(scope, state);
@@ -2122,10 +2125,10 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
     const originalText = descriptionText;
     let isExpanded = false;
     
-    // Function to truncate text to fit 3 lines
+    // Function to truncate text to fit 2 lines
     const truncateText = () => {
         const lineHeight = parseFloat(getComputedStyle(descriptionTextElement).lineHeight);
-        const maxHeight = lineHeight * 2; // 3 lines
+        const maxHeight = (lineHeight * 2) + 2; // 2 lines, // Add 2px tolerance for floating-point precision
         
         // Reset to original text to measure
         descriptionTextElement.textContent = originalText;
@@ -2143,7 +2146,7 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
                 descriptionTextElement.textContent = truncatedText + ' ...more';
                 
                 // Check if this fits within 3 lines
-                if (descriptionTextElement.scrollHeight <= maxHeight) {
+                if (descriptionTextElement.scrollHeight <= maxHeight) { 
                     break;
                 }
             }

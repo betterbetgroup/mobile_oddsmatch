@@ -1,6 +1,8 @@
+/*
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/styles.css');
 
-
+*/
+@import url('../../oddsmatchers/main/styles.css');
 
 
 
@@ -649,7 +651,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     position: relative;
 }
 
-.select_button {
+.select_button, .calc_select_button {
     position: absolute;
     right: calc(-1 * (var(--width-height-select-button) + var(--margin-left-select-button)));
     top: 50%;
@@ -666,6 +668,16 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.calc_select_button {
+    left: calc(-1 * (var(--width-height-select-button) + var(--margin-left-select-button)));
+    right: auto;
+    background: none;
+}
+
+.calculator_image {
+    height: var(--width-height-select-button);
 }
 
 .select_button:hover {

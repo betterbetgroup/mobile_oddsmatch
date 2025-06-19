@@ -262,6 +262,9 @@ export function render(scope, state, html_script, general_info_script) {
 
 export function runSpecificScript(scope, state) {
 
+    // use scope and on window resize run the function handleResize
+    window.addEventListener('resize', () => { handleResize(scope); });
+
     // this is only used for weekly
     state.get_availability_text_function = get_availability_text;
 

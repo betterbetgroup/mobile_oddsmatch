@@ -204,8 +204,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
             return globalData.filter(row => {
 
-                const allPlatforms = globalFilters.bookmakers.concat(globalFilters.exchanges)
-                let bookmakerMatch = allPlatforms.includes(row.bookie);
+                let bookmakerMatch = globalFilters.bookmakers.includes(row.bookie);
 
                 // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
     
@@ -310,6 +309,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             tr.setAttribute('data-id', row._id)
 
 
+
+
             tr.innerHTML = `
 
                 <td class="date_and_time_data">${row.date}</td>
@@ -365,16 +366,25 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
             const tableBody = scope.querySelector('table tbody');
             tableBody.appendChild(tr);
+
+
+            if (row.iscalc) {
+                let calcButton = document.createElement('button');
+                calcButton.innerHTML = `<img class="calculator_image" data-id="${row.betId}" id="more_info_button" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Info">`;
+                calcButton.className = 'calc_select_button';
+                calcButton.setAttribute('data-id', row.betId);
+                calcButton.setAttribute('aria-label', row.betId);
+                tr.appendChild(calcButton);
+            }
         
             // Create and append button directly to the row
-            if (state.is_premium_member) {
-                let selectButton = document.createElement('button');
-                selectButton.innerHTML = '+';
-                selectButton.className = 'select_button';
-                selectButton.setAttribute('data-id', row.betId);
-                selectButton.setAttribute('aria-label', row.betId);
-                tr.appendChild(selectButton);
-            }
+            let selectButton = document.createElement('button');
+            selectButton.innerHTML = '+';
+            selectButton.className = 'select_button';
+            selectButton.setAttribute('data-id', row.betId);
+            selectButton.setAttribute('aria-label', row.betId);
+            tr.appendChild(selectButton);
+            
 
 
 

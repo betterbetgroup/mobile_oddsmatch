@@ -168,7 +168,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
-                    window.addEventListener('resize', () => Helpers.handleResize(this.shadowRoot));
+                    ;
                 });
             });
         }
