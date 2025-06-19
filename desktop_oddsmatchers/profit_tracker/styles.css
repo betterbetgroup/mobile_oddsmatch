@@ -12,7 +12,8 @@
 #outer-container-div {
 
     /* above columns */
-    --width-of-total-profit-div: 10.75vw;
+    --width-of-total-profit-div: 6.75vw;
+    --gap-in-above-columns-row-profit-tracker: 2.85vw;
 
 
 
@@ -47,6 +48,11 @@
 
 
 /* above columns stuff */
+
+.above_columns_row_profit_tracker {
+    justify-content: center;
+    gap: var(--gap-in-above-columns-row-profit-tracker);
+}
 
 .div-outside-filter-dropdown-select-filters {
     margin-right: 0;

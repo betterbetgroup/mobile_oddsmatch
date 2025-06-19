@@ -71,7 +71,7 @@
     --width-mobile-row-strong: 25.00vw; 
     --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
 
-    --color-mobile-row-title: #ccc
+    --color-mobile-row-title: #ccc;
 
 
     /* content items i.e. logo img, odds combo, etc */

@@ -263,6 +263,13 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             if (!exchange_image) {
                 exchange_image = 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png';
             }
+
+            if (!row.bookmaker_link) {
+                row.bookmaker_link = bookmakerLinks[row.bookie];
+            }
+            if (!row.exchange_link) {
+                row.exchange_link = exchangeLinks[row.exchange];
+            }
     
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
@@ -370,16 +377,20 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
             if (row.iscalc) {
                 let calcButton = document.createElement('button');
-                calcButton.innerHTML = `<img class="calculator_image" data-id="${row.betId}" id="more_info_button" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Info">`;
+                calcButton.innerHTML = `<img class="calculator_image" data-betId="${row.betId}" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Calculator">`;
                 calcButton.className = 'calc_select_button';
-                calcButton.setAttribute('data-id', row.betId);
+                calcButton.setAttribute('data-betId', row.betId);
                 calcButton.setAttribute('aria-label', row.betId);
                 tr.appendChild(calcButton);
             }
         
+
+            
+
+
             // Create and append button directly to the row
             let selectButton = document.createElement('button');
-            selectButton.innerHTML = '+';
+            selectButton.innerHTML = `<img class="select_img" data-betId="${row.betId}" src="https://img.icons8.com/?size=100&id=kCViyr9hZtLX&format=png&color=ffffff" alt="Edit">`;
             selectButton.className = 'select_button';
             selectButton.setAttribute('data-id', row.betId);
             selectButton.setAttribute('aria-label', row.betId);

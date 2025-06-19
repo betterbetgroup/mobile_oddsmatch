@@ -680,6 +680,10 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     height: var(--width-height-select-button);
 }
 
+.select_img {
+    height: calc(var(--width-height-select-button) * 0.65);
+}
+
 .select_button:hover {
     background: var(--select-button-background-colour-hover);
     cursor: pointer;

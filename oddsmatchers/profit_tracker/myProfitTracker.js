@@ -255,6 +255,14 @@ import * as Helpers from '../main/helper.js';
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
             let exchange_image = Helpers.get_exchange_image(row.exchange)
+
+
+            if (!row.bookmaker_link) {
+                row.bookmaker_link = bookmakerLinks[row.bookie];
+            }
+            if (!row.exchange_link) {
+                row.exchange_link = exchangeLinks[row.exchange];
+            }
     
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
@@ -322,19 +330,19 @@ import * as Helpers from '../main/helper.js';
                             </div>
                             ` : ''}
 
-                            ${row.bookmaker_image ? `
+                            ${bookmaker_image ? `
                             <div class="mobile-row">
                                 <strong>Bookmaker:</strong>
                                 <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
-                                    <img src="${row.bookmaker_image}" class="logo-img">
+                                    <img src="${bookmaker_image}" class="logo-img">
                                 </a>
                             </div>
                             ` : ''}
-                            ${row.exchange_image ? `
+                            ${exchange_image ? `
                             <div class="mobile-row">
                                 <strong>Exchange:</strong>
                                 <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
-                                    <img src="${row.exchange_image}" class="logo-img">
+                                    <img src="${exchange_image}" class="logo-img">
                                 </a>
                             </div>
                             ` : ''}

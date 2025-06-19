@@ -1050,6 +1050,11 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
         message_type = 'Select-Event';
     }
 
+    if (event.target.className === 'calculator_image') {
+        rowobj = state.globalData.find(item => item.betId === event.target.getAttribute('data-betId'));
+        message_type = 'Calculator';
+    }
+
     let message = {
         row: rowobj
     };
@@ -1398,6 +1403,9 @@ export function open_text_box_and_confirm(scope, state) {
         })
 
         scope.querySelector('.above_columns_row').style.justifyContent = 'center';
+        if (state.oddsmatcher_type == 'profit tracker') {
+            scope.querySelector('.above_columns_row').classList.remove('above_columns_row_profit_tracker');
+        } 
 
     }
 }
@@ -1426,8 +1434,12 @@ export function close_boxes(scope, state) {
             item.classList.add('hidden_row_above_columns')
         })
 
-        scope.querySelector('.above_columns_row').style.justifyContent = 'space-evenly';
-
+        if (state.oddsmatcher_type == 'profit tracker') {
+            scope.querySelector('.above_columns_row').classList.add('above_columns_row_profit_tracker');
+        } else {
+            scope.querySelector('.above_columns_row').style.justifyContent = 'space-evenly';
+        }
+        
     }
 }
 
@@ -1838,6 +1850,8 @@ function run_script_for_tutorial(scope, state) {
 
 function run_script_for_profit_tracker(scope, state) {
 
+    scope.querySelector('.above_columns_row').classList.add('above_columns_row_profit_tracker');
+
     let above_columns_items = scope.querySelectorAll('.above_columns_item');
     above_columns_items.forEach((item) => {
         if (item.classList.contains('refresh_row_item') || item.classList.contains('get-alerts-button-item')) {
@@ -2128,7 +2142,7 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
     // Function to truncate text to fit 2 lines
     const truncateText = () => {
         const lineHeight = parseFloat(getComputedStyle(descriptionTextElement).lineHeight);
-        const maxHeight = (lineHeight * 2) + 2; // 2 lines, // Add 2px tolerance for floating-point precision
+        const maxHeight = (lineHeight * 2) + 1; // 2 lines, // Add 1px tolerance for floating-point precision
         
         // Reset to original text to measure
         descriptionTextElement.textContent = originalText;
