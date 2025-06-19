@@ -19,17 +19,38 @@
 
     /* table header stuff */
 
+    --width-date-and-time-header: 6.5vw;
+
     --width-for-items-on-right-row: calc(var(--row-height-set-by-expected-profit-data) * 1.5);
 
 
 
 
+    /* table stuff */
+    --margin-left-of-more-button: 0.25vw;
+
+
+    /* settled checkbox stuff */
+    --background-color-settled-checkbox-hover: #c4b6f3;
+    --background-color-settled-checkbox-checked: #030457;
+    
+    --checkbox-size-settled-checkbox: 1.79vw;
+
 }
+
+
+
+
+
+
+
+
+
+/* above columns stuff */
 
 .div-outside-filter-dropdown-select-filters {
     margin-right: 0;
 }
-
 
 .div-outside-info {
     width: var(--width-of-total-profit-div);
@@ -63,7 +84,7 @@
 }
 
 #date_and_time_header {
-    min-width: 95px;
+    min-width: var(--width-date-and-time-header);
     padding-left: 0;
     padding-right: 0;
 }
@@ -80,7 +101,7 @@
 
 
 
-/* row stuff */
+/* DESCRIPTION stuff */
 
 .description_data {
     text-align: left;
@@ -89,21 +110,21 @@
     word-wrap: break-word;
     white-space: normal;
     position: relative;
-    line-height: 1.4;
 }
 
 .description_data.expanded {
     position: absolute;
-    z-index: 1000;
+    z-index: 5;
     background: var(--table-data-first-background-colour);
-    border: 1px solid #444;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    padding: 1em;
-    max-height: 400px;
+    border: var(--global-border-main);
+    border-radius: var(--global-border-radius);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: var(--global-box-shadow-main);
+    padding: var(--table-header-and-data-items-padding-top-and-bottom) var(--table-header-and-data-items-padding-sides);
     overflow-y: auto;
     top: 0;
-    left: 95px;
+    left: var(--width-date-and-time-header);
     margin: 0;
 }
 
@@ -113,22 +134,19 @@
     line-height: 1.4;
 }
 
-
-
 .description_data .more-button {
     background: none;
     border: none;
-    color: #ff00c6;
+    color: white;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: var(--font-size-data);
     padding: 0;
-    margin-left: 0.25em;
-    text-decoration: underline;
+    margin-left: var(--margin-left-of-more-button);
     display: none;
 }
 
 .description_data .more-button:hover {
-    color: #ff33d1;
+    color: #ff00c6;
 }
 
 .description_data .more-button.visible {
@@ -137,5 +155,45 @@
 
 
 
+
+
+
+
+/* settled checkbox stuff */
+
+
+.settled_data {
+    padding: 0;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+}
+
+.settled_checkbox {
+    width: var(--row-height-set-by-expected-profit-data);
+    aspect-ratio: 1;
+    -webkit-appearance: none;  
+    -moz-appearance: none;     
+    appearance: none;          
+    background-color: white;   
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s; 
+    display: inline-block; 
+    position: relative; 
+    margin: 0;
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: var(--checkbox-size-settled-checkbox);
+}
+
+.settled_checkbox:hover {
+    background-color: var(--background-color-settled-checkbox-hover); 
+}
+
+.settled_checkbox:checked {
+    background-color: var(--background-color-settled-checkbox-checked); 
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff" stroke="%23ffffff" width="24" height="24"><polyline fill="none" points="3.7 14.3 9.6 19 20.3 5" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>'); 
+}
 
 

@@ -19,6 +19,8 @@
     --global-border-width-main: 0.07vw;
     --global-smaller-border-radius: 0.29vw;
 
+    --global-box-shadow-main: 0 4px 12px rgba(0, 0, 0, 0.5);
+
 
     --outer-container-div-margin-bottom: 25.00vw;
 

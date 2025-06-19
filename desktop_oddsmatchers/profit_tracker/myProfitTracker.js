@@ -376,105 +376,15 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 tr.appendChild(selectButton);
             }
 
-            // Add truncation functionality for description
-            setupDescriptionTruncation(tr, row.betId, row.description);
 
-            function setupDescriptionTruncation(tr, betId, descriptionText) {
-                const descriptionCell = tr.querySelector('.description_data');
-                const descriptionTextElement = descriptionCell.querySelector('.description-text');
-                const moreButton = descriptionCell.querySelector('.more-button');
-                
-                const originalText = descriptionText;
-                let isExpanded = false;
-                
-                // Function to truncate text to fit 3 lines
-                const truncateText = () => {
-                    const lineHeight = parseFloat(getComputedStyle(descriptionTextElement).lineHeight);
-                    const maxHeight = lineHeight * 2; // 3 lines
-                    
-                    // Reset to original text to measure
-                    descriptionTextElement.textContent = originalText;
-                    const actualHeight = descriptionTextElement.scrollHeight;
-                    
-                    if (actualHeight > maxHeight) {
-                        // Need to truncate - be more aggressive
-                        let truncatedText = originalText;
-                        let words = originalText.split(' ');
-                        
-                        // Remove words from the end until it fits, but leave space for "...more"
-                        while (words.length > 0) {
-                            words.pop();
-                            truncatedText = words.join(' ');
-                            descriptionTextElement.textContent = truncatedText + ' ...more';
-                            
-                            // Check if this fits within 3 lines
-                            if (descriptionTextElement.scrollHeight <= maxHeight) {
-                                break;
-                            }
-                        }
-                        
-                        // Add the more button inline
-                        descriptionTextElement.innerHTML = truncatedText + ' <button class="more-button visible" data-bet-id="' + betId + '">...more</button>';
-                        moreButton.style.display = 'none'; // Hide the original button
-                    } else {
-                        moreButton.style.display = 'none';
-                    }
-                };
-                
-                // Check truncation after a short delay to ensure DOM is ready
-                setTimeout(truncateText, 100);
-                
-                // Add click event for more/less button (both original and inline)
-                const handleMoreClick = (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    if (!isExpanded) {
-                        // Expand as overlay
-                        const cellWidth = descriptionCell.offsetWidth;
-                        descriptionCell.classList.add('expanded');
-                        descriptionCell.style.width = cellWidth + 'px';
-                        descriptionTextElement.textContent = originalText;
-                        descriptionTextElement.innerHTML += ' <button class="more-button visible" data-bet-id="' + betId + '">...less</button>';
-                        isExpanded = true;
-                    } else {
-                        // Collapse overlay
-                        descriptionCell.classList.remove('expanded');
-                        descriptionCell.style.width = '';
-                        truncateText();
-                        isExpanded = false;
-                    }
-                };
-                
-                // Add event listeners for both buttons
-                moreButton.addEventListener('click', handleMoreClick);
-                
-                // Use event delegation for inline buttons - but be more specific
-                descriptionTextElement.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('more-button')) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleMoreClick(e);
-                    }
-                });
-                
-                // Prevent clicks inside expanded description from closing it (allows text selection)
-                descriptionCell.addEventListener('click', (e) => {
-                    if (isExpanded) {
-                        e.stopPropagation();
-                    }
-                });
-                
-                // Close overlay when clicking outside - but not when clicking inside the description
-                document.addEventListener('click', (e) => {
-                    if (isExpanded && !descriptionCell.contains(e.target)) {
-                        descriptionCell.classList.remove('expanded');
-                        descriptionCell.style.width = '';
-                        truncateText();
-                        isExpanded = false;
-                    }
-                });
-            }
+
+
+
+
+            // Add truncation functionality for description
+            Helpers.setupDescriptionTruncation(tr, row.betId, row.description, scope, state);
+
+
         
         }
 
