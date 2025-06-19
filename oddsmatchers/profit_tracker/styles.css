@@ -43,6 +43,7 @@
     font-size: var(--font-size-filter-inputs);
     display: flex;
     padding-left: var(--padding-left-filter-inputs);
+    text-align: left;
 }
 
 /* Remove default focus outline and add custom focus styles */
@@ -67,27 +68,53 @@
     margin: 0;
 }
 
+/* iPhone/Safari specific date input styling */
 .date-range-input::-webkit-datetime-edit {
     color: #eee;
+    text-align: left;
+    width: 100%;
 }
 
 .date-range-input::-webkit-datetime-edit-fields-wrapper {
     color: #eee;
+    text-align: left;
 }
 
 .date-range-input::-webkit-datetime-edit-text {
     color: #eee;
+    text-align: left;
 }
 
 .date-range-input::-webkit-datetime-edit-month-field,
 .date-range-input::-webkit-datetime-edit-day-field,
 .date-range-input::-webkit-datetime-edit-year-field {
     color: #eee;
+    text-align: left;
+}
+
+/* Show placeholder text when no date is selected */
+.date-range-input:invalid::-webkit-datetime-edit {
+    color: #999;
+}
+
+.date-range-input:invalid::-webkit-datetime-edit-fields-wrapper {
+    color: #999;
+}
+
+.date-range-input:invalid::-webkit-datetime-edit-text {
+    color: #999;
+}
+
+.date-range-input:invalid::-webkit-datetime-edit-month-field,
+.date-range-input:invalid::-webkit-datetime-edit-day-field,
+.date-range-input:invalid::-webkit-datetime-edit-year-field {
+    color: #999;
 }
 
 /* Date input placeholder styling */
 .date-range-input::placeholder {
     color: #999;
+    text-align: left;
 }
 
 /* Date wrapper styling to match other filter containers */

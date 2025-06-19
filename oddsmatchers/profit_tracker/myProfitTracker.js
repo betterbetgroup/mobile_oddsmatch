@@ -1,7 +1,7 @@
 //import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
-import * as Helpers from '../main/helper.js';
+//import * as Helpers from '../main/helper.js';
 
-//import * as Helpers from 'public/custom-elements/main-helper.js'
+import * as Helpers from 'public/custom-elements/main-helper.js'
 
 (function () {
 
@@ -9,8 +9,8 @@ import * as Helpers from '../main/helper.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/profit_tracker/styles.css';
 
-    html_script = '../main/z.html';
-    styles_script = '../profit_tracker/styles.css';
+    /*html_script = '../main/z.html';
+    styles_script = '../profit_tracker/styles.css';*/
 
 
     class ProfitTracker extends HTMLElement {
