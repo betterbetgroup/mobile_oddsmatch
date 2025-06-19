@@ -138,7 +138,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 is_tutorial: false,
                 oddsmatcher_type: 'profit tracker',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'sport', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard', 'rating']
+                desktop_header_columns: ['date and time', 'description', 'bookmaker', 'exchange', 'expected profit ql and pp', 'bet settled', 'final profit']
             };
             
     
@@ -297,92 +297,74 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 }
             }
 
-            const card = document.createElement('div');
-            card.className = 'mobile-card outer-mobile-card';
-            card.setAttribute('data-id', row._id);
-
-
-            card.innerHTML = `
-                    <div class="mobile-card">
-                            <div class="mobile-row"><strong>Date:</strong> <span>${row.date}</span></div>
-                            
-                            
-                            ${row.fixture ? `
-                            <div class="mobile-row">
-                                <strong>Event:</strong>
-                                <span>${row.fixture}</span>
-                            </div>
-                            ` : ''}
-
-                            ${row.outcome ? `
-                            <div class="mobile-row">
-                                <strong>Bet:</strong>
-                                <span>${row.outcome}</span>
-                            </div>
-                            ` : ''}
-
-                            ${row.bookmaker_image ? `
-                            <div class="mobile-row">
-                                <strong>Bookmaker:</strong>
-                                <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
-                                    <img src="${row.bookmaker_image}" class="logo-img">
-                                </a>
-                            </div>
-                            ` : ''}
-                            ${row.exchange_image ? `
-                            <div class="mobile-row">
-                                <strong>Exchange:</strong>
-                                <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
-                                    <img src="${row.exchange_image}" class="logo-img">
-                                </a>
-                            </div>
-                            ` : ''}
-
-
-                            <div class="mobile-row mobile-row-description-container">
-                                <div class="mobile-row-description-title"><strong>Description:</strong></div>
-                                <div class="mobile-row mobile-row-description"><span class="mobile-row-description-text">${row.description}</span></div>
-                            </div>
-
-
-
-                            <div class="profit_info_div_outer">
-                                <div class="profit_info_div_inner">
-                                    <div class="profit_info_div_inner_title">Qualifying Loss</div>
-                                    <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
-                                </div>
-                                <div class="profit_info_div_inner">
-                                    <div class="profit_info_div_inner_title">Potential Profit</div>
-                                    <div class="${parseFloat(row.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.potential_profit}</div>
-                                </div>
-                                <div class="profit_info_div_inner">
-                                    <div class="profit_info_div_inner_title">Bet<br>Settled<br></div>
-                                    
-                                    <div class="div-outside-switch item-complete-switch">
-                                        <div class="switch_container" >
-                                            <label class="switch">
-                                                <input type="checkbox" class="show_filters_switch item_complete_switch" data-id=${row.betId} id="item-complete-switch-${row.betId}" ${row.complete ? 'checked' : ''}>
-                                                <span class="slider"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="profit_info_div_inner">
-                                    <div class="profit_info_div_inner_title">Final<br>Profit</div>
-                                    <div class="${parseFloat(row.actualprofit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}">${row.actualprofit}</div>
-                                </div>
-                            </div>
-
-
-
+            const tr = document.createElement('tr');
     
+            tr.className = 'table_data_row';
+            tr.setAttribute('data-id', row._id)
 
+
+            tr.innerHTML = `
+
+                <td>${row.date}</td>
+                
+                <td class="description_data">${row.description}</td>
+
+
+                <td>
+                    <div id="bookmaker_logo_${row.betId}" class="bookmaker_logo_div">
+                        <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
+                            <img class='bookmaker_logo_img' src="${bookmaker_image}">
+                        </a>
                     </div>
+                </td>
+
+                <td>
+                    <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
+                        <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} >
+                            <img class='bookmaker_logo_img' src="${exchange_image}">
+                        </a>
+                    </div>
+                </td>
+
+
+                <td class="no_padding_margin">
+                    <div class="expected_profit_data">
+                        <div id='qualifying_loss_${row.betId}' class='positive_profit_data' >${row.qualifying_loss}</div>
+                        <div id='potential_profit_${row.betId}' class='positive_profit_data' >${row.potential_profit}</div>
+                    </div>
+                </td>
+
+
+                <td class="settled_data">
+                    <div class="expected_profit_data">
+                        <input type="checkbox" data-id="${row.betId}" name="is_settled" class="settled_checkbox" ${row.complete ? 'checked' : ''}>
+                    </div>
+                </td>
+
+
+                <td class="no_padding_margin">
+                    <div class="expected_profit_data">
+                        <div id='actual_profit_${row.betId}' class='positive_profit_data' >${row.actualprofit}</div>
+                    </div>
+                </td>
+
+
+
+
             `;
         
-            const mobileContainer = scope.querySelector('.mobile-container');
-            mobileContainer.appendChild(card);
+            const tableBody = scope.querySelector('table tbody');
+            tableBody.appendChild(tr);
+        
+            // Create and append button directly to the row
+            if (state.is_premium_member) {
+                let selectButton = document.createElement('button');
+                selectButton.innerHTML = '+';
+                selectButton.className = 'select_button';
+                selectButton.setAttribute('data-id', row.betId);
+                selectButton.setAttribute('aria-label', row.betId);
+                tr.appendChild(selectButton);
+            }
         
         }
 

@@ -16,13 +16,20 @@ const DesktopHeaderDictionary = {
 
     'event': `<th id="fixture_header">Event</th>`,
 
+    'description': `<th id="fixture_header">Description</th>`,
+
     'race': `<th id="fixture_header">Race</th>`,
     
     'outcome': `<th id="outcome_header">Team</th>`,
 
+    'bet': `<th id="outcome_header">Bet</th>`,
+
     'selection': `<th id="outcome_header">Selection</th>`,
     
     'horse': `<th id="outcome_header">Horse</th>`,
+
+    'bookmaker': `<th id="back_odds_header" >Bookmaker</th>`,
+    'exchange': `<th id="back_odds_header" >Exchange</th>`,
     
     'back odds': `<th id="back_odds_header" >Back Odds & Bookmaker</th>`,
     'lay odds': `<th id="lay_odds_header" >Lay Odds & Exchange</th>`,
@@ -79,6 +86,17 @@ const DesktopHeaderDictionary = {
         </div>
     </th>`,
 
+    'expected profit ql and pp': `<th id="expected_profit_header" class="header_with_sorting" >Expected Profit<br>(QL / PP)
+        <div class="container_in_expected_profit_header container_in_expected_profit_header_ql_and_pp">
+            <div >
+                <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+            </div>
+            <div >
+                <img id='sort_by_img_pp' class="sort_by" data-sort="potential profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by potential profit" >
+            </div>
+        </div>
+    </th>`,
+
     'qualifying loss': `<th id="expected_profit_header" class="header_with_sorting" >Qualifying<br>Loss
         <div >
             <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
@@ -90,6 +108,11 @@ const DesktopHeaderDictionary = {
             <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
         </div>
     </th>`,
+
+    'bet settled': `<th id="bet_settled_header" >Bet<br>Settled</th>`,
+
+    'final profit': `<th id="final_profit_header">Final<br>Profit</th>`,
+
 };
 
 
@@ -1815,13 +1838,24 @@ function run_script_for_profit_tracker(scope, state) {
         }
     });
 
+    if (state.is_desktop) {
+        let alerts_button = scope.querySelector('.get-alerts-button');
+        alerts_button.classList.add('hidden_row_above_columns');
+    }
+
     let above_columns_row_timer = scope.querySelector('.above_columns_row_timer');
     above_columns_row_timer.classList.add('side_by_side_divs_in_row');
     above_columns_row_timer.innerHTML = addition_above_columns_items['total profit'];
 
+    if (state.is_desktop) {
+        above_columns_row_timer.classList.remove('hidden_row_above_columns');
+    }
+
 
     // ADD EVENT LISTENERS FOR COMPLETE CHECKBOXES
-    add_event_listeners_for_checkboxes_profit_tracker(scope, state);
+    if (!state.is_desktop) {
+        add_event_listeners_for_checkboxes_profit_tracker(scope, state);
+    }
 
 }
 

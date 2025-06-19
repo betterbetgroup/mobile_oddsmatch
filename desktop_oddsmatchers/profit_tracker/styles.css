@@ -9,7 +9,76 @@
 */
 
 
-.outcome_data, .fixture_data {
-    padding-bottom: 0;
-    padding-top: 0;
+#outer-container-div {
+
+    /* above columns */
+    --width-of-total-profit-div: 10.75vw;
+
+
+
+
+    /* table header stuff */
+
+    --width-for-items-on-right-row: calc(var(--row-height-set-by-expected-profit-data) * 1.5);
+
+
+
+
 }
+
+.div-outside-filter-dropdown-select-filters {
+    margin-right: 0;
+}
+
+
+.div-outside-info {
+    width: var(--width-of-total-profit-div);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* header stuff */
+
+#expected_profit_header, .container_in_expected_profit_header_ql_and_pp {
+    max-width: calc(var(--width-for-items-on-right-row) * 2) !important;
+}
+
+#bet_settled_header {
+    max-width: var(--width-for-items-on-right-row);
+}
+
+#final_profit_header {
+    max-width: var(--width-for-items-on-right-row);
+}
+
+
+
+
+
+
+
+
+/* row stuff */
+
+.description_data {
+    text-align: left;
+    width: auto;
+    min-width: 200px;
+    max-width: none;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+
+
+
+
