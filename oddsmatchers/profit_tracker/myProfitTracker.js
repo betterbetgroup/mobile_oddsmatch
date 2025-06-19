@@ -10,7 +10,7 @@ import * as Helpers from '../main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/profit_tracker/styles.css';
 
     html_script = '../main/z.html';
-    styles_script = '../main/styles.css';
+    styles_script = '../profit_tracker/styles.css';
 
 
     class ProfitTracker extends HTMLElement {
@@ -204,6 +204,8 @@ import * as Helpers from '../main/helper.js';
 
                 const allPlatforms = globalFilters.bookmakers.concat(globalFilters.exchanges)
                 let bookmakerMatch = allPlatforms.includes(row.bookie);
+
+                // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
     
                 if (globalFilters.bookmakers.includes('Other')) {
                     if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie)) {
@@ -250,95 +252,137 @@ import * as Helpers from '../main/helper.js';
     
         create_row(row, scope, state) {
 
-            function get_row_data(row) {
-        
-                let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
-                let exchange_image = Helpers.get_exchange_image(row.exchange)
+            
+            // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
+            let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
+            let exchange_image = Helpers.get_exchange_image(row.exchange)
+    
 
-                
-        
-                let qualifying_loss_class = 'positive_profit_data'
-                let potential_profit_class = 'positive_profit_data'
-        
-                let qualifying_loss = 0;
-                let potential_profit = 0;
-        
+            row.qualifying_loss = row.qualifying_loss.replace('£', '');
+            row.potential_profit = row.potential_profit.replace('£', '');
+            row.actualprofit = row.actualprofit.replace('£', '');
+
+            row.qualifying_loss = parseFloat(row.qualifying_loss).toFixed(2);
+            row.potential_profit = parseFloat(row.potential_profit).toFixed(2);
+            row.actualprofit = parseFloat(row.actualprofit).toFixed(2);
+
+            if (isNaN(row.qualifying_loss) || row.qualifying_loss == '' || row.qualifying_loss == null || row.qualifying_loss == undefined || row.qualifying_loss == '0.00' || row.qualifying_loss == '-0.00') {
+                row.qualifying_loss = '£0.00';
+            } else {
                 if (row.qualifying_loss.toString().includes('-')) {
-                    qualifying_loss_class = 'negative_profit_data';
-                    qualifying_loss = row.qualifying_loss;
+                    row.qualifying_loss = '-£' + row.qualifying_loss.replace('-', '');
                 } else {
-                    qualifying_loss = '+' + (row.qualifying_loss).toString();
-                }
-        
-                if (qualifying_loss == '+0.00') {
-                    qualifying_loss = '£0.00'
-                }
-        
-                if (row.potential_profit.toString().includes('-')) {
-                    potential_profit_class = 'negative_profit_data';
-                    potential_profit = row.potential_profit;
-                } else {
-                    potential_profit = '+' + (row.potential_profit).toString();
-                }
-                if (potential_profit == '+0.00') {
-                    potential_profit = '£0.00'
-                }
-        
-                return {
-                    bookmaker_image: bookmaker_image,
-                    exchange_image: exchange_image,
-                    qualifying_loss: qualifying_loss,
-                    potential_profit: potential_profit,
-                    qualifying_loss_class: qualifying_loss_class, 
-                    potential_profit_class: potential_profit_class
+                    row.qualifying_loss = '£' + row.qualifying_loss;
                 }
             }
 
-            let row_info = get_row_data(row);
+            if (isNaN(row.potential_profit) || row.potential_profit == '' || row.potential_profit == null || row.potential_profit == undefined || row.potential_profit == '0.00' || row.potential_profit == '-0.00') {
+                row.potential_profit = '£0.00';
+            } else {
+                if (row.potential_profit.toString().includes('-')) {
+                    row.potential_profit = '-£' + row.potential_profit.replace('-', '');
+                } else {
+                    row.potential_profit = '£' + row.potential_profit;
+                }
+            }
+
+            if (isNaN(row.actualprofit) || row.actualprofit == '' || row.actualprofit == null || row.actualprofit == undefined || row.actualprofit == '0.00' || row.actualprofit == '-0.00') {
+                row.actualprofit = '£0.00';
+            } else {
+                if (row.actualprofit.toString().includes('-')) {
+                    row.actualprofit = '-£' + row.actualprofit.replace('-', '');
+                } else {
+                    row.actualprofit = '£' + row.actualprofit;
+                }
+            }
+
         
+
+            
             const card = document.createElement('div');
             card.className = 'mobile-card outer-mobile-card';
             card.setAttribute('data-id', row._id);
 
 
             card.innerHTML = `
-                    <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
-                            <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
-                            <div class="mobile-row"><strong>Event:</strong> <span>${row.fixture}</span></div>
-                            <div class="mobile-row"><strong>Selection:</strong> <span>${row.outcome}</span></div>
+                    <div class="mobile-card">
+                            <div class="mobile-row"><strong>Date:</strong> <span>${row.date}</span></div>
+                            
+                            
+                            ${row.fixture ? `
                             <div class="mobile-row">
-                                <strong>Back Odds:</strong>
-                                <span class="odds-combo">
-                                    <a>${row.back_odds}</a> 
-                                    <span class="mobile_at_symbol" >@</span>
-                                    <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row_info.bookmaker_image}" class="logo-img">
-                                    </a>
-                                </span>
+                                <strong>Event:</strong>
+                                <span>${row.fixture}</span>
                             </div>
+                            ` : ''}
+
+                            ${row.outcome ? `
                             <div class="mobile-row">
-                                <strong>Lay Odds:</strong>
-                                <span class="odds-combo">
-                                    <a>${row.lay_odds}</a> 
-                                    <span class="mobile_at_symbol" >@</span>
-                                    <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
-                                        <img src="${row_info.exchange_image}" class="logo-img">
-                                    </a>
-                                </span>
+                                <strong>Bet:</strong>
+                                <span>${row.outcome}</span>
                             </div>
-                            <div class="mobile-row data-buttons-row">
-                                <strong>Returns & Rating:</strong>
-                                <div class="expected-profit-box">
-                                    <div class="${parseFloat(row_info.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row_info.qualifying_loss}</div>
-                                    <div class="${parseFloat(row_info.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row_info.potential_profit}</div>
-                                    <div class="rating-badge">${row.rating}</div>
+                            ` : ''}
+
+                            ${row.bookmaker_image ? `
+                            <div class="mobile-row">
+                                <strong>Bookmaker:</strong>
+                                <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${row.bookmaker_image}" class="logo-img">
+                                </a>
+                            </div>
+                            ` : ''}
+                            ${row.exchange_image ? `
+                            <div class="mobile-row">
+                                <strong>Exchange:</strong>
+                                <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
+                                    <img src="${row.exchange_image}" class="logo-img">
+                                </a>
+                            </div>
+                            ` : ''}
+
+
+                            <div class="mobile-row mobile-row-description-container">
+                                <div class="mobile-row-description-title"><strong>Description:</strong></div>
+                                <div class="mobile-row mobile-row-description"><span class="mobile-row-description-text">${row.description}</span></div>
+                            </div>
+
+
+
+                            <div class="profit_info_div_outer">
+                                <div class="profit_info_div_inner">
+                                    <div class="profit_info_div_inner_title">Qualifying Loss</div>
+                                    <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
+                                </div>
+                                <div class="profit_info_div_inner">
+                                    <div class="profit_info_div_inner_title">Potential Profit</div>
+                                    <div class="${parseFloat(row.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.potential_profit}</div>
+                                </div>
+                                <div class="profit_info_div_inner">
+                                    <div class="profit_info_div_inner_title">Bet<br>Settled<br></div>
+                                    
+                                    <div class="div-outside-switch item-complete-switch">
+                                        <div class="switch_container" >
+                                            <label class="switch">
+                                                <input type="checkbox" class="show_filters_switch item_complete_switch" data-id=${row.betId} id="item-complete-switch-${row.betId}" ${row.complete ? 'checked' : ''}>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="profit_info_div_inner">
+                                    <div class="profit_info_div_inner_title">Final<br>Profit</div>
+                                    <div class="${parseFloat(row.actualprofit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}">${row.actualprofit}</div>
                                 </div>
                             </div>
+
+
+
+    
+
                     </div>
             `;
         
-            //<button class="select_button">Select</button>
-
             const mobileContainer = scope.querySelector('.mobile-container');
             mobileContainer.appendChild(card);
         

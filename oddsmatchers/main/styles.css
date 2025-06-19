@@ -71,6 +71,8 @@
     --width-mobile-row-strong: 25.00vw; 
     --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
 
+    --color-mobile-row-title: #ccc
+
 
     /* content items i.e. logo img, odds combo, etc */
     --height-of-img-logo: 5.50vw;
@@ -448,7 +450,7 @@ body {
 
 .mobile-row strong {
     font-weight: var(--font-weight-mobile-row-strong);
-    color: #ccc;
+    color: var(--color-mobile-row-title);
     flex-shrink: 0;
     width: var(--width-mobile-row-strong);       
     text-align: left;
@@ -628,7 +630,7 @@ body {
 }
 
 
-.custom-select-container, .custom-input-container, .text-input, .custom-select-trigger input, .custom-select-trigger-filter input, .text-input-filter-name {
+.custom-select-container, .custom-input-container, .text-input, .custom-select-trigger input, .custom-select-trigger-filter input, .text-input-filter-name, .date-range-input {
     position: relative;
     width: 100%;
     height: var(--height-filter-inputs);
@@ -643,9 +645,6 @@ body {
     padding-left: var(--padding-left-filter-inputs);
 }
 
-.custom-select-container, .custom-select-trigger input, .custom-input-container {
-    cursor: pointer;
-}
 
 
 .custom-select-trigger input, .custom-select-trigger-filter input {

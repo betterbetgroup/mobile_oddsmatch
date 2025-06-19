@@ -301,6 +301,10 @@ button:hover, a:hover {
 
 */
 
+.custom-select-container, .custom-select-trigger input, .custom-input-container, .date-range-input {
+    cursor: pointer;
+}
+
 .div-outside-filter-dropdown-select-filters, .div-outside-filter-dropdown-name-filter {
     margin-right: var(--refresh-results-margin-against-timer);
 }

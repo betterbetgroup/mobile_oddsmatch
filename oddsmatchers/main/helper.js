@@ -424,10 +424,17 @@ export function set_input_values_using_filter(filters, scope, state) {
                 `Select All ${name.charAt(0).toUpperCase() + name.slice(1)}`,
                 scope
             );
-        } else if (filter.type === 'string' || filter.type === 'date') {
+        } else if (filter.type === 'string') {
             scope.getElementById(filter.filter_id).value = value || '';
         } else if (filter.type === 'number') {
             setInputValue(filter.filter_id, value, scope);
+        } else if (filter.type === 'date') {
+            let formattedValue = value;
+            if (formattedValue) {
+                const [day, month, year] = formattedValue.split('/');
+                formattedValue = `${year}-${month.padStart(2,'0')}-${day.padStart(2,'0')}`;
+            }
+            scope.getElementById(filter.filter_id).value = formattedValue || '';
         }
     });
 }
@@ -621,7 +628,7 @@ export function sort_rows_by_date_and_time(rows) {
     return rows.sort((a, b) => {
         const dateA = parseDateAndTime(a.date_and_time);
         const dateB = parseDateAndTime(b.date_and_time);
-        return dateA - dateB;
+        return dateB - dateA;
     });
 }
 
@@ -645,7 +652,6 @@ export function get_exchange_image(exchange) {
     if (exchangeImages[exchange]) {
         return exchangeImages[exchange];
     } else {
-        console.log("No image found for exchange:", exchange);
         return null; // Or a default URL if you prefer
     }
 }
@@ -664,16 +670,37 @@ export function get_sport_icon_url(sport) {
 
 
 
-
+function calculate_and_display_total_profit(scope, state) {
+    let total_profit = 0;
+    state.filteredData.forEach(row => {
+        const profitValue = row.actualprofit === '' ? '0' : row.actualprofit;
+        const cleanedProfit = parseFloat(profitValue.replace('£', '').replace('+', ''));
+        if (row.complete) {
+            total_profit += cleanedProfit;
+        }
+    });
+    // make total profit to 2 decimal places
+    total_profit = total_profit.toFixed(2);
+    scope.querySelector('.total_profit_value').textContent = `£${total_profit}`;
+    scope.querySelector('.total_profit_value').style.visibility = 'visible';
+}
 
 
 
 export function filterData(scope, state) {
-    state.currentPage = 1;
+
+    if (state.oddsmatcher_type != 'profit tracker') {
+        state.currentPage = 1;
+    }
+
     sort_data(state.current_sort, state);
     state.filteredData = state.filter_function(state.globalData, state.globalFilters);
 
     setupPagination(scope, state);
+
+    if (state.oddsmatcher_type == 'profit tracker') {
+        calculate_and_display_total_profit(scope, state);
+    }
 
 }
 
@@ -745,10 +772,17 @@ export function appendRows(rows, scope, state) {
 }
 
 export function add_no_data_row(scope, state) {
+
+    let no_data_text = 'No Data Collected Yet... Please Wait or Adjust the Filters';
+
+    if (state.oddsmatcher_type == 'profit tracker') {
+        no_data_text = 'No Bets Added Yet...';
+    }
+
     let no_data_row;
     let no_data_content = `
         <div class="no-data-div">
-            <h2>No Data Collected Yet... Please Wait or Adjust the Filters</h2>
+            <h2>${no_data_text}</h2>
         </div>
     `;
 
@@ -776,6 +810,12 @@ export function add_no_data_row(scope, state) {
 }
 
 export function add_loading_row(scope, state) {
+
+    let loading_row_text = 'Collecting Bookmaker Data...';
+    if (state.oddsmatcher_type == 'profit tracker') {
+        loading_row_text = 'Collecting Bet Data...';
+    }
+
     let loadingrow;
     let loadingContent = `
         <div class="loading">
@@ -785,7 +825,7 @@ export function add_loading_row(scope, state) {
                 <div class="neon-bar"></div>
                 <div class="neon-bar"></div>
             </div>
-            <h2 class="loading-text">Collecting Bookmaker Data...</h2>
+            <h2 class="loading-text">${loading_row_text}</h2>
         </div>
     `;
 
@@ -1774,20 +1814,36 @@ function run_script_for_profit_tracker(scope, state) {
     above_columns_row_timer.innerHTML = addition_above_columns_items['total profit'];
 
 
-    get_total_profit_and_set_text(scope, state);
+    // ADD EVENT LISTENERS FOR COMPLETE CHECKBOXES
+    add_event_listeners_for_checkboxes_profit_tracker(scope, state);
 
 }
 
+function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
+    scope.addEventListener('change', (event) => {
+        if (event.target.classList.contains('item_complete_switch')) {
+            const isChecked = event.target.checked;
+            const rowId = event.target.getAttribute('data-id');
+            process_complete_checkbox_change(rowId, isChecked, scope, state);
+        }
+    });
 
-function get_total_profit_and_set_text(scope, state) {
-    //let total_profit = state.globalData.reduce((acc, row) => acc + parseFloat(row.actualprofit.replace('£', '').replace('+', '')), 0);
-    let total_profit = 3200;
-    scope.querySelector('.total_profit_value').textContent = `£${total_profit}`;
-    scope.querySelector('.total_profit_value').style.visibility = 'visible';
 }
 
+function process_complete_checkbox_change(rowId, isChecked, scope, state) {
 
 
+    // HERE AS WELL AS FOR ON SELECT-EVENT IT SHOULD SEND MESSAGE TO WIX
+
+    // BUT ALSO IT NEEDS TO UPDATE AND FILTER DATA
+
+    // access the row using the rowId in globalDAta
+    const row = state.globalData.find(row => row.betId === rowId);
+    row.complete = isChecked;
+
+    filterData(scope, state);
+
+}
 
 
 export function generateFilterPanel(scope, state) {
