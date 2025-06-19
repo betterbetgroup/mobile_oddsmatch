@@ -1,12 +1,12 @@
-
+/*
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
 
+*/
 
-/*
 
 @import url('../main/styles.css');
 
-*/
+
 
 
 #outer-container-div {
@@ -49,15 +49,28 @@
 /* header stuff */
 
 #expected_profit_header, .container_in_expected_profit_header_ql_and_pp {
-    max-width: calc(var(--width-for-items-on-right-row) * 2) !important;
+    width: calc(var(--width-for-items-on-right-row) * 1.65) !important;
 }
 
 #bet_settled_header {
-    max-width: var(--width-for-items-on-right-row);
+    min-width: var(--row-height-set-by-expected-profit-data);
+    max-width: var(--row-height-set-by-expected-profit-data);
+    padding: 0;
 }
 
 #final_profit_header {
     max-width: var(--width-for-items-on-right-row);
+}
+
+#date_and_time_header {
+    min-width: 95px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.date_and_time_data {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
@@ -72,10 +85,54 @@
 .description_data {
     text-align: left;
     width: auto;
-    min-width: 200px;
     max-width: none;
     word-wrap: break-word;
     white-space: normal;
+    position: relative;
+    line-height: 1.4;
+}
+
+.description_data.expanded {
+    position: absolute;
+    z-index: 1000;
+    background: var(--table-data-first-background-colour);
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    max-height: 400px;
+    overflow-y: auto;
+    top: 0;
+    left: 95px;
+    margin: 0;
+}
+
+.description_data .description-text {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+
+
+.description_data .more-button {
+    background: none;
+    border: none;
+    color: #ff00c6;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0;
+    margin-left: 0.25em;
+    text-decoration: underline;
+    display: none;
+}
+
+.description_data .more-button:hover {
+    color: #ff33d1;
+}
+
+.description_data .more-button.visible {
+    display: inline;
 }
 
 

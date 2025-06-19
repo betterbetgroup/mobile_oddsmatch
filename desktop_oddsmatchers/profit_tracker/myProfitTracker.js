@@ -257,6 +257,13 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
             let exchange_image = Helpers.get_exchange_image(row.exchange)
+
+            if (!bookmaker_image) {
+                bookmaker_image = 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png';
+            }
+            if (!exchange_image) {
+                exchange_image = 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png';
+            }
     
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
@@ -305,9 +312,12 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
             tr.innerHTML = `
 
-                <td>${row.date}</td>
+                <td class="date_and_time_data">${row.date}</td>
                 
-                <td class="description_data">${row.description}</td>
+                <td class="description_data">
+                    <div class="description-text">${row.description}</div>
+                    <button class="more-button" data-bet-id="${row.betId}">more...</button>
+                </td>
 
 
                 <td>
@@ -329,8 +339,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
                 <td class="no_padding_margin">
                     <div class="expected_profit_data">
-                        <div id='qualifying_loss_${row.betId}' class='positive_profit_data' >${row.qualifying_loss}</div>
-                        <div id='potential_profit_${row.betId}' class='positive_profit_data' >${row.potential_profit}</div>
+                        <div id='qualifying_loss_${row.betId}' class='${row.qualifying_loss.includes("-") ? "negative_profit_data" : "positive_profit_data"}' >${row.qualifying_loss}</div>
+                        <div id='potential_profit_${row.betId}' class='${row.potential_profit.includes("-") ? "negative_profit_data" : "positive_profit_data"}' >${row.potential_profit}</div>
                     </div>
                 </td>
 
@@ -344,7 +354,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
                 <td class="no_padding_margin">
                     <div class="expected_profit_data">
-                        <div id='actual_profit_${row.betId}' class='positive_profit_data' >${row.actualprofit}</div>
+                        <div id='actual_profit_${row.betId}' class='final_profit_data ${row.actualprofit.includes("-") ? "negative_profit_data" : "positive_profit_data"}' >${row.actualprofit}</div>
                     </div>
                 </td>
 
@@ -365,8 +375,110 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 selectButton.setAttribute('aria-label', row.betId);
                 tr.appendChild(selectButton);
             }
+
+            // Add truncation functionality for description
+            setupDescriptionTruncation(tr, row.betId, row.description);
+
+            function setupDescriptionTruncation(tr, betId, descriptionText) {
+                const descriptionCell = tr.querySelector('.description_data');
+                const descriptionTextElement = descriptionCell.querySelector('.description-text');
+                const moreButton = descriptionCell.querySelector('.more-button');
+                
+                const originalText = descriptionText;
+                let isExpanded = false;
+                
+                // Function to truncate text to fit 3 lines
+                const truncateText = () => {
+                    const lineHeight = parseFloat(getComputedStyle(descriptionTextElement).lineHeight);
+                    const maxHeight = lineHeight * 2; // 3 lines
+                    
+                    // Reset to original text to measure
+                    descriptionTextElement.textContent = originalText;
+                    const actualHeight = descriptionTextElement.scrollHeight;
+                    
+                    if (actualHeight > maxHeight) {
+                        // Need to truncate - be more aggressive
+                        let truncatedText = originalText;
+                        let words = originalText.split(' ');
+                        
+                        // Remove words from the end until it fits, but leave space for "...more"
+                        while (words.length > 0) {
+                            words.pop();
+                            truncatedText = words.join(' ');
+                            descriptionTextElement.textContent = truncatedText + ' ...more';
+                            
+                            // Check if this fits within 3 lines
+                            if (descriptionTextElement.scrollHeight <= maxHeight) {
+                                break;
+                            }
+                        }
+                        
+                        // Add the more button inline
+                        descriptionTextElement.innerHTML = truncatedText + ' <button class="more-button visible" data-bet-id="' + betId + '">...more</button>';
+                        moreButton.style.display = 'none'; // Hide the original button
+                    } else {
+                        moreButton.style.display = 'none';
+                    }
+                };
+                
+                // Check truncation after a short delay to ensure DOM is ready
+                setTimeout(truncateText, 100);
+                
+                // Add click event for more/less button (both original and inline)
+                const handleMoreClick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    if (!isExpanded) {
+                        // Expand as overlay
+                        const cellWidth = descriptionCell.offsetWidth;
+                        descriptionCell.classList.add('expanded');
+                        descriptionCell.style.width = cellWidth + 'px';
+                        descriptionTextElement.textContent = originalText;
+                        descriptionTextElement.innerHTML += ' <button class="more-button visible" data-bet-id="' + betId + '">...less</button>';
+                        isExpanded = true;
+                    } else {
+                        // Collapse overlay
+                        descriptionCell.classList.remove('expanded');
+                        descriptionCell.style.width = '';
+                        truncateText();
+                        isExpanded = false;
+                    }
+                };
+                
+                // Add event listeners for both buttons
+                moreButton.addEventListener('click', handleMoreClick);
+                
+                // Use event delegation for inline buttons - but be more specific
+                descriptionTextElement.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('more-button')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleMoreClick(e);
+                    }
+                });
+                
+                // Prevent clicks inside expanded description from closing it (allows text selection)
+                descriptionCell.addEventListener('click', (e) => {
+                    if (isExpanded) {
+                        e.stopPropagation();
+                    }
+                });
+                
+                // Close overlay when clicking outside - but not when clicking inside the description
+                document.addEventListener('click', (e) => {
+                    if (isExpanded && !descriptionCell.contains(e.target)) {
+                        descriptionCell.classList.remove('expanded');
+                        descriptionCell.style.width = '';
+                        truncateText();
+                        isExpanded = false;
+                    }
+                });
+            }
         
         }
+
+
 
 
 

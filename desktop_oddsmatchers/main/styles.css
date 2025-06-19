@@ -542,6 +542,11 @@ td[id^='rating_'] {
 
 
 
+tr:last-child .final_profit_data {
+    border-bottom-right-radius: var(--global-border-radius);
+}
+
+
 .no_padding_margin {
     padding: 0;
     margin: 0;
