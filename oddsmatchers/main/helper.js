@@ -689,6 +689,7 @@ function calculate_and_display_total_profit(scope, state) {
 
 export function filterData(scope, state) {
 
+
     if (state.oddsmatcher_type != 'profit tracker') {
         state.currentPage = 1;
     }
@@ -1597,6 +1598,9 @@ export function create_event_listeners_for_select_containers(scope, state) {
 
 function validateDateRange(filter_id, scope, state) {
 
+
+    // CURRENTLY DON'T DO THIS AS IT COULD BE ANNOYING AND THEY SHOULD NOTICE ANYWAY 
+    /*
     const startDate = scope.getElementById('date-range-start').value;
     const endDate = scope.getElementById('date-range-end').value;
 
@@ -1604,6 +1608,8 @@ function validateDateRange(filter_id, scope, state) {
         alert('End date must be after start date.');
         scope.getElementById('date-range-end').value = ''; // Reset end date
     }
+
+    */
 
     updateGlobalFilters(filter_id, scope, state)
 
@@ -2003,7 +2009,6 @@ function createFilterItem(filter, state) {
         input.placeholder = formatFilterText(filter.name, state);
         input.autocomplete = 'off';
     } else if (filter.type === 'date') {
-
         // Create input for date range
         const dateWrapper = document.createElement('div');
         dateWrapper.className = 'custom-date-wrapper';
@@ -2011,7 +2016,23 @@ function createFilterItem(filter, state) {
         const input = document.createElement('input');
         input.type = 'date';
         input.className = 'date-range-input';
-        input.value = '';
+        
+        // Set default value based on whether it's start or end date
+        if (filter.input_id === 'date-range-end') {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            input.value = todayStr;
+            const [year, month, day] = todayStr.split('-');
+            state.globalFilters[filter.name] = `${day}/${month}/${year}`;
+        } else if (filter.input_id === 'date-range-start') {
+            input.value = '2016-01-01';
+            const [year, month, day] = '2016-01-01'.split('-');
+            state.globalFilters[filter.name] = `${day}/${month}/${year}`;
+        } else {
+            input.value = '';
+            state.globalFilters[filter.name] = '';
+        }
+
         input.id = filter.input_id;
         input.placeholder = formatFilterText(filter.name, state);
         dateWrapper.appendChild(input);
