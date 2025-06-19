@@ -93,6 +93,14 @@ input:invalid::-webkit-date-and-time-value {
     text-align: left;
 }
 
+input[type="date"]::before{
+    color: #999;
+    content: attr(placeholder) ": ";
+}
+input[type="date"]:focus::before {
+    content: "" !important;
+}
+
 .date-range-input::-webkit-datetime-edit-month-field,
 .date-range-input::-webkit-datetime-edit-day-field,
 .date-range-input::-webkit-datetime-edit-year-field {
