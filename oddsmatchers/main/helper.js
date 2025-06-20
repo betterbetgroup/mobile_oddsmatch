@@ -1015,6 +1015,8 @@ export function add_listener_for_whole_oddsmatcher(scope, state) {
     if (!state.is_desktop) {
         add_event_listener_for_saved_filters(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options', state);
     }
+
+    add_event_listener_for_select_buttons(scope, state);
 }
 
 
@@ -1045,13 +1047,9 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
         message_type = 'Get-Alerts';
     }
 
-    if (event.target.className === 'select_button') {
-        rowobj = getRowObjById(event.target.getAttribute('data-id'), state);
-        message_type = 'Select-Event';
-    }
 
     if (event.target.className === 'calculator_image') {
-        rowobj = state.globalData.find(item => item.betId === event.target.getAttribute('data-betId'));
+        rowobj = state.globalData.find(item => item.betId === event.target.getAttribute('data-id'));
         message_type = 'Calculator';
     }
 
@@ -1823,6 +1821,7 @@ export function runSpecificScript(scope, state) {
     }
 
 
+
     
 }
 
@@ -2227,4 +2226,78 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
             isExpanded = false;
         }
     });
+}
+
+
+
+
+
+
+
+function add_event_listener_for_select_buttons(scope, state) {
+
+    // add event listener for on click anywhere and if target class is select button then call function with the target
+    scope.addEventListener('click', (event) => {
+        if (event.target.classList.contains('select_button') || event.target.closest('.select_button')) {
+            select_clicked(scope, state, event.target.getAttribute('data-id'));
+        }
+    });
+}
+
+
+function select_clicked(scope, state, id) {
+
+    // first find the element with class select_button and where the data-id is the id
+    const select_button = scope.querySelector('.select_button[data-id="' + id + '"]');
+    if (select_button) {
+        // if the content is + change it to × and vice versa
+        if (select_button.textContent === '+') {
+            select_button.textContent = '×'; // Using multiplication symbol × which is more vertically centered
+        } else {
+            select_button.textContent = '+';
+        }
+    }
+
+    // Add spinning animation to the select button and make the row take the same time to expand
+    // ( do this code later on)
+    
+
+
+    // check if there is a tr with select_button_div with that data-id of the id and if there is that already then return
+    const select_button_div = scope.querySelector('.select_button_div[data-id="' + id + '"]');
+    if (select_button_div) {
+        // remove it
+        const select_button_div_row = scope.querySelector('.select_button_div_row[data-id="' + id + '"]');
+        if (select_button_div_row) {
+            select_button_div_row.remove();
+        }
+        return;
+    }
+
+    // then find the tr where the data-id is the id
+    const tr = scope.querySelector('tr[data-id="' + id + '"]');
+    if (tr) {
+        // make it inject a row just below that row
+        const newRow = document.createElement('tr');
+        newRow.className = 'select_button_div_row';
+        newRow.setAttribute('data-id', id);
+        
+        // Create td element properly and override default td styles
+        const td = document.createElement('td');
+        td.setAttribute('colspan', '100%');
+        
+        // Create the inner div
+        const div = document.createElement('div');
+        div.className = 'select_button_div';
+        div.setAttribute('data-id', id);
+        div.textContent = 'Select div';
+        
+        // Append elements
+        td.appendChild(div);
+        newRow.appendChild(td);
+        tr.parentNode.insertBefore(newRow, tr.nextSibling);
+    }
+
+
+
 }

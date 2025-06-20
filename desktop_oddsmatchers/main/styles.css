@@ -766,3 +766,33 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.select_button_div_row {
+    width: 100%;
+}
+
+
+.select_button_div {
+    height: 400px;
+    width: 100%;
+    font-size: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+

@@ -313,7 +313,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             const tr = document.createElement('tr');
     
             tr.className = 'table_data_row';
-            tr.setAttribute('data-id', row._id)
+            tr.setAttribute('data-id', row.betId)
 
 
 
@@ -377,9 +377,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
             if (row.iscalc) {
                 let calcButton = document.createElement('button');
-                calcButton.innerHTML = `<img class="calculator_image" data-betId="${row.betId}" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Calculator">`;
+                calcButton.innerHTML = `<img class="calculator_image" data-id="${row.betId}" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Calculator">`;
                 calcButton.className = 'calc_select_button';
-                calcButton.setAttribute('data-betId', row.betId);
+                calcButton.setAttribute('data-id', row.betId);
                 calcButton.setAttribute('aria-label', row.betId);
                 tr.appendChild(calcButton);
             }
@@ -390,7 +390,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
             // Create and append button directly to the row
             let selectButton = document.createElement('button');
-            selectButton.innerHTML = `<img class="select_img" data-betId="${row.betId}" src="https://img.icons8.com/?size=100&id=kCViyr9hZtLX&format=png&color=ffffff" alt="Edit">`;
+            selectButton.innerHTML = `<img class="select_img" data-id="${row.betId}" src="https://img.icons8.com/?size=100&id=kCViyr9hZtLX&format=png&color=ffffff" alt="Edit">`;
             selectButton.className = 'select_button';
             selectButton.setAttribute('data-id', row.betId);
             selectButton.setAttribute('aria-label', row.betId);
