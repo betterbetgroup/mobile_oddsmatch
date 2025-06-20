@@ -87,10 +87,10 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                         default: null
                     },
                     {
-                        name: 'minPotentialProfit',
+                        name: 'minROI',
                         type: 'number',
-                        input_id: 'min-potential-profit',
-                        filter_id: 'min-potential-profit',
+                        input_id: 'min-roi',
+                        filter_id: 'min-roi',
                         default: null
                     }
                 ],
@@ -388,7 +388,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                         "minrating": "null",
                         "maxrating": "null",
                         "minQualifyingLoss": "null",
-                        "minPotentialProfit": "null"
+                        "minROI": "null"
                     }
             };
     
@@ -400,7 +400,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                 minrating: null,
                 maxrating: null,
                 minQualifyingLoss: null,
-                minPotentialProfit: null,
+                minROI: null,
             };
     
        
