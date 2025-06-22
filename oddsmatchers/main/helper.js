@@ -1,5 +1,8 @@
+import * as calculateHelpers from 'calculate_functions.js'
 
 
+
+const delay_for_copy_text = 1500;
 
 
 // make a dictionary that matches the keys to the appropriate html
@@ -118,8 +121,6 @@ const DesktopHeaderDictionary = {
     </th>`
     
 };
-
-
 
 
 // COULD ALSO ADD IN UNREALISED PROFIT
@@ -2250,7 +2251,26 @@ function add_event_listener_for_select_buttons(scope, state) {
             setTimeout(() => {
                 element.textContent = originalText;
                 element.classList.add('copy-on-click');
-            }, 1500);
+            }, delay_for_copy_text);
+        }
+
+        if (event.target.classList.contains('bet-type-btn')) {
+            // select the parent element
+            const parentElement = event.target.closest('.lay_type_control_container');
+            // selecg all bet-type-btn in parentElement
+            const betTypeButtons = parentElement.querySelectorAll('.bet-type-btn');
+            betTypeButtons.forEach(button => {
+                button.classList.remove('active-lay-type');
+            });
+            // change the class of the button to active-lay-type
+            event.target.classList.add('active-lay-type');
+            
+
+
+            // THEN ALSO CALL CALCULATE AND SET VALUES
+
+            
+            
         }
     });
 }
@@ -2266,8 +2286,11 @@ function select_clicked(scope, state, id) {
     
     // check if there is a tr with select_button_div with that data-id of the id and if there is that already then return
     if (check_for_tr_with_select_button_div(scope, state, id)) {
+        set_td_class_for_the_row(scope, state, id, false)
         return;
     }
+
+    set_td_class_for_the_row(scope, state, id, true)
 
     // then find the tr where the data-id is the id and create and inject div
     create_and_inject_select_div(scope, state, id)
@@ -2300,6 +2323,18 @@ function check_for_tr_with_select_button_div(scope, state, id) {
         return tr;
     }
     return false;
+}
+
+function set_td_class_for_the_row(scope, state, id, is_add_class) {
+    const tr = scope.querySelector('.table_data_row[data-id="' + id + '"]');
+    if (tr) {
+        tr.querySelectorAll('td').forEach(td => {
+            td.classList.toggle('selected_row_td_original', is_add_class);
+        });
+        tr.querySelectorAll('div[class*="_profit_data"').forEach(div => {
+            div.style.background = is_add_class ? 'var(--global-main-background-colour)' : '';
+        });
+    }
 }
 
 
@@ -2340,19 +2375,25 @@ function create_and_inject_select_div(scope, state, id) {
 function create_select_div_inner_html(scope, state, div, row) {
 
 
-    // need to figure out how is the best way to do this.
-    // split into divs 3 / 1 ratio? 
-    // there should be parts that are constant between the oddsmatchers i.e. description box and log bet
-    // look at oddsmatcher selects and make a plan
 
 
     add_in_top_section(div, row);
     add_in_back_bet_section(div, row, 'Back');
     add_in_back_bet_section(div, row, 'Lay');
-    add_in_bet_controls_section(div, row)
+    add_in_bet_controls_section(div, row);
+    add_in_explanation_text_section(div, row);
+
+
+
+    add_event_listeners_for_items_in_select_div(scope, state, div, row);
+
+
 
 
 }
+
+
+
 
 
 
@@ -2375,6 +2416,10 @@ function add_in_top_section(div, row) {
     */
 
 }
+
+
+
+
 
 
 
@@ -2607,13 +2652,11 @@ function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet) {
 
 
 
+
+
+
+
 function add_in_bet_controls_section(div, row) {
-
-    // take the div inner html and add in a new layer, this layer should be made of up 2 divs, and they're justified space around
-
-    // make hte first div be a switch that says 'Free Bet Mode' to the left, and the other div is a selector input that lets 
-
-    // them choose betweeen 'Underlay', 'Standard', and 'Overlay'
 
     // do it using div.innerHTML += and add certain classes, then add these to the styles.css in desktop_oddsmatchers/main/styles.css
     
@@ -2621,9 +2664,9 @@ function add_in_bet_controls_section(div, row) {
         <div class="select_div_item select_bet_section select_bet_controls_item">
             <div class="free_bet_mode_control">
                 <span class="free_bet_mode_label">Free Bet Mode</span>
-                <label class="switch">
-                    <input type="checkbox" class="free_bet_mode_switch">
-                    <span class="slider"></span>
+                <label class="switch switch_select_free_bet_mode">
+                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch_${row._id}">
+                    <span class="slider slider_select_free_bet_mode"></span>
                 </label>
             </div>
         </div>
@@ -2632,9 +2675,9 @@ function add_in_bet_controls_section(div, row) {
     if (true) {
         div.querySelector('.select_bet_controls_item').innerHTML += `
             <div class="bet_type_control">
-                <div class="switch-container">
+                <div class="lay_type_control_container" data-_id="${row._id}">
                     <button class="bet-type-btn" data-type="underlay">Underlay</button>
-                    <button class="bet-type-btn active" data-type="standard">Standard</button>
+                    <button class="bet-type-btn active-lay-type" data-type="standard">Standard</button>
                     <button class="bet-type-btn" data-type="overlay">Overlay</button>
                 </div>
             </div>
@@ -2643,3 +2686,157 @@ function add_in_bet_controls_section(div, row) {
 
     
 }
+
+
+
+
+
+
+
+
+
+
+
+function add_in_explanation_text_section(div, row) {
+
+    let outcome_text = row.outcome + ' win';
+    if (row.outcome === 'Draw') {
+        outcome_text = 'a draw occurs';
+    }
+
+
+    let back_win_profit = '10.30';
+    let lay_loss_profit = '10.20';
+    let overall_profit_back_win = '£0.10';
+
+    let gain_or_lose_text_back_win = 'gain';
+    let class_for_overall_profit_back_win = 'select_profit_explanation_profit';
+    if (overall_profit_back_win.includes('-')) {
+        gain_or_lose_text_back_win = 'lose';
+        overall_profit_back_win = overall_profit_back_win.replace('-', '');
+        class_for_overall_profit_back_win = 'select_profit_explanation_loss';
+    }
+
+
+
+    let back_stake = '10.00';
+    let lay_stake = '10.15';
+    let overall_profit_lay_win = '£0.15';
+
+    let other_outcome_text = row.outcome + ` don't win`;
+    if (row.outcome === 'Draw') {
+        other_outcome_text = `a draw doesn't occur`;
+    }
+
+    let gain_or_lose_text_lay_win = 'gain';
+    let class_for_overall_profit_lay_win = 'select_profit_explanation_profit';
+    if (overall_profit_lay_win.includes('-')) {
+        gain_or_lose_text_lay_win = 'lose';
+        overall_profit_lay_win = overall_profit_lay_win.replace('-', '');
+        class_for_overall_profit_lay_win = 'select_profit_explanation_loss';
+    }
+
+
+    div.innerHTML += `
+        <div class="select_div_item select_bet_explanation_text_item">
+            <div class="explanation_text_div">
+                <span class="explanation_text_div_text">
+                    • If ${outcome_text}, you will win your back bet on ${row.bookmaker} 
+                    and therefore gain <span class="select_profit_explanation_profit">£${back_win_profit}</span> on ${row.bookmaker}. 
+                    However, you will also lose your lay bet on ${row.exchange} 
+                    and therfore lose <span class="select_profit_explanation_loss">£${lay_loss_profit}</span> on ${row.exchange}. 
+                    This means that overall you will ${gain_or_lose_text_back_win}
+                    <span class="${class_for_overall_profit_back_win}"> ${overall_profit_back_win}</span> if ${outcome_text}.
+                </span>
+
+                <span class="explanation_text_div_text">
+                    • If ${other_outcome_text}, you will lose your back bet on ${row.bookmaker} 
+                    and therefore lose <span class="select_profit_explanation_loss">£${back_stake}</span> on ${row.bookmaker}. 
+                    However, you will also win your lay bet on ${row.exchange} 
+                    and therefore gain <span class="select_profit_explanation_profit">£${lay_stake}</span> on ${row.exchange}. 
+                    This means that overall you will ${gain_or_lose_text_lay_win}
+                    <span class="${class_for_overall_profit_lay_win}"> ${overall_profit_lay_win}</span> if ${other_outcome_text}.
+                </span>
+                
+            </div>
+        </div>
+    `;
+
+
+    // OBVIOUSLY IS THEN SLIGHTLY DIFFERENT IF DUTCHING OR EXTRA PLACE ETC
+
+}
+
+
+
+
+
+
+
+function add_event_listeners_for_items_in_select_div(scope, state, div, row) {
+
+
+    // add event listener for on click anywhere and if target class is select button then call function with the target
+    div.addEventListener('click', (event) => {
+
+        if (event.target.classList.contains('copy-on-click')) {
+            copy_text_on_click_stake(event);
+        }
+
+        if (event.target.classList.contains('bet-type-btn')) {
+
+            change_lay_type_control_container(event);
+
+            // let data_object = calculate_bet_data(scope, state, row);
+            // display_bet_data(data_object, scope, state, row);
+
+        }
+
+        if (event.target.classList.contains('free_bet_mode_switch')) {
+            //let data_object = calculate_bet_data(scope, state, row);
+            //display_bet_data(data_object, scope, state, row);
+        }
+
+    });
+
+    // also add a function to listen to all 'input' or 'change' events on all inputs in the div
+    div.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', (event) => {
+            //let data_object = calculate_bet_data(scope, state, row);
+            //display_bet_data(data_object, scope, state, row);
+            console.log('input', event.target.value);
+        });
+    });
+
+
+}
+
+
+function copy_text_on_click_stake(event) {
+
+    let element = event.target;
+    const originalText = event.target.textContent;
+    navigator.clipboard.writeText(originalText.replace('£', '').replace(' ', ''));
+    event.target.classList.remove('copy-on-click');
+    event.target.textContent = 'Copied!';
+    setTimeout(() => {
+        element.textContent = originalText;
+        element.classList.add('copy-on-click');
+    }, delay_for_copy_text);
+
+}
+
+function change_lay_type_control_container(event) {
+
+    // select the parent element
+    const parentElement = event.target.closest('.lay_type_control_container');
+    // selecg all bet-type-btn in parentElement
+    const betTypeButtons = parentElement.querySelectorAll('.bet-type-btn');
+    betTypeButtons.forEach(button => {
+        button.classList.remove('active-lay-type');
+    });
+    // change the class of the button to active-lay-type
+    event.target.classList.add('active-lay-type');
+    
+}
+

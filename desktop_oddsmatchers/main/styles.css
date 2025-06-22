@@ -808,12 +808,39 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 /* AT WIDTH OF 1440PX */
 
+#outer-container-div {
+    
+
+    /* global kind of items in select div */
+    --padding-for-items-in-select-div: 30px;
+
+    
+
+
+    /* controls section */
+    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.5);
+    --padding-top-bottom-select-lay-type: 15px;
+    --width-of-lay-bet-type-btn: 180px;
+}
+
+
+
+
+
+
+
+
 
 
 .select_td {
     padding: 0;
     background-color: var(--global-main-background-colour);
 }
+
+.selected_row_td_original {
+    background-color: var(--global-main-background-colour) !important;
+}
+/* THIS JS ADJUSTS THE BACKGROUND USING THE VAR IN THE CSS ABOVE */
 
 .select_button_div_row {
     width: 100%;
@@ -823,19 +850,20 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-bottom: var(--padding-for-items-in-select-div);
+    border-bottom: var(--global-border-main);
 }
 
 .select_div_item {
     display: flex;
     flex-direction: row;
-    padding: 30px;
-    padding-left: 0;
+    padding: var( --padding-for-items-in-select-div);
 }
 
 .bar_on_left_of_item {
     display: flex;
-    height: 140px;
-    width: 30px; /* equal to the padding of the parents element */
+    height: 120px;
+    width: var( --padding-for-items-in-select-div); 
     background-color:#2888ef;
     align-self: center
 }
@@ -856,7 +884,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 30px; /* the same as the padding */
+    margin-left: var( --padding-for-items-in-select-div); /* the same as the padding */
 }
 
 .bookmaker_logo_img_select_bet {
@@ -865,11 +893,12 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .select_bet_div_item {
     display: flex;
     flex: 1;
-    width: calc(100% - 30px); /* Subtract width of bar */
+    width: calc(100% - var( --padding-for-items-in-select-div)); /* Subtract width of bar */
 }
 
-
-
+.select_bet_section {
+    padding-left: 0;
+}
 
 /* Select bet div layout */
 .outer_bottom_select_bet_div {
@@ -890,18 +919,18 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 30px; /* the same as the padding */
-    margin-right: 30px; /* the same as the padding */
+    margin-left: var( --padding-for-items-in-select-div); /* the same as the padding */
+    margin-right: var( --padding-for-items-in-select-div); /* the same as the padding */
 }
 
 .select_bet_text_div span {
-    font-size: calc(var(--font-size-filter-inputs) * 1.5);
+    font-size: calc(var(--font-size-filter-inputs) * 1.25);
     font-weight: bold;
     text-align: left;
 }
 
 .copy-icon {
-    height: calc(var(--font-size-filter-inputs) * 1.5);
+    height: calc(var(--font-size-filter-inputs) * 1.25);
     margin-left: -3px;
     vertical-align: middle;
     display: inline-block;
@@ -937,13 +966,13 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 50px; /* 2X THAT OF THE SELECT BET PARTS, AND STILL HAS IT ON THE LEFT */
+    padding: var(--padding-for-controls-section); 
 }
 
 .free_bet_mode_control {
     display: flex;
     align-items: center;
-    gap: 20px; /* same as the padding and margins on the select bet parts */
+    gap: calc(var(--padding-for-items-in-select-div) * 0.5);
 }
 
 .free_bet_mode_label {
@@ -951,6 +980,32 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     font-size: var(--font-size-filter-inputs); 
     font-weight: bold;
 }
+
+
+/* switch stuff */
+.select_td {
+
+    --height-of-checkbox: calc(var(--height-filter-inputs) * 0.75);
+
+}
+
+.switch_select_free_bet_mode {
+    width: calc(2 * var(--height-of-checkbox)); 
+    height: var(--height-of-checkbox); 
+}
+
+.slider_select_free_bet_mode:before {
+    height: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));
+    width: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));
+}
+
+.free_bet_mode_switch:checked + .slider_select_free_bet_mode:before {
+    transform: translateX(var(--height-of-checkbox)); 
+}
+
+
+
+
 
 
 
@@ -961,20 +1016,14 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .bet_type_control {
     display: flex;
     align-items: center;
-    gap: 20px;
 }
 
-.bet_type_label {
-    color: white;
-    font-size: calc(var(--font-size-filter-inputs) * 1.5);
-    font-weight: bold;
-}
 
-.switch-container {
+.lay_type_control_container {
     display: flex;
     overflow: hidden;
-    border-radius: 20px;
-    border: 1px solid #444;
+    border-radius: var(--larger-border-radius-above-columns-panel);
+    border: var(--global-filters);
 }
 
 .bet-type-btn {
@@ -982,23 +1031,57 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     cursor: pointer;
     border: 0;
     outline: none;
-    background-color: #333;
-    color: #f7f7f7;
-    font-weight: normal;
+    background-color: var(--background-colour-filters);
+    color: white;
     transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
-    height: 62px;
-    width: 190px;
-    font-size: 20px;
+    height: var(--height-of-filter-inputs);
+    font-size: var(--font-size-filter-inputs); 
     text-align: center;
+    padding-top: var(--padding-top-bottom-select-lay-type);
+    padding-bottom: var(--padding-top-bottom-select-lay-type);
+    width: var(--width-of-lay-bet-type-btn);
 }
 
-.bet-type-btn.active {
-    background-color: #65054f;
-    font-size: 22px;
+.bet-type-btn.active-lay-type {
+    background-color: black;
     font-weight: bold;
-    color: #ffffff;
 }
 
 
+
+
+
+
+
+
+/* explanation text section */
+
+.select_bet_explanation_text_item {
+    padding: var(--padding-for-items-in-select-div) calc(var(--padding-for-items-in-select-div) * 1.75);
+}
+
+.explanation_text_div {
+    font-size: var(--font-size-filter-inputs);
+    text-align: left;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-for-items-in-select-div);
+}
+
+.explanation_text_div span {
+    font-size: var(--font-size-filter-inputs);
+    text-align: left;
+    position: relative;
+}
+
+.select_profit_explanation_profit, .select_profit_explanation_loss {
+    font-weight: bold;
+    color: #00aa00
+}
+
+.select_profit_explanation_loss {
+    color: #dd0000;
+}
 
 
