@@ -2241,6 +2241,17 @@ function add_event_listener_for_select_buttons(scope, state) {
         if (event.target.classList.contains('select_button') || event.target.closest('.select_button')) {
             select_clicked(scope, state, event.target.getAttribute('data-id'));
         }
+        if (event.target.classList.contains('copy-on-click')) {
+            let element = event.target;
+            const originalText = event.target.textContent;
+            navigator.clipboard.writeText(originalText.replace('£', '').replace(' ', ''));
+            event.target.classList.remove('copy-on-click');
+            event.target.textContent = 'Copied!';
+            setTimeout(() => {
+                element.textContent = originalText;
+                element.classList.add('copy-on-click');
+            }, 1500);
+        }
     });
 }
 
@@ -2248,6 +2259,27 @@ function add_event_listener_for_select_buttons(scope, state) {
 function select_clicked(scope, state, id) {
 
     // first find the element with class select_button and where the data-id is the id
+    change_select_button_content(scope, state, id)
+
+    // Add spinning animation to the select button and make the row take the same time to expand
+    // DO LATER ON
+    
+    // check if there is a tr with select_button_div with that data-id of the id and if there is that already then return
+    if (check_for_tr_with_select_button_div(scope, state, id)) {
+        return;
+    }
+
+    // then find the tr where the data-id is the id and create and inject div
+    create_and_inject_select_div(scope, state, id)
+
+
+
+}
+
+
+
+function change_select_button_content(scope, state, id) {
+
     const select_button = scope.querySelector('.select_button[data-id="' + id + '"]');
     if (select_button) {
         // if the content is + change it to × and vice versa
@@ -2258,23 +2290,23 @@ function select_clicked(scope, state, id) {
         }
     }
 
-    // Add spinning animation to the select button and make the row take the same time to expand
-    // ( do this code later on)
-    
+}
 
 
-    // check if there is a tr with select_button_div with that data-id of the id and if there is that already then return
-    const select_button_div = scope.querySelector('.select_button_div[data-id="' + id + '"]');
-    if (select_button_div) {
-        // remove it
-        const select_button_div_row = scope.querySelector('.select_button_div_row[data-id="' + id + '"]');
-        if (select_button_div_row) {
-            select_button_div_row.remove();
-        }
-        return;
+function check_for_tr_with_select_button_div(scope, state, id) {
+    const tr = scope.querySelector('.select_button_div_row[data-id="' + id + '"]');
+    if (tr) {
+        tr.remove();
+        return tr;
     }
+    return false;
+}
 
-    // then find the tr where the data-id is the id
+
+function create_and_inject_select_div(scope, state, id) {
+
+    const row = state.globalData.find(row => row._id === id);
+
     const tr = scope.querySelector('tr[data-id="' + id + '"]');
     if (tr) {
         // make it inject a row just below that row
@@ -2285,19 +2317,329 @@ function select_clicked(scope, state, id) {
         // Create td element properly and override default td styles
         const td = document.createElement('td');
         td.setAttribute('colspan', '100%');
+        td.className = 'select_td';
         
         // Create the inner div
         const div = document.createElement('div');
         div.className = 'select_button_div';
         div.setAttribute('data-id', id);
-        div.textContent = 'Select div';
+
+        create_select_div_inner_html(scope, state, div, row)
         
         // Append elements
         td.appendChild(div);
         newRow.appendChild(td);
         tr.parentNode.insertBefore(newRow, tr.nextSibling);
+        
+    }
+
+}
+
+
+
+function create_select_div_inner_html(scope, state, div, row) {
+
+
+    // need to figure out how is the best way to do this.
+    // split into divs 3 / 1 ratio? 
+    // there should be parts that are constant between the oddsmatchers i.e. description box and log bet
+    // look at oddsmatcher selects and make a plan
+
+
+    add_in_top_section(div, row);
+    add_in_back_bet_section(div, row, 'Back');
+    add_in_back_bet_section(div, row, 'Lay');
+    add_in_bet_controls_section(div, row)
+
+
+}
+
+
+
+
+
+
+function add_in_top_section(div, row) {
+
+    let text_top_section = 'Calculate Your Bet';
+    let fixture_text = row.fixture;
+    // DON'T THINK THIS IS NECESSARY
+    /*
+    div.innerHTML = `
+        <div class="select_div_item select_div_top_section"> 
+            <div class="select_title_div">
+                <span class="select_div_top_section_text">${text_top_section} For ${fixture_text}</span>
+            </div>
+        </div>
+    `
+    */
+
+}
+
+
+
+
+
+
+function add_in_back_bet_section(div, row, type_of_bet) {
+
+
+    let link = row.bookmaker_link;
+    let platform = row.bookmaker;
+    let class_for_bar_on_left_of_item = 'bar_on_left_of_item';
+
+    if (type_of_bet === 'Lay') {
+        link = row.exchange_link;
+        platform = row.exchange;
+        class_for_bar_on_left_of_item = 'bar_on_left_of_item bar_on_left_of_item_lay';
     }
 
 
 
+    div.innerHTML += `
+        <div class="select_div_item select_bet_section select_div_back_bet_section">
+
+            <div class="${class_for_bar_on_left_of_item}"></div>
+
+            <div class="select_bet_div_item">
+                <div class="outer_bottom_select_bet_div">
+                    <div class="inner_bottom_select_bet_div_left">
+
+                        <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div bookmaker_logo_div_select_bet">
+                            <a class="div_around_logo" ${link ? `href="${link}" target="_blank"` : ''} >
+                                <img class='bookmaker_logo_img bookmaker_logo_img_select_bet' src="${get_bookmaker_image(platform)}" alt="${row.sport} ${platform}">
+                            </a>
+                        </div>
+
+                        <div class="select_bet_text_div"> 
+                            <span class="select_bet_text_div_text" id="select_bet_text_div_text_${row._id}_${type_of_bet}"></span>
+                        </div>
+
+                    </div>
+                    <div class="inner_bottom_select_bet_div_right" id="${row._id}_${type_of_bet}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+
+
+
+    // Get the right div container
+    const rightDiv = div.querySelector('#' + row._id + '_' + type_of_bet);
+
+    if (type_of_bet === 'Back') {
+        add_stake_input(rightDiv, row, type_of_bet);
+    }
+
+    add_odds_input(rightDiv, row, type_of_bet);
+
+    if (type_of_bet === 'Lay') {
+        add_lay_commission_input(rightDiv, row, type_of_bet);
+    }
+
+    let span_text_element = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + type_of_bet);
+    set_text_for_span_in_middle(div, span_text_element, row, type_of_bet);
+
+
+}
+
+
+function add_stake_input(rightDiv, row, type_of_bet) {
+
+
+    let stake_input_value = 10;
+
+
+    // Create stake input
+    const stakeLabel = document.createElement('div');
+    stakeLabel.className = 'filter-label';
+    stakeLabel.textContent = type_of_bet + ' Stake';
+    
+    const stakeInput = document.createElement('input');
+    stakeInput.dataset._id = row._id
+    stakeInput.className = 'text-input';
+    stakeInput.id = type_of_bet + '-stake-input_' + row._id;
+    stakeInput.placeholder = type_of_bet +' Stake';
+    stakeInput.autocomplete = 'off';
+    stakeInput.value = stake_input_value;
+
+
+    // Add all inputs to the right div
+    const stakeFilterItem = document.createElement('div');
+    stakeFilterItem.className = 'filter-item';
+    stakeFilterItem.appendChild(stakeLabel);
+    stakeFilterItem.appendChild(stakeInput);
+    rightDiv.appendChild(stakeFilterItem);
+
+
+    stakeInput.setAttribute('value', stake_input_value); // Set both value property and attribute
+
+}
+
+
+function add_odds_input(rightDiv, row, type_of_bet) {
+
+    let odds_input_value = row.back_odds;
+    if (type_of_bet === 'Lay') {
+        odds_input_value = row.lay_odds;
+    }
+
+
+    // Create back odds input
+    const oddsLabel = document.createElement('div');
+    oddsLabel.className = 'filter-label';
+    oddsLabel.textContent = type_of_bet + ' Odds';
+    
+    const oddsInput = document.createElement('input');
+    oddsInput.dataset._id = row._id
+    oddsInput.className = 'text-input';
+    oddsInput.id = type_of_bet + '-odds-input';
+    oddsInput.placeholder = type_of_bet + ' Odds';
+    oddsInput.autocomplete = 'off';
+
+    
+    const oddsFilterItem = document.createElement('div');
+    oddsFilterItem.className = 'filter-item';
+    oddsFilterItem.appendChild(oddsLabel);
+    oddsFilterItem.appendChild(oddsInput);
+    rightDiv.appendChild(oddsFilterItem);
+    
+    oddsInput.setAttribute('value', odds_input_value); // Set both value property and attribute
+
+
+}
+
+
+function add_lay_commission_input(rightDiv, row, type_of_bet) {
+
+    let lay_commission = 0;
+
+
+    // Create commission input
+    const commissionLabel = document.createElement('div');
+    commissionLabel.className = 'filter-label';
+    commissionLabel.textContent = 'Commission';
+    
+    const commissionInput = document.createElement('input');
+    commissionInput.dataset._id = row._id
+    commissionInput.className = 'text-input';
+    commissionInput.id = 'commission-input';
+    commissionInput.placeholder = 'Commission';
+    commissionInput.autocomplete = 'off';
+
+
+    const commissionFilterItem = document.createElement('div');
+    commissionFilterItem.className = 'filter-item';
+    commissionFilterItem.appendChild(commissionLabel);
+    commissionFilterItem.appendChild(commissionInput);
+    rightDiv.appendChild(commissionFilterItem);
+
+    commissionInput.setAttribute('value', lay_commission); // Set both value property and attribute
+
+
+}
+
+
+function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet) {
+
+
+    // calculate function called, returns object, then this is called
+
+    // event listeners are called, and they call caculate and then this in the same fashion
+
+    let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';
+
+
+
+    // this should be from an object
+    let back_stake = '10.30'
+
+    let lay_stake = '10.50';
+
+    let back_odds = '1.52';
+    let lay_odds = '1.58';
+
+
+    let outcome = row.outcome;
+    if (row.outcome === 'Draw') {
+        outcome = 'a Draw';
+    }
+
+
+
+
+    let stake;
+    let odds;
+    if (type_of_bet === 'Back') {
+        stake = back_stake;
+        odds = back_odds;
+    } else if (type_of_bet === 'Lay') {
+        stake = lay_stake;
+        odds = lay_odds;
+    }
+
+
+
+    span_text_element.innerHTML =
+    `${type_of_bet} <span class="copy-on-click">£${stake}</span>
+        <img src="${copy_icon_url}" class="copy-icon" alt="(Copy)" />
+        on ${outcome} at
+        <span class="odds-select-bet">${odds} ${type_of_bet} Odds</span>            
+        `;
+        
+
+
+
+
+
+    // then add in variations for different types etc, one by one 
+
+
+
+}
+
+
+
+
+
+
+
+
+function add_in_bet_controls_section(div, row) {
+
+    // take the div inner html and add in a new layer, this layer should be made of up 2 divs, and they're justified space around
+
+    // make hte first div be a switch that says 'Free Bet Mode' to the left, and the other div is a selector input that lets 
+
+    // them choose betweeen 'Underlay', 'Standard', and 'Overlay'
+
+    // do it using div.innerHTML += and add certain classes, then add these to the styles.css in desktop_oddsmatchers/main/styles.css
+    
+    div.innerHTML += `
+        <div class="select_div_item select_bet_section select_bet_controls_item">
+            <div class="free_bet_mode_control">
+                <span class="free_bet_mode_label">Free Bet Mode</span>
+                <label class="switch">
+                    <input type="checkbox" class="free_bet_mode_switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    `;
+
+    if (true) {
+        div.querySelector('.select_bet_controls_item').innerHTML += `
+            <div class="bet_type_control">
+                <div class="switch-container">
+                    <button class="bet-type-btn" data-type="underlay">Underlay</button>
+                    <button class="bet-type-btn active" data-type="standard">Standard</button>
+                    <button class="bet-type-btn" data-type="overlay">Overlay</button>
+                </div>
+            </div>
+        `;
+    }
+
+    
 }

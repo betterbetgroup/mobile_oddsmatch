@@ -454,14 +454,13 @@ th, td {
 th {
     font-weight: bold;
 }
-
-tbody tr:nth-child(even) td {
+tbody tr.table_data_row:nth-child(2n) td {
     background-color: var(--table-data-first-background-colour); 
 }
-tbody tr:nth-child(odd) td {
+tbody tr.table_data_row:nth-child(2n+1) td {
     background-color: var(--table-data-second-background-colour);
 }
-tbody tr:hover td {
+tbody tr:hover td:not(.select_td) {
     background-color: var(--table-data-hover-colour);
 }
  
@@ -780,19 +779,226 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* AT WIDTH OF 1440PX */
+
+
+
+.select_td {
+    padding: 0;
+    background-color: var(--global-main-background-colour);
+}
+
 .select_button_div_row {
     width: 100%;
 }
 
-
 .select_button_div {
-    height: 400px;
     width: 100%;
-    font-size: 30px;
-    align-items: center;
     display: flex;
-    justify-content: center;
-
+    flex-direction: column;
 }
+
+.select_div_item {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    padding-left: 0;
+}
+
+.bar_on_left_of_item {
+    display: flex;
+    height: 140px;
+    width: 30px; /* equal to the padding of the parents element */
+    background-color:#2888ef;
+    align-self: center
+}
+
+.bar_on_left_of_item_lay {
+    background-color: rgb(225, 104, 124);
+}
+
+.select_title_div {
+    width: 100%;
+    display: flex;
+    align-items: left;
+    font-weight: bold;
+    font-size: calc(var(--font-size-header) * 1.25);
+}
+
+.bookmaker_logo_div_select_bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px; /* the same as the padding */
+}
+
+.bookmaker_logo_img_select_bet {
+    height: calc(var(--height-filter-inputs) / 1.25);
+}
+.select_bet_div_item {
+    display: flex;
+    flex: 1;
+    width: calc(100% - 30px); /* Subtract width of bar */
+}
+
+
+
+
+/* Select bet div layout */
+.outer_bottom_select_bet_div {
+    display: flex;
+    width: 100%;
+}
+
+.inner_bottom_select_bet_div_left {
+    width: 75%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.select_bet_text_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px; /* the same as the padding */
+    margin-right: 30px; /* the same as the padding */
+}
+
+.select_bet_text_div span {
+    font-size: calc(var(--font-size-filter-inputs) * 1.5);
+    font-weight: bold;
+    text-align: left;
+}
+
+.copy-icon {
+    height: calc(var(--font-size-filter-inputs) * 1.5);
+    margin-left: -3px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.copy-on-click {
+    cursor: pointer;
+    border-bottom: 4px dotted #fff;
+    border-bottom-style: dotted;
+    border-spacing: 10px;
+}
+
+.inner_bottom_select_bet_div_right {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    gap: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Select bet controls layer */
+.select_bet_controls_item {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 50px; /* 2X THAT OF THE SELECT BET PARTS, AND STILL HAS IT ON THE LEFT */
+}
+
+.free_bet_mode_control {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* same as the padding and margins on the select bet parts */
+}
+
+.free_bet_mode_label {
+    color: white;
+    font-size: var(--font-size-filter-inputs); 
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+.bet_type_control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.bet_type_label {
+    color: white;
+    font-size: calc(var(--font-size-filter-inputs) * 1.5);
+    font-weight: bold;
+}
+
+.switch-container {
+    display: flex;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #444;
+}
+
+.bet-type-btn {
+    flex: 1;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    background-color: #333;
+    color: #f7f7f7;
+    font-weight: normal;
+    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
+    height: 62px;
+    width: 190px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.bet-type-btn.active {
+    background-color: #65054f;
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
 
 
