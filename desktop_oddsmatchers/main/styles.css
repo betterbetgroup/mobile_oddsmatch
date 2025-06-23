@@ -805,7 +805,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 /* AT WIDTH OF 1440PX */
 
-#outer-container-div {
+.select_button_div {
     
 
     /* global kind of items in select div */
@@ -813,15 +813,23 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
     
 
+    /* select bet sections */
+    --bar-on-left-of-bet-item-height: 110px;
+    --back-bet-background-color: #2888ef;
+    --lay-bet-background-color: #e1687c;
+
 
     /* controls section */
     --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
     --padding-top-bottom-select-lay-type: 15px;
     --width-of-lay-bet-type-btn: 180px;
+
+
+
+
+    /* profit and log section */
+    --gap-between-log-bet-button-and-description: 50px;
 }
-
-
-
 
 
 
@@ -839,46 +847,35 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 }
 /* THIS JS ADJUSTS THE BACKGROUND USING THE VAR IN THE CSS ABOVE */
 
-.select_button_div_row {
+.select_button_div_row, .select_button_div {
     width: 100%;
 }
 
 .select_button_div {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: var(--padding-for-items-in-select-div);
     border-bottom: var(--global-border-main);
 }
 
 .select_div_item {
     display: flex;
     flex-direction: row;
-    padding: var( --padding-for-items-in-select-div);
+    padding: var(--padding-for-items-in-select-div);
 }
-
 .select_div_item:not(:last-child) {
     border-bottom: var(--global-border-main);
 }
 
 .bar_on_left_of_item {
     display: flex;
-    height: 120px;
+    height: var(--bar-on-left-of-bet-item-height);
     width: var( --padding-for-items-in-select-div); 
-    background-color:#2888ef;
+    background-color: var(--back-bet-background-color);
     align-self: center
 }
 
 .bar_on_left_of_item_lay {
-    background-color: rgb(225, 104, 124);
-}
-
-.select_title_div {
-    width: 100%;
-    display: flex;
-    align-items: left;
-    font-weight: bold;
-    font-size: calc(var(--font-size-header) * 1.25);
+    background-color: var(--lay-bet-background-color);
 }
 
 .bookmaker_logo_div_select_bet {
@@ -1097,6 +1094,109 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
 
+
+
+
+/* PROFIT AND LOG SECTION */
+
+.select_bet_div_profit_and_log {
+    height: 200px;
+}
+
+.outer_bottom_select_bet_div_log_and_description_and_profit {
+    gap: 100px;
+}
+
+
+
+.select_bet_div_profit_and_log_left,
+.select_bet_div_profit_and_log_right {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select_bet_div_profit_and_log_right {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 calc(var(--gap-between-log-bet-button-and-description) / 2);
+    gap: var(--gap-between-log-bet-button-and-description);
+}
+
+.select_bet_div_profit_and_log {
+    display: flex;
+    width: 100%;
+}
+
+
+
+
+
+.profit_display_profit_and_log_div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.profit_display_profit_and_log_div_item, .filter-item-description, .log-bet-button-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* THIS IS THE ONE VERTICALLY PUTTING THEM IN THE CENTER */
+    height: 100%;
+}
+
+.div_around_profit_title_and_value {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.profit_and_log__item_title {
+    font-weight: bold;
+    font-size: calc(var(--font-size-filter-inputs) * 1.4);
+    display: flex;
+}
+
+.profit_and_log__item_value {
+    font-size: calc(var(--font-size-filter-inputs) * 0.9);
+    margin-top: calc(var(--padding-for-items-in-select-div) * 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.log-bet-button-div {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+
+.bet-description-input {
+    font-family: var(--global-main-font);
+    resize: none;
+    background: var(--background-colour-filters);
+    border: var(--border-filters);
+    border-radius: var(--border-radius-filter-inputs);
+    color: #eee;
+    outline: none;
+    font-size: var(--font-size-filter-inputs);
+    padding: var(--padding-left-filter-inputs);
+    height: 100%;
+}
+
+
+.log-bet-button {
+    width: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
 
 

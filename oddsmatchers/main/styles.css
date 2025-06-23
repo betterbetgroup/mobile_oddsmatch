@@ -11,6 +11,8 @@
 
     /* global */
 
+    --global-main-font: 'Arial', sans-serif;
+
     --blur-amount: 1.25vw;
 
     --global-border-radius: 3.50vw;
@@ -174,7 +176,7 @@ body {
 
     background: rgb(27, 0, 25);
     color: white;
-    font-family: 'Arial', sans-serif;
+    font-family: var(--global-main-font);
     padding: var(--body-padding);
     margin: 0;
     justify-content: center;  
@@ -188,7 +190,7 @@ body {
 #outer-container-div {
     background: none;
     color: white;
-    font-family: 'Arial', sans-serif;
+    font-family: var(--global-main-font);
     padding-left: var(--outer-container-div-padding-horizontal);
     padding-right: var(--outer-container-div-padding-horizontal);
     margin: 0 auto;
@@ -828,7 +830,7 @@ input[type="checkbox"] {
     text-align: center;
 }
 
-.save-filter-button, .get-alerts-button, .confirm-filter-name, .refresh_results, .cancel-making-filter {
+.save-filter-button, .get-alerts-button, .confirm-filter-name, .refresh_results, .cancel-making-filter, .log-bet-button {
     background: linear-gradient( 145deg, #ff00c6, #ff00c6); 
     border-radius: var(--border-radius-filter-inputs);
     color: white;

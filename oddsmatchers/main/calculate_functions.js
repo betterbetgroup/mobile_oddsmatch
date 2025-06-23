@@ -32,6 +32,14 @@ export function calculate_2up_bet_data(data) {
         data.twoupexchange = data.exchange_profit_if_lay_win;
         data.twouptotal = data.twoupbookmaker + data.twoupexchange;
 
+
+        data.qualifying_loss = data.total_profit_if_back_win;
+        data.potential_profit = data.total_profit_if_lay_win;
+        if (data.total_profit_if_back_win > data.total_profit_if_lay_win) {
+            data.qualifying_loss = data.total_profit_if_lay_win;
+            data.potential_profit = data.total_profit_if_back_win;
+        }
+
         // loop over all values in data and if number then round to fixed (2)
         for (let key in data) {
             if (typeof data[key] === 'number' && !isNaN(data[key])) {
