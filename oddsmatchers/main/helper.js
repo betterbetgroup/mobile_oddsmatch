@@ -1,9 +1,12 @@
-import * as calculateHelpers from 'calculate_functions.js'
+import * as calculateHelpers from './calculate_functions.js'
 
 
 
 const delay_for_copy_text = 1500;
 
+let bet_controls_list = ['standard', 'dutching']
+
+let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';
 
 // make a dictionary that matches the keys to the appropriate html
 const DesktopHeaderDictionary = {
@@ -2372,24 +2375,29 @@ function create_and_inject_select_div(scope, state, id) {
 
 
 
+
+
+
+
 function create_select_div_inner_html(scope, state, div, row) {
 
 
 
+    // THIS IS FOR 2UP BUT CAN ADJUST
+    let data_object = {};
+    
+    // get the values from the row
+    data_object.back_stake = parseFloat('10');
+    data_object.back_odds = parseFloat(row.back_odds);
+    data_object.lay_odds = parseFloat(row.lay_odds);
+    data_object.lay_commission = parseFloat('0') / 100;
 
-    add_in_top_section(div, row);
-    add_in_back_bet_section(div, row, 'Back');
-    add_in_back_bet_section(div, row, 'Lay');
-    add_in_bet_controls_section(div, row);
-    add_in_explanation_text_section(div, row);
+    data_object = calculateHelpers.calculate_2up_bet_data(data_object);
 
-
+    set_values_for_2up_bet_data(state, div, row, data_object, true);
 
     add_event_listeners_for_items_in_select_div(scope, state, div, row);
 
-
-
-
 }
 
 
@@ -2397,77 +2405,70 @@ function create_select_div_inner_html(scope, state, div, row) {
 
 
 
+function set_values_for_2up_bet_data(state, div, row, data_object, is_create) {
 
+    add_in_back_bet_section(div, row, 'Back', data_object, is_create);
+    add_in_back_bet_section(div, row, 'Lay', data_object, is_create);
 
-
-function add_in_top_section(div, row) {
-
-    let text_top_section = 'Calculate Your Bet';
-    let fixture_text = row.fixture;
-    // DON'T THINK THIS IS NECESSARY
-    /*
-    div.innerHTML = `
-        <div class="select_div_item select_div_top_section"> 
-            <div class="select_title_div">
-                <span class="select_div_top_section_text">${text_top_section} For ${fixture_text}</span>
-            </div>
-        </div>
-    `
-    */
-
-}
-
-
-
-
-
-
-
-
-
-
-function add_in_back_bet_section(div, row, type_of_bet) {
-
-
-    let link = row.bookmaker_link;
-    let platform = row.bookmaker;
-    let class_for_bar_on_left_of_item = 'bar_on_left_of_item';
-
-    if (type_of_bet === 'Lay') {
-        link = row.exchange_link;
-        platform = row.exchange;
-        class_for_bar_on_left_of_item = 'bar_on_left_of_item bar_on_left_of_item_lay';
+    if (bet_controls_list.includes(state.oddsmatcher_type) && is_create) {
+        add_in_bet_controls_section(state, div, row, is_create);
     }
 
 
+    add_in_explanation_text_section(state, div, row, data_object, is_create);
 
-    div.innerHTML += `
-        <div class="select_div_item select_bet_section select_div_back_bet_section">
+}
 
-            <div class="${class_for_bar_on_left_of_item}"></div>
 
-            <div class="select_bet_div_item">
-                <div class="outer_bottom_select_bet_div">
-                    <div class="inner_bottom_select_bet_div_left">
 
-                        <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div bookmaker_logo_div_select_bet">
-                            <a class="div_around_logo" ${link ? `href="${link}" target="_blank"` : ''} >
-                                <img class='bookmaker_logo_img bookmaker_logo_img_select_bet' src="${get_bookmaker_image(platform)}" alt="${row.sport} ${platform}">
-                            </a>
+
+
+
+function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) {
+
+
+    if (is_create) {
+
+        let link = row.bookmaker_link;
+        let platform = row.bookmaker;
+        let class_for_bar_on_left_of_item = 'bar_on_left_of_item';
+
+        if (type_of_bet === 'Lay') {
+            link = row.exchange_link;
+            platform = row.exchange;
+            class_for_bar_on_left_of_item = 'bar_on_left_of_item bar_on_left_of_item_lay';
+        }
+
+
+        div.innerHTML += `
+            <div class="select_div_item select_bet_section select_div_back_bet_section">
+
+                <div class="${class_for_bar_on_left_of_item}"></div>
+
+                <div class="select_bet_div_item">
+                    <div class="outer_bottom_select_bet_div">
+                        <div class="inner_bottom_select_bet_div_left">
+
+                            <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div bookmaker_logo_div_select_bet">
+                                <a class="div_around_logo" ${link ? `href="${link}" target="_blank"` : ''} >
+                                    <img class='bookmaker_logo_img bookmaker_logo_img_select_bet' src="${get_bookmaker_image(platform)}" alt="${row.sport} ${platform}">
+                                </a>
+                            </div>
+
+                            <div class="select_bet_text_div"> 
+                                <span class="select_bet_text_div_text" id="select_bet_text_div_text_${row._id}_${type_of_bet}"></span>
+                            </div>
+
                         </div>
+                        <div class="inner_bottom_select_bet_div_right" id="${row._id}_${type_of_bet}">
 
-                        <div class="select_bet_text_div"> 
-                            <span class="select_bet_text_div_text" id="select_bet_text_div_text_${row._id}_${type_of_bet}"></span>
                         </div>
-
-                    </div>
-                    <div class="inner_bottom_select_bet_div_right" id="${row._id}_${type_of_bet}">
-
                     </div>
                 </div>
             </div>
-        </div>
-    `
+        `
+
+    }
 
 
 
@@ -2475,173 +2476,156 @@ function add_in_back_bet_section(div, row, type_of_bet) {
     const rightDiv = div.querySelector('#' + row._id + '_' + type_of_bet);
 
     if (type_of_bet === 'Back') {
-        add_stake_input(rightDiv, row, type_of_bet);
+        add_stake_input(rightDiv, row, type_of_bet, data_object.back_stake, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.back_odds, is_create);
     }
 
-    add_odds_input(rightDiv, row, type_of_bet);
 
     if (type_of_bet === 'Lay') {
-        add_lay_commission_input(rightDiv, row, type_of_bet);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.lay_odds, is_create);
+        add_lay_commission_input(rightDiv, row, type_of_bet, data_object.lay_commission, is_create);
     }
 
     let span_text_element = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + type_of_bet);
-    set_text_for_span_in_middle(div, span_text_element, row, type_of_bet);
+    set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create);
 
 
 }
 
 
-function add_stake_input(rightDiv, row, type_of_bet) {
+function add_stake_input(rightDiv, row, type_of_bet, stake_input_value, is_create) {
+
+    if (is_create) {
+        // Create stake input
+        const stakeLabel = document.createElement('div');
+        stakeLabel.className = 'filter-label';
+        stakeLabel.textContent = type_of_bet + ' Stake';
+        
+        const stakeInput = document.createElement('input');
+        stakeInput.dataset._id = row._id
+        stakeInput.className = 'text-input';
+        stakeInput.id = type_of_bet + '-stake-input_' + row._id;
+        stakeInput.placeholder = type_of_bet +' Stake';
+        stakeInput.autocomplete = 'off';
 
 
-    let stake_input_value = 10;
+        // Add all inputs to the right div
+        const stakeFilterItem = document.createElement('div');
+        stakeFilterItem.className = 'filter-item';
+        stakeFilterItem.appendChild(stakeLabel);
+        stakeFilterItem.appendChild(stakeInput);
+        rightDiv.appendChild(stakeFilterItem);
+
+    } 
+
+    const stakeInput = rightDiv.querySelector('#' + type_of_bet + '-stake-input_' + row._id);
+    stakeInput.setAttribute('value', stake_input_value); 
+
+}
 
 
-    // Create stake input
-    const stakeLabel = document.createElement('div');
-    stakeLabel.className = 'filter-label';
-    stakeLabel.textContent = type_of_bet + ' Stake';
+function add_odds_input(rightDiv, row, type_of_bet, odds_input_value, is_create) {
+
+    if (is_create) {
+
+        // Create back odds input
+        const oddsLabel = document.createElement('div');
+        oddsLabel.className = 'filter-label';
+        oddsLabel.textContent = type_of_bet + ' Odds';
+        
+        const oddsInput = document.createElement('input');
+        oddsInput.dataset._id = row._id
+        oddsInput.className = 'text-input';
+        oddsInput.id = type_of_bet + '-odds-input_' + row._id;
+        oddsInput.placeholder = type_of_bet + ' Odds';
+        oddsInput.autocomplete = 'off';
+
+        
+        const oddsFilterItem = document.createElement('div');
+        oddsFilterItem.className = 'filter-item';
+        oddsFilterItem.appendChild(oddsLabel);
+        oddsFilterItem.appendChild(oddsInput);
+        rightDiv.appendChild(oddsFilterItem);
     
-    const stakeInput = document.createElement('input');
-    stakeInput.dataset._id = row._id
-    stakeInput.className = 'text-input';
-    stakeInput.id = type_of_bet + '-stake-input_' + row._id;
-    stakeInput.placeholder = type_of_bet +' Stake';
-    stakeInput.autocomplete = 'off';
-    stakeInput.value = stake_input_value;
-
-
-    // Add all inputs to the right div
-    const stakeFilterItem = document.createElement('div');
-    stakeFilterItem.className = 'filter-item';
-    stakeFilterItem.appendChild(stakeLabel);
-    stakeFilterItem.appendChild(stakeInput);
-    rightDiv.appendChild(stakeFilterItem);
-
-
-    stakeInput.setAttribute('value', stake_input_value); // Set both value property and attribute
-
-}
-
-
-function add_odds_input(rightDiv, row, type_of_bet) {
-
-    let odds_input_value = row.back_odds;
-    if (type_of_bet === 'Lay') {
-        odds_input_value = row.lay_odds;
     }
 
-
-    // Create back odds input
-    const oddsLabel = document.createElement('div');
-    oddsLabel.className = 'filter-label';
-    oddsLabel.textContent = type_of_bet + ' Odds';
-    
-    const oddsInput = document.createElement('input');
-    oddsInput.dataset._id = row._id
-    oddsInput.className = 'text-input';
-    oddsInput.id = type_of_bet + '-odds-input';
-    oddsInput.placeholder = type_of_bet + ' Odds';
-    oddsInput.autocomplete = 'off';
-
-    
-    const oddsFilterItem = document.createElement('div');
-    oddsFilterItem.className = 'filter-item';
-    oddsFilterItem.appendChild(oddsLabel);
-    oddsFilterItem.appendChild(oddsInput);
-    rightDiv.appendChild(oddsFilterItem);
-    
-    oddsInput.setAttribute('value', odds_input_value); // Set both value property and attribute
-
+    const oddsInput = rightDiv.querySelector('#' + type_of_bet + '-odds-input_' + row._id);
+    oddsInput.setAttribute('value', odds_input_value); 
 
 }
 
 
-function add_lay_commission_input(rightDiv, row, type_of_bet) {
+function add_lay_commission_input(rightDiv, row, type_of_bet, lay_commission_value, is_create) {
 
-    let lay_commission = 0;
+    if (is_create) {
+
+        // Create commission input
+        const commissionLabel = document.createElement('div');
+        commissionLabel.className = 'filter-label';
+        commissionLabel.textContent = 'Commission';
+        
+        const commissionInput = document.createElement('input');
+        commissionInput.dataset._id = row._id
+        commissionInput.className = 'text-input';
+        commissionInput.id = 'commission-input_' + row._id;
+        commissionInput.placeholder = 'Commission';
+        commissionInput.autocomplete = 'off';
 
 
-    // Create commission input
-    const commissionLabel = document.createElement('div');
-    commissionLabel.className = 'filter-label';
-    commissionLabel.textContent = 'Commission';
-    
-    const commissionInput = document.createElement('input');
-    commissionInput.dataset._id = row._id
-    commissionInput.className = 'text-input';
-    commissionInput.id = 'commission-input';
-    commissionInput.placeholder = 'Commission';
-    commissionInput.autocomplete = 'off';
+        const commissionFilterItem = document.createElement('div');
+        commissionFilterItem.className = 'filter-item';
+        commissionFilterItem.appendChild(commissionLabel);
+        commissionFilterItem.appendChild(commissionInput);
+        rightDiv.appendChild(commissionFilterItem);
 
+    }
 
-    const commissionFilterItem = document.createElement('div');
-    commissionFilterItem.className = 'filter-item';
-    commissionFilterItem.appendChild(commissionLabel);
-    commissionFilterItem.appendChild(commissionInput);
-    rightDiv.appendChild(commissionFilterItem);
-
-    commissionInput.setAttribute('value', lay_commission); // Set both value property and attribute
-
+    const commissionInput = rightDiv.querySelector('#commission-input_' + row._id);
+    commissionInput.setAttribute('value', lay_commission_value); 
 
 }
 
 
-function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet) {
+function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create) {
 
+    if (is_create) {
 
-    // calculate function called, returns object, then this is called
-
-    // event listeners are called, and they call caculate and then this in the same fashion
-
-    let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';
-
-
-
-    // this should be from an object
-    let back_stake = '10.30'
-
-    let lay_stake = '10.50';
-
-    let back_odds = '1.52';
-    let lay_odds = '1.58';
-
+        span_text_element.innerHTML =
+        `${type_of_bet} <span id="span_bet_stake_info_${row._id}_${type_of_bet}" class="copy-on-click "></span>
+            <img src="${copy_icon_url}" class="copy-icon" alt="(Copy)" />
+            on <span id="span_outcome_info_${row._id}_${type_of_bet}"></span> at
+            <span id="odds-select-bet_${row._id}_${type_of_bet}" class="odds-select-bet"></span>            
+        `;
+    }
 
     let outcome = row.outcome;
     if (row.outcome === 'Draw') {
         outcome = 'a Draw';
     }
-
-
-
-
     let stake;
     let odds;
     if (type_of_bet === 'Back') {
-        stake = back_stake;
-        odds = back_odds;
+        stake = data_object.back_stake;
+        odds = data_object.back_odds;
     } else if (type_of_bet === 'Lay') {
-        stake = lay_stake;
-        odds = lay_odds;
+        stake = data_object.lay_stake;
+        odds = data_object.lay_odds;
+    }
+
+    if (!data_object.incomplete_data) {
+
+        div.querySelector('#span_bet_stake_info_' + row._id + '_' + type_of_bet).textContent = '£' + stake;
+        div.querySelector('#span_outcome_info_' + row._id + '_' + type_of_bet).textContent = outcome;
+        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = odds + ' ' + type_of_bet + ' Odds';
+
+    } else {
+        div.querySelector('#span_bet_stake_info_' + row._id + '_' + type_of_bet).textContent = '£' + '0';
+        div.querySelector('#span_outcome_info_' + row._id + '_' + type_of_bet).textContent = outcome;
+        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = type_of_bet + ' Odds';  
     }
 
 
-
-    span_text_element.innerHTML =
-    `${type_of_bet} <span class="copy-on-click">£${stake}</span>
-        <img src="${copy_icon_url}" class="copy-icon" alt="(Copy)" />
-        on ${outcome} at
-        <span class="odds-select-bet">${odds} ${type_of_bet} Odds</span>            
-        `;
-        
-
-
-
-
-
     // then add in variations for different types etc, one by one 
-
-
 
 }
 
@@ -2656,7 +2640,7 @@ function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet) {
 
 
 
-function add_in_bet_controls_section(div, row) {
+function add_in_bet_controls_section(state, div, row) {
 
     // do it using div.innerHTML += and add certain classes, then add these to the styles.css in desktop_oddsmatchers/main/styles.css
     
@@ -2672,7 +2656,9 @@ function add_in_bet_controls_section(div, row) {
         </div>
     `;
 
-    if (true) {
+    let include_lay_type_control_list = ['standard', 'dutching']
+
+    if (include_lay_type_control_list.includes(state.oddsmatcher_type)) {
         div.querySelector('.select_bet_controls_item').innerHTML += `
             <div class="bet_type_control">
                 <div class="lay_type_control_container" data-_id="${row._id}">
@@ -2694,78 +2680,147 @@ function add_in_bet_controls_section(div, row) {
 
 
 
+function add_in_explanation_text_section(state, div, row, data_object, is_create) {
 
 
+    if (state.oddsmatcher_type == 'standard') {
+        add_in_explanation_text_section_standard(div, row, data_object, is_create);
+    }
 
-function add_in_explanation_text_section(div, row) {
-
-    let outcome_text = row.outcome + ' win';
-    if (row.outcome === 'Draw') {
-        outcome_text = 'a draw occurs';
+    if (state.oddsmatcher_type == '2up') {
+        // JUST DO THE STANDARD FOR NOW
+        add_in_explanation_text_section_standard(div, row, data_object, is_create);
     }
 
 
-    let back_win_profit = '10.30';
-    let lay_loss_profit = '10.20';
-    let overall_profit_back_win = '£0.10';
-
-    let gain_or_lose_text_back_win = 'gain';
-    let class_for_overall_profit_back_win = 'select_profit_explanation_profit';
-    if (overall_profit_back_win.includes('-')) {
-        gain_or_lose_text_back_win = 'lose';
-        overall_profit_back_win = overall_profit_back_win.replace('-', '');
-        class_for_overall_profit_back_win = 'select_profit_explanation_loss';
+    let selector = '#explanation_text_div_item_' + row._id;
+    if (data_object.incomplete_data) {
+        div.querySelector(selector).classList.add('hidden_row_above_columns');
+        return;
+    } else {
+        div.querySelector(selector).classList.remove('hidden_row_above_columns');
     }
+}
 
 
 
-    let back_stake = '10.00';
-    let lay_stake = '10.15';
-    let overall_profit_lay_win = '£0.15';
 
-    let other_outcome_text = row.outcome + ` don't win`;
-    if (row.outcome === 'Draw') {
-        other_outcome_text = `a draw doesn't occur`;
-    }
-
-    let gain_or_lose_text_lay_win = 'gain';
-    let class_for_overall_profit_lay_win = 'select_profit_explanation_profit';
-    if (overall_profit_lay_win.includes('-')) {
-        gain_or_lose_text_lay_win = 'lose';
-        overall_profit_lay_win = overall_profit_lay_win.replace('-', '');
-        class_for_overall_profit_lay_win = 'select_profit_explanation_loss';
-    }
+function add_in_explanation_text_section_standard(div, row, data_object, is_create) {
 
 
-    div.innerHTML += `
-        <div class="select_div_item select_bet_explanation_text_item">
-            <div class="explanation_text_div">
-                <span class="explanation_text_div_text">
-                    • If ${outcome_text}, you will win your back bet on ${row.bookmaker} 
-                    and therefore gain <span class="select_profit_explanation_profit">£${back_win_profit}</span> on ${row.bookmaker}. 
-                    However, you will also lose your lay bet on ${row.exchange} 
-                    and therfore lose <span class="select_profit_explanation_loss">£${lay_loss_profit}</span> on ${row.exchange}. 
-                    This means that overall you will ${gain_or_lose_text_back_win}
-                    <span class="${class_for_overall_profit_back_win}"> ${overall_profit_back_win}</span> if ${outcome_text}.
-                </span>
+    if (is_create) {
 
-                <span class="explanation_text_div_text">
-                    • If ${other_outcome_text}, you will lose your back bet on ${row.bookmaker} 
-                    and therefore lose <span class="select_profit_explanation_loss">£${back_stake}</span> on ${row.bookmaker}. 
-                    However, you will also win your lay bet on ${row.exchange} 
-                    and therefore gain <span class="select_profit_explanation_profit">£${lay_stake}</span> on ${row.exchange}. 
-                    This means that overall you will ${gain_or_lose_text_lay_win}
-                    <span class="${class_for_overall_profit_lay_win}"> ${overall_profit_lay_win}</span> if ${other_outcome_text}.
-                </span>
-                
+        let outcome_span = `<span class="span_outcome_info_${row._id}"></span>`;
+
+        let other_outcome_span = `<span class="span_other_outcome_info_${row._id}"></span>`;
+
+        div.innerHTML += `
+            <div id="explanation_text_div_item_${row._id}" class="select_div_item select_bet_explanation_text_item">
+                <div class="explanation_text_div">
+                    <span class="explanation_text_div_text">
+                        • If ${outcome_span}, you will win your back bet on ${row.bookmaker} 
+                        and therefore gain <span id="span_back_win_profit_${row._id}" class="select_profit_explanation_profit"></span> on ${row.bookmaker}. 
+                        However, you will also lose your lay bet on ${row.exchange} 
+                        and therefore you will simultaneously lose <span id="span_lay_loss_profit_${row._id}" class="select_profit_explanation_loss"></span> on ${row.exchange}. 
+                        This means that overall you will <span id="gain_or_lose_text_back_win_${row._id}"></span>
+                        <span id="span_overall_profit_back_win_${row._id}"></span> if ${outcome_span}.
+                    </span>
+
+                    <span class="explanation_text_div_text">
+                        • If ${other_outcome_span}, you will lose your back bet on ${row.bookmaker} 
+                        and therefore lose <span id="span_lay_win_back_profit_${row._id}" class="select_profit_explanation_loss"></span> on ${row.bookmaker}. 
+                        However, you will also win your lay bet on ${row.exchange} 
+                        and therefore you will simultaneously gain <span id="span_lay_win_lay_profit_${row._id}" class="select_profit_explanation_profit"></span> on ${row.exchange}. 
+                        This means that overall you will <span id="gain_or_lose_text_lay_win_${row._id}"></span>
+                        <span id="span_overall_profit_lay_win_${row._id}"></span> if ${other_outcome_span}.
+                    </span>
+                    
+                </div>
             </div>
-        </div>
-    `;
+        `;
 
+    }
+
+
+    if (!data_object.incomplete_data) {
+
+        let outcome_text = row.outcome + ' win';
+        if (row.outcome === 'Draw') {
+            outcome_text = 'a draw occurs';
+        }
+
+        let class_for_total_profit_back_win = 'select_profit_explanation_profit';
+        let back_win_value_negative = false;
+        if (data_object.total_profit_if_back_win.includes('-')) {
+            back_win_value_negative = true;
+            data_object.total_profit_if_back_win = data_object.total_profit_if_back_win.replace('-', '-£');
+            class_for_total_profit_back_win = 'select_profit_explanation_loss';
+        } else {
+            data_object.total_profit_if_back_win = '£' + data_object.total_profit_if_back_win;
+        }
+
+        div.querySelectorAll(`.span_outcome_info_${row._id}`).forEach(span => {
+            span.textContent = outcome_text;
+        });
+
+        div.querySelector(`#span_back_win_profit_${row._id}`).textContent = '£' + data_object.bookmaker_profit_back_win;
+
+        div.querySelector(`#span_lay_loss_profit_${row._id}`).textContent = '£' + data_object.exchange_profit_if_back_win.replace('-', '');
+
+        div.querySelector(`#gain_or_lose_text_back_win_${row._id}`).textContent = back_win_value_negative ? 'lose' : 'gain';
+
+        let span_overall_profit_back_win = div.querySelector(`#span_overall_profit_back_win_${row._id}`);
+        span_overall_profit_back_win.textContent = data_object.total_profit_if_back_win;
+        span_overall_profit_back_win.classList.remove(...span_overall_profit_back_win.classList);
+        span_overall_profit_back_win.classList.add(class_for_total_profit_back_win);
+
+
+
+
+
+
+
+
+
+        let other_outcome_text = row.outcome + ` don't win`;
+        if (row.outcome === 'Draw') {
+            other_outcome_text = `a draw doesn't occur`;
+        }
+
+        let class_for_total_profit_lay_win = 'select_profit_explanation_profit';
+        let lay_win_value_negative = false;
+        if (data_object.total_profit_if_lay_win.includes('-')) {
+            lay_win_value_negative = true;
+            data_object.total_profit_if_lay_win = data_object.total_profit_if_lay_win.replace('-', '-£');
+            class_for_total_profit_lay_win = 'select_profit_explanation_loss';
+        } else {
+            data_object.total_profit_if_lay_win = '£' + data_object.total_profit_if_lay_win;
+        }
+
+        div.querySelectorAll(`.span_other_outcome_info_${row._id}`).forEach(span => {
+            span.textContent = other_outcome_text;
+        });
+
+        div.querySelector(`#span_lay_win_back_profit_${row._id}`).textContent = '£' + data_object.bookmaker_profit_if_lay_win.replace('-', '');
+
+        div.querySelector(`#span_lay_win_lay_profit_${row._id}`).textContent = '£' + data_object.exchange_profit_if_lay_win;
+
+        div.querySelector(`#gain_or_lose_text_lay_win_${row._id}`).textContent = lay_win_value_negative ? 'lose' : 'gain';
+
+        let span_overall_profit_lay_win = div.querySelector(`#span_overall_profit_lay_win_${row._id}`);
+        span_overall_profit_lay_win.textContent = data_object.total_profit_if_lay_win;
+        span_overall_profit_lay_win.classList.remove(...span_overall_profit_lay_win.classList);
+        span_overall_profit_lay_win.classList.add(class_for_total_profit_lay_win);
+
+    }
 
     // OBVIOUSLY IS THEN SLIGHTLY DIFFERENT IF DUTCHING OR EXTRA PLACE ETC
 
+    // TRY MAKE SOME FUNCTIONS OUT OF THIS SO THERE'S NOT LOADS OF THEM 
+
 }
+
+
 
 
 
@@ -2787,14 +2842,12 @@ function add_event_listeners_for_items_in_select_div(scope, state, div, row) {
 
             change_lay_type_control_container(event);
 
-            // let data_object = calculate_bet_data(scope, state, row);
-            // display_bet_data(data_object, scope, state, row);
+            calculate_bet_data(scope, state, div, row);
 
         }
 
         if (event.target.classList.contains('free_bet_mode_switch')) {
-            //let data_object = calculate_bet_data(scope, state, row);
-            //display_bet_data(data_object, scope, state, row);
+            calculate_bet_data(scope, state, div, row);
         }
 
     });
@@ -2802,9 +2855,8 @@ function add_event_listeners_for_items_in_select_div(scope, state, div, row) {
     // also add a function to listen to all 'input' or 'change' events on all inputs in the div
     div.querySelectorAll('input').forEach(input => {
         input.addEventListener('input', (event) => {
-            //let data_object = calculate_bet_data(scope, state, row);
-            //display_bet_data(data_object, scope, state, row);
-            console.log('input', event.target.value);
+            console.log('input')
+            calculate_bet_data(scope, state, div, row);
         });
     });
 
@@ -2840,3 +2892,25 @@ function change_lay_type_control_container(event) {
     
 }
 
+
+
+
+
+function calculate_bet_data(scope, state, div, row) {
+
+    let data_object = {}
+
+    if (state.oddsmatcher_type == '2up') {
+        data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
+        data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);
+        data_object.lay_odds = parseFloat(scope.querySelector(`#Lay-odds-input_${row._id}`).value);
+        data_object.lay_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
+        data_object.row = row;
+
+        data_object = calculateHelpers.calculate_2up_bet_data(data_object);
+
+        set_values_for_2up_bet_data(state, div, row, data_object, false);
+    }
+
+
+}

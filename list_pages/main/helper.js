@@ -180,6 +180,16 @@ export function process_new_final_data(data, scope, state, page) {
 
     if (state.list_type == 'extra_places' || state.list_type == 'weekly' || state.list_type == 'sign_up') {
         state.globalData = data.offer_data;
+        if (state.list_type == 'weekly' || state.list_type == 'sign_up') {
+            // make the first three offers is_first_three_offers true
+            state.globalData.forEach((item, index) => {
+                if (index < 3) {
+                    item.is_first_three_offers = true;
+                } else {
+                    item.is_first_three_offers = false;
+                }
+            });
+        }
     }
 
     adjust_classes_based_on_is_desktop(scope, state);
@@ -717,7 +727,6 @@ function append_sort_to_sort_options(name_for_sort, value, scope, state) {
 }
 
 function sort_filtered_data(scope, state) {
-    
 
     if (state.list_type == 'guides') {
 
@@ -794,7 +803,7 @@ function sort_filtered_data(scope, state) {
 }
 
 function filter_bookmakers_using_search(scope, state) {
-    
+
     const searchText = scope.getElementById('search-bookmakers').value.trim().toLowerCase();
 
     if (state.list_type == 'guides') {

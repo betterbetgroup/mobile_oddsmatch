@@ -1,20 +1,15 @@
-//import * as Helpers from '../main/helper.js';
+import * as Helpers from '../main/helper.js';
 
-import * as Helpers from 'public/custom-elements/list-page-helper.js'
+//import * as Helpers from 'public/custom-elements/list-page-helper.js'
 
 (function () {
-
-    let sign_up_offer_bookmakers_allowed = ['Bet365', 'Betfred', 'Skybet']
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/sign_up.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
-
     /*html_script = '../main/z.html';
     styles_script = '../main/styles.css';*/
-    
-
     
     class SignUpOfferList extends HTMLElement {
     
@@ -109,10 +104,14 @@ import * as Helpers from 'public/custom-elements/list-page-helper.js'
             if (state.is_premium_member) {
                 show_premium_cover = false;
             }
-            // ! THIS IS A MINOR DIFFERENCE BETWEEN WEEKLY AND SIGN UP
-            if (sign_up_offer_bookmakers_allowed.includes(row.bookmaker)) {
+
+
+            
+            if (row.is_first_three_offers) {
                 show_premium_cover = false;
             }
+
+
 
             let title = row.bookmaker + ' - ' + row.title;
 

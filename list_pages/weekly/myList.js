@@ -4,8 +4,6 @@ import * as Helpers from '../main/helper.js';
 
 (function () {
 
-    let weekly_bookmakers_allowed = ['BetUK', 'Skybet', 'Midnite']
-
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/weekly.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
@@ -13,7 +11,6 @@ import * as Helpers from '../main/helper.js';
 
     /*html_script = '../main/z.html';
     styles_script = '../main/styles.css';*/
-    
 
     class WeeklyBetClubList extends HTMLElement {
     
@@ -103,9 +100,15 @@ import * as Helpers from '../main/helper.js';
             if (state.is_premium_member) {
                 show_premium_cover = false;
             }
-            if (weekly_bookmakers_allowed.includes(row.bookmaker)) {
+
+
+            if (row.is_first_three_offers) {
                 show_premium_cover = false;
             }
+
+
+
+
 
             let profit_text = "Potential Profit";
             if (row.profit_type == 'Guaranteed profit') {

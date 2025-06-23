@@ -744,10 +744,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
 
-/* this is important as it will otherwise show the hidden items */ 
-.hidden_row_above_columns {
-    display: none;
-}
+
 
 
 /* necessary so the upgrade box is in middle of items */
@@ -818,7 +815,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 
     /* controls section */
-    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.5);
+    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
     --padding-top-bottom-select-lay-type: 15px;
     --width-of-lay-bet-type-btn: 180px;
 }
@@ -858,6 +855,10 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     flex-direction: row;
     padding: var( --padding-for-items-in-select-div);
+}
+
+.select_div_item:not(:last-child) {
+    border-bottom: var(--global-border-main);
 }
 
 .bar_on_left_of_item {
@@ -938,9 +939,9 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 .copy-on-click {
     cursor: pointer;
-    border-bottom: 4px dotted #fff;
+    border-bottom: 3px dotted #fff;
     border-bottom-style: dotted;
-    border-spacing: 10px;
+    border-spacing: 8px;
 }
 
 .inner_bottom_select_bet_div_right {
@@ -1063,7 +1064,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .explanation_text_div {
     font-size: var(--font-size-filter-inputs);
     text-align: left;
-    line-height: 1.5;
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
     gap: var(--padding-for-items-in-select-div);
@@ -1085,3 +1086,38 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* this is important as it will otherwise show the hidden items */ 
+.hidden_row_above_columns {
+    display: none;
+}
