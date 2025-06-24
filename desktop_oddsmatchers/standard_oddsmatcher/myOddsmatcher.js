@@ -1,7 +1,7 @@
 
-//import * as Helpers from '../../oddsmatchers/main/helper.js';
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
-import * as Helpers from 'public/custom-elements/main-helper.js'
+//import * as Helpers from 'public/custom-elements/main-helper.js'
 
 
 (function () {
@@ -10,8 +10,8 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/standard_oddsmatcher/styles.css';
 
-    /*html_script = '../main/z.html';
-    styles_script = 'styles.css';*/
+    html_script = '../main/z.html';
+    styles_script = 'styles.css';
     
 
 
@@ -290,7 +290,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                 qualifying_loss_class = 'negative_profit_data';
                 qualifying_loss = row.qualifying_loss;
             } else {
-                qualifying_loss = '+' + (row.qualifying_loss).toString();
+                qualifying_loss = (row.qualifying_loss).toString();
             }
         
             if (qualifying_loss == '+0.00') {
@@ -301,7 +301,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
                 potential_profit_class = 'negative_profit_data';
                 potential_profit = row.potential_profit;
             } else {
-                potential_profit = '+' + (row.potential_profit).toString();
+                potential_profit = (row.potential_profit).toString();
             }
             if (potential_profit == '+0.00') {
                 potential_profit = '£0.00'

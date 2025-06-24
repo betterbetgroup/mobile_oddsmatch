@@ -833,7 +833,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
     --gap-in-free-bet-mode-control: calc(var(--padding-for-items-in-select-div) / 2);
 
-    --height-of-checkbox-in-select-controls-layer: calc(var(--height-filter-inputs) * 0.75);
+    --height-of-checkbox: calc(var(--height-filter-inputs) * 0.75);
 
     --padding-top-bottom-select-lay-type: 1.04vw;
     --width-of-lay-bet-type-btn: 12.50vw;
@@ -1019,12 +1019,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 }
 
 
-/* switch stuff */
-.select_td {
 
-    --height-of-checkbox: var(--height-of-checkbox-in-select-controls-layer);
-
-}
 
 .switch_select_free_bet_mode {
     width: calc(2 * var(--height-of-checkbox)); 
