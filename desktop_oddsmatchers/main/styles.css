@@ -1190,9 +1190,18 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .profit_and_log__item_value {
     font-size: var(--profit-item-value-font-size);
     margin-top: var(--profit-item-value-margin-top);
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.profit_and_log__item_value_positive {
+    color: var(--color-of-positive-profit-text);
+}
+
+.profit_and_log__item_value_negative {
+    color: var(--color-of-negative-profit-text);
 }
 
 

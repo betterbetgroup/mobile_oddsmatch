@@ -785,7 +785,12 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     }
 
 
-    let description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
+    let description = '';
+    if (state.oddsmatcher_type == '2up') {
+        description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
+    } else if (state.oddsmatcher_type == 'standard') {
+        description = get_description_for_standard_bet(div, row, data_object);
+    }
     div.querySelector(`#bet-description-input_${row._id}`).value = description;
 
 
@@ -794,12 +799,66 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
     div.querySelector('.profit_and_log__item_value_rating').textContent = data_object.rating;
 
-    div.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + data_object.qualifying_loss).replace('£-', '-£');
-    div.querySelector('.profit_and_log__item_value_potential_profit').textContent = ('£' + data_object.potential_profit).replace('£-', '-£');
+    let qualifying_loss_element = div.querySelector('.profit_and_log__item_value_qualifying_loss')
+    qualifying_loss_element.textContent = ('£' + data_object.qualifying_loss).replace('£-', '-£');
+    set_class_for_profit_info_item(qualifying_loss_element, data_object.qualifying_loss);
+    
+
+    let potential_profit_element = div.querySelector('.profit_and_log__item_value_potential_profit')
+    potential_profit_element.textContent = ('£' + data_object.potential_profit).replace('£-', '-£');
+    set_class_for_profit_info_item(potential_profit_element, data_object.potential_profit);
 
 
 }
 
+function set_class_for_profit_info_item(element, value) {
+    if (value === '0.00') {
+        element.classList.remove('profit_and_log__item_value_negative');
+        element.classList.remove('profit_and_log__item_value_positive');
+    } else if (value.includes('-')) {
+        element.classList.add('profit_and_log__item_value_negative');
+        element.classList.remove('profit_and_log__item_value_positive');
+    } else {
+        element.classList.add('profit_and_log__item_value_positive');
+        element.classList.remove('profit_and_log__item_value_negative');
+    }
+}
+
+
+function get_description_for_standard_bet(div, row, data_object) {
+
+    let description = '';
+
+    let fixture_text = row.fixture;
+    let outcome_text = row.outcome;
+
+    let market_type_specific_text = 'for';
+    if (row.market_type == 'Winner') {
+        market_type_specific_text = 'at the';
+        outcome_text = row.outcome + ' to win';
+    }
+
+    
+    if (row.outcome == 'Draw') {
+        outcome_text =  'a draw';
+    } else if (row.market_type == 'Match Odds') {
+        fixture_text = fixture_text.replace(row.outcome + ' v ', '');
+        market_type_specific_text = 'against';
+
+    }
+
+    description += `Betting on ${outcome_text} ${market_type_specific_text} ${fixture_text}.`;
+
+    let back_bet_text = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Back').textContent.replace(/\s+/g, ' ').trim();
+    description += ` ${back_bet_text.replace('Back', 'Backing')}.`;
+
+    let lay_bet_text = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Lay').textContent.replace(/\s+/g, ' ').trim();
+    description += ` ${lay_bet_text.replace('Lay', 'Laying')}.`;
+
+
+    return description;
+
+}
 
 
 
@@ -905,7 +964,7 @@ function log_bet(scope, state, div, row, data_object) {
     data_object.description = scope.querySelector(`#bet-description-input_${row._id}`).value;
     data_object.iscalc = true;
     data_object.complete = false;
-    data_object.betId = row._id;
+    data_object.betId = row._id + '_' + Date.now(); // as they can log the same oddsmatcher bet multiple times
     //data_object.userId = state.user_id;    add in userId on wix
     data_object.oddsmatcher_type = state.oddsmatcher_type;
     data_object.bookmaker_link = row.bookmaker_link;
@@ -921,21 +980,24 @@ function log_bet(scope, state, div, row, data_object) {
 
 
 
-
-    // this might be individual for each bet type
-    data_object.backodds = data_object.back_odds.replace('£', '');
-    data_object.layodds = data_object.lay_odds.replace('£', '');
-    data_object.backstake = data_object.back_stake.replace('£', '');
-    data_object.commission = data_object.lay_commission.replace('£', '');
-    data_object.stakereturned = false;
-    data_object.outcome = row.outcome + ' 2up';
-
+    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard') {
+        data_object.backodds = data_object.back_odds.replace('£', '');
+        data_object.layodds = data_object.lay_odds.replace('£', '');
+        data_object.backstake = data_object.back_stake.replace('£', '');
+        data_object.commission = data_object.lay_commission.replace('£', '');
+        data_object.stakereturned = false;
+    }
 
     if (state.oddsmatcher_type == '2up') {
+        data_object.outcome = row.outcome + ' 2up';
         data_object.ispayout = false;
         data_object.calculator = '2up';
     }
 
+    // IT SHOULD ALREADY HAVE THE ISFREE AND LAYTYPE
+    if (state.oddsmatcher_type == 'standard') {
+        data_object.calculator = 'standard';
+    }
 
     console.log(data_object)
     const raise_event = new CustomEvent('logbet', {
