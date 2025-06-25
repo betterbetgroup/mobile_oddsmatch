@@ -152,7 +152,7 @@ function create_select_div_inner_html(scope, state, div, row) {
         set_values_for_bog(state, div, row, data_object, true);
     } 
 
-    if (state.oddsmatcher_type == 'each_way') {
+    if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
 
         data_object.each_way_stake = parseFloat('10');
         data_object.each_way_odds = parseFloat(row.bookmaker_each_way_odds);
@@ -165,10 +165,12 @@ function create_select_div_inner_html(scope, state, div, row) {
 
         data_object.bookmaker_fraction = row.bookmaker_fraction;
 
-        data_object = calculateHelpers.calculate_each_way(data_object);
+        data_object = calculateHelpers.calculate_each_way_and_extra_place(data_object, (state.oddsmatcher_type == 'extra_place'));
 
-        set_values_for_each_way(state, div, row, data_object, true);
+        set_values_for_each_way_and_extra_place(state, div, row, data_object, true);
+
     }
+
 
 
     add_event_listeners_for_items_in_select_div(scope, state, div, row, data_object);
@@ -220,19 +222,20 @@ function set_values_for_bog(state, div, row, data_object, is_create) {
 }
 
 
- 
-function set_values_for_each_way(state, div, row, data_object, is_create) {
+function set_values_for_each_way_and_extra_place(state, div, row, data_object, is_create) {
 
     add_in_back_bet_section(div, row, 'Each-Way', data_object, is_create);
     add_in_back_bet_section(div, row, 'Win-Lay', data_object, is_create);
     add_in_back_bet_section(div, row, 'Place-Lay', data_object, is_create);
-
 
     add_in_explanation_text_section(state, div, row, data_object, is_create);
 
     add_in_bottom_profit_and_log_section(state, div, row, data_object, is_create);
 
 }
+
+
+
 
 
 
@@ -663,11 +666,16 @@ function add_in_explanation_text_section_standard(state, div, row, data_object, 
 function add_in_explanation_text_each_way_and_extra_place(state, div, row, data_object, is_create) {
 
 
+    let is_extra_place = state.oddsmatcher_type == 'extra_place';
+
+
     if (is_create) {
 
         let horse_wins_span = `<span class="span_win_outcome_info_${row._id}"></span>`;
 
         let horse_places_span = `<span class="span_place_outcome_info_${row._id}"></span>`;
+
+        let extra_places_span = `<span class="span_extra_places_outcome_info_${row._id}"></span>`;
 
         let horse_doesnt_win_or_place_span = `<span class="span_no_win_or_place_outcome_info_${row._id}"></span>`;
 
@@ -704,6 +712,18 @@ function add_in_explanation_text_each_way_and_extra_place(state, div, row, data_
 
 
                     <!-- EXTRA PLACE -->
+                    ${is_extra_place ? `
+                    <span class="explanation_text_div_text">
+                        • If ${extra_places_span} you make a large profit as you essentially win 3 of your 4 bets.
+                        You will win half of your each way bet and therefore on ${row.bookmaker} you will <span id="extra_place_gain_or_lose_text_${row._id}"></span>
+                        <span id="span_each_way_profit_extra_place_${row._id}"></span> <span id="span_extra_place_win_profit_breakdown_${row._id}"></span>.
+                        Despite winning your back bet on the place you will still win both of your lay bets as ${row.place_exchange} were only doing ${row.exchange_places} places.
+                        You will gain <span id="span_extra_place_lay_win_profit_${row._id}" class="select_profit_explanation_profit"></span> on ${row.win_exchange} due to the win lay bet. 
+                        You will also gain <span id="span_extra_place_lay_place_profit_${row._id}" class="select_profit_explanation_profit"></span> on ${row.place_exchange} due to the place lay bet. 
+                        Overall you will gain 
+                        <span id="span_overall_profit_extra_place_${row._id}"></span> if ${extra_places_span}.
+                    </span>
+                    ` : ''}
 
 
 
@@ -736,6 +756,11 @@ function add_in_explanation_text_each_way_and_extra_place(state, div, row, data_
 
 
         add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
+
+
+        if (is_extra_place) {
+            add_in_extra_place_outcome_text(state, div, row, data_object, is_create);
+        }
 
 
         add_in_third_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
@@ -960,7 +985,7 @@ function add_in_first_outcome_text_ew_and_ep(state, div, row, data_object, is_cr
 
 function add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_create) {
 
-    let second_outcome_text = `${row.horse} doesn't win the race but finishes in the top ${row.bookmaker_places}`;
+    let second_outcome_text = `${row.horse} doesn't win the race but finishes in the top ${row.exchange_places}`;
     // select all spans with class .span_place_outcome_info_${row._id} and set the text to the second_outcome_text
     div.querySelectorAll(`.span_place_outcome_info_${row._id}`).forEach(span => {
         span.textContent = second_outcome_text;
@@ -995,6 +1020,62 @@ function add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_c
     // get this element gain_or_lose_text_lay_place_${row._id}
     let gain_or_lose_text_lay_place = div.querySelector(`#gain_or_lose_text_lay_place_${row._id}`);
     gain_or_lose_text_lay_place.textContent = data_object.total_profit_if_place.toString().includes('-') ? 'lose' : 'gain';
+
+}
+
+function add_in_extra_place_outcome_text(state, div, row, data_object, is_create) {
+
+    let bookmaker_place;
+    if (row.bookmaker_places == 1) {
+        bookmaker_place = '1st';
+    } else if (row.bookmaker_places == 2) {
+        bookmaker_place = '2nd';
+    } else if (row.bookmaker_places == 3) {
+        bookmaker_place = '3rd';
+    } else {
+        bookmaker_place = row.bookmaker_places + 'th';
+    }
+
+    let extra_place_outcome_text = `${row.horse} finishes exactly ${bookmaker_place}`;
+    // select all spans with class .span_place_outcome_info_${row._id} and set the text to the second_outcome_text
+    div.querySelectorAll(`.span_extra_places_outcome_info_${row._id}`).forEach(span => {
+        span.textContent = extra_place_outcome_text;
+    });
+
+
+    // select this element span_each_way_profit_extra_place_${row._id}
+    let span_each_way_profit_extra_place = div.querySelector(`#span_each_way_profit_extra_place_${row._id}`);
+    set_class_and_profit_text_for_span(span_each_way_profit_extra_place, data_object.bookmaker_profit_if_extra_place, false);
+
+
+    // select this element extra_place_gain_or_lose_text_${row._id}
+    let extra_place_gain_or_lose_text = div.querySelector(`#extra_place_gain_or_lose_text_${row._id}`);
+    extra_place_gain_or_lose_text.textContent = data_object.bookmaker_profit_if_extra_place.toString().includes('-') ? 'lose' : 'gain';
+
+
+
+    // select this element span_extra_place_win_profit_breakdown_${row._id}
+    let span_extra_place_win_profit_breakdown = div.querySelector(`#span_extra_place_win_profit_breakdown_${row._id}`);
+    span_extra_place_win_profit_breakdown.textContent = `(£${data_object.bookmaker_profit_place_place} - £${data_object.each_way_stake})`;
+
+
+    // select this element span_extra_place_lay_win_profit_${row._id}
+    let span_extra_place_lay_win_profit = div.querySelector(`#span_extra_place_lay_win_profit_${row._id}`);
+    set_class_and_profit_text_for_span(span_extra_place_lay_win_profit, data_object.exchange_profit_win_none, false);
+
+
+    // select this element span_extra_place_lay_place_profit_${row._id}
+    let span_extra_place_lay_place_profit = div.querySelector(`#span_extra_place_lay_place_profit_${row._id}`);
+    set_class_and_profit_text_for_span(span_extra_place_lay_place_profit, data_object.exchange_profit_place_none, false);
+
+
+    // select this element span_overall_profit_no_win_or_place_
+    let span_overall_profit_extra_place = div.querySelector(`#span_overall_profit_extra_place_${row._id}`);
+    set_class_and_profit_text_for_span(span_overall_profit_extra_place, data_object.total_profit_if_extra_place, true);
+
+
+
+
 
 }
 
@@ -1208,6 +1289,47 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
             `;
 
+        } else if (state.oddsmatcher_type == 'extra_place') {
+
+            div.querySelector('#left_div_profit_and_log_' + row._id).innerHTML += `
+                <div class="profit_display_profit_and_log_div">
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                Implied Odds
+                            </span>
+                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">
+                                
+                            </span>
+                    </div>
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                            Qualifying Loss
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">
+                            
+                        </span>
+                    </div>
+                    
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                            Potential Profit
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit">
+                            
+                        </span>
+                    </div>
+
+
+                </div>
+
+            `;
+
         }
 
 
@@ -1230,8 +1352,8 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
         description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
     } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog') {
         description = get_description_for_standard_bet(div, row, data_object);
-    } else if (state.oddsmatcher_type == 'each_way') {
-        description = get_description_for_each_way_bet(div, row, data_object);
+    } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
+        description = get_description_for_each_way_or_ep_bet(div, row, data_object, state.oddsmatcher_type == 'extra_place');
     }
     div.querySelector(`#bet-description-input_${row._id}`).value = description;
 
@@ -1239,14 +1361,18 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
     // THEN CODE INJECTING IN THE PROFIT DATA TO THE LEFT DIV
 
-    div.querySelector('.profit_and_log__item_value_rating').textContent = data_object.rating;
+    if (state.oddsmatcher_type == 'extra_place') {
+        div.querySelector('.profit_and_log__item_value_rating').textContent = data_object.implied_odds;
+    } else {
+        div.querySelector('.profit_and_log__item_value_rating').textContent = data_object.rating;
+    }
 
     let qualifying_loss_element = div.querySelector('.profit_and_log__item_value_qualifying_loss')
     qualifying_loss_element.textContent = ('£' + data_object.qualifying_loss).replace('£-', '-£');
     set_class_for_profit_info_item(qualifying_loss_element, data_object.qualifying_loss);
     
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'extra_place') {
         let potential_profit_element = div.querySelector('.profit_and_log__item_value_potential_profit')
         potential_profit_element.textContent = ('£' + data_object.potential_profit).replace('£-', '-£');
         set_class_for_profit_info_item(potential_profit_element, data_object.potential_profit);
@@ -1322,12 +1448,15 @@ function get_description_for_standard_bet(div, row, data_object) {
 
 }
 
-function get_description_for_each_way_bet(div, row, data_object) {
+function get_description_for_each_way_or_ep_bet(div, row, data_object, is_extra_place) {
 
     let description = '';
 
-
-    description += `Each way bet on '${row.horse}' at the ${row.fixture}. The bookmaker is paying ${row.bookmaker_places} places.`;;
+    if (is_extra_place) {
+        description += `Extra place bet on '${row.horse}' at the ${row.fixture}. The bookmaker is paying for ${row.bookmaker_places} places while the exchange is paying for ${row.exchange_places} places.`;
+    } else {
+        description += `Each way bet on '${row.horse}' at the ${row.fixture}. The bookmaker is paying for ${row.bookmaker_places} places.`;
+    }
 
     let back_bet_text = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Each-Way').textContent.replace(/\s+/g, ' ').trim();
     description += ` ${back_bet_text.replace('Back', 'Backing').replace(`on '${row.horse}'`, `E/W on '${row.horse}'`)}.`;
@@ -1341,6 +1470,8 @@ function get_description_for_each_way_bet(div, row, data_object) {
     return description;
 
 }
+
+
 
 
 
@@ -1485,9 +1616,12 @@ function log_bet(scope, state, div, row, data_object) {
     }
 
 
-    if (state.oddsmatcher_type == 'each_way') {
+    if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
         data_object.exchange = row.win_exchange;
+        data_object.place_exchange = row.place_exchange;
         data_object.exchange_link = row.win_exchange_link;
+        data_object.place_exchange_link = row.place_exchange_link;
+        data_object.calculator = state.oddsmatcher_type;
     }
 
     console.log(data_object)
@@ -1559,7 +1693,7 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
-    } else if (state.oddsmatcher_type == 'each_way') {
+    } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
 
         data_object.each_way_stake = parseFloat(scope.querySelector(`#Each-Way-stake-input_${row._id}`).value);
         data_object.each_way_odds = parseFloat(scope.querySelector(`#Each-Way-odds-input_${row._id}`).value);
@@ -1570,9 +1704,9 @@ function calculate_and_display_bet_data(scope, state, div, row) {
         data_object.bookmaker_fraction = row.bookmaker_fraction;
         data_object.row = row;
 
-        data_object = calculateHelpers.calculate_each_way(data_object);
+        data_object = calculateHelpers.calculate_each_way_and_extra_place(data_object, (state.oddsmatcher_type == 'extra_place'));
 
-        set_values_for_each_way(state, div, row, data_object, false);
+        set_values_for_each_way_and_extra_place(state, div, row, data_object, false);
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
