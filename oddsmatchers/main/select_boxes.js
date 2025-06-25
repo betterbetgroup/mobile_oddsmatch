@@ -128,23 +128,32 @@ function create_select_div_inner_html(scope, state, div, row) {
 
         set_values_for_2up_bet_data(state, div, row, data_object, true);
 
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
 
         // get the values from the row
         data_object.back_stake = parseFloat('10');
+
         data_object.back_odds = parseFloat(row.back_odds);
         data_object.lay_odds = parseFloat(row.lay_odds);
         data_object.lay_commission = parseFloat('0') / 100;
 
         // THINK NEEDS IS_FREE AND LAY TYPE
-        data_object.isfree = false;
+        if (state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'free_bet_tutorial') {
+            data_object.isfree = true;
+        } else {
+            data_object.isfree = false;
+        }
+        if (data_object.isfree) {
+            data_object.back_stake = parseFloat('30');
+        }
+
         data_object.laytype = 'Standard'
 
         data_object = calculateHelpers.calculate_standard(data_object);
 
     } 
 
-    if (state.oddsmatcher_type == 'standard') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         set_values_for_standard(state, div, row, data_object, true);
     } 
     
@@ -171,6 +180,34 @@ function create_select_div_inner_html(scope, state, div, row) {
 
     }
 
+    if (state.oddsmatcher_type == 'dutching') {
+
+        data_object.stake = parseFloat('10');
+
+        data_object.outcome1_odds = parseFloat(row.first_odds);
+        data_object.outcome1_commission = parseFloat('0') / 100;
+
+
+        data_object.outcome2_odds = parseFloat(row.second_odds);
+        data_object.outcome2_commission = parseFloat('0') / 100;
+
+        if (row.outcomes == 3) {
+            data_object.outcome3_odds = parseFloat(row.third_odds);
+            data_object.outcome3_commission = parseFloat('0') / 100;
+        }
+
+        data_object.outcomes = row.outcomes;
+
+        data_object.target = 'First';
+        data_object.isfree = false;
+        
+        data_object = calculateHelpers.calculate_dutching(data_object);
+
+
+        //need to add in controls for dutching as well as possibly stake going into controls section
+        set_values_for_dutching(state, div, row, data_object, true);
+    }
+
 
 
     add_event_listeners_for_items_in_select_div(scope, state, div, row, data_object);
@@ -184,8 +221,8 @@ function create_select_div_inner_html(scope, state, div, row) {
 
 function set_values_for_2up_bet_data(state, div, row, data_object, is_create) {
 
-    add_in_back_bet_section(div, row, 'Back', data_object, is_create);
-    add_in_back_bet_section(div, row, 'Lay', data_object, is_create);
+    add_in_bet_section(div, row, 'Back', data_object, is_create);
+    add_in_bet_section(div, row, 'Lay', data_object, is_create);
 
     add_in_explanation_text_section(state, div, row, data_object, is_create);
 
@@ -196,13 +233,13 @@ function set_values_for_2up_bet_data(state, div, row, data_object, is_create) {
 
 function set_values_for_standard(state, div, row, data_object, is_create) {
 
-    add_in_back_bet_section(div, row, 'Back', data_object, is_create);
-    add_in_back_bet_section(div, row, 'Lay', data_object, is_create);
+    add_in_bet_section(div, row, 'Back', data_object, is_create);
+    add_in_bet_section(div, row, 'Lay', data_object, is_create);
 
     add_in_explanation_text_section(state, div, row, data_object, is_create);
 
     if (is_create) {
-        add_in_bet_controls_section(state, div, row, is_create);
+        add_in_bet_controls_section(state, div, row, data_object, is_create);
     }
 
     add_in_bottom_profit_and_log_section(state, div, row, data_object, is_create);
@@ -212,8 +249,8 @@ function set_values_for_standard(state, div, row, data_object, is_create) {
 
 function set_values_for_bog(state, div, row, data_object, is_create) {
 
-    add_in_back_bet_section(div, row, 'Back', data_object, is_create);
-    add_in_back_bet_section(div, row, 'Lay', data_object, is_create);
+    add_in_bet_section(div, row, 'Back', data_object, is_create);
+    add_in_bet_section(div, row, 'Lay', data_object, is_create);
 
     add_in_explanation_text_section(state, div, row, data_object, is_create);
 
@@ -224,9 +261,27 @@ function set_values_for_bog(state, div, row, data_object, is_create) {
 
 function set_values_for_each_way_and_extra_place(state, div, row, data_object, is_create) {
 
-    add_in_back_bet_section(div, row, 'Each-Way', data_object, is_create);
-    add_in_back_bet_section(div, row, 'Win-Lay', data_object, is_create);
-    add_in_back_bet_section(div, row, 'Place-Lay', data_object, is_create);
+    add_in_bet_section(div, row, 'Each-Way', data_object, is_create);
+    add_in_bet_section(div, row, 'Win-Lay', data_object, is_create);
+    add_in_bet_section(div, row, 'Place-Lay', data_object, is_create);
+
+    add_in_explanation_text_section(state, div, row, data_object, is_create);
+
+    add_in_bottom_profit_and_log_section(state, div, row, data_object, is_create);
+
+}
+
+
+function set_values_for_dutching(state, div, row, data_object, is_create) {
+
+    add_in_bet_section(div, row, 'First', data_object, is_create);
+    add_in_bet_section(div, row, 'Second', data_object, is_create);
+
+    if (row.outcomes >= 3) {
+        add_in_bet_section(div, row, 'Third', data_object, is_create);
+    }
+
+    add_in_bet_controls_section_dutching(state, div, row, data_object, is_create);
 
     add_in_explanation_text_section(state, div, row, data_object, is_create);
 
@@ -245,7 +300,10 @@ function set_values_for_each_way_and_extra_place(state, div, row, data_object, i
 
 
 
-function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) {
+function add_in_bet_section(div, row, type_of_bet, data_object, is_create) {
+
+
+    let is_dutching = row.outcomes && row.first_bookmaker; // so only if it has outcomes and first_bookmaker means it's dutching
 
 
     if (is_create) {
@@ -270,6 +328,13 @@ function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) 
             link = row.place_exchange_link;
             platform = row.place_exchange;
             class_for_bar_on_left_of_item = 'bar_on_left_of_item bar_on_left_of_item_lay';
+        }
+
+
+        if (is_dutching) {
+            link = row[`${type_of_bet.toLowerCase()}_link`];
+            platform = row[`${type_of_bet.toLowerCase()}_bookmaker`];
+            class_for_bar_on_left_of_item = 'bar_on_left_of_item bar_on_left_of_item_' + type_of_bet.toLowerCase();
         }
 
 
@@ -310,11 +375,11 @@ function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) 
 
     if (type_of_bet === 'Back') {
         add_stake_input(rightDiv, row, type_of_bet, data_object.back_stake, is_create);
-        add_odds_input(rightDiv, row, type_of_bet, data_object.back_odds, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.back_odds, is_create, is_dutching);
     }
 
     if (type_of_bet === 'Lay') {
-        add_odds_input(rightDiv, row, type_of_bet, data_object.lay_odds, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.lay_odds, is_create, is_dutching);
         add_lay_commission_input(rightDiv, row, type_of_bet, data_object.lay_commission, is_create);
     }
 
@@ -323,18 +388,40 @@ function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) 
 
     if (type_of_bet === 'Each-Way') {
         add_stake_input(rightDiv, row, type_of_bet, data_object.each_way_stake, is_create);
-        add_odds_input(rightDiv, row, type_of_bet, data_object.each_way_odds, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.each_way_odds, is_create, is_dutching);
     }
 
     if (type_of_bet === 'Win-Lay') {
-        add_odds_input(rightDiv, row, type_of_bet, data_object.exchange_win_odds, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.exchange_win_odds, is_create, is_dutching);
         add_lay_commission_input(rightDiv, row, type_of_bet, data_object.exchange_win_commission, is_create);
     }
 
     if (type_of_bet === 'Place-Lay') {
-        add_odds_input(rightDiv, row, type_of_bet, data_object.exchange_place_odds, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.exchange_place_odds, is_create, is_dutching);
         add_lay_commission_input(rightDiv, row, type_of_bet, data_object.exchange_place_commission, is_create);
     }
+
+
+
+
+
+    if (type_of_bet === 'First') {
+        //add_stake_input(rightDiv, row, type_of_bet, data_object.stake, is_create);
+        add_odds_input(rightDiv, row, type_of_bet, data_object.outcome1_odds, is_create, is_dutching);
+        add_lay_commission_input(rightDiv, row, type_of_bet, data_object.outcome1_commission, is_create);
+    }
+    
+    if (type_of_bet === 'Second') {
+        add_odds_input(rightDiv, row, type_of_bet, data_object.outcome2_odds, is_create, is_dutching);
+        add_lay_commission_input(rightDiv, row, type_of_bet, data_object.outcome2_commission, is_create);
+    }
+
+    if (type_of_bet === 'Third') {
+        add_odds_input(rightDiv, row, type_of_bet, data_object.outcome3_odds, is_create, is_dutching);
+        add_lay_commission_input(rightDiv, row, type_of_bet, data_object.outcome3_commission, is_create);
+    }
+    
+    
     
     
 
@@ -343,7 +430,7 @@ function add_in_back_bet_section(div, row, type_of_bet, data_object, is_create) 
 
 
     let span_text_element = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + type_of_bet);
-    set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create);
+    set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create, is_dutching);
 
 
 }
@@ -380,20 +467,25 @@ function add_stake_input(rightDiv, row, type_of_bet, stake_input_value, is_creat
 }
 
 
-function add_odds_input(rightDiv, row, type_of_bet, odds_input_value, is_create) {
+function add_odds_input(rightDiv, row, type_of_bet, odds_input_value, is_create, is_dutching) {
 
     if (is_create) {
+
+        let input_text = type_of_bet.replace('-', ' ') + ' Odds'
+        if (is_dutching) {
+            input_text = 'Back Odds';
+        }
 
         // Create back odds input
         const oddsLabel = document.createElement('div');
         oddsLabel.className = 'filter-label';
-        oddsLabel.textContent = type_of_bet.replace('-', ' ') + ' Odds';
+        oddsLabel.textContent = input_text;
         
         const oddsInput = document.createElement('input');
         oddsInput.dataset._id = row._id
         oddsInput.className = 'text-input';
         oddsInput.id = type_of_bet + '-odds-input_' + row._id;
-        oddsInput.placeholder = type_of_bet.replace('-', ' ') + ' Odds';
+        oddsInput.placeholder = input_text;
         oddsInput.autocomplete = 'off';
 
         
@@ -419,6 +511,12 @@ function add_lay_commission_input(rightDiv, row, type_of_bet, lay_commission_val
     if (type_of_bet === 'Place-Lay') {
         commission_input_id = `commission-input_place_${row._id}`;
     }
+
+
+    if (type_of_bet === 'First' || type_of_bet === 'Second' || type_of_bet === 'Third') {
+        commission_input_id = `commission-input_${type_of_bet.toLowerCase()}_${row._id}`;
+    }
+
 
     if (is_create) {
 
@@ -449,13 +547,13 @@ function add_lay_commission_input(rightDiv, row, type_of_bet, lay_commission_val
 }
 
 
-function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create) {
+function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, data_object, is_create, is_dutching) {
 
     if (is_create) {
 
         let type_of_bet_text = type_of_bet;
 
-        if (type_of_bet === 'Each-Way') {
+        if (type_of_bet === 'Each-Way' || is_dutching) {
             type_of_bet_text = 'Back';
         }
 
@@ -472,11 +570,9 @@ function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, d
     }
 
     let outcome = row.outcome;
-    if (row.outcome === 'Draw') {
-        outcome = 'a Draw';
-    }
     let stake;
     let odds;
+
     if (type_of_bet === 'Back') {
         stake = data_object.back_stake;
         odds = data_object.back_odds;
@@ -503,16 +599,45 @@ function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, d
     }
 
 
-    if (!data_object.incomplete_data) {
 
+    if (type_of_bet === 'First') {
+        stake = data_object.outcome1_stake;
+        odds = data_object.outcome1_odds;
+        outcome = `${row.first_outcome}`;
+    }
+
+    if (type_of_bet === 'Second') {
+        stake = data_object.outcome2_stake;
+        odds = data_object.outcome2_odds;
+        outcome = `${row.second_outcome}`;
+    }
+
+    if (type_of_bet === 'Third') {
+        stake = data_object.outcome3_stake;
+        odds = data_object.outcome3_odds;
+        outcome = `${row.third_outcome}`;
+    }
+    
+    if (outcome === 'Draw' || row.outcome === 'Draw') {
+        outcome = 'a Draw';
+    }
+
+
+    let type_of_bet_text = type_of_bet.replace('-', ' ').replace('Win ', '').replace('Place ', '');
+    if (is_dutching) {
+        type_of_bet_text = ''
+    }
+
+
+    if (!data_object.incomplete_data) {
         div.querySelector('#span_bet_stake_info_' + row._id + '_' + type_of_bet).textContent = '£' + stake;
         div.querySelector('#span_outcome_info_' + row._id + '_' + type_of_bet).textContent = outcome;
-        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = odds + ' ' + type_of_bet.replace('-', ' ').replace('Win ', '').replace('Place ', '') + ' Odds';
+        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = odds + ' ' + type_of_bet_text + ' Odds';
 
     } else {
         div.querySelector('#span_bet_stake_info_' + row._id + '_' + type_of_bet).textContent = '£' + '0';
         div.querySelector('#span_outcome_info_' + row._id + '_' + type_of_bet).textContent = outcome;
-        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = type_of_bet.replace('-', ' ').replace('Win ', '').replace('Place ', '') + ' Odds';  
+        div.querySelector('#odds-select-bet_' + row._id + '_' + type_of_bet).textContent = type_of_bet_text + ' Odds';  
     }
 
 
@@ -533,35 +658,117 @@ function set_text_for_span_in_middle(div, span_text_element, row, type_of_bet, d
 
 
 
-function add_in_bet_controls_section(state, div, row, is_create) {
+
+
+
+
+
+function add_in_bet_controls_section(state, div, row, data_object, is_create) {
 
     // do it using div.innerHTML += and add certain classes, then add these to the styles.css in desktop_oddsmatchers/main/styles.css
+
+
+    let is_free_checked = (state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'free_bet_tutorial') ? true : false;
     
     div.innerHTML += `
         <div class="select_div_item select_bet_section select_bet_controls_item">
             <div class="free_bet_mode_control">
                 <span class="free_bet_mode_label">Free Bet Mode</span>
                 <label class="switch switch_select_free_bet_mode">
-                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch_${row._id}">
+                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch_${row._id}" ${is_free_checked ? 'checked' : ''}>
                     <span class="slider slider_select_free_bet_mode"></span>
                 </label>
             </div>
         </div>
     `;
 
-    let include_lay_type_control_list = ['standard', 'dutching']
 
-    if (include_lay_type_control_list.includes(state.oddsmatcher_type)) {
+    div.querySelector('.select_bet_controls_item').innerHTML += `
+        <div class="bet_type_control">
+            <div class="lay_type_control_container" data-_id="${row._id}">
+                <button class="bet-type-btn" data-type="Underlay">Underlay</button>
+                <button class="bet-type-btn active-lay-type" data-type="Standard">Standard</button>
+                <button class="bet-type-btn" data-type="Overlay">Overlay</button>
+            </div>
+        </div>
+    `;
+
+
+
+    if (state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+
+        div.querySelector('.select_bet_controls_item').style.display = 'none';
+
+    }
+
+
+    
+}
+
+
+function add_in_bet_controls_section_dutching(state, div, row, data_object, is_create) {
+
+    
+    if (is_create) {
+
+        div.innerHTML += `
+            <div class="select_div_item select_bet_section select_bet_controls_item dutching-select-controls-item">
+
+            </div>
+        `;
+
+
+        div.querySelector('.select_bet_controls_item').innerHTML += `
+            <div class="filter-item filter-item-text-input-dutching-select">
+                <div class="filter-label" id="stake-input-label_${row._id}"></div>
+                <input data-_id="${row._id}" class="text-input" id="data-stake-input_${row._id}" placeholder="Enter Stake" autocomplete="off">
+            </div>
+
+        `;
+
+        
+
+        // WHEN THIS CHANGES IT NEEDS TO CHANGE INFO IN THE BACK ODDS INPUT AND IN DATA_OBJECT
         div.querySelector('.select_bet_controls_item').innerHTML += `
             <div class="bet_type_control">
                 <div class="lay_type_control_container" data-_id="${row._id}">
-                    <button class="bet-type-btn" data-type="Underlay">Underlay</button>
-                    <button class="bet-type-btn active-lay-type" data-type="Standard">Standard</button>
-                    <button class="bet-type-btn" data-type="Overlay">Overlay</button>
+                    <button class="bet-type-btn target-type-btn active-lay-type" data-type="First">Target First Selection</button>
+                    <button class="bet-type-btn target-type-btn" data-type="Total">Target Total Stake</button>
                 </div>
             </div>
         `;
+
+
+        div.querySelector('.select_bet_controls_item').innerHTML += `
+            <div class="free_bet_mode_control free-bet-mode-input-dutching-select">
+                <span class="free_bet_mode_label">Free Bet Mode</span>
+                <label class="switch switch_select_free_bet_mode">
+                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch_${row._id}">
+                    <span class="slider slider_select_free_bet_mode"></span>
+                </label>
+            </div>
+
+        `;
+
     }
+
+    // how can i hide this div free_bet_mode_control so it's still taking up space but not visible?
+
+    let label_text = 'First Selection Stake';
+    let free_bet_mode_control = div.querySelector('.free_bet_mode_control');
+    free_bet_mode_control.style.opacity = '1';
+    free_bet_mode_control.style.visibility = 'visible';
+    if (data_object.target === 'Total') {
+        label_text = 'Total Stake';
+        free_bet_mode_control.style.opacity = '0';
+        free_bet_mode_control.style.visibility = 'hidden';
+    } 
+
+    let stake_label = div.querySelector('#stake-input-label_' + row._id);
+    stake_label.textContent = label_text;
+
+    let stakeInput = div.querySelector('#data-stake-input_' + row._id);
+    stakeInput.setAttribute('value', data_object.stake); 
 
     
 }
@@ -573,15 +780,23 @@ function add_in_bet_controls_section(state, div, row, is_create) {
 
 
 
+
+
+
 function add_in_explanation_text_section(state, div, row, data_object, is_create) {
 
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         add_in_explanation_text_section_standard(state, div, row, data_object, is_create);
     }
 
     if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
         add_in_explanation_text_each_way_and_extra_place(state, div, row, data_object, is_create);
+    }
+
+
+    if (state.oddsmatcher_type == 'dutching') {
+        add_in_explanation_text_dutching(state, div, row, data_object, is_create);
     }
 
 
@@ -779,6 +994,106 @@ function add_in_explanation_text_each_way_and_extra_place(state, div, row, data_
 
 }
 
+function add_in_explanation_text_dutching(state, div, row, data_object, is_create) {
+
+    let three_outcomes = row.outcomes >= 3;
+
+    if (is_create) {
+
+        let outcome1_span = `<span class="span_outcome1_info${row._id}"></span>`;
+
+        let outcome2_span = `<span class="span_outcome2_info${row._id}"></span>`;
+
+        let outcome3_span = `<span class="span_outcome3_info${row._id}"></span>`;
+
+        div.innerHTML += `
+            <div id="explanation_text_div_item_${row._id}" class="select_div_item select_bet_explanation_text_item">
+                <div class="explanation_text_div">
+
+
+                    <!-- FIRST OUTCOME -->
+                    <span class="explanation_text_div_text">
+                        • If ${outcome1_span}, you will profit <span id="outcome1_w_outcome1_profit_${row._id}" class="select_profit_explanation_profit"></span>
+                        on ${row.first_bookmaker}.
+                        This also means you will lose <span id="outcome1_w_outcome2_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                        on ${row.second_bookmaker}.
+                        ${three_outcomes ? `
+                            You will also lose <span id="outcome1_w_outcome3_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                            on ${row.third_bookmaker}.
+                        ` : ''}
+                        Overall you will <span id="gain_or_lose_text_outcome1_${row._id}"></span>
+                        <span id="span_overall_profit_outcome1_${row._id}"></span> if ${outcome1_span}.
+                    </span>
+
+
+                    <!-- SECOND OUTCOME -->
+                    <span class="explanation_text_div_text">
+                        • If ${outcome2_span}, you will profit <span id="outcome2_w_outcome2_profit_${row._id}" class="select_profit_explanation_profit"></span>
+                        on ${row.second_bookmaker}.
+                        This also means you will lose <span id="outcome2_w_outcome1_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                        on ${row.first_bookmaker}.
+                        ${three_outcomes ? `
+                            You will also lose <span id="outcome2_w_outcome3_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                            on ${row.third_bookmaker}.
+                        ` : ''}
+                        Overall you will <span id="gain_or_lose_text_outcome2_${row._id}"></span>
+                        <span id="span_overall_profit_outcome2_${row._id}"></span> if ${outcome2_span}.
+                    </span>
+                
+
+
+                    <!-- THIRD OUTCOME -->
+                    ${three_outcomes ? `
+
+                        <span class="explanation_text_div_text">
+                            • If ${outcome3_span}, you will profit <span id="outcome3_w_outcome3_profit_${row._id}" class="select_profit_explanation_profit"></span>
+                            on ${row.third_bookmaker}.
+                            This also means you will lose <span id="outcome3_w_outcome1_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                            on ${row.first_bookmaker}.
+                            You will also lose <span id="outcome3_w_outcome2_profit_${row._id}" class="select_profit_explanation_loss"></span>
+                            on ${row.second_bookmaker}.
+                            Overall you will <span id="gain_or_lose_text_outcome3_${row._id}"></span>
+                            <span id="span_overall_profit_outcome3_${row._id}"></span> if ${outcome3_span}.
+                        </span>
+                    
+                    ` : ''}
+                    
+                    
+
+                </div>
+            </div>
+        `;
+            
+
+        
+        
+
+    }
+
+
+    if (!data_object.incomplete_data) {
+
+
+        add_in_first_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
+
+
+        add_in_second_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
+
+
+        if (three_outcomes) {
+            add_in_third_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
+        }
+        
+    }
+
+        
+
+}
+
+
+
+
+
 
 
 
@@ -789,7 +1104,7 @@ function add_in_first_outcome_text(state,div, row, data_object, is_create) {
 
     let outcome_text = row.outcome + ' win';
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         outcome_text = process_standard_outcome_text(row, data_object, true);
     } 
 
@@ -828,7 +1143,7 @@ function add_in_second_outcome_text(state, div, row, data_object, is_create) {
         other_outcome_text = row.outcome + ` don't win and don't go 2 goals up at any point in the game`;
     }
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         other_outcome_text = process_standard_outcome_text(row, data_object, false);
     } 
 
@@ -1142,6 +1457,131 @@ function set_class_and_profit_text_for_span(span, profit_text, add_minus_sign) {
 
 
 
+function add_in_first_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes) {
+
+    let outcome_text = process_outcome_text_dutching(row, data_object, row.first_outcome);
+    div.querySelectorAll(`.span_outcome1_info${row._id}`).forEach(span => {
+        span.textContent = outcome_text;
+    });
+
+
+    div.querySelector(`#outcome1_w_outcome1_profit_${row._id}`).textContent = '£' + data_object.outcome1_w_bookmaker_profit;
+
+    div.querySelector(`#outcome1_w_outcome2_profit_${row._id}`).textContent = '£' + data_object.outcome2_stake;
+
+    if (three_outcomes) {
+        div.querySelector(`#outcome1_w_outcome3_profit_${row._id}`).textContent = '£' + data_object.outcome3_stake;
+    }
+
+
+    let span_overall_profit_outcome1 = div.querySelector(`#span_overall_profit_outcome1_${row._id}`);
+    set_class_and_profit_text_for_span(span_overall_profit_outcome1, data_object.total_profit_if_outcome1, true);
+
+    let gain_or_lose_text_outcome1 = div.querySelector(`#gain_or_lose_text_outcome1_${row._id}`);
+    gain_or_lose_text_outcome1.textContent = data_object.total_profit_if_outcome1.toString().includes('-') ? 'lose' : 'gain';
+
+
+}
+
+function add_in_second_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes) {
+
+    let outcome_text = process_outcome_text_dutching(row, data_object, row.second_outcome);
+    div.querySelectorAll(`.span_outcome2_info${row._id}`).forEach(span => {
+        span.textContent = outcome_text;
+    });
+
+    if (!data_object.isfree) {
+        div.querySelector(`#outcome2_w_outcome1_profit_${row._id}`).textContent = '£' + data_object.outcome1_stake;
+    } else {
+        div.querySelector(`#outcome2_w_outcome1_profit_${row._id}`).textContent = '£0.00';
+    }
+
+    
+    div.querySelector(`#outcome2_w_outcome2_profit_${row._id}`).textContent = '£' + data_object.outcome2_w_bookmaker_profit;
+
+    if (three_outcomes) {
+        div.querySelector(`#outcome2_w_outcome3_profit_${row._id}`).textContent = '£' + data_object.outcome3_stake;
+    }
+
+
+    let span_overall_profit_outcome1 = div.querySelector(`#span_overall_profit_outcome2_${row._id}`);
+    set_class_and_profit_text_for_span(span_overall_profit_outcome1, data_object.total_profit_if_outcome2, true);
+
+    let gain_or_lose_text_outcome1 = div.querySelector(`#gain_or_lose_text_outcome2_${row._id}`);
+    gain_or_lose_text_outcome1.textContent = data_object.total_profit_if_outcome2.toString().includes('-') ? 'lose' : 'gain';
+
+
+}
+
+function add_in_third_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes) {
+
+    let outcome_text = process_outcome_text_dutching(row, data_object, row.third_outcome);
+    div.querySelectorAll(`.span_outcome3_info${row._id}`).forEach(span => {
+        span.textContent = outcome_text;
+    });
+
+
+    if (!data_object.isfree) {
+        div.querySelector(`#outcome3_w_outcome1_profit_${row._id}`).textContent = '£' + data_object.outcome1_stake;
+    } else {
+        div.querySelector(`#outcome3_w_outcome1_profit_${row._id}`).textContent = '£0.00';
+    }
+
+    div.querySelector(`#outcome3_w_outcome2_profit_${row._id}`).textContent = '£' + data_object.outcome2_stake;
+
+    if (three_outcomes) {
+        div.querySelector(`#outcome3_w_outcome3_profit_${row._id}`).textContent = '£' + data_object.outcome3_w_bookmaker_profit;
+    }
+
+
+    let span_overall_profit_outcome1 = div.querySelector(`#span_overall_profit_outcome3_${row._id}`);
+    set_class_and_profit_text_for_span(span_overall_profit_outcome1, data_object.total_profit_if_outcome3, true);
+
+    let gain_or_lose_text_outcome1 = div.querySelector(`#gain_or_lose_text_outcome3_${row._id}`);
+    gain_or_lose_text_outcome1.textContent = data_object.total_profit_if_outcome3.toString().includes('-') ? 'lose' : 'gain';
+
+
+}
+
+
+function process_outcome_text_dutching(row, data_object, outcome) {
+
+    let outcome_text = outcome + ' win';
+   
+    if (outcome === 'Draw') {
+        outcome_text = 'a draw occurs';
+    }
+
+
+
+    if (row.market_type == 'BTTS') {
+        if (outcome == 'BTTS') {
+            outcome_text = 'both teams score';
+        } else {
+            outcome_text = `both teams don't score`;
+        }
+    } else if (row.market_type == 'Over/Under') {
+        outcome_text = `there are ${outcome}`;
+    } 
+
+
+    return outcome_text;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1182,7 +1622,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
 
 
-        if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard') {
+        if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
             div.querySelector('#left_div_profit_and_log_' + row._id).innerHTML += `
                 <div class="profit_display_profit_and_log_div">
 
@@ -1261,7 +1701,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
                     </div>
 
             `;
-        } else if (state.oddsmatcher_type == 'each_way') {
+        } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'dutching') {
 
             div.querySelector('#left_div_profit_and_log_' + row._id).innerHTML += `
                 <div class="profit_display_profit_and_log_div">
@@ -1337,7 +1777,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
 
 
-
+    // HIDE OR SHOW IF VALUES
     let selector = '#select_bet_div_profit_and_log_' + row._id;
     if (data_object.incomplete_data) {
         div.querySelector(selector).classList.add('hidden_row_above_columns');
@@ -1347,15 +1787,23 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     }
 
 
+
+
+    // ADD IN THE DESCRIPTION
+
     let description = '';
     if (state.oddsmatcher_type == '2up') {
         description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         description = get_description_for_standard_bet(div, row, data_object);
     } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
         description = get_description_for_each_way_or_ep_bet(div, row, data_object, state.oddsmatcher_type == 'extra_place');
+    } else if (state.oddsmatcher_type == 'dutching') {
+        description = get_description_for_dutching_bet(div, row, data_object);
     }
     div.querySelector(`#bet-description-input_${row._id}`).value = description;
+
+
 
 
 
@@ -1372,7 +1820,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     set_class_for_profit_info_item(qualifying_loss_element, data_object.qualifying_loss);
     
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'extra_place') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'extra_place' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         let potential_profit_element = div.querySelector('.profit_and_log__item_value_potential_profit')
         potential_profit_element.textContent = ('£' + data_object.potential_profit).replace('£-', '-£');
         set_class_for_profit_info_item(potential_profit_element, data_object.potential_profit);
@@ -1466,6 +1914,31 @@ function get_description_for_each_way_or_ep_bet(div, row, data_object, is_extra_
 
     let place_lay_bet_text = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Place-Lay').textContent.replace(/\s+/g, ' ').trim();
     description += ` ${place_lay_bet_text.replace('Lay', 'Laying')}.`;
+
+    return description;
+
+}
+
+
+function get_description_for_dutching_bet(div, row, data_object, is_extra_place) {
+
+    let description = '';
+
+    description += `Dutching the ${row.fixture} game.`;
+
+    let first_bet = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'First').textContent.replace(/\s+/g, ' ').trim()
+    description += ` ${first_bet.replace('Back', 'Backing')}`;
+    description += ` on ${row.first_bookmaker}.`
+
+    let second_bet = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Second').textContent.replace(/\s+/g, ' ').trim();
+    description += ` ${second_bet.replace('Back', 'Backing')}`;
+    description += ` on ${row.second_bookmaker}.`
+
+    if (row.outcomes >= 3) {
+        let third_bet = div.querySelector('#select_bet_text_div_text_' + row._id + '_' + 'Third').textContent.replace(/\s+/g, ' ').trim();
+        description += ` ${third_bet.replace('Back', 'Backing')}`;
+        description += ` on ${row.third_bookmaker}.`
+    }
 
     return description;
 
@@ -1590,13 +2063,13 @@ function log_bet(scope, state, div, row, data_object) {
     data_object.qualifying_loss = data_object.qualifying_loss.replace('£', '');
     data_object.potential_profit = data_object.potential_profit.replace('£', '');
 
+    data_object.item_row = row; 
 
 
 
 
 
-
-    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard') {
+    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         data_object.backodds = data_object.back_odds.replace('£', '');
         data_object.layodds = data_object.lay_odds.replace('£', '');
         data_object.backstake = data_object.back_stake.replace('£', '');
@@ -1611,9 +2084,10 @@ function log_bet(scope, state, div, row, data_object) {
     }
 
     // IT SHOULD ALREADY HAVE THE ISFREE AND LAYTYPE
-    if (state.oddsmatcher_type == 'standard') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
         data_object.calculator = 'standard';
     }
+
 
 
     if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
@@ -1621,6 +2095,12 @@ function log_bet(scope, state, div, row, data_object) {
         data_object.place_exchange = row.place_exchange;
         data_object.exchange_link = row.win_exchange_link;
         data_object.place_exchange_link = row.place_exchange_link;
+        data_object.calculator = state.oddsmatcher_type;
+    }
+
+    if (state.oddsmatcher_type == 'dutching') {
+        data_object.bookie = row.first_bookmaker;
+        data_object.bookmaker_link = row.first_link;
         data_object.calculator = state.oddsmatcher_type;
     }
 
@@ -1650,7 +2130,6 @@ function calculate_and_display_bet_data(scope, state, div, row) {
         data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);
         data_object.lay_odds = parseFloat(scope.querySelector(`#Lay-odds-input_${row._id}`).value);
         data_object.lay_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
-        data_object.row = row;
 
         data_object = calculateHelpers.calculate_2up_bet_data(data_object);
 
@@ -1658,16 +2137,20 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
-    } else if (state.oddsmatcher_type == 'standard') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
     
         data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
         data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);
         data_object.lay_odds = parseFloat(scope.querySelector(`#Lay-odds-input_${row._id}`).value);
         data_object.lay_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
         data_object.isfree = div.querySelector('.free_bet_mode_switch').checked;
-        const activeLayTypeButton = div.querySelector('.bet-type-btn.active-lay-type');
-        data_object.laytype = activeLayTypeButton.dataset.type;
-        data_object.row = row;
+
+        if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free') {
+            const activeLayTypeButton = div.querySelector('.bet-type-btn.active-lay-type');
+            data_object.laytype = activeLayTypeButton.dataset.type;
+        } else {
+            data_object.laytype = 'Standard';
+        }
 
         data_object = calculateHelpers.calculate_standard(data_object);
 
@@ -1683,7 +2166,6 @@ function calculate_and_display_bet_data(scope, state, div, row) {
         data_object.lay_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
         data_object.isfree = false;
         data_object.laytype = 'Standard'
-        data_object.row = row;
 
         data_object = calculateHelpers.calculate_standard(data_object);
 
@@ -1702,11 +2184,39 @@ function calculate_and_display_bet_data(scope, state, div, row) {
         data_object.exchange_win_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
         data_object.exchange_place_commission = parseFloat(scope.querySelector(`#commission-input_place_${row._id}`).value) / 100;
         data_object.bookmaker_fraction = row.bookmaker_fraction;
-        data_object.row = row;
 
         data_object = calculateHelpers.calculate_each_way_and_extra_place(data_object, (state.oddsmatcher_type == 'extra_place'));
 
         set_values_for_each_way_and_extra_place(state, div, row, data_object, false);
+
+        div.setAttribute('data-current-data-object', JSON.stringify(data_object));
+
+    } else if (state.oddsmatcher_type == 'dutching') {
+
+        data_object.outcome1_odds = parseFloat(scope.querySelector(`#First-odds-input_${row._id}`).value);
+        data_object.outcome1_commission = parseFloat(scope.querySelector(`#commission-input_first_${row._id}`).value) / 100;
+        data_object.outcome2_odds = parseFloat(scope.querySelector(`#Second-odds-input_${row._id}`).value);
+        data_object.outcome2_commission = parseFloat(scope.querySelector(`#commission-input_second_${row._id}`).value) / 100;
+
+        data_object.outcomes = row.outcomes;
+
+        if (row.outcomes >= 3) {
+            data_object.outcome3_odds = parseFloat(scope.querySelector(`#Third-odds-input_${row._id}`).value);
+            data_object.outcome3_commission = parseFloat(scope.querySelector(`#commission-input_third_${row._id}`).value) / 100;
+        }
+
+        data_object.stake = parseFloat(scope.querySelector('#data-stake-input_' + row._id).value);
+
+        data_object.isfree = div.querySelector('.free_bet_mode_switch').checked;
+        const activeTarget = div.querySelector('.bet-type-btn.active-lay-type');
+        data_object.target = activeTarget.dataset.type;
+        if (data_object.target != 'First') {
+            data_object.isfree = false;
+        }
+
+        data_object = calculateHelpers.calculate_dutching(data_object);
+
+        set_values_for_dutching(state, div, row, data_object, false);
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 

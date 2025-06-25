@@ -837,6 +837,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
     --padding-top-bottom-select-lay-type: 1.04vw;
     --width-of-lay-bet-type-btn: 12.50vw;
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 1.3);
 
 
 
@@ -865,7 +866,24 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
 
     --log-bet-button-padding-left-right: 2.08vw;
+
+
+
+
+
+
+
+    /* DUTCHING SPECIFIC THINGS FOR CONTROL PART */
+
+    --margin-top-of-free-bet-mode-control-input-div: -1.05vw;
+    --width-of-free-bet-mode-control-input-div: 21.435vw;
+
+    --padding-for-dutching-controls-section: calc(var(--padding-for-controls-section) * 1.3)
+
+
 }
+
+
 
 
 
@@ -1068,6 +1086,10 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     width: var(--width-of-lay-bet-type-btn);
 }
 
+.target-type-btn {
+    width: var(--width-of-target-type-btn);
+}
+
 .bet-type-btn.active-lay-type {
     background-color: var(--active-lay-type-background-color);
     font-weight: bold;
@@ -1233,6 +1255,32 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     padding-right: var(--log-bet-button-padding-left-right);
 }
 
+
+
+
+
+
+
+
+
+
+/* FOR TEXT INPUT FOR STAKE IN DUTCHING */
+
+.dutching-select-controls-item {
+    justify-content: space-between;
+    padding: var(--padding-for-dutching-controls-section);
+}
+
+
+
+.filter-item-text-input-dutching-select, .free-bet-mode-input-dutching-select {
+    max-width: var(--width-of-free-bet-mode-control-input-div);
+    min-width: var(--width-of-free-bet-mode-control-input-div);
+}
+
+.filter-item-text-input-dutching-select {
+    margin-top: var(--margin-top-of-free-bet-mode-control-input-div);
+}
 
 
 

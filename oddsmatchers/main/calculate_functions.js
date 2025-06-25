@@ -306,5 +306,215 @@ export function calculate_each_way_and_extra_place(data, is_extra_place) {
 }
 
 
+export function calculate_dutching(data) {
+
+    data.incomplete_data = false;
+
+    if (!data.outcomes) {
+        data.incomplete_data = true;
+        return data;
+    }
+
+    // Calculate rating for any number of outcomes
+    const oddsValues = [];
+    const commissionValues = [];
+    let outcomeIndex = 1;
+    
+    // Collect all odds values using numbered keys
+    while (data[`outcome${outcomeIndex}_odds`] !== undefined) {
+        const odds = data[`outcome${outcomeIndex}_odds`];
+        if (!isNaN(odds)) {
+            oddsValues.push(odds);
+        }
+        outcomeIndex++;
+    }
+
+    // Reset outcomeIndex for commission collection
+    outcomeIndex = 1;
+    
+    // Collect all commission values using numbered keys
+    while (data[`outcome${outcomeIndex}_commission`] !== undefined) {
+        const commission = data[`outcome${outcomeIndex}_commission`];
+        if (!isNaN(commission)) {
+            commissionValues.push(commission);
+        }
+        outcomeIndex++;
+    }
+
+    // check that length of oddsValues is equal to data.outcomes
+    if (oddsValues.length != data.outcomes) {
+        data.incomplete_data = true;
+        return data;
+    }
+    
+    // Calculate rating if we have valid odds
+    if (oddsValues.length > 0) {
+        const sumOfReciprocals = oddsValues.reduce((sum, odds) => sum + (1 / odds), 0);
+        data.rating = ((1 / sumOfReciprocals) * 100).toFixed(2) + '%';
+    }
+
+    // then check commisssions and return if missing any 
+    if ((commissionValues.length != data.outcomes) || !data.stake) {
+        data.incomplete_data = true;
+        return data;
+    }
+    
+
+    if (data.target == 'First') {
+
+        data.outcome1_stake = data.stake;
+
+        data = calculate_dutching_target_first(data);
+        
+    } else if (data.target == 'Total') {
+
+        data.total_stake = data.stake;
+
+        data = calculate_dutching_target_total(data);
+
+    }
+
+
+    data.qualifying_loss = data.profit;
+    data.potential_profit = data.profit;
+
+
+
+
+
+
+
+    // EXTRA VARIABLES FOR EXPLANATION TEXT
+    if (!data.isfree) {
+        data.outcome1_w_bookmaker_profit = data.outcome1_return - data.outcome1_stake;
+    } else {
+        data.outcome1_w_bookmaker_profit = data.outcome1_return;
+    }
+    data.outcome2_w_bookmaker_profit = data.outcome2_return - data.outcome2_stake;
+    if (data.outcomes >= 3) {
+        data.outcome3_w_bookmaker_profit = data.outcome3_return - data.outcome3_stake;
+    }
+
+
+
+    data.total_profit_if_outcome1 = (data.outcome1_w_bookmaker_profit - data.outcome2_stake);
+    data.total_profit_if_outcome2 = (data.outcome2_w_bookmaker_profit - data.outcome1_stake);
+    if (data.outcomes == 3) {
+        data.total_profit_if_outcome3 = (data.outcome3_w_bookmaker_profit - data.outcome1_stake - data.outcome2_stake);
+        data.total_profit_if_outcome1 = (data.total_profit_if_outcome1 - data.outcome3_stake);
+        data.total_profit_if_outcome2 = (data.total_profit_if_outcome2 - data.outcome3_stake);
+    }
+
+    if (data.isfree && data.target == 'First') {
+        data.total_profit_if_outcome2 = (data.outcome2_w_bookmaker_profit);
+        if (data.outcomes >= 3) {
+            data.total_profit_if_outcome3 = (data.outcome3_w_bookmaker_profit - data.outcome2_stake);
+            data.total_profit_if_outcome2 = data.total_profit_if_outcome2 - data.outcome3_stake;
+        }
+    } 
+
+
+    // loop over all values in data and if number then round to fixed (2)
+    data = process_and_round_numbers(data);
+
+    return data;
+
+}
+
+
+function calculate_dutching_target_first(data) {
+    
+    // Calculate stakes and returns for all outcomes
+    let outcomeIndex = 1;
+    let totalStakes = 0;
+
+    // Calculate all_returns using outcome1 - free is below
+    data.all_returns = data.outcome1_stake * data.outcome1_odds - (data.outcome1_stake * (data.outcome1_odds - 1) * data.outcome1_commission);
+    if (data.isfree) {
+        data.all_returns = data.outcome1_stake * (data.outcome1_odds - 1) - (data.outcome1_stake * (data.outcome1_odds - 1) * data.outcome1_commission);
+        data.outcome1_return = data.all_returns;
+        outcomeIndex++;
+    }
+    
+    // Loop through all outcomes to calculate stakes and returns
+    while (data[`outcome${outcomeIndex}_odds`] !== undefined) {
+        const odds = data[`outcome${outcomeIndex}_odds`];
+        const commission = data[`outcome${outcomeIndex}_commission`];
+        
+        // Calculate stake for this outcome
+        data[`outcome${outcomeIndex}_stake`] = data.all_returns / (odds - (odds - 1) * commission);
+        
+        // Calculate return for this outcome
+        data[`outcome${outcomeIndex}_return`] = data[`outcome${outcomeIndex}_stake`] * odds - (data[`outcome${outcomeIndex}_stake`] * (odds - 1) * commission);
+        
+        // Add to total stakes
+        totalStakes += data[`outcome${outcomeIndex}_stake`];
+        
+        outcomeIndex++;
+    }
+
+    // Calculate profit: all_returns minus all stakes
+    data.profit = data.all_returns - totalStakes;
+    
+    return data;
+}
+
+
+function calculate_dutching_target_total(data) {
+
+
+    // Calculate effective odds for all outcomes
+    let outcomeIndex = 1;
+    let totalValue = 0;
+    
+    // Loop through all outcomes to calculate effective odds
+    while (data[`outcome${outcomeIndex}_odds`] !== undefined) {
+        const odds = data[`outcome${outcomeIndex}_odds`];
+        const commission = data[`outcome${outcomeIndex}_commission`];
+        
+        if (!isNaN(odds) && !isNaN(commission)) {
+            // Calculate effective odds for this outcome
+            data[`outcome${outcomeIndex}_effective_odds`] = (odds - 1) * (1 - commission) + 1;
+            
+            // Add reciprocal to total value
+            totalValue += (1 / data[`outcome${outcomeIndex}_effective_odds`]);
+        }
+        
+        outcomeIndex++;
+    }
+    
+    data.total_value = totalValue;
+
+    // Reset outcomeIndex for stake calculations
+    outcomeIndex = 1;
+    // Calculate stakes for all outcomes
+    while (data[`outcome${outcomeIndex}_odds`] !== undefined) {
+        const odds = data[`outcome${outcomeIndex}_odds`];
+        const commission = data[`outcome${outcomeIndex}_commission`];
+        
+        if (!isNaN(odds) && !isNaN(commission)) {
+            // Calculate stake for this outcome
+            data[`outcome${outcomeIndex}_stake`] = (data.total_stake * (1 / data[`outcome${outcomeIndex}_effective_odds`])) / data.total_value;
+            
+            // Calculate return for this outcome
+            data[`outcome${outcomeIndex}_return`] = data[`outcome${outcomeIndex}_stake`] * odds - (data[`outcome${outcomeIndex}_stake`] * (odds - 1) * commission);
+        }
+        
+        outcomeIndex++;
+    }
+
+
+    // can be any of them - but just doing one as it's guaranteed to be there
+    data.profit = (data.outcome1_stake * data.outcome1_effective_odds - data.total_stake);
+
+    return data;
+
+}
+
+
+
+
+
+
 
 

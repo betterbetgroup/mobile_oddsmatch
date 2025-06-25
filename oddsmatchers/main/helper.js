@@ -1,14 +1,7 @@
 import * as select_boxes_helpers from './select_boxes.js'
-import * as calculateHelpers from './calculate_functions.js'
-
-
 
 
 const delay_for_copy_text = 1500;
-
-let bet_controls_list = ['standard', 'dutching']
-
-let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';
 
 // make a dictionary that matches the keys to the appropriate html
 const DesktopHeaderDictionary = {
@@ -2246,17 +2239,6 @@ function add_event_listener_for_select_buttons(scope, state) {
     scope.addEventListener('click', (event) => {
         if (event.target.classList.contains('select_button') || event.target.closest('.select_button')) {
             select_boxes_helpers.select_clicked(scope, state, event.target.getAttribute('data-id'));
-        }
-        if (event.target.classList.contains('copy-on-click')) {
-            let element = event.target;
-            const originalText = event.target.textContent;
-            navigator.clipboard.writeText(originalText.replace('£', '').replace(' ', ''));
-            event.target.classList.remove('copy-on-click');
-            event.target.textContent = 'Copied!';
-            setTimeout(() => {
-                element.textContent = originalText;
-                element.classList.add('copy-on-click');
-            }, delay_for_copy_text);
         }
 
     });

@@ -199,7 +199,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 const ratingMatch = (globalFilters.minrating === null || parseFloat(row.rating) >= globalFilters.minrating) &&
                                     (globalFilters.maxrating === null || parseFloat(row.rating) <= globalFilters.maxrating);
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
-                const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
+                const roiMatch = globalFilters.minROI === null || parseFloat(row.ROI.replace('%', '')) >= globalFilters.minROI;
         
                 
                 // Parse row date and time
@@ -232,7 +232,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     }
                 }
         
-                return bookmakerMatch && marketMatch && ratingMatch && qualifyingLossMatch && potentialProfitMatch && timeMatch;
+                return bookmakerMatch && marketMatch && ratingMatch && qualifyingLossMatch && roiMatch && timeMatch;
         
         
             });
@@ -332,7 +332,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                             <a ${row.second_link ? `href="${row.second_link}" target="_blank"` : ''} class="odds-link">${second_outcome}</a>
                         </div>    
         
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
+                        <div id="lay_odds_value_${row._id}" class="back_odds_value">
                             <a ${row.second_link ? `href="${row.second_link}" target="_blank"` : ''} class="odds-link">${row.second_odds}</a>
                         </div>
                         <div id="exchange_logo_${row._id}" class="exchange_logo_div">
@@ -352,7 +352,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                             <a ${row.third_link ? `href="${row.third_link}" target="_blank"` : ''} class="odds-link">${third_outcome}</a>
                         </div>    
         
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value lay_odds_value_2">
+                        <div id="lay_odds_value_${row._id}" class="back_odds_value">
                             <a ${row.third_link ? `href="${row.third_link}" target="_blank"` : ''} class="odds-link">${row.third_odds}</a>
                         </div>
                         <div id="exchange_logo_${row._id}" class="exchange_logo_div">
