@@ -13,14 +13,16 @@ const delay_for_copy_text = 1500;
 export function select_clicked(scope, state, id) {
 
     // first find the element with class select_button and where the data-id is the id
-    change_select_button_content(scope, state, id)
+    if (state.is_desktop) {
+        change_select_button_content(scope, state, id)
+    }
 
     // Add spinning animation to the select button and make the row take the same time to expand
     // DO LATER ON
     
     // check if there is a tr with select_button_div with that data-id of the id and if there is that already then return
-    if (check_for_tr_with_select_button_div(scope, state, id)) {
-        set_td_class_for_the_row(scope, state, id, false)
+    if (check_if_already_open_select_for_item(scope, state, id)) {
+        set_td_class_for_the_row(scope, state, id, false);
         return;
     }
 
@@ -29,13 +31,12 @@ export function select_clicked(scope, state, id) {
     // then find the tr where the data-id is the id and create and inject div
     create_and_inject_select_div(scope, state, id)
 
-
-
 }
 
 
 
 function change_select_button_content(scope, state, id) {
+
 
     const select_button = scope.querySelector('.select_button[data-id="' + id + '"]');
     if (select_button) {
@@ -50,16 +51,38 @@ function change_select_button_content(scope, state, id) {
 }
 
 
-function check_for_tr_with_select_button_div(scope, state, id) {
-    const tr = scope.querySelector('.select_button_div_row[data-id="' + id + '"]');
-    if (tr) {
-        tr.remove();
-        return tr;
+function check_if_already_open_select_for_item(scope, state, id) {
+
+    if (state.is_desktop) {
+
+        const tr = scope.querySelector('.select_button_div_row[data-id="' + id + '"]');
+        if (tr) {
+            tr.remove();
+            return true;
+        }
+        return false;
+
+    } else {
+
+        const div = scope.querySelector('.select_button_div[data-id="' + id + '"]');
+        if (div) {
+            return true;
+        }
+        return false;
+
     }
-    return false;
+
+
 }
 
+
 function set_td_class_for_the_row(scope, state, id, is_add_class) {
+
+    if (!state.is_desktop) {
+        return;
+    }
+
+
     const tr = scope.querySelector('.table_data_row[data-id="' + id + '"]');
     if (tr) {
         tr.querySelectorAll('td').forEach(td => {
@@ -76,30 +99,50 @@ function create_and_inject_select_div(scope, state, id) {
 
     const row = state.globalData.find(row => row._id === id);
 
-    const tr = scope.querySelector('tr[data-id="' + id + '"]');
-    if (tr) {
-        // make it inject a row just below that row
-        const newRow = document.createElement('tr');
-        newRow.className = 'select_button_div_row';
-        newRow.setAttribute('data-id', id);
-        
-        // Create td element properly and override default td styles
-        const td = document.createElement('td');
-        td.setAttribute('colspan', '100%');
-        td.className = 'select_td';
-        
+    if (state.is_desktop) {
+        const tr = scope.querySelector('tr[data-id="' + id + '"]');
+        if (tr) {
+            // make it inject a row just below that row
+            const newRow = document.createElement('tr');
+            newRow.className = 'select_button_div_row';
+            newRow.setAttribute('data-id', id);
+            
+            // Create td element properly and override default td styles
+            const td = document.createElement('td');
+            td.setAttribute('colspan', '100%');
+            td.className = 'select_td';
+            
+            // Create the inner div
+            const div = document.createElement('div');
+            div.className = 'select_button_div';
+            div.setAttribute('data-id', id);
+
+            create_select_div_inner_html(scope, state, div, row)
+            
+            // Append elements
+            td.appendChild(div);
+            newRow.appendChild(td);
+            tr.parentNode.insertBefore(newRow, tr.nextSibling);
+            
+        }
+
+    } else {
+
+        // make the version where it selects the div with this class .mobile-card.outer-mobile-card
+        const mobileCard = scope.querySelector(`.mobile-card.outer-mobile-card[data-id="${id}"] div.mobile-card`);
+
         // Create the inner div
         const div = document.createElement('div');
         div.className = 'select_button_div';
         div.setAttribute('data-id', id);
 
         create_select_div_inner_html(scope, state, div, row)
-        
-        // Append elements
-        td.appendChild(div);
-        newRow.appendChild(td);
-        tr.parentNode.insertBefore(newRow, tr.nextSibling);
-        
+
+        // then append it to the .mobile-card.outer-mobile-card
+        if (mobileCard) {
+            mobileCard.appendChild(div);
+        }
+
     }
 
 }
@@ -783,19 +826,123 @@ function add_in_bet_controls_section_dutching(state, div, row, data_object, is_c
 
 
 
+function add_in_explanation_title_mobile(state, div, row, data_object, is_create) {
+
+    div.innerHTML += `
+        <div id="explanation_text_title_item_${row._id}" class="select_div_item select_bet_explanation_text_item select_bet_explanation_title_item">
+            <div class="explanation_text_div">
+                <span class="explanation_text_div_text">
+                    Profit Breakdown
+                </span>
+            </div>
+        </div>
+    `;
+
+}
+
+function truncate_explanation_text_mobile(state, div, row, data_object, is_create, explanation_text_div_item_inner_html_expanded) {
+
+
+    // no take the div and add in a ...less button to the end so that it goes in with the text
+    // but it should go in with the text like this ...less --- like that exact line where it's literally words in the text
+    let explanation_text_div_item = div.querySelector('#explanation_text_div_item_' + row._id);
+    let spans = explanation_text_div_item.querySelectorAll('.explanation_text_div_text');
+    let smaller_spans = spans[spans.length - 1].querySelectorAll('span');
+    let lastSpan = smaller_spans[smaller_spans.length - 1];
+    lastSpan.insertAdjacentHTML('afterend', `<span id="explanation_text_show_less_button_${row._id}" class="explanation_text_expand_or_collapse explanation_text_less_button"> ...less</span>`);
+
+    // now save this inner_html of the explanation_text_div_item.
+    
+    if (explanation_text_div_item_inner_html_expanded == null) {
+        explanation_text_div_item_inner_html_expanded = explanation_text_div_item.innerHTML;
+    }
+
+    // now take the first span in spans change it so it's the html but with only the first half of the text
+    let firstSpan = spans[0];
+
+    // split the first span's HTML by </span> and find the median index
+    let spanTags = firstSpan.innerHTML.split('</span>');
+    let medianIndex = Math.floor(spanTags.length / 2);
+
+    // keep only the first half of spans and add back the closing tag
+    firstSpan.innerHTML = spanTags.slice(0, medianIndex).join('</span>') + '</span>';
+
+    // then remove all other spans other than firstSpan
+    for (let i = 0; i < spans.length; i++) {
+        if (spans[i] !== firstSpan) {
+            spans[i].style.display = 'none';
+        }
+    }
+
+    // now append a ...more button to the first span
+    firstSpan.innerHTML += `<span id="explanation_text_show_more_button_${row._id}" class="explanation_text_expand_or_collapse explanation_text_more_button"> ...more</span>`;
+
+
+
+    // Use event delegation on the parent div to handle clicks on the more button
+    div.addEventListener('click', (event) => {
+        if (event.target.id === `explanation_text_show_more_button_${row._id}`) {
+            div.querySelector('#explanation_text_div_item_' + row._id).innerHTML = explanation_text_div_item_inner_html_expanded;
+            state.truncated = false;
+            data_object = JSON.parse(div.getAttribute('data-current-data-object'));
+            add_text_spans(state, div, row, data_object, is_create);
+        }
+        
+        if (event.target.id === `explanation_text_show_less_button_${row._id}`) {
+            state.truncated = true;
+            // Instead of re-running truncation, just restore the truncated version
+            // We need to recreate the truncated version from the original content
+            let explanation_text_div_item = div.querySelector('#explanation_text_div_item_' + row._id);
+            let spans = explanation_text_div_item.querySelectorAll('.explanation_text_div_text');
+            
+            // Take the first span and truncate it
+            let firstSpan = spans[0];
+            let spanTags = firstSpan.innerHTML.split('</span>');
+            let medianIndex = Math.floor(spanTags.length / 2);
+            let truncatedSpan = spanTags.slice(0, medianIndex).join('</span>');
+            firstSpan.innerHTML = truncatedSpan;
+            
+            // Remove all other spans except the first
+            for (let i = 0; i < spans.length; i++) {
+                if (spans[i] !== firstSpan) {
+                    spans[i].style.display = 'none';
+                }
+            }
+            
+            // Add the ...more button back
+            firstSpan.innerHTML += `<span id="explanation_text_show_more_button_${row._id}" class="explanation_text_expand_or_collapse explanation_text_more_button"> ...more</span>`;
+        }
+    });
+
+}
+
+
+
+
+
+
 function add_in_explanation_text_section(state, div, row, data_object, is_create) {
 
+    if (!state.is_desktop && is_create) {
+        add_in_explanation_title_mobile(state, div, row, data_object, is_create);
+        state.truncated = true;
+    }
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    state.normal_list = (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial');
+
+    state.horse_list = (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place');
+
+    state.dutching_list = (state.oddsmatcher_type == 'dutching');
+
+    if (state.normal_list) {
         add_in_explanation_text_section_standard(state, div, row, data_object, is_create);
     }
 
-    if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
+    if (state.horse_list) {
         add_in_explanation_text_each_way_and_extra_place(state, div, row, data_object, is_create);
     }
 
-
-    if (state.oddsmatcher_type == 'dutching') {
+    if (state.dutching_list) {
         add_in_explanation_text_dutching(state, div, row, data_object, is_create);
     }
 
@@ -803,10 +950,24 @@ function add_in_explanation_text_section(state, div, row, data_object, is_create
     let selector = '#explanation_text_div_item_' + row._id;
     if (data_object.incomplete_data) {
         div.querySelector(selector).classList.add('hidden_row_above_columns');
-        return;
     } else {
         div.querySelector(selector).classList.remove('hidden_row_above_columns');
     }
+
+    let mobile_title_selector = '#explanation_text_title_item_' + row._id;
+    if (!state.is_desktop && data_object.incomplete_data) {
+        div.querySelector(mobile_title_selector).classList.add('hidden_row_above_columns'); // profit breakdown title
+    } else if (!state.is_desktop && !data_object.incomplete_data) {
+        div.querySelector(mobile_title_selector).classList.remove('hidden_row_above_columns'); // profit breakdown title
+    }
+
+
+    if (!state.is_desktop && is_create && !data_object.incomplete_data) {
+        truncate_explanation_text_mobile(state, div, row, data_object, is_create, null);
+    }
+
+
+
 }
 
 function add_in_explanation_text_section_standard(state, div, row, data_object, is_create) {
@@ -861,20 +1022,9 @@ function add_in_explanation_text_section_standard(state, div, row, data_object, 
 
     if (!data_object.incomplete_data) {
 
-        add_in_first_outcome_text(state, div, row, data_object, is_create)
-
-
-        add_in_second_outcome_text(state, div, row, data_object, is_create)
-
-        if (state.oddsmatcher_type == '2up') {
-            add_in_twoup_outcome_text(state, div, row, data_object, is_create)
-        }
+        add_text_spans(state, div, row, data_object, is_create);
 
     }
-
-    // OBVIOUSLY IS THEN SLIGHTLY DIFFERENT IF DUTCHING OR EXTRA PLACE ETC
-
-    // TRY MAKE SOME FUNCTIONS OUT OF THIS SO THERE'S NOT LOADS OF THEM 
 
 }
 
@@ -965,32 +1115,10 @@ function add_in_explanation_text_each_way_and_extra_place(state, div, row, data_
     if (!data_object.incomplete_data) {
 
 
-
-
-        add_in_first_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
-
-
-        add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
-
-
-        if (is_extra_place) {
-            add_in_extra_place_outcome_text(state, div, row, data_object, is_create);
-        }
-
-
-        add_in_third_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
-
+        add_text_spans(state, div, row, data_object, is_create);
         
     }
 
-        
-        
-
-    
-
-    // OBVIOUSLY IS THEN SLIGHTLY DIFFERENT IF DUTCHING OR EXTRA PLACE ETC
-
-    // TRY MAKE SOME FUNCTIONS OUT OF THIS SO THERE'S NOT LOADS OF THEM 
 
 }
 
@@ -1073,20 +1201,27 @@ function add_in_explanation_text_dutching(state, div, row, data_object, is_creat
 
     if (!data_object.incomplete_data) {
 
+        add_text_spans(state, div, row, data_object, is_create);
 
-        add_in_first_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
-
-
-        add_in_second_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
-
-
-        if (three_outcomes) {
-            add_in_third_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
-        }
-        
     }
 
         
+
+}
+
+function add_text_spans(state, div, row, data_object, is_create) {
+
+    if (state.normal_list) {
+        add_text_spans_standard(state, div, row, data_object, is_create);
+    }
+
+    if (state.horse_list) {
+        add_text_spans_ew_and_ep(state, div, row, data_object, is_create);
+    }
+
+    if (state.dutching_list) {
+        add_text_spans_dutching(state, div, row, data_object, is_create);
+    }
 
 }
 
@@ -1096,8 +1231,21 @@ function add_in_explanation_text_dutching(state, div, row, data_object, is_creat
 
 
 
+function add_text_spans_standard(state, div, row, data_object, is_create) {
 
+    add_in_first_outcome_text(state, div, row, data_object, is_create);
 
+    if (state.truncated) {
+        return;
+    }
+
+    add_in_second_outcome_text(state, div, row, data_object, is_create);
+
+    if (state.oddsmatcher_type == '2up') {
+        add_in_twoup_outcome_text(state, div, row, data_object, is_create);
+    }
+
+}
 
 
 function add_in_first_outcome_text(state,div, row, data_object, is_create) {
@@ -1108,15 +1256,6 @@ function add_in_first_outcome_text(state,div, row, data_object, is_create) {
         outcome_text = process_standard_outcome_text(row, data_object, true);
     } 
 
-    let class_for_total_profit_back_win = 'select_profit_explanation_profit';
-    let back_win_value_negative = false;
-    if (data_object.total_profit_if_back_win.includes('-')) {
-        back_win_value_negative = true;
-        data_object.total_profit_if_back_win = data_object.total_profit_if_back_win.replace('-', '-£');
-        class_for_total_profit_back_win = 'select_profit_explanation_loss';
-    } else {
-        data_object.total_profit_if_back_win = '£' + data_object.total_profit_if_back_win;
-    }
 
     div.querySelectorAll(`.span_outcome_info_${row._id}`).forEach(span => {
         span.textContent = outcome_text;
@@ -1126,12 +1265,26 @@ function add_in_first_outcome_text(state,div, row, data_object, is_create) {
 
     div.querySelector(`#span_lay_loss_profit_${row._id}`).textContent = '£' + data_object.exchange_profit_if_back_win.replace('-', '');
 
-    div.querySelector(`#gain_or_lose_text_back_win_${row._id}`).textContent = back_win_value_negative ? 'lose' : 'gain';
+
+
+
+    // THIS IS CUTOFF POINT FOR ...MORE MOBILE
+    if (!state.is_desktop && state.truncated) {
+        return;
+    }
+
+
+
+
+
+    div.querySelector(`#gain_or_lose_text_back_win_${row._id}`).textContent = data_object.total_profit_if_back_win.includes('-') ? 'lose' : 'gain';
+
+
 
     let span_overall_profit_back_win = div.querySelector(`#span_overall_profit_back_win_${row._id}`);
-    span_overall_profit_back_win.textContent = data_object.total_profit_if_back_win;
-    span_overall_profit_back_win.classList.remove(...span_overall_profit_back_win.classList);
-    span_overall_profit_back_win.classList.add(class_for_total_profit_back_win);
+
+    set_class_and_profit_text_for_span(span_overall_profit_back_win, data_object.total_profit_if_back_win, true);
+
 
 }
 
@@ -1254,8 +1407,25 @@ function add_in_twoup_outcome_text(state, div, row, data_object, is_create) {
 
 
 
+function add_text_spans_ew_and_ep(state, div, row, data_object, is_create) {
+
+    add_in_first_outcome_text_ew_and_ep(state, div, row, data_object, is_create);
+
+    if (state.truncated) {
+        return;
+    }
+
+    add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_create);
 
 
+    if (is_extra_place) {
+        add_in_extra_place_outcome_text(state, div, row, data_object, is_create);
+    }
+
+
+    add_in_third_outcome_text_ew_and_ep(state, div, row, data_object, is_create)
+
+}
 
 function add_in_first_outcome_text_ew_and_ep(state, div, row, data_object, is_create) {
 
@@ -1455,7 +1625,23 @@ function set_class_and_profit_text_for_span(span, profit_text, add_minus_sign) {
 
 
 
+function add_text_spans_dutching(state, div, row, data_object, is_create, three_outcomes) {
 
+    add_in_first_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes);
+
+    if (state.truncated) {
+        return;
+    }
+
+
+    add_in_second_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes);
+
+
+    if (three_outcomes) {
+        add_in_third_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes)
+    }
+
+}
 
 function add_in_first_outcome_text_dutching(state, div, row, data_object, is_create, three_outcomes) {
 
@@ -1795,7 +1981,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     if (state.oddsmatcher_type == '2up') {
         description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
     } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
-        description = get_description_for_standard_bet(div, row, data_object);
+        description = get_description_for_standard_bet(state, div, row, data_object);
     } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
         description = get_description_for_each_way_or_ep_bet(div, row, data_object, state.oddsmatcher_type == 'extra_place');
     } else if (state.oddsmatcher_type == 'dutching') {
@@ -1850,7 +2036,7 @@ function set_class_for_profit_info_item(element, value) {
 }
 
 
-function get_description_for_standard_bet(div, row, data_object) {
+function get_description_for_standard_bet(state, div, row, data_object) {
 
     let description = '';
 
@@ -1874,8 +2060,19 @@ function get_description_for_standard_bet(div, row, data_object) {
 
     if (row.market_type == 'BOG') {
         description += `BOG Bet `;
-    } else {
-        description += `Betting `;
+    } 
+    
+    
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free') {
+        if (data_object.isfree) {
+            description += `Free Bet `;
+        } else {
+            description += `Betting `;
+        }
+    } else if (state.oddsmatcher_type == 'qualifying_bet_tutorial') {
+        description += `Qualifying Bet `;
+    } else if (state.oddsmatcher_type == 'free_bet_tutorial') {
+        description += `Free Bet `;
     }
 
     description += `on ${outcome_text} ${market_type_specific_text} ${fixture_text}.`;

@@ -1,6 +1,6 @@
-//import * as Helpers from '../main/helper.js';
+import * as Helpers from '../main/helper.js';
 
-import * as Helpers from 'public/custom-elements/main-helper.js'
+//import * as Helpers from 'public/custom-elements/main-helper.js'
 
 (function () {
 
@@ -9,7 +9,7 @@ import * as Helpers from 'public/custom-elements/main-helper.js'
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/2up_oddsmatcher/styles.css';
 
 
-    //styles_script = '../main/styles.css';
+    styles_script = '../main/styles.css';
 
 
 

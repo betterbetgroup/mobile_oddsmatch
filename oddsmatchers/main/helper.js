@@ -1037,9 +1037,14 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
             const outerCard = event.target.closest('.outer-mobile-card');
             if (outerCard) {
                 rowobj = getRowObjById(outerCard.getAttribute('data-id'), state);
+
+                select_boxes_helpers.select_clicked(scope, state, outerCard.getAttribute('data-id'));
+
             }
         }        
         message_type = 'Select-Event';
+
+        return;
     }
 
     if (event.target.className === 'get-alerts-button' || event.target.className === 'get_alerts_img') {
