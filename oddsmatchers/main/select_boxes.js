@@ -754,7 +754,7 @@ function add_in_bet_controls_section(state, div, row, data_object, is_create) {
     let is_free_checked = (state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'free_bet_tutorial') ? true : false;
     
     div.innerHTML += `
-        <div class="select_div_item select_bet_section select_bet_controls_item">
+        <div class="select_div_item select_bet_controls_item">
             <div class="free_bet_mode_control">
                 <span class="free_bet_mode_label">Free Bet Mode</span>
                 <label class="switch switch_select_free_bet_mode">
@@ -795,7 +795,7 @@ function add_in_bet_controls_section_dutching(state, div, row, data_object, is_c
     if (is_create) {
 
         div.innerHTML += `
-            <div class="select_div_item select_bet_section select_bet_controls_item dutching-select-controls-item">
+            <div class="select_div_item select_bet_controls_item dutching-select-controls-item">
 
             </div>
         `;
@@ -841,10 +841,16 @@ function add_in_bet_controls_section_dutching(state, div, row, data_object, is_c
     let free_bet_mode_control = div.querySelector('.free_bet_mode_control');
     free_bet_mode_control.style.opacity = '1';
     free_bet_mode_control.style.visibility = 'visible';
+    if (!state.is_desktop) {
+        free_bet_mode_control.style.display = 'flex';
+    }
     if (data_object.target === 'Total') {
         label_text = 'Total Stake';
         free_bet_mode_control.style.opacity = '0';
         free_bet_mode_control.style.visibility = 'hidden';
+        if (!state.is_desktop) {
+            free_bet_mode_control.style.display = 'none';
+        }
     } 
 
     let stake_label = div.querySelector('#stake-input-label_' + row._id);
@@ -1260,7 +1266,7 @@ function add_text_spans(state, div, row, data_object, is_create) {
     }
 
     if (state.dutching_list) {
-        add_text_spans_dutching(state, div, row, data_object, is_create);
+        add_text_spans_dutching(state, div, row, data_object, is_create, row.outcomes == 3);
     }
 
 }
@@ -1458,7 +1464,7 @@ function add_text_spans_ew_and_ep(state, div, row, data_object, is_create) {
     add_in_second_outcome_text_ew_and_ep(state, div, row, data_object, is_create);
 
 
-    if (is_extra_place) {
+    if (state.oddsmatcher_type == 'extra_place') {
         add_in_extra_place_outcome_text(state, div, row, data_object, is_create);
     }
 
@@ -1490,6 +1496,20 @@ function add_in_first_outcome_text_ew_and_ep(state, div, row, data_object, is_cr
     // select the element with id span_win_lay_loss_profit_${row._id}
     let span_win_lay_loss_profit = div.querySelector(`#span_win_lay_loss_profit_${row._id}`);
     span_win_lay_loss_profit.textContent = '£' + data_object.exchange_profit_win_wins.replace('-', '');
+
+
+
+
+
+    // THIS IS CUTOFF POINT FOR ...MORE MOBILE
+    if (!state.is_desktop && state.truncated) {
+        return;
+    }
+
+
+
+
+
 
 
     // select element with id span_place_lay_loss_profit_${row._id}
@@ -1698,6 +1718,24 @@ function add_in_first_outcome_text_dutching(state, div, row, data_object, is_cre
     if (three_outcomes) {
         div.querySelector(`#outcome1_w_outcome3_profit_${row._id}`).textContent = '£' + data_object.outcome3_stake;
     }
+
+
+
+
+
+
+
+    // THIS IS CUTOFF POINT FOR ...MORE MOBILE
+    if (!state.is_desktop && state.truncated) {
+        return;
+    }
+
+
+
+
+
+
+
 
 
     let span_overall_profit_outcome1 = div.querySelector(`#span_overall_profit_outcome1_${row._id}`);

@@ -9,6 +9,9 @@ import * as Helpers from '../main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/dutching_matcher/styles.css';
 
 
+    styles_script = 'styles.css';
+
+
     class dutchingOddsmatcher extends HTMLElement {
 
         constructor() {
@@ -196,7 +199,7 @@ import * as Helpers from '../main/helper.js';
                 const ratingMatch = (globalFilters.minrating === null || parseFloat(row.rating) >= globalFilters.minrating) &&
                                     (globalFilters.maxrating === null || parseFloat(row.rating) <= globalFilters.maxrating);
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
-                const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
+                const potentialProfitMatch = globalFilters.minROI === null || parseFloat(row.ROI.replace('£', '')) >= globalFilters.minROI;
         
                 
                 // Parse row date and time
@@ -348,7 +351,7 @@ import * as Helpers from '../main/helper.js';
                                 ` : ''}
                             
                             <div class="mobile-row data-buttons-row">
-                                <strong>Profit & Rating:</strong>
+                                <strong class="mobile-row-title-dutching-profit-and-rating" >Profit & Rating:</strong>
                                 <div class="expected-profit-box">
                                     <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
                                     <div class="rating-badge">${row.rating}</div>

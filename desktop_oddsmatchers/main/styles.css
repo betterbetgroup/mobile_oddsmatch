@@ -909,6 +909,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     flex-direction: column;
     border-bottom: var(--global-border-main);
+    padding-top: 0; /* ADDED */
 }
 
 .select_div_item {
@@ -936,20 +937,25 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: var(--padding-for-items-in-select-div)
+    margin-left: var(--padding-for-items-in-select-div);
+    margin-bottom: 0; /* ADDED */
+    height: auto; /* ADDED */
 }
 
 .bookmaker_logo_img_select_bet {
     height: var(--height-of-bookmaker-logo-img-in-select-bet);
 }
+
 .select_bet_div_item {
     display: flex;
     flex: 1;
     width: calc(100% - var(--width-of-bar-on-left-of-bet-item)); /* Subtract width of bar */
 }
 
+
 .select_bet_section {
     padding-left: 0;
+    border-bottom: 0; /* ADDED */
 }
 
 
@@ -959,6 +965,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .outer_bottom_select_bet_div {
     display: flex;
     width: 100%;
+    flex-direction: row; /* ADDED */
 }
 
 .inner_bottom_select_bet_div_left {
@@ -976,6 +983,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     justify-content: center;
     margin-left: var(--padding-for-items-in-select-div); /* the same as the padding */
     margin-right: var(--padding-for-items-in-select-div); /* the same as the padding */
+    margin-bottom: 0; /* ADDED */
 }
 
 .select_bet_text_div span {
@@ -1022,11 +1030,13 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     justify-content: space-evenly;
     align-items: center;
     padding: var(--padding-for-controls-section); 
+    gap: 0; /* ADDED */
 }
 
 .free_bet_mode_control {
     display: flex;
     align-items: center;
+    justify-content: auto; /* ADDED */
     gap: var(--gap-in-free-bet-mode-control);
 }
 
@@ -1067,7 +1077,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     display: flex;
     overflow: hidden;
     border-radius: var(--larger-border-radius-above-columns-panel);
-    border: var(--global-filters);
+    border: 0; /* ADDED */
 }
 
 .bet-type-btn {
@@ -1171,6 +1181,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     justify-content: space-around;
     gap: var(--gap-between-log-bet-button-and-description);
     padding: 0 var(--padding-left-right-for-log-bet-button-and-description-right-div);
+    height: 100%; /* ADDED */
 }
 
 .select_bet_div_profit_and_log {

@@ -1,10 +1,9 @@
 
-@import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
 
 
 /*
-
-@import url('../main/styles.css');
+@import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
 
 */
 
+@import url('../main/styles.css');

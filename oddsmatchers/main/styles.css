@@ -490,6 +490,10 @@ body {
     text-align: left;
 }
 
+strong.mobile-row-title-dutching-profit-and-rating {
+    width: auto;
+}
+
 .data-buttons-row {
     margin-bottom: 0;
     align-items: center;
@@ -1338,6 +1342,8 @@ input[type="checkbox"] {
 
     --height-of-description_text-box-and-label-div: 27.5vw;
 
+    --border-radius-lay-type-buttons: 4.5vw;
+
 
 }
 
@@ -1411,7 +1417,11 @@ input[type="checkbox"] {
 }
 
 .select_bet_section {
-    padding-left: 0;
+    padding-left: 0; /* CHANGED */
+}
+
+.select_bet_section:not(:last-child) {
+    border-bottom: var(--global-border-main) !important; /* ADDED */    
 }
 
 
@@ -1485,13 +1495,16 @@ input[type="checkbox"] {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: var(--padding-for-controls-section); 
+    /*padding: var(--padding-for-controls-section); */ /* REMOVED */
+    gap: calc(var(--padding-top-bottom-item-divs) * 1.5); /* ADDED */
+
 }
 
 .free_bet_mode_control {
     display: flex;
     align-items: center;
-    gap: var(--gap-in-free-bet-mode-control);
+    justify-content: center; /* ADDED */
+    gap: calc(var(--gap-in-free-bet-mode-control) * 3); /* CHANGED */
 }
 
 .free_bet_mode_label {
@@ -1530,8 +1543,8 @@ input[type="checkbox"] {
 .lay_type_control_container {
     display: flex;
     overflow: hidden;
-    border-radius: var(--larger-border-radius-above-columns-panel);
-    border: var(--global-filters);
+    border-radius: var(--border-radius-lay-type-buttons); /* CHANGED */
+    border: var(--border-filters);
 }
 
 .bet-type-btn {
@@ -1545,13 +1558,13 @@ input[type="checkbox"] {
     height: var(--height-of-filter-inputs);
     font-size: var(--font-size-filter-inputs); 
     text-align: center;
-    padding-top: var(--padding-top-bottom-select-lay-type);
-    padding-bottom: var(--padding-top-bottom-select-lay-type);
-    width: var(--width-of-lay-bet-type-btn);
+    padding-top: calc(var(--padding-top-bottom-select-lay-type) * 2.25); /* CHANGED */
+    padding-bottom: calc(var(--padding-top-bottom-select-lay-type) * 2.25); /* CHANGED */
+    width: calc(var(--width-of-lay-bet-type-btn) * 2); /* CHANGED */
 }
 
 .target-type-btn {
-    width: var(--width-of-target-type-btn);
+    width: calc(var(--width-of-target-type-btn) * 2.7); /* CHANGED */
 }
 
 .bet-type-btn.active-lay-type {
@@ -1567,10 +1580,12 @@ input[type="checkbox"] {
 
 
 /* explanation text section */
-
+/*
 .select_bet_explanation_text_item {
-    /*padding: var(--padding-for-items-in-select-div) var(--padding-left-right-for-explanation-text-div);*/ /* REMOVED */
+    /padding: var(--padding-for-items-in-select-div) var(--padding-left-right-for-explanation-text-div);/ / REMOVED /
 }
+
+*/
 
 .explanation_text_div {
     font-size: var(--global-main-font-size); /* CHANGED */
@@ -1723,7 +1738,7 @@ input[type="checkbox"] {
     color: #eee;
     outline: none;
     font-size: var(--font-size-filter-inputs);
-    padding: var(--padding-left-filter-inputs);
+    padding: calc(var(--padding-left-filter-inputs) * 1.25); /* CHANGED */
     height: 100%;
 }
 
@@ -1747,18 +1762,19 @@ input[type="checkbox"] {
 
 .dutching-select-controls-item {
     justify-content: space-between;
-    padding: var(--padding-for-dutching-controls-section);
+    /*padding: var(--padding-for-dutching-controls-section);*/ /* REMOVED */
 }
 
 
 
 .filter-item-text-input-dutching-select, .free-bet-mode-input-dutching-select {
-    max-width: var(--width-of-free-bet-mode-control-input-div);
-    min-width: var(--width-of-free-bet-mode-control-input-div);
+    /*max-width: var(--width-of-free-bet-mode-control-input-div);*/ /* REMOVED */
+    /*min-width: var(--width-of-free-bet-mode-control-input-div);*/ /* REMOVED */
+    width: 100%; /* ADDED */
 }
 
 .filter-item-text-input-dutching-select {
-    margin-top: var(--margin-top-of-free-bet-mode-control-input-div);
+    margin-top: 0; /* CHANGED */
 }
 
 
