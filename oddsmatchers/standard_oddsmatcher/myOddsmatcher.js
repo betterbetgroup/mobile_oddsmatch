@@ -9,6 +9,9 @@ import * as Helpers from '../main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/standard_oddsmatcher/styles.css';
 
 
+    styles_script = 'styles.css';
+
+
 
     class StandardOddsmatcher extends HTMLElement {
 

@@ -12,10 +12,6 @@ const delay_for_copy_text = 1500;
 
 export function select_clicked(scope, state, id) {
 
-    // first find the element with class select_button and where the data-id is the id
-    if (state.is_desktop) {
-        change_select_button_content(scope, state, id)
-    }
 
     // Add spinning animation to the select button and make the row take the same time to expand
     // DO LATER ON
@@ -30,6 +26,48 @@ export function select_clicked(scope, state, id) {
 
     // then find the tr where the data-id is the id and create and inject div
     create_and_inject_select_div(scope, state, id)
+
+
+    // first find the element with class select_button and where the data-id is the id
+    if (state.is_desktop) {
+        change_select_button_content(scope, state, id)
+    } else {
+        change_arrow_div_setup_mobile(scope, state, id);
+    }
+
+
+}
+
+
+function change_arrow_div_setup_mobile(scope, state, id) {
+
+    let arrow_div = scope.querySelector('.arrow-div[data-id="' + id + '"]');
+    if (!arrow_div) {
+        return;
+    }
+
+    let is_open = (arrow_div.getAttribute('data-is-open') == 'false');
+    arrow_div.remove();
+    let mobile_card = scope.querySelector('.mobile-card.outer-mobile-card[data-id="' + id + '"] .mobile-card');
+
+
+    inject_arrow_div(mobile_card, id, is_open);
+
+
+}
+
+function inject_arrow_div(item_div, id, is_open) {
+
+
+    let arrow_div = document.createElement('div');
+    arrow_div.setAttribute('data-id', id);
+    arrow_div.setAttribute('data-is-open', is_open ? 'true' : 'false');
+    arrow_div.setAttribute('class', 'arrow-div');
+    arrow_div.innerHTML = `
+        <img src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" data-id="${id}" alt="Arrow" class="arrow-image ${is_open ? 'arrow-image-open' : ''}">
+    `;
+    // inject the div into the item_div
+    item_div.appendChild(arrow_div);
 
 }
 
@@ -66,6 +104,8 @@ function check_if_already_open_select_for_item(scope, state, id) {
 
         const div = scope.querySelector('.select_button_div[data-id="' + id + '"]');
         if (div) {
+            change_arrow_div_setup_mobile(scope, state, id);
+            div.remove();
             return true;
         }
         return false;

@@ -461,6 +461,7 @@ body {
     color: #f5f5f5;
     border-radius: var(--global-border-radius);
     padding: var(--mobile-card-padding);
+    padding-bottom: 0;
     box-shadow: var(--mobile-card-box-shadow);
     width: 100%;
 }
@@ -1166,6 +1167,21 @@ input[type="checkbox"] {
 }
 
 
+.arrow-div {
+    padding: var(--mobile-card-padding);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.arrow-image {
+    height: var(--height-of-img-logo);
+}
+
+.arrow-image-open {
+    transform: rotate(180deg);
+}
+
 
 
 
@@ -1350,6 +1366,7 @@ input[type="checkbox"] {
 .select_button_div {
     display: flex;
     flex-direction: column;
+    padding-top: var(--padding-top-bottom-item-divs); /* ADDED */
     /*border-bottom: var(--global-border-main);*/ /* REMOVED */
 }
 
@@ -1637,7 +1654,7 @@ input[type="checkbox"] {
 .select_bet_div_profit_and_log {
     display: flex;
     width: 100%;
-    padding-bottom: 0; /* ADDED */
+    padding-bottom: calc(var(--padding-top-bottom-item-divs) / 2); /* ADDED */
 }
 
 

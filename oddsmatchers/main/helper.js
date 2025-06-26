@@ -791,11 +791,35 @@ export function displayRows(scope, rows, state, totalPages) {
 export function appendRows(rows, scope, state) {
     rows.forEach(row => {
         state.create_row_function(row, scope, state);
+        if (!state.is_desktop) {
+            inject_arrow_div_mobile(row, scope, state);
+        }
     });
 
     if (state.is_desktop && state.oddsmatcher_type == 'dutching') {
         check_if_showing_third_bet_dutching(scope, state);
     }
+}
+
+function inject_arrow_div_mobile(row, scope, state) {
+
+    let item_div = scope.querySelector('.mobile-card.outer-mobile-card[data-id="' + row._id + '"] .mobile-card');
+
+    // create a div with an arrow icon in the middle
+    // make it hold this image in the middle https://img.icons8.com/?size=100&id=99991&format=png&color=000000
+    let arrow_div = document.createElement('div');
+    arrow_div.setAttribute('data-id', row._id);
+    arrow_div.setAttribute('data-is-open', 'false');
+    arrow_div.setAttribute('class', 'arrow-div');
+    arrow_div.innerHTML = `
+        <img data-id="${row._id}" src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" alt="Arrow" class="arrow-image">
+    `;
+
+
+    // inject the div into the item_div
+    item_div.appendChild(arrow_div);
+
+
 }
 
 export function add_no_data_row(scope, state) {
@@ -1025,18 +1049,28 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
 
     let message_type;
 
-
     if (event.target.className === 'upgrade-button' || event.target.closest('.upgrade-button')) {
         message_type = 'Upgrade';
     }
 
+    // its important this is before the next one
+    if (event.target.className === 'arrow-div' || event.target.closest('.arrow-div')) {
+        select_boxes_helpers.select_clicked(scope, state, event.target.getAttribute('data-id'));
+        return;
+    }
+
     if (event.target.closest('.mobile-card') && !event.target.classList.contains('logo-img') && state.is_premium_member) {
+
         if (event.target.classList.contains('outer-mobile-card')) {
             console.log('already have row id');
         } else {
             const outerCard = event.target.closest('.outer-mobile-card');
             if (outerCard) {
                 rowobj = getRowObjById(outerCard.getAttribute('data-id'), state);
+
+                if (scope.querySelector('div.select_button_div[data-id="' + outerCard.getAttribute('data-id') + '"]')) {
+                    return
+                }
 
                 select_boxes_helpers.select_clicked(scope, state, outerCard.getAttribute('data-id'));
 
@@ -1046,6 +1080,7 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
 
         return;
     }
+
 
     if (event.target.className === 'get-alerts-button' || event.target.className === 'get_alerts_img') {
         message_type = 'Get-Alerts';
