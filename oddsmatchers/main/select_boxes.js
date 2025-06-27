@@ -1,6 +1,6 @@
 import * as calculateHelpers from './calculate_functions.js'
 import * as helper from './helper.js'
-
+import * as profit_tracker_helpers from './profit_tracker_helper.js'
 
 let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';
 
@@ -12,6 +12,9 @@ const delay_for_copy_text = 1500;
 
 export function select_clicked(scope, state, id) {
 
+    if (state.is_desktop) {
+        change_select_button_content(scope, state, id);
+    }
 
     // Add spinning animation to the select button and make the row take the same time to expand
     // DO LATER ON
@@ -29,9 +32,7 @@ export function select_clicked(scope, state, id) {
 
 
     // first find the element with class select_button and where the data-id is the id
-    if (state.is_desktop) {
-        change_select_button_content(scope, state, id)
-    } else {
+    if (!state.is_desktop) {
         change_arrow_div_setup_mobile(scope, state, id);
     }
 
@@ -78,11 +79,23 @@ function change_select_button_content(scope, state, id) {
 
     const select_button = scope.querySelector('.select_button[data-id="' + id + '"]');
     if (select_button) {
-        // if the content is + change it to × and vice versa
-        if (select_button.textContent === '+') {
-            select_button.textContent = '×'; // Using multiplication symbol × which is more vertically centered
+        if (state.oddsmatcher_type == 'profit tracker') {
+            let select_inner_html_profit_tracker = `<img class="select_img" data-id="${id}" src="https://img.icons8.com/?size=100&id=kCViyr9hZtLX&format=png&color=ffffff" alt="Edit">`;
+            if (select_button.getAttribute('data-is-open') == 'true') {
+                select_button.innerHTML = select_inner_html_profit_tracker;
+                select_button.setAttribute('data-is-open', 'false');
+            } else {
+                select_button.textContent = '×'; // Using multiplication symbol × which is more vertically centered
+                select_button.setAttribute('data-is-open', 'true');
+            }
+
         } else {
-            select_button.textContent = '+';
+            // if the content is + change it to × and vice versa
+            if (select_button.textContent === '+') {
+                select_button.textContent = '×'; // Using multiplication symbol × which is more vertically centered
+            } else {
+                select_button.textContent = '+';
+            }
         }
     }
 
@@ -137,7 +150,11 @@ function set_td_class_for_the_row(scope, state, id, is_add_class) {
 
 function create_and_inject_select_div(scope, state, id) {
 
-    const row = state.globalData.find(row => row._id === id);
+    let row = state.globalData.find(row => row._id === id);
+
+    if (state.oddsmatcher_type == 'profit tracker') {
+        row = state.filteredData.find(row => row.betId === id);
+    }
 
     if (state.is_desktop) {
         const tr = scope.querySelector('tr[data-id="' + id + '"]');
@@ -289,6 +306,10 @@ function create_select_div_inner_html(scope, state, div, row) {
 
         //need to add in controls for dutching as well as possibly stake going into controls section
         set_values_for_dutching(state, div, row, data_object, true);
+    } 
+
+    if (state.oddsmatcher_type == 'profit tracker') {
+        profit_tracker_helpers.set_values_for_profit_tracker(state, div, row, data_object, true);
     }
 
 
@@ -371,6 +392,10 @@ function set_values_for_dutching(state, div, row, data_object, is_create) {
     add_in_bottom_profit_and_log_section(state, div, row, data_object, is_create);
 
 }
+
+
+
+
 
 
 

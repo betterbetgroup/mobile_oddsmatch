@@ -1,5 +1,10 @@
+
 //import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+
+import * as Helpers from '../../oddsmatchers/main/helper.js';
+
+
+
 
 (function () {
 
@@ -9,6 +14,10 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
 
     html_script = '../main/z.html';
     styles_script = 'styles.css';
+
+
+
+    let estimated_max_chars_per_line_profit_tracker_truncation = 60
 
 
     class ProfitTracker extends HTMLElement {
@@ -391,6 +400,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             selectButton.innerHTML = `<img class="select_img" data-id="${row.betId}" src="https://img.icons8.com/?size=100&id=kCViyr9hZtLX&format=png&color=ffffff" alt="Edit">`;
             selectButton.className = 'select_button';
             selectButton.setAttribute('data-id', row.betId);
+            selectButton.setAttribute('data-is-open', 'false');
             selectButton.setAttribute('aria-label', row.betId);
             tr.appendChild(selectButton);
             
@@ -401,7 +411,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
 
 
             // Add truncation functionality for description
-            Helpers.setupDescriptionTruncation(tr, row.betId, row.description, scope, state);
+            Helpers.setupDescriptionTruncation(tr, row.betId, row.description, scope, state, estimated_max_chars_per_line_profit_tracker_truncation);
 
 
         

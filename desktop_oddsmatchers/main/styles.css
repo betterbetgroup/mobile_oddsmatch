@@ -908,8 +908,11 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 .select_button_div {
     display: flex;
     flex-direction: column;
-    border-bottom: var(--global-border-main);
     padding-top: 0; /* ADDED */
+}
+
+tr:not(:last-child) td .select_button_div {
+    border-bottom: var(--global-border-main);
 }
 
 .select_div_item {
@@ -1293,6 +1296,18 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     margin-top: var(--margin-top-of-free-bet-mode-control-input-div);
 }
 
+
+
+
+
+
+
+
+/* PROFIT TRACKER PARTS */
+
+.select_button_div_profit_tracker {
+    height: 400px;
+}
 
 
 

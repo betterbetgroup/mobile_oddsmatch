@@ -1,7 +1,10 @@
 import * as select_boxes_helpers from './select_boxes.js'
 
 
-const delay_for_copy_text = 1500;
+
+
+
+
 
 // make a dictionary that matches the keys to the appropriate html
 const DesktopHeaderDictionary = {
@@ -1946,7 +1949,8 @@ function process_complete_checkbox_change(rowId, isChecked, scope, state) {
     const row = state.globalData.find(row => row.betId === rowId);
     row.complete = isChecked;
 
-    filterData(scope, state);
+    //filterData(scope, state);
+    // not sure why it was filtering data anyway
 
 }
 
@@ -2169,7 +2173,8 @@ function createFilterItem(filter, state) {
 
 
 
-export function setupDescriptionTruncation(tr, betId, descriptionText, scope, state) {
+export function setupDescriptionTruncation(tr, betId, descriptionText, scope, state, estimated_max_chars_per_line_profit_tracker_truncation) {
+
     const descriptionCell = tr.querySelector('.description_data');
     const descriptionTextElement = descriptionCell.querySelector('.description-text');
     const moreButton = descriptionCell.querySelector('.more-button');
@@ -2177,29 +2182,38 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
     const originalText = descriptionText;
     let isExpanded = false;
     
-    // Function to truncate text to fit 2 lines
+    // Function to estimate if text will be longer than 2 lines without DOM measurement
+    const estimateTextLength = () => {
+        // Estimate characters per line based on typical desktop table cell width
+        // Assuming ~80-100 characters per line for typical table cell width
+        const estimatedCharsPerLine = estimated_max_chars_per_line_profit_tracker_truncation;
+        const maxCharsForTwoLines = estimatedCharsPerLine * 2;
+        
+        // Add some buffer for "...more" button
+        const maxCharsWithBuffer = maxCharsForTwoLines - 10;
+        
+        return originalText.length > maxCharsWithBuffer;
+    };
+    
+    // Function to truncate text based on estimation
     const truncateText = () => {
-        const lineHeight = parseFloat(getComputedStyle(descriptionTextElement).lineHeight);
-        const maxHeight = (lineHeight * 2) + 1; // 2 lines, // Add 1px tolerance for floating-point precision
+        const needsTruncation = estimateTextLength();
         
-        // Reset to original text to measure
-        descriptionTextElement.textContent = originalText;
-        const actualHeight = descriptionTextElement.scrollHeight;
-        
-        if (actualHeight > maxHeight) {
-            // Need to truncate - be more aggressive
-            let truncatedText = originalText;
-            let words = originalText.split(' ');
+        if (needsTruncation) {
+            // Estimate characters per line
+            const estimatedCharsPerLine = estimated_max_chars_per_line_profit_tracker_truncation;
+            const maxCharsForTwoLines = estimatedCharsPerLine * 2;
+            const maxCharsWithBuffer = maxCharsForTwoLines - 10;
             
-            // Remove words from the end until it fits, but leave space for "...more"
-            while (words.length > 0) {
-                words.pop();
-                truncatedText = words.join(' ');
-                descriptionTextElement.textContent = truncatedText + ' ...more';
-                
-                // Check if this fits within 3 lines
-                if (descriptionTextElement.scrollHeight <= maxHeight) { 
-                    break;
+            // Truncate to fit approximately 2 lines
+            let truncatedText = originalText;
+            if (originalText.length > maxCharsWithBuffer) {
+                // Find the last space before the limit to avoid cutting words
+                const lastSpaceIndex = originalText.lastIndexOf(' ', maxCharsWithBuffer);
+                if (lastSpaceIndex > 0) {
+                    truncatedText = originalText.substring(0, lastSpaceIndex);
+                } else {
+                    truncatedText = originalText.substring(0, maxCharsWithBuffer);
                 }
             }
             
@@ -2211,8 +2225,7 @@ export function setupDescriptionTruncation(tr, betId, descriptionText, scope, st
         }
     };
     
-    // Check truncation after a short delay to ensure DOM is ready
-    // ADD IN DELAY IF NOT WORKING
+    // Apply truncation immediately without waiting for DOM
     truncateText();
     
     // Add click event for more/less button (both original and inline)

@@ -1,4 +1,4 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/helper.js';
+import * as Helpers from '../main/helper.js';
 
 
 
@@ -8,8 +8,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/list
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
-    /*html_script = '../main/z.html';
-    styles_script = '../main/styles.css';*/
+    html_script = '../main/z.html';
+    styles_script = '../main/styles.css';
     
     class SignUpOfferList extends HTMLElement {
     
