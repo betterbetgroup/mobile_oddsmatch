@@ -1,6 +1,4 @@
-import * as Helpers from '../main/helper.js';
-
-//import * as Helpers from 'public/custom-elements/main-helper.js'
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
 
 
 
