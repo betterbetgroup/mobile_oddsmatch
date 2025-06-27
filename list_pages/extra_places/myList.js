@@ -1,6 +1,5 @@
 import * as Helpers from '../main/helper.js';
 
-(function () {
 
     let general_info_script = 'not used'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
@@ -139,5 +138,4 @@ import * as Helpers from '../main/helper.js';
     customElements.define('extra-places', ExtraPlacesList);
     
     
-})();
     
