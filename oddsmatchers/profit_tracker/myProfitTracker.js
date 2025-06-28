@@ -338,7 +338,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                                 </a>
                             </div>
                             ` : ''}
-                            ${exchange_image ? `
+                            ${false ? `
                             <div class="mobile-row">
                                 <strong>Exchange:</strong>
                                 <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">

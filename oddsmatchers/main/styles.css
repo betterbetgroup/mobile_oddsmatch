@@ -673,7 +673,7 @@ strong.mobile-row-title-dutching-profit-and-rating {
 }
 
 
-.custom-select-container, .custom-input-container, .text-input, .custom-select-trigger input, .custom-select-trigger-filter input, .text-input-filter-name, .date-range-input {
+.custom-select-container, .custom-input-container, .text-input, .custom-select-trigger input, .custom-select-trigger-filter input, .text-input-filter-name, .date-range-input, .button-for-profit {
     position: relative;
     width: 100%;
     height: var(--height-filter-inputs);
@@ -1806,5 +1806,5 @@ input[type="checkbox"] {
 
 /* this is important as it will otherwise show the hidden items */ 
 .hidden_row_above_columns {
-    display: none;
+    display: none !important;
 }

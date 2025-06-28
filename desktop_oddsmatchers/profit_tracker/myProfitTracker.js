@@ -17,7 +17,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 
-    let estimated_max_chars_per_line_profit_tracker_truncation = 60
+    let estimated_max_chars_per_line_profit_tracker_truncation = 90
 
 
     class ProfitTracker extends HTMLElement {
@@ -145,8 +145,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 is_tutorial: false,
                 oddsmatcher_type: 'profit tracker',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'description', 'bookmaker', 'exchange', 'expected profit ql and pp', 'bet settled', 'final profit']
-            };
+                desktop_header_columns: ['date and time', 'description', 'bookmaker', 'expected profit ql and pp', 'bet settled', 'final profit']
+            }; // removed exchange from header
             
     
             // Assign the actual functions to the state
@@ -277,6 +277,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             if (!row.exchange_link) {
                 row.exchange_link = exchangeLinks[row.exchange];
             }
+
     
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
@@ -343,6 +344,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     </div>
                 </td>
 
+
+                ${false ? `
+
                 <td>
                     <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
                         <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} >
@@ -350,6 +354,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                         </a>
                     </div>
                 </td>
+
+                ` : ''}
 
 
                 <td class="no_padding_margin">
