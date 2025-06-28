@@ -677,6 +677,29 @@ export function get_bookmaker_image(bookmaker) {
     }
 }
 
+export function get_all_platforms_profit_tracker() {
+    // concat the keys of bookmakerImages and exchangeImages
+    let platforms = Object.keys(bookmakerImages);
+    platforms.push(...Object.keys(exchangeImages));
+    // sort alphabetically
+    platforms.sort();
+    // Add in 'Other' to the end
+    platforms.push('Other');
+    return platforms;
+}
+
+
+export function get_bookmaker_image_profit_tracker(bookmaker) {
+    if (bookmakerImages[bookmaker]) {
+        return bookmakerImages[bookmaker];
+    } else {
+        let link = get_exchange_image(bookmaker);
+        if (!link) {
+            return 
+        }
+    }
+}
+
 export function get_exchange_image(exchange) {
     if (exchangeImages[exchange]) {
         return exchangeImages[exchange];
@@ -1605,13 +1628,12 @@ export function append_options_for_dropdowns(scope, state) {
 
 export function create_event_listeners_for_select_containers(scope, state) {
 
-    const selectContainers = scope.querySelectorAll('.custom-select-container:not(.select-filters-container)');
+    const selectContainers = scope.querySelector('#filter-panel-container').querySelectorAll('.custom-select-container:not(.select-filters-container)');
 
     selectContainers.forEach(container => {
         const selectAll = container.querySelector('.select-all');
 
         const checkboxes = container.querySelectorAll('input[type="checkbox"]:not(.select-all)');
-
 
         // EVENT LISTENERS FOR THE DROPDOWNS, FOR CLICKING AND VALUE CHANGES. IT JUST CALLS THE UPDATEGLOBALFILTERS FOR EACH, AND TOGGLES DISPLAY OF DROPDOWNS
         selectAll.addEventListener('change', (event) => {

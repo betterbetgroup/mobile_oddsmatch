@@ -261,15 +261,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         create_row(row, scope, state) {
 
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
-            let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
-            let exchange_image = Helpers.get_exchange_image(row.exchange)
+            let bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.bookie)
+            let exchange_image = Helpers.get_bookmaker_image_profit_tracker(row.exchange)
 
-            if (!bookmaker_image) {
-                bookmaker_image = 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png';
-            }
-            if (!exchange_image) {
-                exchange_image = 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png';
-            }
 
             if (!row.bookmaker_link) {
                 row.bookmaker_link = bookmakerLinks[row.bookie];

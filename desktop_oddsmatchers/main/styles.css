@@ -1337,6 +1337,8 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 .platform_logo_img_profit_tracker {
     height: calc(var(--height-of-bookmaker-logo-img-in-select-bet) * 1);
+    height: auto;
+    width: var(--width-of-filter-item-profit-tracker-bookmaker-selects);
 }
 
 .filter-item-profit-tracker {
@@ -1400,6 +1402,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
     align-items: center;
     justify-content: center;
     padding: 0;
+    background: 0;
 }
 
 .div-for-settled-bet-label {

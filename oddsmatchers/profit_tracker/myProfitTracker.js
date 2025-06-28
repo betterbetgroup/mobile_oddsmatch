@@ -253,8 +253,8 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
 
             
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
-            let bookmaker_image = Helpers.get_bookmaker_image(row.bookie)
-            let exchange_image = Helpers.get_exchange_image(row.exchange)
+            let bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.bookie)
+            let exchange_image = Helpers.get_bookmaker_image_profit_tracker(row.exchange)
 
 
             if (!row.bookmaker_link) {
