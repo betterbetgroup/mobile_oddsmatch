@@ -677,14 +677,26 @@ export function get_bookmaker_image(bookmaker) {
     }
 }
 
+export function get_bookmaker_link_profit_tracker(bookmaker) {
+    if (bookmakerLinks[bookmaker]) {
+        return bookmakerLinks[bookmaker];
+    } else if (exchangeLinks[bookmaker]) {
+        return exchangeLinks[bookmaker];
+    } else {
+        return null;
+    }
+}
+
 export function get_all_platforms_profit_tracker() {
     // concat the keys of bookmakerImages and exchangeImages
     let platforms = Object.keys(bookmakerImages);
     platforms.push(...Object.keys(exchangeImages));
+    // make it remove all keys already in there called 'Other'
+    platforms = platforms.filter(platform => platform !== 'Other');
     // sort alphabetically
     platforms.sort();
-    // Add in 'Other' to the end
-    platforms.push('Other');
+    // Add in 'Other' to the start
+    platforms.unshift('Other');
     return platforms;
 }
 
@@ -696,6 +708,19 @@ export function get_bookmaker_image_profit_tracker(bookmaker) {
         let link = get_exchange_image(bookmaker);
         if (!link) {
             return 
+        }
+    }
+}
+
+export function get_bookmaker_image_profit_tracker_desktop(bookmaker) {
+    if (bookmakerImages[bookmaker]) {
+        return bookmakerImages[bookmaker];
+    } else {
+        let link = get_exchange_image(bookmaker);
+        if (!link) {
+            return 'https://static.wixstatic.com/media/7a0e3a_5ba0942899474154a8d3d0ab5095bc1e~mv2.png'
+        } else {
+            return link;
         }
     }
 }
@@ -1138,6 +1163,7 @@ export function add_event_listener_for_saved_filters(scope, button_select, butto
     let container = scope.querySelector(button_select)
 
     container.addEventListener('click', (event) => {
+
         event.stopPropagation();
 
         if (scope.querySelector(button_options).style.display == 'block') {
@@ -1153,7 +1179,10 @@ export function add_event_listener_for_saved_filters(scope, button_select, butto
 
 
 export function closeAllDropdowns(scope, state) {
-    const dropdowns = scope.querySelectorAll('.dropdown-options');
+    
+    let above_columns = scope.querySelector('.above-columns');
+    let filter_panel = scope.querySelector('#filter-panel-container');
+    const dropdowns = [...above_columns.querySelectorAll('.dropdown-options'), ...filter_panel.querySelectorAll('.dropdown-options')];
     dropdowns.forEach(dropdown => {
         dropdown.style.display = 'none';
     });
@@ -1163,6 +1192,7 @@ export function closeAllDropdowns(scope, state) {
     dropdown_corners.forEach((dropdown) => {
         dropdown.classList.remove('border-radius-bottom-none')
     });
+
 
     scope.querySelector('#filters-dropdown-options').style.display = 'none';
     scope.querySelector('#filters-dropdown-select-container').classList.remove('border-radius-bottom-none')
@@ -1630,6 +1660,7 @@ export function create_event_listeners_for_select_containers(scope, state) {
 
     const selectContainers = scope.querySelector('#filter-panel-container').querySelectorAll('.custom-select-container:not(.select-filters-container)');
 
+
     selectContainers.forEach(container => {
         const selectAll = container.querySelector('.select-all');
 
@@ -1953,6 +1984,12 @@ function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
             const isChecked = event.target.checked;
             const rowId = event.target.getAttribute('data-id');
             console.log(rowId, isChecked);
+            // see if there is a trd.select_button_div_row[data-id="betId"]
+            let select_button_div = scope.querySelector(`tr.select_button_div_row[data-id="${rowId}"]`);
+            if (select_button_div) {
+                let select_button = select_button_div.querySelector('input[type="checkbox"]');
+                select_button.checked = isChecked;
+            }
             process_complete_checkbox_change(rowId, isChecked, scope, state);
         }
     });
@@ -1963,13 +2000,22 @@ function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
 function process_complete_checkbox_change(rowId, isChecked, scope, state) {
 
 
-    // HERE AS WELL AS FOR ON SELECT-EVENT IT SHOULD SEND MESSAGE TO WIX
-
-    // BUT ALSO IT NEEDS TO UPDATE AND FILTER DATA
-
     // access the row using the rowId in globalDAta
     const row = state.globalData.find(row => row.betId === rowId);
     row.complete = isChecked;
+
+
+    // raise event and send to wix 
+    let message_type = 'Update-Row';
+    let message = {
+        row: row,
+    }
+    const raise_event = new CustomEvent(message_type, {
+        detail: message,  
+        bubbles: true,       // Allows the event to bubble up through the DOM
+        composed: true        // Allows the event to pass through shadow DOM boundaries
+    });
+    scope.dispatchEvent(raise_event); 
 
     //filterData(scope, state);
     // not sure why it was filtering data anyway

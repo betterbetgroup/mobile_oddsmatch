@@ -216,22 +216,31 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
     
                 if (globalFilters.bookmakers.includes('Other')) {
-                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie)) {
+                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
                         bookmakerMatch = true;
                     }
                 }
+
     
                 let exchangeMatch = globalFilters.exchanges.includes(row.exchange);
     
                 if (globalFilters.exchanges.includes('Other')) {
-                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange)) {
+                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
                         exchangeMatch = true;
                     }
                 }
+
     
-                const oddsmatcherMatch = globalFilters.oddsmatchers.includes(row.oddsmatcher_type);
+                let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
+                    filter.toLowerCase().replace(/ /g, '_') === row.oddsmatcher_type?.toLowerCase().replace(/ /g, '_')
+                );
+                // also make it such that if select all oddsmatchers then it shows all
+                if (globalFilters.oddsmatchers.length == oddsmatcher_list.length) {
+                    oddsmatcherMatch = true;
+                }
+
                 const calculatorMatch = globalFilters.calculators.includes(row.calculator);
-    
+
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
                 const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
         
@@ -261,18 +270,19 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         create_row(row, scope, state) {
 
             // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
-            let bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.bookie)
-            let exchange_image = Helpers.get_bookmaker_image_profit_tracker(row.exchange)
-
-
-            if (!row.bookmaker_link) {
-                row.bookmaker_link = bookmakerLinks[row.bookie];
+            let bookmaker_image = null;
+            let bookmaker_link = null;
+            if (!row.platforms || row.platforms.length == 0) {
+                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker_desktop(null);
+                bookmaker_link = null;
+            } else {
+                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker_desktop(row.platforms[0].platform)
+                bookmaker_link = row.platforms[0].link;
+                if (!bookmaker_link) {
+                    bookmaker_link = bookmakerLinks[row.platforms[0].platform];
+                }
             }
-            if (!row.exchange_link) {
-                row.exchange_link = exchangeLinks[row.exchange];
-            }
 
-    
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
             row.potential_profit = row.potential_profit.replace('£', '');
@@ -332,7 +342,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
                 <td>
                     <div id="bookmaker_logo_${row.betId}" class="bookmaker_logo_div">
-                        <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
+                        <a class="div_around_logo" ${bookmaker_link ? `href="${bookmaker_link}" target="_blank"` : ''} >
                             <img class='bookmaker_logo_img' src="${bookmaker_image}">
                         </a>
                     </div>
@@ -343,7 +353,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
                 <td>
                     <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
-                        <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} >
+                        <a class="div_around_logo" ${exchange_link ? `href="${exchange_link}" target="_blank"` : ''} >
                             <img class='bookmaker_logo_img' src="${exchange_image}">
                         </a>
                     </div>

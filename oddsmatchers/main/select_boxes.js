@@ -309,7 +309,7 @@ function create_select_div_inner_html(scope, state, div, row) {
     } 
 
     if (state.oddsmatcher_type == 'profit tracker') {
-        profit_tracker_helpers.set_values_for_profit_tracker(state, div, row, data_object, true);
+        profit_tracker_helpers.set_values_for_profit_tracker(scope, state, div, row, true);
     }
 
 
@@ -2344,65 +2344,123 @@ function change_lay_type_control_container(event) {
     
 }
 
+function get_date_from_date_and_time(date_and_time) {
+    // convert from "20/08/24" to dd/mm/yyyy
+    let date = date_and_time.split(' ')[0];
+    let day = date.split('/')[0];
+    let month = date.split('/')[1];
+    let year = '20' + date.split('/')[2]; // Add '20' prefix to convert 2-digit year to 4-digit
+    return day + '/' + month + '/' + year;
+}
+
 function log_bet(scope, state, div, row, data_object) {
     
 
-    data_object.date_and_time = row.date_and_time
+    data_object.date_and_time = row.date_and_time;
+    data_object.date = get_date_from_date_and_time(row.date_and_time);
     data_object.description = scope.querySelector(`#bet-description-input_${row._id}`).value;
     data_object.iscalc = true;
     data_object.complete = false;
     data_object.betId = row._id + '_' + Date.now(); // as they can log the same oddsmatcher bet multiple times
     //data_object.userId = state.user_id;    add in userId on wix
     data_object.oddsmatcher_type = state.oddsmatcher_type;
-    data_object.bookmaker_link = row.bookmaker_link;
-    data_object.exchange_link = row.exchange_link;
-    data_object.fixture = row.fixture;
+    data_object.event = row.fixture;
     data_object.actualprofit = '';
-    data_object.bookie = row.bookmaker;
-    data_object.exchange = row.exchange;
     data_object.qualifying_loss = data_object.qualifying_loss.replace('£', '');
     data_object.potential_profit = data_object.potential_profit.replace('£', '');
-
     data_object.item_row = row; 
+    data_object.bet_outcome = row.outcome;
+    data_object.ispayout = false;
+    data_object.stakereturned = false;
+    data_object.calculator = 'No Calculator';
+
+    let platforms = [];
 
 
-
-
-
-    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
-        data_object.backodds = data_object.back_odds.replace('£', '');
-        data_object.layodds = data_object.lay_odds.replace('£', '');
-        data_object.backstake = data_object.back_stake.replace('£', '');
-        data_object.commission = data_object.lay_commission.replace('£', '');
-        data_object.stakereturned = false;
+    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+        data_object.backstake = div.querySelector('#Back-stake-input_' + row._id).value;
+        // help me make my platforms array in here
+        platforms.push({
+            'index': 1,
+            'platform': row.bookmaker,
+            'odds': div.querySelector('#Back-odds-input_' + row._id).value,
+            'link': row.bookmaker_link,
+            'commission': null
+        })
+        platforms.push({
+            'index': 2,
+            'platform': row.exchange,
+            'odds': div.querySelector('#Lay-odds-input_' + row._id).value,
+            'link': row.exchange_link,
+            'commission': div.querySelector('#commission-input_' + row._id).value
+        })
     }
 
     if (state.oddsmatcher_type == '2up') {
-        data_object.outcome = row.outcome + ' 2up';
-        data_object.ispayout = false;
-        data_object.calculator = '2up';
+        data_object.bet_outcome = row.outcome + ' 2up';
     }
-
-    // IT SHOULD ALREADY HAVE THE ISFREE AND LAYTYPE
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
-        data_object.calculator = 'standard';
-    }
-
 
 
     if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
-        data_object.exchange = row.win_exchange;
-        data_object.place_exchange = row.place_exchange;
-        data_object.exchange_link = row.win_exchange_link;
-        data_object.place_exchange_link = row.place_exchange_link;
-        data_object.calculator = state.oddsmatcher_type;
+
+        data_object.backstake = div.querySelector('#Each-Way-stake-input_' + row._id).value;
+
+        row.bet_outcome = row.horse;
+        platforms.push({
+            'index': 1,
+            'platform': row.bookmaker,
+            'odds': div.querySelector('#Each-Way-odds-input_' + row._id).value,
+            'link': row.bookmaker_link,
+            'commission': null
+        })
+        platforms.push({
+            'index': 2,
+            'platform': row.win_exchange,
+            'odds': div.querySelector('#Win-Lay-odds-input_' + row._id).value,
+            'link': row.win_exchange_link,
+            'commission': div.querySelector('#commission-input_' + row._id).value
+        })
+        platforms.push({
+            'index': 3,
+            'platform': row.place_exchange,
+            'odds': div.querySelector('#Place-Lay-odds-input_' + row._id).value,
+            'link': row.place_exchange_link,
+            'commission': div.querySelector('#commission-input_place_' + row._id).value
+        })
     }
 
     if (state.oddsmatcher_type == 'dutching') {
-        data_object.bookie = row.first_bookmaker;
-        data_object.bookmaker_link = row.first_link;
-        data_object.calculator = state.oddsmatcher_type;
+        data_object.bet_outcome = 'Dutching';
+
+        platforms.push({
+            'index': 1,
+            'platform': row.first_bookmaker,
+            'odds': div.querySelector('#First-odds-input_' + row._id).value,
+            'link': row.first_link,
+            'commission': div.querySelector('#commission-input_first_' + row._id).value
+        })
+        platforms.push({
+            'index': 2,
+            'platform': row.second_bookmaker,
+            'odds': div.querySelector('#Second-odds-input_' + row._id).value,
+            'link': row.second_link,
+            'commission': div.querySelector('#commission-input_second_' + row._id).value
+        })
+        if (row.outcomes >= 3) {
+            platforms.push({
+                'index': 3,
+                'platform': row.third_bookmaker,
+                'odds': div.querySelector('#Third-odds-input_' + row._id).value,
+                'link': row.third_link,
+                'commission': div.querySelector('#commission-input_third_' + row._id).value
+            })
+        }
     }
+
+
+
+    data_object.platforms = platforms;
+
 
     console.log(data_object)
     const raise_event = new CustomEvent('logbet', {

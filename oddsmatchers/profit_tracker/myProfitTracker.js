@@ -207,22 +207,31 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
     
                 if (globalFilters.bookmakers.includes('Other')) {
-                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie)) {
+                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
                         bookmakerMatch = true;
                     }
                 }
+
     
                 let exchangeMatch = globalFilters.exchanges.includes(row.exchange);
     
                 if (globalFilters.exchanges.includes('Other')) {
-                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange)) {
+                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
                         exchangeMatch = true;
                     }
                 }
+
     
-                const oddsmatcherMatch = globalFilters.oddsmatchers.includes(row.oddsmatcher_type);
+                let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
+                    filter.toLowerCase().replace(/ /g, '_') === row.oddsmatcher_type?.toLowerCase().replace(/ /g, '_')
+                );
+                // also make it such that if select all oddsmatchers then it shows all
+                if (globalFilters.oddsmatchers.length == oddsmatcher_list.length) {
+                    oddsmatcherMatch = true;
+                }
+
                 const calculatorMatch = globalFilters.calculators.includes(row.calculator);
-    
+
                 const qualifyingLossMatch = globalFilters.minQualifyingLoss === null || parseFloat(row.qualifying_loss.replace('£', '')) >= globalFilters.minQualifyingLoss;
                 const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
         
@@ -252,18 +261,18 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         create_row(row, scope, state) {
 
             
-            // IF NOT BOOKMAKER IMAGE THEN COLLAPSE THAT ROW
-            let bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.bookie)
-            let exchange_image = Helpers.get_bookmaker_image_profit_tracker(row.exchange)
-
-
-            if (!row.bookmaker_link) {
-                row.bookmaker_link = bookmakerLinks[row.bookie];
+            let bookmaker_image = null;
+            let bookmaker_link = null;
+            if (!row.platforms || row.platforms.length == 0) {
+                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(null);
+                bookmaker_link = null;
+            } else {
+                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.platforms[0].platform)
+                bookmaker_link = row.platforms[0].link;
+                if (!bookmaker_link) {
+                    bookmaker_link = bookmakerLinks[row.platforms[0].platform];
+                }
             }
-            if (!row.exchange_link) {
-                row.exchange_link = exchangeLinks[row.exchange];
-            }
-    
 
             row.qualifying_loss = row.qualifying_loss.replace('£', '');
             row.potential_profit = row.potential_profit.replace('£', '');
@@ -319,21 +328,21 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                             ${row.fixture ? `
                             <div class="mobile-row">
                                 <strong>Event:</strong>
-                                <span>${row.fixture}</span>
+                                <span>${row.event}</span>
                             </div>
                             ` : ''}
 
                             ${row.outcome ? `
                             <div class="mobile-row">
                                 <strong>Bet:</strong>
-                                <span>${row.outcome}</span>
+                                <span>${row.bet_outcome}</span>
                             </div>
                             ` : ''}
 
                             ${bookmaker_image ? `
                             <div class="mobile-row">
                                 <strong>Bookmaker:</strong>
-                                <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
+                                <a href="${bookmaker_link}" target="_blank" rel="noopener noreferrer">
                                     <img src="${bookmaker_image}" class="logo-img">
                                 </a>
                             </div>
@@ -341,7 +350,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                             ${false ? `
                             <div class="mobile-row">
                                 <strong>Exchange:</strong>
-                                <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
+                                <a href="${exchange_link}" target="_blank" rel="noopener noreferrer">
                                     <img src="${exchange_image}" class="logo-img">
                                 </a>
                             </div>
