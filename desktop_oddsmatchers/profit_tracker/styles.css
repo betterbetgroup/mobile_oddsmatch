@@ -8,8 +8,10 @@
 #outer-container-div {
 
     /* above columns */
-    --width-of-total-profit-div: 6.75vw;
-    --gap-in-above-columns-row-profit-tracker: 2.85vw;
+    --width-of-total-profit-div: 8.3vw;
+    --gap-in-above-columns-row-profit-tracker: 2.5vw;
+    
+    --log-bet-button-div-width: 8.42vw; /* THIS IS TAKEN BY CHECKING THE PX OF LOG BET BUTTON SINCE IT'S SET BY PADDING */  
 
 
 
@@ -32,6 +34,10 @@
     --background-color-settled-checkbox-checked: #030457;
     
     --checkbox-size-settled-checkbox: 1.79vw;
+
+
+
+
 
 }
 
@@ -58,6 +64,13 @@
     width: var(--width-of-total-profit-div);
 }
 
+.adding_gap_for_profit_divs {
+    gap: var(--gap-in-above-columns-row-profit-tracker);
+}
+
+.log-bet-button-div {
+    width: var(--log-bet-button-div-width);
+}
 
 
 

@@ -73,7 +73,7 @@
     --width-mobile-row-strong: 25.00vw; 
     --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
 
-    --color-mobile-row-title: #ccc;
+    --color-mobile-row-title: #fff;
 
 
     /* content items i.e. logo img, odds combo, etc */
@@ -166,6 +166,9 @@
 
 
 
+
+    /* PROFIT TRACKER */
+    --log-bet-button-padding-left-right: 2.08vw;
 
 
 
@@ -855,6 +858,12 @@ input[type="checkbox"] {
     width: 100%;
 }
 
+.above_columns_row_log_bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .left-above-item {
     flex: 1; 
 }
@@ -1137,7 +1146,7 @@ input[type="checkbox"] {
 
 
 .div-outside-info {
-    width: var(--width-info-items-at-top);
+    width: 100%;
     height: var(--height-filter-inputs);
     font-size: var(--font-size-filter-inputs);
     display: flex;
@@ -1312,7 +1321,6 @@ input[type="checkbox"] {
     --profit-item-value-font-size: var(--font-size-filter-inputs);
     --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
 
-    --log-bet-button-padding-left-right: 2.08vw;
 
 
 
@@ -1343,6 +1351,20 @@ input[type="checkbox"] {
     --height-of-description_text-box-and-label-div: 27.5vw;
 
     --border-radius-lay-type-buttons: 4.5vw;
+
+
+
+
+
+
+    /* PROFIT TRACKER SPECIFIC */
+    --gap-between-items-profit-tracker-select: 5vw; /* CHANGED */
+
+    --width-of-filter-item-profit-tracker-bookmaker-selects: 100%; /* CHANGED */
+
+    --height-of-bet-description-input-profit-tracker: 24vw; /* CHANGED */
+
+
 
 
 }
@@ -1631,14 +1653,6 @@ input[type="checkbox"] {
 
 
 
-
-
-
-
-
-
-
-
 /* PROFIT AND LOG SECTION */
 
 .select_bet_div_profit_and_log {
@@ -1671,9 +1685,6 @@ input[type="checkbox"] {
     width: 100%;
     padding-bottom: calc(var(--padding-top-bottom-item-divs) / 2); /* ADDED */
 }
-
-
-
 
 
 .profit_display_profit_and_log_div {
@@ -1720,8 +1731,6 @@ input[type="checkbox"] {
     color: var(--color-of-negative-profit-text);
 }
 
-
-
 .log-bet-button-div {
     display: flex;
     flex-direction: row;
@@ -1752,20 +1761,12 @@ input[type="checkbox"] {
 
 
 
-
-
-
-
-
-
 /* FOR TEXT INPUT FOR STAKE IN DUTCHING */
 
 .dutching-select-controls-item {
     justify-content: space-between;
     /*padding: var(--padding-for-dutching-controls-section);*/ /* REMOVED */
 }
-
-
 
 .filter-item-text-input-dutching-select, .free-bet-mode-input-dutching-select {
     /*max-width: var(--width-of-free-bet-mode-control-input-div);*/ /* REMOVED */
@@ -1782,6 +1783,135 @@ input[type="checkbox"] {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* PROFIT TRACKER PARTS */
+
+.platform-item {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.platform-section-outer {
+    border-bottom: 0;
+}
+
+.platform_logo_div_profit_tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-bottom: 0;
+    width: calc(var(--width-of-filter-item-profit-tracker-bookmaker-selects) * 0.5); /* ADDED */
+    align-self:first baseline; /* ADDED */
+    /* height: auto;  REMOVED */
+}
+
+.platform-section-outer {
+    gap: calc(var(--gap-between-items-profit-tracker-select) * 2); /* ADDED */
+}
+
+.platform_logo_img_profit_tracker {
+    height: calc(var(--height-of-bookmaker-logo-img-in-select-bet) * 1);
+    height: auto;
+    width: calc(var(--width-of-filter-item-profit-tracker-bookmaker-selects) * 1); 
+}
+
+.filter-item-profit-tracker {
+    width: var(--width-of-filter-item-profit-tracker-bookmaker-selects);
+}
+
+
+
+
+
+
+
+
+.description-and-profit-section-inner {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.description-and-profit-section-inner, .description-and-profit-section-inner-top-item, .platform-item {
+    gap: var(--gap-between-items-profit-tracker-select);
+}
+
+.description-and-profit-section-inner-top-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.div-for-settled-bet-checkbox {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+
+.div-for-profit-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.description-and-profit-section-inner-left {
+    padding-right: 0; /* CHANGED */
+}
+
+.description-and-profit-section-inner-right {
+    margin-top: var(--gap-between-items-profit-tracker-select); /* ADDED */
+    padding-left: 0; /* CHANGED */
+}
+
+.bet-description-input-profit-tracker {
+    height: var(--height-of-bet-description-input-profit-tracker);
+}
+
+.div-for-profit-buttons {
+    gap: calc(var(--gap-between-items-profit-tracker-select) / 3);
+    align-items: flex-end;
+}
+
+.button-for-profit {
+    width: 100%; /* CHANGED */
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: 0;
+}
+
+.div-for-settled-bet-label {
+    gap: calc(var(--gap-between-items-profit-tracker-select) / 1.5);
+}
+
+.settled_bet_label {
+    font-size: calc(var(--font-size-filter-inputs) * 1.25);
+}
 
 
 

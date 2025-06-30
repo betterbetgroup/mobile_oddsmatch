@@ -17,7 +17,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 
-    let estimated_max_chars_per_line_profit_tracker_truncation = 90
 
 
     class ProfitTracker extends HTMLElement {
@@ -211,24 +210,47 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
             return globalData.filter(row => {
 
-                let bookmakerMatch = globalFilters.bookmakers.includes(row.bookie);
 
-                // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
+
+                let bookmakerMatch = true;
+                // Get list of unselected bookmakers
+                const unselectedBookmakers = Object.keys(bookmakerImages).filter(bookie => 
+                    !globalFilters.bookmakers.includes(bookie)
+                );
+
+                // If any platform in row.platforms matches an unselected bookmaker, return false
+                if (row.platforms && row.platforms.length > 0) {
+                    const hasUnselectedPlatform = row.platforms.some(p => 
+                        unselectedBookmakers.includes(p.platform)
+                    );
+                    if (hasUnselectedPlatform) {
+                        bookmakerMatch = false;
+                    }
+                }
+                
+                
+
     
-                if (globalFilters.bookmakers.includes('Other')) {
-                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
-                        bookmakerMatch = true;
+                let exchangeMatch = true;
+                // Get list of unselected exchanges
+                const unselectedExchanges = Object.keys(exchangeImages).filter(exchange => 
+                    !globalFilters.exchanges.includes(exchange)
+                );
+
+
+                // If any platform in row.platforms matches an unselected exchange, return false
+                if (row.platforms && row.platforms.length > 0) {
+                    const hasUnselectedPlatform = row.platforms.some(p => 
+                        unselectedExchanges.includes(p.platform)
+                    );
+                    if (hasUnselectedPlatform) {
+                        exchangeMatch = false;
                     }
                 }
 
-    
-                let exchangeMatch = globalFilters.exchanges.includes(row.exchange);
-    
-                if (globalFilters.exchanges.includes('Other')) {
-                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
-                        exchangeMatch = true;
-                    }
-                }
+
+
+
 
     
                 let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
@@ -421,7 +443,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
             // Add truncation functionality for description
-            Helpers.setupDescriptionTruncation(tr, row.betId, row.description, scope, state, estimated_max_chars_per_line_profit_tracker_truncation);
+            Helpers.setupDescriptionTruncation(tr, row.betId, row.description, scope, state);
 
 
         

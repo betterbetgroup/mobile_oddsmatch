@@ -9,8 +9,6 @@ const MAX_UPDATE_INTERVAL_DATABASE = 1500;
 
 
 
-
-
 function convertDateToInputFormat(dateString) {
     if (!dateString) return '';
     
@@ -47,7 +45,7 @@ export function set_values_for_profit_tracker(scope, state, div, row, is_create)
     load_data_for_profit_tracker_select_first_section(scope,state, div, row, is_create);
 
     // add in description and profit div
-    add_in_description_and_profit_div(state, div, row, is_create);
+    add_in_description_and_profit_div(scope, state, div, row, is_create);
 
     // then add in event listeners for everything so it's all in one place
     add_event_listener_for_updating_data(scope, state, div, row);
@@ -85,6 +83,9 @@ function add_event_listener_for_updating_data(scope, state, div, row) {
     checkbox.addEventListener('change', () => {
         // use the scope and row.betId to get the .settled_checkbox with data-id="betId"
         let settled_checkbox = scope.querySelector(`.settled_checkbox[data-id="${row.betId}"]`);
+        if (!state.is_desktop) {
+            settled_checkbox = scope.querySelector('input.item_complete_switch[data-id="' + row.betId + '"]');
+        }
         settled_checkbox.checked = checkbox.checked;
         update_global_data(scope, state, div, row);
     });
@@ -123,7 +124,6 @@ function update_global_data(scope, state, div, row) {
     }
 
 
-
     state.latestRow = row;
 
     // If a timeout is already running, don't schedule another yet
@@ -143,7 +143,7 @@ function update_global_data(scope, state, div, row) {
 }
 
 function update_db_with_row(scope, row) {
-    console.log('updating db with row', row)
+
     // raise event and send to wix 
     let message_type = 'Update-Row';
     let message = {
@@ -160,14 +160,7 @@ function update_db_with_row(scope, row) {
 
 function get_all_data_from_select(scope, state, div, row) {
 
-    /* 
 
-    need to create this on a new row 
-
-    data_object.betId = row._id + '_' + Date.now(); // as they can log the same oddsmatcher bet multiple times
-    data_object.userId = state.user_id;    add in userId on wix
-
-    */
 
     // start from bottom
 
@@ -181,6 +174,9 @@ function get_all_data_from_select(scope, state, div, row) {
     row.date = convertInputDateToDisplayFormat(div.querySelector(`#bet-date-${row.betId}`).value);
     row.bet_outcome = div.querySelector(`#bet_input_${row.betId}`).value;
     row.description = div.querySelector(`#bet-description-input_${row.betId}`).value;
+
+
+    row.date_and_time = row.date.replace(/\/\d{4}/, '/' + row.date.split('/')[2].slice(-2)) + ' 12:00';
 
 
     // then get platforms
@@ -197,6 +193,133 @@ function get_all_data_from_select(scope, state, div, row) {
     });
 
     row.platforms = platforms;
+
+
+
+    row.qualifying_loss = row.qualifying_loss.replace('£', '');
+    row.potential_profit = row.potential_profit.replace('£', '');
+    row.actualprofit = row.actualprofit.replace('£', '');
+
+    row.qualifying_loss = parseFloat(row.qualifying_loss).toFixed(2);
+    row.potential_profit = parseFloat(row.potential_profit).toFixed(2);
+    row.actualprofit = parseFloat(row.actualprofit).toFixed(2);
+    if (isNaN(row.qualifying_loss) || row.qualifying_loss == '' || row.qualifying_loss == null || row.qualifying_loss == undefined || row.qualifying_loss == '0.00' || row.qualifying_loss == '-0.00') {
+        row.qualifying_loss = '£0.00';
+    } else {
+        if (row.qualifying_loss.toString().includes('-')) {
+            row.qualifying_loss = '-£' + row.qualifying_loss.replace('-', '');
+        } else {
+            row.qualifying_loss = '£' + row.qualifying_loss;
+        }
+    }
+    if (isNaN(row.potential_profit) || row.potential_profit == '' || row.potential_profit == null || row.potential_profit == undefined || row.potential_profit == '0.00' || row.potential_profit == '-0.00') {
+        row.potential_profit = '£0.00';
+    } else {
+        if (row.potential_profit.toString().includes('-')) {
+            row.potential_profit = '-£' + row.potential_profit.replace('-', '');
+        } else {
+            row.potential_profit = '£' + row.potential_profit;
+        }
+    }
+    if (isNaN(row.actualprofit) || row.actualprofit == '' || row.actualprofit == null || row.actualprofit == undefined || row.actualprofit == '0.00' || row.actualprofit == '-0.00') {
+        row.actualprofit = '£0.00';
+    } else {
+        if (row.actualprofit.toString().includes('-')) {
+            row.actualprofit = '-£' + row.actualprofit.replace('-', '');
+        } else {
+            row.actualprofit = '£' + row.actualprofit;
+        }
+    }
+
+
+
+    // ALSO SELECT THE APPROPRIATE TD'S AND CHANGE THE CLASS TO SELECTED_ROW_TD_ORIGINAL
+    if (state.is_desktop) {
+
+
+        let correct_row = scope.querySelector(`tr[data-id="${row.betId}"]`);
+        correct_row.querySelector('.final_profit_data').textContent = row.actualprofit;
+        correct_row.querySelector('.final_profit_data').className = `final_profit_data ${row.actualprofit.includes('-') ? 'negative_profit_data' : 'positive_profit_data'}`;
+        correct_row.querySelectorAll('div.expected_profit_data div')[0].textContent = row.qualifying_loss;
+        correct_row.querySelectorAll('div.expected_profit_data div')[0].className = (row.qualifying_loss.includes('-') ? 'negative_profit_data' : 'positive_profit_data');
+        correct_row.querySelectorAll('div.expected_profit_data div')[1].textContent = row.potential_profit;
+        correct_row.querySelectorAll('div.expected_profit_data div')[1].className = (row.potential_profit.includes('-') ? 'negative_profit_data' : 'positive_profit_data');
+
+        correct_row.querySelector('.date_and_time_data').textContent = row.date;
+        correct_row.querySelector('.description_data').innerHTML = `
+            <div class="description-text">${row.description}</div>
+            <button class="more-button" data-bet-id="${row.betId}">more...</button>
+        `;
+
+        helper.setupDescriptionTruncation(correct_row, row.betId, row.description, scope, state);
+
+        if (row.platforms.length > 0) {
+            correct_row.querySelector('img.bookmaker_logo_img').src = helper.get_bookmaker_image_profit_tracker_desktop(row.platforms[0].platform);
+            // also select the anchor and set the href
+            if (row.platforms[0].platform == 'Other') {
+                correct_row.querySelector('a.div_around_logo').removeAttribute('href');
+            } else {
+                correct_row.querySelector('a.div_around_logo').href = helper.get_bookmaker_link_profit_tracker(row.platforms[0].platform);
+            }
+        } else {
+            correct_row.querySelector('a.div_around_logo').removeAttribute('href')
+        }
+
+    } else {
+
+        let mobileContainer = scope.querySelector(`div.mobile-card.outer-mobile-card[data-id="${row.betId}"] div.mobile-card`);
+
+        mobileContainer.querySelector('div.mobile-row.mobile-row-date span').textContent = row.date;
+
+        mobileContainer.querySelector('div.mobile-row.mobile-row-event span').textContent = row.event;
+        mobileContainer.querySelector('div.mobile-row.mobile-row-bet-outcome span').textContent = row.bet_outcome;
+
+        // also add or remove class hidden_row_above_columns
+        if (row.event) {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-event').classList.remove('hidden_row_above_columns');
+        } else {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-event').classList.add('hidden_row_above_columns');
+        }
+
+        if (row.bet_outcome) {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-bet-outcome').classList.remove('hidden_row_above_columns');
+        } else {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-bet-outcome').classList.add('hidden_row_above_columns');
+        }
+
+
+        if (row.platforms.length > 0) {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-bookmaker img.logo-img').src = helper.get_bookmaker_image_profit_tracker_desktop(row.platforms[0].platform);
+            // also select the anchor and set the href
+            if (row.platforms[0].platform == 'Other') {
+                mobileContainer.querySelector('div.mobile-row.mobile-row-bookmaker a').removeAttribute('href');
+            } else {
+                mobileContainer.querySelector('div.mobile-row.mobile-row-bookmaker a').href = helper.get_bookmaker_link_profit_tracker(row.platforms[0].platform);
+            }
+                
+        } else {
+            mobileContainer.querySelector('div.mobile-row.mobile-row-bookmaker a').removeAttribute('href');
+        }
+
+
+
+        mobileContainer.querySelector('div.mobile-row.mobile-row-description-container.mobile-row-description span.mobile-row-description-text').textContent = row.description;
+
+
+        mobileContainer.querySelector('div.qualifying_loss_badge').textContent = row.qualifying_loss;
+        mobileContainer.querySelector('div.qualifying_loss_badge').className = 'qualifying_loss_badge ' + (row.qualifying_loss.includes('-') ? 'loss-badge' : 'profit-badge');
+        mobileContainer.querySelector('div.potential_profit_badge').textContent = row.potential_profit;
+        mobileContainer.querySelector('div.potential_profit_badge').className = 'potential_profit_badge ' + (row.potential_profit.includes('-') ? 'loss-badge' : 'profit-badge');
+        mobileContainer.querySelector('div.final_profit_badge').textContent = row.actualprofit;
+        mobileContainer.querySelector('div.final_profit_badge').className = `final_profit_badge ${row.actualprofit.includes('-') ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}`;
+
+
+
+
+    }
+
+
+
 
     return row;
 
@@ -384,7 +507,7 @@ function load_data_for_profit_tracker_select_first_section(scope, state, div, ro
 
 
 
-function add_in_description_and_profit_div(state, div, row, is_create) {
+function add_in_description_and_profit_div(scope, state, div, row, is_create) {
 
 
     div.innerHTML += `
@@ -465,8 +588,8 @@ function add_in_description_and_profit_div(state, div, row, is_create) {
                     </div>
 
                     <div class="filter-item div-for-profit-buttons"> 
-                        <button id="qualifying_loss_button_${row.betId}" class="button-for-profit">£22.54</button>
-                        <button id="potential_profit_button_${row.betId}" class="button-for-profit">-£23.22</button>
+                        <button id="qualifying_loss_button_${row.betId}" class="button-for-profit"></button>
+                        <button id="potential_profit_button_${row.betId}" class="button-for-profit"></button>
                     </div>
 
                 </div>
@@ -502,45 +625,60 @@ function add_in_description_and_profit_div(state, div, row, is_create) {
 
 
 
-    load_data_for_profit_tracker_select_second_section(state, div, row, is_create);
+    load_data_for_profit_tracker_select_second_section(scope, state, div, row, is_create);
 
 }
 
 
-function load_data_for_profit_tracker_select_second_section(state, div, row, is_create) {
+function load_data_for_profit_tracker_select_second_section(scope, state, div, row, is_create) {
 
-    // select the date input in here description-and-profit-section-inner-top-item-date
-    // should always have a date
-    let date_input = div.querySelector(`#bet-date-${row.betId}`);
-    // Convert the date from DD/MM/YYYY to YYYY-MM-DD
-    let date = convertDateToInputFormat(row.date);
-    date_input.value = date;
-
-    // also set event, description, bet outcome, qualifying loss, potential profit, final profit
-    let event_input = div.querySelector(`#event_input_${row.betId}`);
-    event_input.value = row.event ? row.event : '';
-    let bet_input = div.querySelector(`#bet_input_${row.betId}`);
-    bet_input.value = row.bet_outcome ? row.bet_outcome : '';
     let qualifying_loss_input = div.querySelector(`#qualifying_loss_input_${row.betId}`);
-    qualifying_loss_input.value = row.qualifying_loss.replace('£', '') ? row.qualifying_loss.replace('£', '') : '';
     let potential_profit_input = div.querySelector(`#potential_profit_input_${row.betId}`);
-    potential_profit_input.value = row.potential_profit.replace('£', '') ? row.potential_profit.replace('£', '') : '';
     let final_profit_input = div.querySelector(`#actual_profit_input_${row.betId}`);
-    final_profit_input.value = row.actualprofit.replace('£', '') ? row.actualprofit.replace('£', '') : '';
-    let description_input = div.querySelector(`#bet-description-input_${row.betId}`);
-    description_input.value = row.description ? row.description : '';
 
-
-    // also set the switch checkbox
-    let settled_bet_switch = div.querySelector(`#settled_bet_switch_${row.betId}`);
-    settled_bet_switch.checked = row.complete;
-    
-    // also set the buttons
     let qualifying_loss_button = div.querySelector(`#qualifying_loss_button_${row.betId}`);
-    qualifying_loss_button.textContent = row.qualifying_loss ? row.qualifying_loss : '';
     let potential_profit_button = div.querySelector(`#potential_profit_button_${row.betId}`);
-    potential_profit_button.textContent = row.potential_profit ? row.potential_profit : '';
 
+    if (!row.is_manual) { // MEANING IT'S NOT MANUAL
+
+        // select the date input in here description-and-profit-section-inner-top-item-date
+        let date_input = div.querySelector(`#bet-date-${row.betId}`);
+        // Convert the date from DD/MM/YYYY to YYYY-MM-DD
+        let date = convertDateToInputFormat(row.date);
+        date_input.value = date;
+
+        // also set event, description, bet outcome, qualifying loss, potential profit, final profit
+        let event_input = div.querySelector(`#event_input_${row.betId}`);
+        event_input.value = row.event ? row.event : '';
+        let bet_input = div.querySelector(`#bet_input_${row.betId}`);
+        bet_input.value = row.bet_outcome ? row.bet_outcome : '';
+        qualifying_loss_input.value = row.qualifying_loss.replace('£', '') ? row.qualifying_loss.replace('£', '') : '';
+        potential_profit_input.value = row.potential_profit.replace('£', '') ? row.potential_profit.replace('£', '') : '';
+        final_profit_input.value = row.actualprofit.replace('£', '') ? row.actualprofit.replace('£', '') : '';
+        let description_input = div.querySelector(`#bet-description-input_${row.betId}`);
+        description_input.value = row.description ? row.description : '';
+
+
+        // also set the switch checkbox
+        let settled_bet_switch = div.querySelector(`#settled_bet_switch_${row.betId}`);
+        settled_bet_switch.checked = row.complete;
+        
+        // also set the buttons
+        qualifying_loss_button.textContent = row.qualifying_loss ? row.qualifying_loss : '';
+        potential_profit_button.textContent = row.potential_profit ? row.potential_profit : '';
+
+    } else {
+        // set the date input to today
+        let date_input = div.querySelector(`#bet-date-${row.betId}`);
+        date_input.value = convertDateToInputFormat(new Date().toLocaleDateString('en-GB'));
+        row.date = convertInputDateToDisplayFormat(date_input.value);
+
+
+        // also set date in global data
+        update_global_data(scope, state, div, row);
+
+        
+    }
 
     // event listeners for the buttons
     qualifying_loss_button.addEventListener('click', () => {

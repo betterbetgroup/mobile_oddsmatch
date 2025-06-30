@@ -1324,6 +1324,7 @@ tr:not(:last-child) td .select_button_div {
 
 tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.platform-section-outer {
     border-bottom: 0;
+    gap: 0; /* ADDED */
 }
 
 .platform_logo_div_profit_tracker {
@@ -1331,9 +1332,13 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
     align-items: center;
     justify-content: center;
     margin-left: 0;
-    margin-bottom: 0; /* ADDED */
-    height: auto; /* ADDED */
+    margin-bottom: 0; 
+    height: auto; 
+    width: auto; /* ADDED */
+    align-self: center; /* ADDED */
 }
+
+
 
 .platform_logo_img_profit_tracker {
     height: calc(var(--height-of-bookmaker-logo-img-in-select-bet) * 1);
@@ -1344,6 +1349,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 .filter-item-profit-tracker {
     width: var(--width-of-filter-item-profit-tracker-bookmaker-selects);
 }
+
 
 
 
@@ -1385,6 +1391,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 .description-and-profit-section-inner-right {
     padding-left: calc(var(--padding-for-items-in-select-div) / 1);
+    margin-top: 0; /* ADDED */
 }
 
 .bet-description-input-profit-tracker {

@@ -12,6 +12,11 @@ const delay_for_copy_text = 1500;
 
 export function select_clicked(scope, state, id) {
 
+    if (id == null) {
+        create_and_inject_select_div(scope, state, id);
+        return;
+    }
+
     if (state.is_desktop) {
         change_select_button_content(scope, state, id);
     }
@@ -28,7 +33,7 @@ export function select_clicked(scope, state, id) {
     set_td_class_for_the_row(scope, state, id, true)
 
     // then find the tr where the data-id is the id and create and inject div
-    create_and_inject_select_div(scope, state, id)
+    create_and_inject_select_div(scope, state, id);
 
 
     // first find the element with class select_button and where the data-id is the id
@@ -148,17 +153,185 @@ function set_td_class_for_the_row(scope, state, id, is_add_class) {
 }
 
 
-function create_and_inject_select_div(scope, state, id) {
 
-    let row = state.globalData.find(row => row._id === id);
 
-    if (state.oddsmatcher_type == 'profit tracker') {
-        row = state.filteredData.find(row => row.betId === id);
-    }
+function prepend_empty_tr_to_table(scope, state, row) {
+    // considering the code to make a row from create row in profit tracker desktop
+    // prepend a tr to the table with empty values
 
     if (state.is_desktop) {
+
+        // prepend a tr to the table
+        let tr = document.createElement('tr');
+
+        // Create empty tr with all td elements
+        tr.className = 'table_data_row';
+        tr.setAttribute('data-id', row.betId);
+
+        tr.innerHTML = `
+            <td class="date_and_time_data"></td>
+            
+            <td class="description_data">
+                <div class="description-text"></div>
+                <button class="more-button" data-bet-id="${row.betId}">more...</button>
+            </td>
+
+            <td>
+                <div id="bookmaker_logo_${row.betId}" class="bookmaker_logo_div">
+                    <a class="div_around_logo">
+                        <img class='bookmaker_logo_img' src="${helper.get_bookmaker_image_profit_tracker_desktop(null)}">
+                    </a>
+                </div>
+            </td>
+
+            <td class="no_padding_margin">
+                <div class="expected_profit_data">
+                    <div id='qualifying_loss_${row.betId}' class='positive_profit_data'>£0.00</div>
+                    <div id='potential_profit_${row.betId}' class='positive_profit_data'>£0.00</div>
+                </div>
+            </td>
+
+            <td class="settled_data">
+                <div class="expected_profit_data">
+                    <input type="checkbox" data-id="${row.betId}" name="is_settled" class="settled_checkbox">
+                </div>
+            </td>
+
+            <td class="no_padding_margin">
+                <div class="expected_profit_data">
+                    <div id='actual_profit_${row.betId}' class='final_profit_data positive_profit_data'>£0.00</div>
+                </div>
+            </td>
+        `;
+
+
+        // Create and append select button
+        let selectButton = document.createElement('button');
+        selectButton.innerHTML = `×`;
+        selectButton.className = 'select_button';
+        selectButton.setAttribute('data-id', row.betId);
+        selectButton.setAttribute('data-is-open', 'true');
+        selectButton.setAttribute('aria-label', row.betId);
+        tr.appendChild(selectButton);
+
+        // Prepend to tbody
+        const tableBody = scope.querySelector('table tbody');
+        tableBody.insertBefore(tr, tableBody.firstChild);
+
+        helper.setupDescriptionTruncation(tr, row.betId, '', scope, state);
+
+
+    } else {
+        // Create mobile card for profit tracker
+        const card = document.createElement('div');
+        card.className = 'mobile-card outer-mobile-card';
+        card.setAttribute('data-id', row.betId);
+
+        card.innerHTML = `
+            <div class="mobile-card">
+                <div class="mobile-row mobile-row-date"><strong>Date:</strong> <span></span></div>
+                
+
+                <div class="mobile-row mobile-row-event hidden_row_above_columns">
+                    <strong>Event:</strong>
+                    <span>${row.event}</span>
+                </div>
+
+                <div class="mobile-row mobile-row-bet-outcome hidden_row_above_columns">
+                    <strong>Bet:</strong>
+                    <span>${row.bet_outcome}</span>
+                </div>
+
+                <div class="mobile-row mobile-row-bookmaker">
+                    <strong>Platform:</strong>
+                    <div class="div-outside-logo-img">
+                        <a target="_blank" rel="noopener noreferrer">
+                            <img src="${helper.get_bookmaker_image_profit_tracker_desktop(null)}" class="logo-img">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mobile-row mobile-row-description-container mobile-row-description">
+                    <div class="mobile-row-description-title"><strong>Description:</strong></div>
+                    <div class="mobile-row mobile-row-description"><span class="mobile-row-description-text"></span></div>
+                </div>
+
+                <div class="profit_info_div_outer">
+                    <div class="profit_info_div_inner">
+                        <div class="profit_info_div_inner_title">Qualifying Loss</div>
+                        <div class="qualifying_loss_badge profit-badge">£0.00</div>
+                    </div>
+                    <div class="profit_info_div_inner">
+                        <div class="profit_info_div_inner_title">Potential Profit</div>
+                        <div class="potential_profit_badge profit-badge">£0.00</div>
+                    </div>
+                    <div class="profit_info_div_inner">
+                        <div class="profit_info_div_inner_title">Bet<br>Settled<br></div>
+                        
+                        <div class="div-outside-switch item-complete-switch">
+                            <div class="switch_container" >
+                                <label class="switch">
+                                    <input type="checkbox" class="show_filters_switch item_complete_switch" data-id=${row.betId} id="item-complete-switch-${row.betId}">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="profit_info_div_inner">
+                        <div class="profit_info_div_inner_title">Final<br>Profit</div>
+                        <div class="final_profit_badge profit-badge not-complete-badge">£0.00</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Prepend to mobile container
+        const mobileContainer = scope.querySelector('.mobile-container');
+        mobileContainer.insertBefore(card, mobileContainer.firstChild);
+
+
+    }
+
+    create_and_inject_select_div(scope, state, row.betId);
+
+    if (!state.is_desktop) {
+        const mobileCard = scope.querySelector(`.mobile-card.outer-mobile-card[data-id="${row.betId}"] div.mobile-card`);
+        inject_arrow_div(mobileCard, row.betId, state);
+    }
+
+}
+
+function create_and_inject_select_div(scope, state, id) {
+
+
+    let row = state.globalData.find(row => row._id === id);
+    
+    if (state.oddsmatcher_type == 'profit tracker') {
+        row = state.globalData.find(row => row.betId === id);
+    }
+
+    if (row == undefined) {
+        row = {
+            betId: `bet_${Math.random().toString(36).substring(2, 6)}_${Date.now()}`,
+            is_manual: true,
+            calculator: 'No Calculator',
+            oddsmatcher_type: 'Manual',
+        }
+        state.globalData.push(row);
+        // PREPEND THE TR TO THE TABLE
+        prepend_empty_tr_to_table(scope, state, row);
+        return; // very important to return here to avoid recursion
+    }
+
+
+    
+    if (state.is_desktop) {
+
         const tr = scope.querySelector('tr[data-id="' + id + '"]');
+
         if (tr) {
+
             // make it inject a row just below that row
             const newRow = document.createElement('tr');
             newRow.className = 'select_button_div_row';
@@ -2372,7 +2545,7 @@ function log_bet(scope, state, div, row, data_object) {
     data_object.bet_outcome = row.outcome;
     data_object.ispayout = false;
     data_object.stakereturned = false;
-    data_object.calculator = 'No Calculator';
+    data_object.calculator = 'Standard';
 
     let platforms = [];
 
@@ -2398,6 +2571,7 @@ function log_bet(scope, state, div, row, data_object) {
 
     if (state.oddsmatcher_type == '2up') {
         data_object.bet_outcome = row.outcome + ' 2up';
+        data_object.calculator = '2up';
     }
 
 
@@ -2427,10 +2601,16 @@ function log_bet(scope, state, div, row, data_object) {
             'link': row.place_exchange_link,
             'commission': div.querySelector('#commission-input_place_' + row._id).value
         })
+        data_object.calculator = 'Each Way';
+    }
+
+    if (state.oddsmatcher_type == 'extra_place') {
+        data_object.calculator = 'Extra Place';
     }
 
     if (state.oddsmatcher_type == 'dutching') {
         data_object.bet_outcome = 'Dutching';
+        data_object.calculator = 'Dutching';
 
         platforms.push({
             'index': 1,

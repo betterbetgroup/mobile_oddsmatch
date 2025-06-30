@@ -1,7 +1,7 @@
 import * as select_boxes_helpers from './select_boxes.js'
 
 
-
+let estimated_max_chars_per_line_profit_tracker_truncation = 90;
 
 
 
@@ -129,8 +129,15 @@ const addition_above_columns_items = {
     'total profit': `<div class="above_columns_item">
                         <div class="div-outside-info">
                             <div class="title_text" >Total Profit</div>
-                            <div class="info_text total_profit_value" >£3200</div>
+                            <div class="info_text total_profit_value" ></div>
                         </div>
+                    </div>`,
+
+    'filtered profit': `<div class="above_columns_item">
+                            <div class="div-outside-info">
+                                <div class="title_text" >Filtered Profit</div>
+                                <div class="info_text filtered_profit_value" ></div>
+                            </div>
                     </div>`,
 }
 
@@ -690,11 +697,12 @@ export function get_bookmaker_link_profit_tracker(bookmaker) {
 export function get_all_platforms_profit_tracker() {
     // concat the keys of bookmakerImages and exchangeImages
     let platforms = Object.keys(bookmakerImages);
-    platforms.push(...Object.keys(exchangeImages));
+    platforms.sort();
+
+    platforms.unshift(...Object.keys(exchangeImages).sort());
     // make it remove all keys already in there called 'Other'
     platforms = platforms.filter(platform => platform !== 'Other');
     // sort alphabetically
-    platforms.sort();
     // Add in 'Other' to the start
     platforms.unshift('Other');
     return platforms;
@@ -749,7 +757,7 @@ export function get_sport_icon_url(sport) {
 
 function calculate_and_display_total_profit(scope, state) {
     let total_profit = 0;
-    state.filteredData.forEach(row => {
+    state.globalData.forEach(row => {
         const profitValue = row.actualprofit === '' ? '0' : row.actualprofit;
         const cleanedProfit = parseFloat(profitValue.replace('£', '').replace('+', ''));
         if (row.complete) {
@@ -760,6 +768,21 @@ function calculate_and_display_total_profit(scope, state) {
     total_profit = total_profit.toFixed(2);
     scope.querySelector('.total_profit_value').textContent = `£${total_profit}`;
     scope.querySelector('.total_profit_value').style.visibility = 'visible';
+
+
+    // also do filtered profit
+    let filtered_profit = 0;
+    state.filteredData.forEach(row => {
+        const profitValue = row.actualprofit === '' ? '0' : row.actualprofit;
+        const cleanedProfit = parseFloat(profitValue.replace('£', '').replace('+', ''));
+        if (row.complete) {
+            filtered_profit += cleanedProfit;
+        }
+    });
+    // make total profit to 2 decimal places
+    filtered_profit = filtered_profit.toFixed(2);
+    scope.querySelector('.filtered_profit_value').textContent = `£${filtered_profit}`;
+    scope.querySelector('.filtered_profit_value').style.visibility = 'visible';
 }
 
 
@@ -796,14 +819,24 @@ export function setupPagination(scope, state) {
     scope.getElementById('prev-page').onclick = () => {
         if (state.currentPage > 1) {
             state.currentPage--;
-            displayRows(scope, rows_to_send, state, totalPages);
+            sort_data(state.current_sort, state);
+            state.filteredData = state.filter_function(state.globalData, state.globalFilters);
+            if (!state.is_premium_member) {
+                state.filteredData = state.filteredData.slice(0, 3);
+            }
+            displayRows(scope, state.filteredData, state, Math.ceil(state.filteredData.length / state.rowsPerPage));
         }
     };
 
     scope.getElementById('next-page').onclick = () => {
-        if (state.currentPage < totalPages) {
+        if (state.currentPage < Math.ceil(state.filteredData.length / state.rowsPerPage)) {
             state.currentPage++;
-            displayRows(scope, rows_to_send, state, totalPages);
+            sort_data(state.current_sort, state);
+            state.filteredData = state.filter_function(state.globalData, state.globalFilters);
+            if (!state.is_premium_member) {
+                state.filteredData = state.filteredData.slice(0, 3);
+            }
+            displayRows(scope, state.filteredData, state, Math.ceil(state.filteredData.length / state.rowsPerPage));
         }
     };
 }
@@ -854,16 +887,21 @@ export function appendRows(rows, scope, state) {
 
 function inject_arrow_div_mobile(row, scope, state) {
 
-    let item_div = scope.querySelector('.mobile-card.outer-mobile-card[data-id="' + row._id + '"] .mobile-card');
+    let row_id = row._id;
+    if (state.oddsmatcher_type == 'profit tracker') {
+        row_id = row.betId;
+    }
+
+    let item_div = scope.querySelector('.mobile-card.outer-mobile-card[data-id="' + row_id + '"] .mobile-card');
 
     // create a div with an arrow icon in the middle
     // make it hold this image in the middle https://img.icons8.com/?size=100&id=99991&format=png&color=000000
     let arrow_div = document.createElement('div');
-    arrow_div.setAttribute('data-id', row._id);
+    arrow_div.setAttribute('data-id', row_id);
     arrow_div.setAttribute('data-is-open', 'false');
     arrow_div.setAttribute('class', 'arrow-div');
     arrow_div.innerHTML = `
-        <img data-id="${row._id}" src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" alt="Arrow" class="arrow-image">
+        <img data-id="${row_id}" src="https://img.icons8.com/?size=100&id=99991&format=png&color=ffffff" alt="Arrow" class="arrow-image">
     `;
 
 
@@ -1121,6 +1159,10 @@ export function process_click_message_info_select_and_upgrade(scope, event, stat
 
                 if (scope.querySelector('div.select_button_div[data-id="' + outerCard.getAttribute('data-id') + '"]')) {
                     return
+                }
+
+                if (event.target.classList.contains('slider') || event.target.classList.contains('item_complete_switch')) {
+                    return;
                 }
 
                 select_boxes_helpers.select_clicked(scope, state, outerCard.getAttribute('data-id'));
@@ -1961,16 +2003,51 @@ function run_script_for_profit_tracker(scope, state) {
     let above_columns_row_timer = scope.querySelector('.above_columns_row_timer');
     above_columns_row_timer.classList.add('side_by_side_divs_in_row');
     above_columns_row_timer.innerHTML = addition_above_columns_items['total profit'];
+    above_columns_row_timer.innerHTML += addition_above_columns_items['filtered profit'];
+
+    if (state.is_desktop) {
+        above_columns_row_timer.classList.add('adding_gap_for_profit_divs');
+    } else {
+        above_columns_row_timer.classList.add('no_gap_for_profit_divs');
+    }
 
     if (state.is_desktop) {
         above_columns_row_timer.classList.remove('hidden_row_above_columns');
     }
+    // add in log bet button
+    let log_bet_row = document.createElement('div');
+    let class_name_log_bet_item = 'above_columns_row';
+    let appending_selector_for_log_bet_row = '.above-columns';
+    if (state.is_desktop) {
+        class_name_log_bet_item = 'above_columns_item';
+        appending_selector_for_log_bet_row = '.above_columns_row';
+    }
+    log_bet_row.className = `${class_name_log_bet_item} above_columns_row_log_bet`;
+    
+    let log_bet_button = document.createElement('div');
+    log_bet_button.className = 'log-bet-button-div';
+    log_bet_button.innerHTML = `<button class="log-bet-button">Log Bet</button>`;
+    
+    log_bet_row.appendChild(log_bet_button);
+    scope.querySelector(appending_selector_for_log_bet_row).appendChild(log_bet_row);
 
+    add_event_listener_for_log_bet_button(scope, state);
 
     // ADD EVENT LISTENERS FOR COMPLETE CHECKBOXES
     add_event_listeners_for_checkboxes_profit_tracker(scope, state);
     
 }
+
+
+function add_event_listener_for_log_bet_button(scope, state) {
+
+    scope.querySelector('.log-bet-button').addEventListener('click', () => {
+        select_boxes_helpers.select_clicked(scope, state, null);
+    });
+
+}
+
+
 
 function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
 
@@ -1986,6 +2063,9 @@ function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
             console.log(rowId, isChecked);
             // see if there is a trd.select_button_div_row[data-id="betId"]
             let select_button_div = scope.querySelector(`tr.select_button_div_row[data-id="${rowId}"]`);
+            if (!state.is_desktop) {
+                select_button_div = scope.querySelector(`div.select_button_div[data-id="${rowId}"]`);
+            }
             if (select_button_div) {
                 let select_button = select_button_div.querySelector('input[type="checkbox"]');
                 select_button.checked = isChecked;
@@ -2000,9 +2080,16 @@ function add_event_listeners_for_checkboxes_profit_tracker(scope, state) {
 function process_complete_checkbox_change(rowId, isChecked, scope, state) {
 
 
+
     // access the row using the rowId in globalDAta
     const row = state.globalData.find(row => row.betId === rowId);
     row.complete = isChecked;
+
+
+    if (!state.is_desktop) {
+        let mobileContainer = scope.querySelector(`div.mobile-card.outer-mobile-card[data-id="${row.betId}"] div.mobile-card`);
+        mobileContainer.querySelector('div.final_profit_badge').className = `final_profit_badge ${row.actualprofit.includes('-') ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}`;
+    }
 
 
     // raise event and send to wix 
@@ -2241,7 +2328,7 @@ function createFilterItem(filter, state) {
 
 
 
-export function setupDescriptionTruncation(tr, betId, descriptionText, scope, state, estimated_max_chars_per_line_profit_tracker_truncation) {
+export function setupDescriptionTruncation(tr, betId, descriptionText, scope, state) {
 
     const descriptionCell = tr.querySelector('.description_data');
     const descriptionTextElement = descriptionCell.querySelector('.description-text');

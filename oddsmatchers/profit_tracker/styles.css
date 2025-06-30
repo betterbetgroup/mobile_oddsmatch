@@ -156,10 +156,23 @@ input::-webkit-date-and-time-value {
 
 }
 
+.mobile-row a {
+    height: var(--height-of-img-logo);
+    display: flex;
+}
+
+.no_gap_for_profit_divs {
+    gap: 0;
+}
+
 .profit_info_div_inner {
     flex: 1;
 }
 
+
+.log-bet-button-div, .log-bet-button {
+    width: 100%;
+}
 
 .profit_info_div_inner_title {
     font-size: var(--global-main-font-size);
@@ -207,5 +220,31 @@ input::-webkit-date-and-time-value {
 
 .item-complete-switch input:checked + .slider:before {
     transform: translateX(var(--adjusted-relative-width-for-switch));
+}
+
+
+
+
+
+
+/* JUST PROFIT TRACKER MOBILE STUFF */
+
+
+.switch_select_settled_bet {
+    width: calc(2 * var(--height-of-checkbox)); /* ADDED */
+    height: var(--height-of-checkbox); /* ADDED */
+}
+
+.slider_select_settled_bet:before {
+    height: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));/* ADDED */
+    width: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));/* ADDED */
+}
+
+.settled_bet_switch:checked + .slider_select_settled_bet:before {
+    transform: translateX(var(--height-of-checkbox)); /* ADDED */
+}
+
+.div-for-settled-bet-checkbox {
+    margin-top: var(--gap-between-items-profit-tracker-select); /* ADDED */
 }
 

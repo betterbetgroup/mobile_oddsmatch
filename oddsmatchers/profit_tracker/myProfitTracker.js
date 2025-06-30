@@ -1,5 +1,5 @@
 
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from '../main/helper.js';
 
 
 
@@ -189,7 +189,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
 
 
 
-
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
 
             function convertDateToJSDate(dateStr) {
@@ -202,24 +201,47 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
         
             return globalData.filter(row => {
 
-                let bookmakerMatch = globalFilters.bookmakers.includes(row.bookie);
 
-                // IF ALL BOOKIES ARE UNCHECKED IT STILL SHOWS WHEN .BOOKIE IS IN THE EXCHANGES LIST
+
+                let bookmakerMatch = true;
+                // Get list of unselected bookmakers
+                const unselectedBookmakers = Object.keys(bookmakerImages).filter(bookie => 
+                    !globalFilters.bookmakers.includes(bookie)
+                );
+
+                // If any platform in row.platforms matches an unselected bookmaker, return false
+                if (row.platforms && row.platforms.length > 0) {
+                    const hasUnselectedPlatform = row.platforms.some(p => 
+                        unselectedBookmakers.includes(p.platform)
+                    );
+                    if (hasUnselectedPlatform) {
+                        bookmakerMatch = false;
+                    }
+                }
+                
+                
+
     
-                if (globalFilters.bookmakers.includes('Other')) {
-                    if (bookmakerMatch == false && !Object.keys(bookmakerImages).includes(row.bookie) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
-                        bookmakerMatch = true;
+                let exchangeMatch = true;
+                // Get list of unselected exchanges
+                const unselectedExchanges = Object.keys(exchangeImages).filter(exchange => 
+                    !globalFilters.exchanges.includes(exchange)
+                );
+
+
+                // If any platform in row.platforms matches an unselected exchange, return false
+                if (row.platforms && row.platforms.length > 0) {
+                    const hasUnselectedPlatform = row.platforms.some(p => 
+                        unselectedExchanges.includes(p.platform)
+                    );
+                    if (hasUnselectedPlatform) {
+                        exchangeMatch = false;
                     }
                 }
 
-    
-                let exchangeMatch = globalFilters.exchanges.includes(row.exchange);
-    
-                if (globalFilters.exchanges.includes('Other')) {
-                    if (exchangeMatch == false && !Object.keys(exchangeImages).includes(row.exchange) || !row.platforms || row.platforms.length == 0 || row.platforms[0].platform == 'Other') {
-                        exchangeMatch = true;
-                    }
-                }
+
+
+
 
     
                 let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
@@ -267,7 +289,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                 bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(null);
                 bookmaker_link = null;
             } else {
-                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker(row.platforms[0].platform)
+                bookmaker_image = Helpers.get_bookmaker_image_profit_tracker_desktop(row.platforms[0].platform)
                 bookmaker_link = row.platforms[0].link;
                 if (!bookmaker_link) {
                     bookmaker_link = bookmakerLinks[row.platforms[0].platform];
@@ -317,38 +339,36 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
             
             const card = document.createElement('div');
             card.className = 'mobile-card outer-mobile-card';
-            card.setAttribute('data-id', row._id);
+            card.setAttribute('data-id', row.betId);
 
 
             card.innerHTML = `
                     <div class="mobile-card">
-                            <div class="mobile-row"><strong>Date:</strong> <span>${row.date}</span></div>
+                            <div class="mobile-row mobile-row-date"><strong>Date:</strong> <span>${row.date}</span></div>
                             
                             
-                            ${row.fixture ? `
-                            <div class="mobile-row">
+                            <div class="mobile-row mobile-row-event ${row.event ? '' : 'hidden_row_above_columns'}">
                                 <strong>Event:</strong>
                                 <span>${row.event}</span>
                             </div>
-                            ` : ''}
 
-                            ${row.outcome ? `
-                            <div class="mobile-row">
+                            <div class="mobile-row mobile-row-bet-outcome ${row.bet_outcome ? '' : 'hidden_row_above_columns'}">
                                 <strong>Bet:</strong>
                                 <span>${row.bet_outcome}</span>
                             </div>
-                            ` : ''}
 
-                            ${bookmaker_image ? `
-                            <div class="mobile-row">
-                                <strong>Bookmaker:</strong>
+                            <div class="mobile-row mobile-row-bookmaker">
+                                <strong>Platform:</strong>
+                                <div class="div-outside-logo-img">
                                 <a href="${bookmaker_link}" target="_blank" rel="noopener noreferrer">
                                     <img src="${bookmaker_image}" class="logo-img">
                                 </a>
+                                </div>
                             </div>
-                            ` : ''}
+
+
                             ${false ? `
-                            <div class="mobile-row">
+                            <div class="mobile-row mobile-row-exchange">
                                 <strong>Exchange:</strong>
                                 <a href="${exchange_link}" target="_blank" rel="noopener noreferrer">
                                     <img src="${exchange_image}" class="logo-img">
@@ -357,7 +377,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                             ` : ''}
 
 
-                            <div class="mobile-row mobile-row-description-container">
+                            <div class="mobile-row mobile-row-description-container mobile-row-description">
                                 <div class="mobile-row-description-title"><strong>Description:</strong></div>
                                 <div class="mobile-row mobile-row-description"><span class="mobile-row-description-text">${row.description}</span></div>
                             </div>
@@ -367,11 +387,11 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                             <div class="profit_info_div_outer">
                                 <div class="profit_info_div_inner">
                                     <div class="profit_info_div_inner_title">Qualifying Loss</div>
-                                    <div class="${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
+                                    <div class="qualifying_loss_badge ${parseFloat(row.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.qualifying_loss}</div>
                                 </div>
                                 <div class="profit_info_div_inner">
                                     <div class="profit_info_div_inner_title">Potential Profit</div>
-                                    <div class="${parseFloat(row.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.potential_profit}</div>
+                                    <div class="potential_profit_badge ${parseFloat(row.potential_profit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row.potential_profit}</div>
                                 </div>
                                 <div class="profit_info_div_inner">
                                     <div class="profit_info_div_inner_title">Bet<br>Settled<br></div>
@@ -388,7 +408,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
                                 </div>
                                 <div class="profit_info_div_inner">
                                     <div class="profit_info_div_inner_title">Final<br>Profit</div>
-                                    <div class="${parseFloat(row.actualprofit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}">${row.actualprofit}</div>
+                                    <div class="final_profit_badge ${parseFloat(row.actualprofit.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}">${row.actualprofit}</div>
                                 </div>
                             </div>
 
