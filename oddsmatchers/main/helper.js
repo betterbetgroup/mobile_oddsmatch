@@ -913,10 +913,10 @@ function inject_arrow_div_mobile(row, scope, state) {
 
 export function add_no_data_row(scope, state) {
 
-    let no_data_text = 'No Data Collected Yet... Please Wait or Adjust the Filters';
+    let no_data_text = 'NO DATA COLLECTED YET... PLEASE WAIT OR ADJUST THE FILTERS';
 
     if (state.oddsmatcher_type == 'profit tracker') {
-        no_data_text = 'No Bets Added Yet...';
+        no_data_text = 'NO BETS ADDED YET...';
     }
 
     let no_data_row;
@@ -925,6 +925,33 @@ export function add_no_data_row(scope, state) {
             <h2>${no_data_text}</h2>
         </div>
     `;
+
+
+
+
+    // TEMPORARY 
+    if (state.oddsmatcher_type != 'profit tracker') {
+        no_data_content = `
+        
+            <div class="no-data-div">
+                <h2>Our Oddsmatchers are currently unavailable to new members.</h2>
+                <h2>Submit your email below to be notified when they are available again!</h2>
+                <div class="text-input-no-data-div">
+                    <input class="text-input" id="email-input-oddsmatcher" placeholder="Enter your email" autocomplete="off">
+                    <button class="save-filter-button button-no-data-div" id="submit-email-oddsmatcher">Submit</button>
+                </div
+    
+            </div>
+        
+        `
+    }
+
+
+
+
+
+
+
 
     if (state.is_desktop) {
         no_data_row = document.createElement('tr');
@@ -947,7 +974,42 @@ export function add_no_data_row(scope, state) {
 
     const tableBody = scope.querySelector(body_selector);
     tableBody.append(no_data_row);
+
+    if (state.oddsmatcher_type != 'profit tracker') {
+        add_event_listener_for_submit_email_oddsmatcher(scope, state);
+    }
+
+
 }
+
+function add_event_listener_for_submit_email_oddsmatcher(scope, state) {
+
+    scope.querySelector('.button-no-data-div').addEventListener('click', () => {
+        // get the value in input
+        const email = scope.querySelector('#email-input-oddsmatcher').value;
+
+        if (email != '') {
+            scope.querySelector('.no-data-div').innerHTML = `
+                <h2>Thank you for your email! We will notify you when our Oddsmatchers are available again.</h2>
+            `;
+
+
+            // raise the event 
+            const raise_event = new CustomEvent('submit-email', {
+                detail: {email: email},  
+                bubbles: true,       // Allows the event to bubble up through the DOM
+                composed: true        // Allows the event to pass through shadow DOM boundaries
+            });
+            scope.dispatchEvent(raise_event); 
+
+
+
+        }
+
+    });
+
+}
+
 
 export function add_loading_row(scope, state) {
 

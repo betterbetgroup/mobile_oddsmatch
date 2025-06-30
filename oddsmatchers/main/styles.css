@@ -282,6 +282,21 @@ body {
 }
 .no-data-div h2, .loading-text {
     font-size: var(--loading-and-no-data-div-font-size);
+}
+.text-input-no-data-div {
+    margin-top: 4vw;
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+}
+.button-no-data-div {
+    width: 20vw !important;
+}
+
+#email-input-oddsmatcher {
+    width: 65vw !important;
+}
+.loading-text {
     text-transform: uppercase;
 }
  

@@ -8,9 +8,7 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/standard_oddsmatcher/styles.css';
 
-    html_script = '../main/z.html';
-    styles_script = 'styles.css';
-    
+
 
 
     class standardOddsmatcher extends HTMLElement {
