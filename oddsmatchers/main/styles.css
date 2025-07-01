@@ -93,7 +93,7 @@
     --background-colour-filters: #333;
     --border-filters: var(--global-border-width-main) solid #444;
     --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
-    --height-filter-inputs: 9.00vw;
+    --height-filter-inputs: 9.50vw;
     --padding-left-filter-inputs: 1.50vw;
     --border-radius-filter-inputs: 1.25vw;
     --font-size-filter-inputs: var(--global-main-font-size);
