@@ -2638,6 +2638,12 @@ function log_bet(scope, state, div, row, data_object) {
     }
 
 
+    // how do I remove a ._id from the data_object
+    if (data_object.hasOwnProperty('_id')) {
+        delete data_object._id;
+    }
+
+
 
     data_object.platforms = platforms;
 
