@@ -314,13 +314,13 @@ function create_and_inject_select_div(scope, state, id) {
     if (row == undefined) {
         row = {
             betId: `bet_${Math.random().toString(36).substring(2, 6)}_${Date.now()}`,
-            is_manual: true,
             calculator: 'No Calculator',
             oddsmatcher_type: 'Manual',
+            is_manual_log: true,
         }
         state.globalData.push(row);
         // PREPEND THE TR TO THE TABLE
-        prepend_empty_tr_to_table(scope, state, row);
+        prepend_empty_tr_to_table(scope, state, state.globalData[state.globalData.length - 1]);
         return; // very important to return here to avoid recursion
     }
 

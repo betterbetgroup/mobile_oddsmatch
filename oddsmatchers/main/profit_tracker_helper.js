@@ -108,8 +108,9 @@ function add_event_listener_for_updating_data(scope, state, div, row) {
 
 function update_global_data(scope, state, div, row) {
     
-    row = get_all_data_from_select(scope, state, div, row)
-    
+    row = get_all_data_from_select(scope, state, div, row);
+
+    helper.calculate_and_display_total_profit(scope, state);
 
     // NOW RAISE ROW TO WIX JUST LIKE WITH CHECKBOX BUT
     // - MAKE IT SO THAT IT ONLY UPDATES DB MAX 1000MS AND USES LATEST DATA
@@ -164,16 +165,16 @@ function get_all_data_from_select(scope, state, div, row) {
 
     // start from bottom
 
-    row.actualprofit = div.querySelector(`#actual_profit_input_${row.betId}`).value;
-    row.qualifying_loss = div.querySelector(`#qualifying_loss_input_${row.betId}`).value;
-    row.potential_profit = div.querySelector(`#potential_profit_input_${row.betId}`).value;
-    row.complete = div.querySelector(`#settled_bet_switch_${row.betId}`).checked;
+    row.actualprofit = div.querySelector(`#actual_profit_input_${row.betId}`).value || '0';
+    row.qualifying_loss = div.querySelector(`#qualifying_loss_input_${row.betId}`).value || '0';
+    row.potential_profit = div.querySelector(`#potential_profit_input_${row.betId}`).value || '0';
+    row.complete = div.querySelector(`#settled_bet_switch_${row.betId}`).checked || false;
 
     // get the event, date, bet outcome, description
-    row.event = div.querySelector(`#event_input_${row.betId}`).value;
-    row.date = convertInputDateToDisplayFormat(div.querySelector(`#bet-date-${row.betId}`).value);
-    row.bet_outcome = div.querySelector(`#bet_input_${row.betId}`).value;
-    row.description = div.querySelector(`#bet-description-input_${row.betId}`).value;
+    row.event = div.querySelector(`#event_input_${row.betId}`).value || '';
+    row.date = convertInputDateToDisplayFormat(div.querySelector(`#bet-date-${row.betId}`).value) || '';
+    row.bet_outcome = div.querySelector(`#bet_input_${row.betId}`).value || '';
+    row.description = div.querySelector(`#bet-description-input_${row.betId}`).value || '';
 
 
     row.date_and_time = row.date.replace(/\/\d{4}/, '/' + row.date.split('/')[2].slice(-2)) + ' 12:00';
@@ -639,7 +640,7 @@ function load_data_for_profit_tracker_select_second_section(scope, state, div, r
     let qualifying_loss_button = div.querySelector(`#qualifying_loss_button_${row.betId}`);
     let potential_profit_button = div.querySelector(`#potential_profit_button_${row.betId}`);
 
-    if (!row.is_manual) { // MEANING IT'S NOT MANUAL
+    if (!row.is_manual_log) { // MEANING IT'S NOT MANUAL
 
         // select the date input in here description-and-profit-section-inner-top-item-date
         let date_input = div.querySelector(`#bet-date-${row.betId}`);
@@ -672,6 +673,8 @@ function load_data_for_profit_tracker_select_second_section(scope, state, div, r
         let date_input = div.querySelector(`#bet-date-${row.betId}`);
         date_input.value = convertDateToInputFormat(new Date().toLocaleDateString('en-GB'));
         row.date = convertInputDateToDisplayFormat(date_input.value);
+
+        row.is_manual_log = false;
 
 
         // also set date in global data

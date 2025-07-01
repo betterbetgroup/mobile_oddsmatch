@@ -766,8 +766,11 @@ function calculate_and_display_total_profit(scope, state) {
     });
     // make total profit to 2 decimal places
     total_profit = total_profit.toFixed(2);
-    scope.querySelector('.total_profit_value').textContent = `£${total_profit}`;
+    scope.querySelector('.total_profit_value').textContent = `£${total_profit}`.replace('£-', '-£');
     scope.querySelector('.total_profit_value').style.visibility = 'visible';
+
+
+    state.filteredData = state.filter_function(state.globalData, state.globalFilters);
 
 
     // also do filtered profit
@@ -781,7 +784,7 @@ function calculate_and_display_total_profit(scope, state) {
     });
     // make total profit to 2 decimal places
     filtered_profit = filtered_profit.toFixed(2);
-    scope.querySelector('.filtered_profit_value').textContent = `£${filtered_profit}`;
+    scope.querySelector('.filtered_profit_value').textContent = `£${filtered_profit}`.replace('£-', '-£');
     scope.querySelector('.filtered_profit_value').style.visibility = 'visible';
 }
 
@@ -2152,6 +2155,9 @@ function process_complete_checkbox_change(rowId, isChecked, scope, state) {
         let mobileContainer = scope.querySelector(`div.mobile-card.outer-mobile-card[data-id="${row.betId}"] div.mobile-card`);
         mobileContainer.querySelector('div.final_profit_badge').className = `final_profit_badge ${row.actualprofit.includes('-') ? 'loss-badge' : 'profit-badge'} ${!row.complete ? 'not-complete-badge' : ''}`;
     }
+
+    calculate_and_display_total_profit(scope, state);
+
 
 
     // raise event and send to wix 

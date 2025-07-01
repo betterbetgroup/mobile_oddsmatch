@@ -93,7 +93,7 @@
     --background-colour-filters: #333;
     --border-filters: var(--global-border-width-main) solid #444;
     --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
-    --height-filter-inputs: 10.00vw;
+    --height-filter-inputs: 9.00vw;
     --padding-left-filter-inputs: 1.50vw;
     --border-radius-filter-inputs: 1.25vw;
     --font-size-filter-inputs: var(--global-main-font-size);
@@ -1915,7 +1915,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 .button-for-profit {
     width: 100%; /* CHANGED */
-    font-weight: bold;
+    font-weight: normal; /* CHANGED */
     align-items: center;
     justify-content: center;
     padding: 0;
