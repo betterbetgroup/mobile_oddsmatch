@@ -1,8 +1,4 @@
-
-//import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
-
-import * as Helpers from '../../oddsmatchers/main/helper.js';
-
+import * as Helpers from './main-helper.js';
 
 
 
@@ -11,12 +7,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/index.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/styles.css';
-
-    html_script = '../main/z.html';
-    styles_script = 'styles.css';
-
-
-
 
 
     class ProfitTracker extends HTMLElement {
@@ -420,6 +410,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 calcButton.className = 'calc_select_button';
                 calcButton.setAttribute('data-id', row.betId);
                 calcButton.setAttribute('aria-label', row.betId);
+                calcButton.setAttribute('data-tooltip', 'Go to Calculator');
                 tr.appendChild(calcButton);
             }
         

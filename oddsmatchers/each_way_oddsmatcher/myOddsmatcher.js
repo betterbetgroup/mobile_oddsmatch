@@ -1,10 +1,5 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from './main-helper.js';
 
-
-
-// BEAR IN MIND THESE FILTERS DO NOT MATCH THE DESKTOP VERSION OF EACH WAY FILTERS
-
-// THEY SHOULD BE LINED UP WHEN REDOING DESKTOP VERSION
 
 
 (function () {

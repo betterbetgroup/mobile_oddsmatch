@@ -1,4 +1,4 @@
-import * as helper from './helper.js';
+import * as helper from './main-helper.js';
 
 const MAX_UPDATE_INTERVAL_DATABASE = 1500;
 

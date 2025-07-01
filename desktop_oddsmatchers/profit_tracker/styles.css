@@ -151,6 +151,37 @@ tbody tr:last-child td:nth-last-child(3) {
 
 
 
+/* TOOLTIP FOR CALCULATOR BUTTON */
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--padding-tooltip);
+    background: black;
+    color: white;
+    border-radius: var(--border-radius-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    border: var(--global-border-main);
+}
+
+[data-tooltip]:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
 
 
 /* DESCRIPTION stuff */

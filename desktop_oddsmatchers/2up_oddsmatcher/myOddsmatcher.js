@@ -1,4 +1,5 @@
-import * as Helpers from '../../oddsmatchers/main/helper.js';
+import * as Helpers from './main-helper.js';
+
 
 
 
@@ -10,9 +11,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/2up_oddsmatcher/styles.css';
 
 
-    html_script = '../main/z.html';
-    styles_script = 'styles.css';
-    
+
 
 
 
@@ -168,7 +167,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
-                    ;
+                    
                 });
             });
         }

@@ -1,4 +1,4 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from './main-helper.js';
 
 
 (function () {
@@ -7,9 +7,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/extra_place_matcher/styles.css';
 
-    html_script = '../main/z.html';
-    styles_script = 'styles.css';
-    
 
 
     class extraPlaceOddsmatcher extends HTMLElement {

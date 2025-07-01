@@ -1,4 +1,4 @@
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from './main-helper.js';
 
 (function () {
 
@@ -6,8 +6,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/dutching_matcher/styles.css';
 
-
-    styles_script = 'styles.css';
 
 
     class dutchingOddsmatcher extends HTMLElement {

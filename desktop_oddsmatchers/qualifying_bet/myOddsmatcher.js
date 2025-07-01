@@ -1,5 +1,4 @@
-
-import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as Helpers from './main-helper.js';
 
 
 (function () {
@@ -7,10 +6,6 @@ import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/odds
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/qualifying_bet/styles.css';
-
-    /*html_script = '../main/z.html';
-    styles_script = 'styles.css';*/
-    
 
 
 
