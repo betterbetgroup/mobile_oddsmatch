@@ -1,5 +1,5 @@
 import * as calculateHelpers from './calculate_functions.js'
-import * as helper from './main-helper.js'
+import * as helper from './helper.js'
 import * as profit_tracker_helpers from './profit_tracker_helper.js'
 
 let copy_icon_url = 'https://img.icons8.com/?size=100&id=59773&format=png&color=ffffff';

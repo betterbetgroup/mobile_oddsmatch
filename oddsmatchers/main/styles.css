@@ -280,6 +280,8 @@ body {
 
     background: transparent;
 }
+
+/* TEMPORARY */
 .no-data-div h2, .loading-text {
     font-size: var(--loading-and-no-data-div-font-size);
 }

@@ -5,7 +5,7 @@ import * as Helpers from './main-helper.js';
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
-    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/index.html';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/profit_tracker/styles.css';
 
 
@@ -161,6 +161,7 @@ import * as Helpers from './main-helper.js';
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
+                    
                 });
             });
         }
@@ -409,8 +410,8 @@ import * as Helpers from './main-helper.js';
                 calcButton.innerHTML = `<img class="calculator_image" data-id="${row.betId}" src="https://img.icons8.com/?size=100&id=12780&format=png&color=000000" alt="Calculator">`;
                 calcButton.className = 'calc_select_button';
                 calcButton.setAttribute('data-id', row.betId);
-                calcButton.setAttribute('aria-label', row.betId);
                 calcButton.setAttribute('data-tooltip', 'Go to Calculator');
+                calcButton.setAttribute('aria-label', row.betId);
                 tr.appendChild(calcButton);
             }
         
