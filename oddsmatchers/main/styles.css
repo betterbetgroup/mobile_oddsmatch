@@ -102,7 +102,7 @@
     --font-size-multiplier-for-percentage: 0.85;
     --max-height-dropdown-options: 50.00vw;
     --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
-    --padding-dropdown-options: 1.75vw 3.00vw;
+    --padding-dropdown-options: 2vw 3.00vw;
     --padding-left-dropdown-options-label: 1.25vw;
     --margin-right-checkbox: 2.50vw;
     --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
