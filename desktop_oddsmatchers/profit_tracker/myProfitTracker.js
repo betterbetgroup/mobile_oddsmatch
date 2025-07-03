@@ -1,4 +1,4 @@
-import * as Helpers from './main-helper.js';
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 

@@ -755,7 +755,7 @@ export function get_sport_icon_url(sport) {
 
 
 
-function calculate_and_display_total_profit(scope, state) {
+export function calculate_and_display_total_profit(scope, state) {
     let total_profit = 0;
     state.globalData.forEach(row => {
         const profitValue = row.actualprofit === '' ? '0' : row.actualprofit;

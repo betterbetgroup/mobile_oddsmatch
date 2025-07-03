@@ -822,7 +822,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 
 /* AT WIDTH OF 1440PX */
 
-.select_button_div {
+.select_button_div, .calculator-container-div {
     
 
     /* global kind of items in select div */
@@ -882,7 +882,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     --profit-item-value-font-size: var(--font-size-filter-inputs);
     --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
 
-    --log-bet-button-padding-left-right: 2.08vw;
+    --log-bet-button-padding-left-right: 2.25vw; /* slightly larger testing */
 
 
 
