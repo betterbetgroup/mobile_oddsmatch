@@ -2298,7 +2298,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
 }
 
-function set_class_for_profit_info_item(element, value) {
+export function set_class_for_profit_info_item(element, value) {
     if (value === '0.00') {
         element.classList.remove('profit_and_log__item_value_negative');
         element.classList.remove('profit_and_log__item_value_positive');
@@ -2489,7 +2489,7 @@ function add_event_listeners_for_items_in_select_div(scope, state, div, row, dat
 
 }
 
-function copy_text_on_click_stake(event) {
+export function copy_text_on_click_stake(event) {
 
     let element = event.target;
     const originalText = event.target.textContent;
@@ -2503,7 +2503,7 @@ function copy_text_on_click_stake(event) {
 
 }
 
-function change_lay_type_control_container(event) {
+export function change_lay_type_control_container(event) {
 
     // select the parent element
     const parentElement = event.target.closest('.lay_type_control_container');

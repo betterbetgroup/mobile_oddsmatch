@@ -79,7 +79,7 @@ export function calculate_standard(data) {
     data.incomplete_data = false;
 
     if (!isNaN(data.back_odds) && !isNaN(data.lay_odds)) {
-        data.rating = (((data.back_odds / data.lay_odds) * 100).toFixed(2)).toString() + '%'
+        data.rating = (((data.back_odds / data.lay_odds) * 100).toFixed(2)).toString() + '%';
     
     } else {
         data.rating = '0%';

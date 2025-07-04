@@ -4,9 +4,6 @@
 
 
 
-
-
-
 .calculator-container-div {
 
     --width-calculator-container: 90%;
@@ -182,6 +179,7 @@
     justify-content: space-between;
     width: auto;
     gap: calc(var(--padding-calculator-gaps) * 1.35);
+    width: 100%;
 
 }
 
@@ -189,6 +187,7 @@
     align-self: flex-end;
     justify-self: flex-end;
     margin-left: auto;
+    margin-right: 0;
 }
 
 

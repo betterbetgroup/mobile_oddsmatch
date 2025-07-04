@@ -8,10 +8,10 @@
 
 </head>
 
-<body style="background: black; margin-top: 0;">
+<body style="background: black; align-self: center; justify-self: center; align-items: center; justify-content: center; display: flex; margin-top: 6vw;">
 
     <div id="app"  >
-        <standard-calculator ></standard-calculator>
+        <standard-calculator></standard-calculator>
     </div>
 
     <script type="module" src="myCalculator.js"></script>
@@ -24,8 +24,82 @@
         "premium_member": false,
         "is_desktop": false,
         "is_calc": false,
-        "is_calc_data": {},
-        "local_calc_data": {},
+        "is_calc_data": {
+    "laytype": "Overlay",
+    "isfree": false,
+    "platforms": [
+        {
+            "odds": "55",
+            "platform": "Betfair Exchange"
+        },
+        {
+            "odds": "54.5",
+            "commission": "0",
+            "platform": "Betfair Exchange"
+        }
+    ],
+    "backstake": "10",
+    "description": "this",
+    "back_odds": "55.00",
+    "lay_odds": "54.50",
+    "lay_commission": "0.00",
+    "incomplete_data": false,
+    "rating": "100.92%",
+    "bookmaker_profit_if_back_win": "540.00",
+    "lay_stake": "10.09",
+    "exchange_profit_if_back_win": "-540.00",
+    "total_profit_if_back_win": "0.00",
+    "bookmaker_profit_if_lay_win": "-10.00",
+    "exchange_profit_if_lay_win": "10.09",
+    "total_profit_if_lay_win": "0.09",
+    "qualifying_loss": "0.00",
+    "potential_profit": "0.09",
+    "ROI": "0.00",
+    "back_stake": "10.00",
+    "date": "04/07/2025",
+    "date_and_time": "04/07/25 12:00",
+    "iscalc": true,
+    "complete": false,
+    "betId": "587lilade7x_1751628354443",
+    "oddsmatcher_type": "Manual",
+    "event": "Manual",
+    "actualprofit": "",
+    "bet_outcome": "",
+    "calculator": "Standard"
+},
+        "local_calc_data": {
+    "laytype": "Standard",
+    "isfree": true,
+    "platforms": [
+        {
+            "odds": "",
+            "platform": "Other"
+        },
+        {
+            "odds": "",
+            "commission": "0",
+            "platform": "Other"
+        }
+    ],
+    "backstake": "",
+    "description": "",
+    "back_odds": null,
+    "lay_odds": null,
+    "lay_commission": 0,
+    "incomplete_data": true,
+    "rating": "0%",
+    "bookmaker_profit_if_back_win": "45.00",
+    "lay_stake": "9.09",
+    "exchange_profit_if_back_win": "-36.36",
+    "total_profit_if_back_win": "8.64",
+    "bookmaker_profit_if_lay_win": "0.00",
+    "exchange_profit_if_lay_win": "8.64",
+    "total_profit_if_lay_win": "8.64",
+    "qualifying_loss": "8.64",
+    "potential_profit": "8.64",
+    "ROI": "18.63",
+    "back_stake": null
+},
 }
             setTimeout(() => {
                 document.querySelector('standard-calculator').setAttribute('data-odds', JSON.stringify(finalData))
@@ -37,6 +111,10 @@
             })
 
             document.querySelector('standard-calculator').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
+            document.querySelector('standard-calculator').addEventListener('local_calc_data', (event)=>{
                 console.log(event)
             })
 

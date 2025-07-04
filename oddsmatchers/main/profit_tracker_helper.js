@@ -6,7 +6,7 @@ const MAX_UPDATE_INTERVAL_DATABASE = 1500;
 
 
 
-function convertDateToInputFormat(dateString) {
+export function convertDateToInputFormat(dateString) {
     if (!dateString) return '';
     
     // Convert from DD/MM/YYYY to YYYY-MM-DD
@@ -19,7 +19,7 @@ function convertDateToInputFormat(dateString) {
     return '';
 }
 
-function convertInputDateToDisplayFormat(dateString) {
+export function convertInputDateToDisplayFormat(dateString) {
     if (!dateString) return '';
     
     // Convert from YYYY-MM-DD to DD/MM/YYYY
@@ -497,7 +497,7 @@ function load_data_for_profit_tracker_select_first_section(scope, state, div, ro
     add_event_listener_for_platform_divs(div);
 
     // add event listener for the dropdown options
-    add_event_listener_for_dropdown_options(scope, state, div, row);
+    add_event_listener_for_dropdown_options(scope, state, div);
 
 }
 
@@ -736,6 +736,7 @@ export function add_event_listener_for_platform_divs(div) {
             let button_div = div.querySelector(`#${button_div_selector}`) 
 
 
+
             if (button_div.style.display == 'block') {
                 button_div.style.display = 'none'
                 platform_div.classList.remove('border-radius-bottom-none')
@@ -754,7 +755,7 @@ export function add_event_listener_for_platform_divs(div) {
 }
 
 // this is adding the event listener for the dropdown options
-export function add_event_listener_for_dropdown_options(scope, state, div, row) {
+export function add_event_listener_for_dropdown_options(scope, state, div) {
 
     div.addEventListener('click', (event) => {
 
