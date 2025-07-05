@@ -16,6 +16,9 @@
 
 
 
+    --width-filter-items-calculator: 15vw;
+
+
 }
 
 
@@ -29,9 +32,9 @@
     width: var(--width-calculator-container);
     border: var(--global-border-main);
     border-radius: var(--larger-border-radius-above-columns-panel);
-    padding: calc(var(--padding-calculator-gaps) * 1.5);
+    padding: calc(var(--padding-calculator-gaps) * 1.25);
     padding-top: var(--padding-calculator-gaps);
-    gap: calc(var(--padding-calculator-gaps) * 1.5);
+    gap: calc(var(--padding-calculator-gaps) * 1.75);
     flex-direction: column;
 }
 
@@ -57,7 +60,7 @@
 
 .calc-input-div-standard, .calculator-bet-info-section-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--padding-calculator-gaps);
 }
 
@@ -91,16 +94,17 @@
 .bottom_div_calculator_container {
     display: flex;
     flex-direction: row;
-    margin-top: calc(var(--padding-calculator-gaps) * 1);
 }
 
-.logging-div, .info-and-profit-div {
+.info-and-profit-div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     gap: var(--padding-calculator-gaps);
+    width: 100%;
 }
+
+
 
 
 .upper-logging-div, .middle-logging-div {
@@ -128,25 +132,24 @@
 
 .filter-item-description {
     width: 100%;
+    min-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--width-of-bar-on-left-of-bet-item));
+    max-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--width-of-bar-on-left-of-bet-item));
 }
 
-.top-div-info-and-profit, .bottom-div-info-and-profit {
-    width: 100%;
-    padding-left: calc(var(--padding-calculator-gaps) * 2);
-}
 
 .top-div-info-and-profit {
     padding-top: calc(var(--height-filter-inputs) / 1.75);
 }
 
-.select_bet_text_div span, .profit_and_log__item_title {
+.select_bet_text_div span {
     font-size: var(--profit-item-title-font-size);
-    text-align: center;
+    text-align: left;
+    padding-left: 0.5vw;
 }
 
 .profit_and_log__item_title {
-    width: min-content;
-    font-size: calc(var(--profit-item-title-font-size) * 0.9);
+    text-align: center;
+    font-size: calc(var(--profit-item-title-font-size) * 0.85);
 }
 
 .profit_and_log__item_value {
@@ -162,15 +165,25 @@
 
 
 .lay_bet_info_div {
-    margin: auto;
+    margin: 0;
     justify-content: flex-start;
     display: flex;
+    text-align: left;
+    align-items: flex-end;
+}
+
+.select_bet_text_div_text {
+    height: var(--height-filter-inputs);
+    line-height: var(--height-filter-inputs);
+    align-items: flex-end;
+    justify-content: flex-start;
 }
 
 
+
 .div-in-bottom-div-info-and-profit {
-    height: calc(var(--height-of-bet-description-input-profit-tracker) * 1.1);
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
 }
@@ -178,7 +191,7 @@
 .profit_display_div_calculator {
     justify-content: space-between;
     width: auto;
-    gap: calc(var(--padding-calculator-gaps) * 1.35);
+    gap: calc(var(--padding-calculator-gaps) * 1);
     width: 100%;
 
 }
@@ -186,7 +199,7 @@
 .log-bet-button-div {
     align-self: flex-end;
     justify-self: flex-end;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: 0;
 }
 
@@ -197,21 +210,22 @@
 
 
 .calculator-bet-info-section-div .filter-item {
-    width: 15.5vw;
+    max-width: var(--width-filter-items-calculator);
+    min-width: var(--width-filter-items-calculator);
 }
 
 
-.input-section-div-vertical-types {
-    gap: calc(var(--padding-calculator-gaps) * 1.25);
+.input-section-div-outer {
+    gap: calc(var(--padding-calculator-gaps) * 1);
+    flex-direction: column;
 }
 
 .place_lay_fraction_input:before {
     content: '1/';
-    font-size: calc(var(--font-size-currency-box) * 0.75);
+    font-size: var(--font-size-filter-inputs);
 }
 
 .div_outside_bar_on_left_of_item {
-    height: 4.357vw;
     display: flex;
     align-items: flex-end;
 }

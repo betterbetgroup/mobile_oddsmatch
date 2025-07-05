@@ -200,13 +200,15 @@ export function calculate_each_way_and_extra_place(data, is_extra_place) {
 
     data.incomplete_data = false;
 
-    if (!isNaN(data.each_way_odds) && !isNaN(data.exchange_win_odds) && !isNaN(data.exchange_place_odds) && data.bookmaker_fraction) {
+    if (!isNaN(data.each_way_odds) && !isNaN(data.exchange_win_odds) && !isNaN(data.exchange_place_odds) && data.bookmaker_fraction != '1/') {
         
         data.back_place_odds = get_back_implied_place_odds(data.bookmaker_fraction, data.each_way_odds)
         data.rating = (((data.each_way_odds + data.back_place_odds) / (data.exchange_win_odds + data.exchange_place_odds)) * 100).toFixed(2) + '%';
 
     } else {
         data.rating = '0%';
+        data.incomplete_data = true;
+        return data;
     }
 
     if (isNaN(data.each_way_stake) || isNaN(data.each_way_odds) || isNaN(data.exchange_win_odds) || isNaN(data.exchange_win_commission) || isNaN(data.exchange_place_odds) || isNaN(data.exchange_place_commission)) {

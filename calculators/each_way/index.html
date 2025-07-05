@@ -23,10 +23,128 @@
         let finalData = {
         "premium_member": false,
         "is_desktop": false,
-        "is_calc": false,
-        "is_calc_data": {},
-        "local_calc_data": {},
-}
+        "is_calc": true,
+        "is_calc_data": {
+    "platforms": [
+        {
+            "odds": "25",
+            "platform": "10Bet",
+            "commission": "",
+            "link": "",
+            "index": 1
+        },
+        {
+            "odds": "15",
+            "commission": "5",
+            "platform": "Smarkets",
+            "link": "",
+            "index": 2
+        },
+        {
+            "odds": "3",
+            "commission": "5",
+            "platform": "Betfair Exchange",
+            "link": "",
+            "index": 3
+        }
+    ],
+    "backstake": "15",
+    "description": "This description",
+    "bookmaker_fraction": "1/4",
+    "each_way_odds": "25.00",
+    "exchange_win_odds": "15.00",
+    "exchange_place_odds": "3.00",
+    "exchange_win_commission": "0.05",
+    "exchange_place_commission": "0.05",
+    "each_way_stake": "15.00",
+    "incomplete_data": false,
+    "rating": "177.78%",
+    "back_place_odds": "7.00",
+    "bookmaker_profit_win_wins": "360.00",
+    "lay_stake_win": "25.08",
+    "exchange_profit_win_wins": "-351.17",
+    "bookmaker_profit_place_place": "90.00",
+    "lay_stake_place": "35.59",
+    "exchange_profit_place_place": "-71.19",
+    "total_profit_if_wins": "27.64",
+    "bookmaker_profit_win_place": "-15.00",
+    "exchange_profit_win_place": "23.83",
+    "total_profit_if_place": "27.64",
+    "bookmaker_profit_win_none": "-15.00",
+    "exchange_profit_win_none": "23.83",
+    "bookmaker_profit_place_none": "-15.00",
+    "exchange_profit_place_none": "33.81",
+    "total_profit_if_none": "27.64",
+    "qualifying_loss": "27.64",
+    "potential_profit": "27.64",
+    "total_bookmaker_gain_if_win_and_place": "450.00",
+    "total_bookmaker_gain_if_not_win_but_places": "75.00",
+    "total_bookmaker_loss_if_not_win_or_place": "-30.00",
+    "date": "05/07/2025",
+    "date_and_time": "05/07/25 12:00",
+    "iscalc": true,
+    "complete": false,
+    "betId": "97n8qwlt7bh_1751721320229",
+    "oddsmatcher_type": "Manual",
+    "event": "",
+    "actualprofit": "",
+    "bet_outcome": "",
+    "calculator": "Each Way"
+},
+        "local_calc_data": {
+    "platforms": [
+        {
+            "odds": "20",
+            "platform": "888Sport"
+        },
+        {
+            "odds": "19",
+            "commission": "0",
+            "platform": "Betfair Exchange"
+        },
+        {
+            "odds": "4",
+            "commission": "0",
+            "platform": "Smarkets"
+        }
+    ],
+    "backstake": "10",
+    "description": "888 sport each way bet with bfex and smarkets for the lays respectively.",
+    "bookmaker_fraction": "1/5",
+    "each_way_odds": "20.00",
+    "exchange_win_odds": "19.00",
+    "exchange_place_odds": "4.00",
+    "exchange_win_commission": "0.00",
+    "exchange_place_commission": "0.00",
+    "each_way_stake": "10.00",
+    "incomplete_data": false,
+    "rating": "107.83%",
+    "back_place_odds": "4.80",
+    "bookmaker_profit_win_wins": "190.00",
+    "lay_stake_win": "10.53",
+    "exchange_profit_win_wins": "-189.47",
+    "bookmaker_profit_place_place": "38.00",
+    "lay_stake_place": "12.00",
+    "exchange_profit_place_place": "-36.00",
+    "total_profit_if_wins": "2.53",
+    "bookmaker_profit_win_place": "-10.00",
+    "exchange_profit_win_place": "10.53",
+    "total_profit_if_place": "2.53",
+    "bookmaker_profit_win_none": "-10.00",
+    "exchange_profit_win_none": "10.53",
+    "bookmaker_profit_place_none": "-10.00",
+    "exchange_profit_place_none": "12.00",
+    "total_profit_if_none": "2.53",
+    "qualifying_loss": "2.53",
+    "potential_profit": "2.53",
+    "total_bookmaker_gain_if_win_and_place": "228.00",
+    "total_bookmaker_gain_if_not_win_but_places": "28.00",
+    "total_bookmaker_loss_if_not_win_or_place": "-20.00"
+},
+    
+    
+    
+    }
             setTimeout(() => {
                 document.querySelector('eachway-calculator').setAttribute('data-odds', JSON.stringify(finalData))
 
