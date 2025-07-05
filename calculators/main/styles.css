@@ -243,3 +243,80 @@
     margin-top: auto;
     border-radius: var(--border-radius-filter-inputs);
 }
+
+.bar_on_left_of_item span {
+    font-size: calc(var(--profit-item-title-font-size) * 1.2);
+    text-align: center;
+    width: 100%;
+    line-height: var(--height-filter-inputs);
+    font-weight: bold;
+}
+
+
+.minus-button-div {
+    height: 100%;
+    display: flex;
+    align-self: flex-end;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.add-button-div {
+    display: flex;
+    justify-content: center;
+    font-size: var(--profit-item-title-font-size);
+    gap: calc(var(--padding-calculator-gaps) * 0.75);
+    align-items: center;
+    font-weight: bold;
+    margin: auto;
+    padding-top: calc(var(--padding-calculator-gaps) * 0.5);
+    padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
+}
+
+.minus-button, .add-row-button {
+    width: var(--width-height-select-button);
+    height: var(--width-height-select-button);
+    background-color: #ff00c6;
+    font-size: var(--font-size-select-button);
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+
+.dutching-control-div-calculator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: calc(var(--padding-calculator-gaps) * 1);
+}
+
+.free-bet-mode-input-dutching-select {
+    margin-top: auto;
+    max-width: var(--width-filter-items-calculator);
+    min-width: var(--width-filter-items-calculator);
+    justify-content: flex-start;
+    margin-bottom: 0.57vw;
+}
+
+.calculator-bet-info-section-div .filter-item.filter-item-text-input-dutching-select {
+    min-width: calc(var(--height-filter-inputs) + var(--padding-calculator-gaps) + var(--width-filter-items-calculator));
+    max-width: calc(var(--height-filter-inputs) + var(--padding-calculator-gaps) + var(--width-filter-items-calculator));
+    margin-bottom: 0.25vw;
+}
+
+.dutching-control-div-calculator {
+    padding: var(--padding-calculator-gaps) 0;
+}
+
+.dutching-select-controls-item {
+    width: 100%;
+    padding: 0;
+    padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
+    gap: var(--padding-calculator-gaps);
+    justify-content: flex-start;
+}
+

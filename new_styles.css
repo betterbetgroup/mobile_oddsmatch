@@ -1068,7 +1068,7 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
     background-color: var(--background-colour-filters);
     color: white;
     transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
-    height: var(--height-of-filter-inputs);
+    height: var(--height-filter-inputs);
     font-size: var(--font-size-filter-inputs); 
     text-align: center;
     padding-top: var(--padding-top-bottom-select-lay-type);

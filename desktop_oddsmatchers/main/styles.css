@@ -1119,7 +1119,6 @@ tr:not(:last-child) td .select_button_div {
     background-color: var(--background-colour-filters);
     color: white;
     transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
-    height: var(--height-of-filter-inputs);
     font-size: var(--font-size-filter-inputs); 
     text-align: center;
     padding-top: var(--padding-top-bottom-select-lay-type);
