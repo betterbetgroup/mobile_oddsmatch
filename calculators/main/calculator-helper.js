@@ -126,39 +126,52 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
 
     // take the container and add a div with three divs in it, dividing the space equally
     const input_section_div = document.createElement('div');
-    input_section_div.className = 'input-section-div';
+    input_section_div.className = 'input-section-div input-section-div-outer';
     calculator_container_div.appendChild(input_section_div);
 
+
+    // add back bet div
+    const first_row_div = document.createElement('div');
+    first_row_div.className = 'calculator-bet-info-section-div back-bet-calculator-div';
+
     // add three divs to the input section div
-    const back_bet_input_div = document.createElement('div');
-    back_bet_input_div.className = 'calc-input-div-standard back-input-div';
+    const second_row_div = document.createElement('div');
+    second_row_div.className = 'calculator-bet-info-section-div lay-bet-calculator-div';
 
-    const lay_bet_input_div = document.createElement('div');
-    lay_bet_input_div.className = 'calc-input-div-standard lay-input-div';
-
-    const control_input_div = document.createElement('div');
-    control_input_div.className = 'calc-input-div-standard control-input-div';
-
-    input_section_div.appendChild(back_bet_input_div);
-    input_section_div.appendChild(lay_bet_input_div);
-    input_section_div.appendChild(control_input_div);
+    input_section_div.appendChild(first_row_div);
+    input_section_div.appendChild(second_row_div);
 
 
     // select the back-input-div
-    let back_input_div_select = input_section_div.querySelector('.back-input-div');
-    add_stake_input(back_input_div_select, 'Back', 'back-stake-input');
-    add_odds_input(back_input_div_select, 'Back', 1);
+    add_flag_div(first_row_div, false);
+    add_stake_input(first_row_div, 'Back', 'back-stake-input');
+    add_odds_input(first_row_div, 'Back', 1);
+    add_platform_div_for_logging(first_row_div, 'Back Bet Bookmaker', 1);
+    add_free_bet_mode_control(first_row_div);
+
 
     // select the lay-input-div
-    let lay_input_div_select = input_section_div.querySelector('.lay-input-div');
-    add_odds_input(lay_input_div_select, 'Lay', 2);
-    add_commission_input(lay_input_div_select, 'Lay', 2);
+    add_flag_div(second_row_div, true);
+    add_odds_input(second_row_div, 'Lay', 2);
+    add_commission_input(second_row_div, 'Lay', 2);
+    add_platform_div_for_logging(second_row_div, 'Lay Bet Exchange', 2);
 
 
 
-    // select the control-input-div
-    let control_input_div_select = input_section_div.querySelector('.control-input-div');
-    add_control_input_standard(control_input_div_select);
+
+
+    // adding in lay bet info
+    add_lay_bet_info_div(scope, state, second_row_div, 2, '');
+
+
+
+
+
+    // add the lay type div - make it be in the main div
+    const lay_control_div = document.createElement('div');
+    lay_control_div.className = 'calculator-bet-info-section-div control-div-bet-calculator-div';
+    calculator_container_div.appendChild(lay_control_div);
+    add_control_input_standard(lay_control_div);
 
 
 }
@@ -235,6 +248,19 @@ function add_lay_bet_info_div(scope, state, top_div, index, info_text) {
     `;
 }
 
+function add_free_bet_mode_control(div) {
+    div.innerHTML += `
+            <div class="free_bet_mode_control">
+                <label class="switch switch_select_free_bet_mode">
+                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch">
+                    <span class="slider slider_select_free_bet_mode"></span>
+                </label>
+                <span class="free_bet_mode_label">Free Bet</span>
+            </div>
+    `;
+
+}
+
 function add_flag_div(div, is_lay) {
 
     div.innerHTML += `
@@ -291,15 +317,6 @@ function add_commission_input(div, type, index) {
 
 function add_control_input_standard(control_input_div_select, state) {
     control_input_div_select.innerHTML += `
-
-            <div class="free_bet_mode_control">
-                <label class="switch switch_select_free_bet_mode">
-                    <input type="checkbox" class="free_bet_mode_switch" id="free_bet_mode_switch">
-                    <span class="slider slider_select_free_bet_mode"></span>
-                </label>
-                <span class="free_bet_mode_label">Free Bet Mode</span>
-            </div>
-
 
             <div class="bet_type_control">
                 <div class="lay_type_control_container"">
@@ -380,7 +397,12 @@ function add_div_for_info_and_profit(scope, state, calculator_container_div) {
     calculator_container_div.querySelector('.bottom_div_calculator_container').appendChild(info_and_profit_div);
 
 
-    add_desc_profit_div_standard(info_and_profit_div);
+
+    if (state.calculator_type == 'Standard') {
+        add_desc_profit_div_standard(info_and_profit_div);
+    } else if (state.calculator_type == 'Each Way') {
+        add_desc_profit_div_each_way(info_and_profit_div);
+    }
 
 }
 
@@ -430,6 +452,53 @@ function add_desc_profit_div_standard(bottom_div) {
 
 
 
+                    <div class="log-bet-button-div">
+                            <button id="log-bet-button" class="log-bet-button">Log Bet</button>
+                    </div>
+
+
+            </div>
+
+
+
+        </div>
+    `;
+}
+
+function add_desc_profit_div_each_way(bottom_div) {
+
+
+    bottom_div.innerHTML += `
+        <div class="div-in-bottom-div-info-and-profit">
+            
+        
+            <div class="profit_display_profit_and_log_div profit_display_div_calculator">
+
+
+
+                    <div class="filter-item filter-item-description">
+                        <label class="filter-label">Description</label>
+                        <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
+                    </div>
+
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                Bet Rating
+                            </span>
+                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
+                    </div>
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                            Bet Profit
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                    </div>
+                    
                     <div class="log-bet-button-div">
                             <button id="log-bet-button" class="log-bet-button">Log Bet</button>
                     </div>
@@ -731,9 +800,6 @@ function set_results_for_each_way(scope, state) {
         scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';
         scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
         select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_qualifying_loss'), state.data_object.qualifying_loss);
-        scope.querySelector('.profit_and_log__item_value_potential_profit').textContent = ('£' + state.data_object.potential_profit).replace('£-', '-£');
-        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_potential_profit'), state.data_object.potential_profit);
-
 
     } else {
 

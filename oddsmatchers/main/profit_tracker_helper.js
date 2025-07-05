@@ -828,11 +828,11 @@ export function append_platforms_to_platform_selectors(dropdown_container, platf
 
     let input_value = dropdown_container.parentElement.querySelector('input').value;
 
-    if (dropdown_container.dataset.type == 'Each Way Bookmaker') {
+    if (dropdown_container.dataset.type == 'Each Way Bookmaker' || dropdown_container.dataset.type == 'Back Bet Bookmaker') {
         platforms = platforms.filter(platform => !Object.keys(exchangeImages).includes(platform));
     } 
 
-    if (dropdown_container.dataset.type == 'Win Lay Exchange' || dropdown_container.dataset.type == 'Place Lay Exchange') {
+    if (dropdown_container.dataset.type == 'Win Lay Exchange' || dropdown_container.dataset.type == 'Place Lay Exchange' || dropdown_container.dataset.type == 'Lay Bet Exchange') {
         platforms = platforms.filter(platform => !Object.keys(bookmakerImages).includes(platform));
     }
 

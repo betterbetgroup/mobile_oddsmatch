@@ -86,6 +86,9 @@
 }
 
 
+.control-div-bet-calculator-div {
+    justify-content: center;
+}
 
 
 
@@ -144,7 +147,6 @@
 .select_bet_text_div span {
     font-size: var(--profit-item-title-font-size);
     text-align: left;
-    padding-left: 0.5vw;
 }
 
 .profit_and_log__item_title {
@@ -177,6 +179,7 @@
     line-height: var(--height-filter-inputs);
     align-items: flex-end;
     justify-content: flex-start;
+    padding-left: 0.5vw;
 }
 
 
