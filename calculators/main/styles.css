@@ -135,8 +135,8 @@
 
 .filter-item-description {
     width: 100%;
-    min-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--width-of-bar-on-left-of-bet-item));
-    max-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--width-of-bar-on-left-of-bet-item));
+    min-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--height-filter-inputs));
+    max-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--height-filter-inputs));
 }
 
 
@@ -147,6 +147,10 @@
 .select_bet_text_div span {
     font-size: var(--profit-item-title-font-size);
     text-align: left;
+}
+
+.copy-icon {
+    height: var(--profit-item-title-font-size);
 }
 
 .profit_and_log__item_title {
@@ -235,6 +239,7 @@
 
 .bar_on_left_of_item {
     height: var(--height-filter-inputs);
+    width: var(--height-filter-inputs);
     margin-top: auto;
     border-radius: var(--border-radius-filter-inputs);
 }

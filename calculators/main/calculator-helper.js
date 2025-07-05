@@ -83,7 +83,7 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
         add_input_section_for_standard_calculator(scope, state, calculator_container_div);
     }
 
-    if (state.calculator_type == 'Each Way') {
+    if (state.calculator_type == 'Each Way' || state.calculator_type == 'Extra Place') {
         add_input_section_for_each_way_calculator(scope, state, calculator_container_div);
     }
 
@@ -161,7 +161,7 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
 
 
     // adding in lay bet info
-    add_lay_bet_info_div(scope, state, second_row_div, 2, '');
+    add_lay_bet_info_div(scope, state, second_row_div, 2, `at <span id="lay-odds-span-2"`);
 
 
 
@@ -241,7 +241,7 @@ function add_lay_bet_info_div(scope, state, top_div, index, info_text) {
     top_div.innerHTML += `
         <div class="select_bet_text_div lay_bet_info_div"> 
             <span class="select_bet_text_div_text" id="select_bet_text_div_text_iOarZiIyJHVdbIJe6gt1wY8GqVhyeCvleF9k_Lay">Lay <span id="lay-stake-span-${index}" class="copy-on-click "></span>
-            <img src="https://img.icons8.com/?size=100&amp;id=59773&amp;format=png&amp;color=ffffff" class="copy-icon" alt="(Copy)">
+            <img src="https://img.icons8.com/?size=100&amp;id=59773&amp;format=png&amp;color=ffffff" class="copy-icon" id="copy-icon-${index}" alt="(Copy)">
             ${info_text}      
             </span>
         </div>
@@ -402,6 +402,8 @@ function add_div_for_info_and_profit(scope, state, calculator_container_div) {
         add_desc_profit_div_standard(info_and_profit_div);
     } else if (state.calculator_type == 'Each Way') {
         add_desc_profit_div_each_way(info_and_profit_div);
+    } else if (state.calculator_type == 'Extra Place') {
+        add_desc_profit_div_extra_place(info_and_profit_div);
     }
 
 }
@@ -498,6 +500,61 @@ function add_desc_profit_div_each_way(bottom_div) {
 
                         <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
                     </div>
+                    
+                    <div class="log-bet-button-div">
+                            <button id="log-bet-button" class="log-bet-button">Log Bet</button>
+                    </div>
+
+
+            </div>
+
+
+
+        </div>
+    `;
+}
+
+function add_desc_profit_div_extra_place(bottom_div) {
+
+
+    bottom_div.innerHTML += `
+        <div class="div-in-bottom-div-info-and-profit">
+            
+        
+            <div class="profit_display_profit_and_log_div profit_display_div_calculator">
+
+
+
+                    <div class="filter-item filter-item-description">
+                        <label class="filter-label">Description</label>
+                        <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
+                    </div>
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                Implied Odds
+                            </span>
+                            <span class="profit_and_log__item_value profit_and_log__item_value_implied_odds">0</span>
+                    </div>
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                            Qualifying Loss
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                    </div>
+                    
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                            Potential Profit
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                    </div>
+
                     
                     <div class="log-bet-button-div">
                             <button id="log-bet-button" class="log-bet-button">Log Bet</button>
@@ -611,7 +668,7 @@ function add_values_for_calculator(scope, state, is_create) {
     // SHOULD PROBABLY HAVE A FUNCTION HERE LIKE COLLECT VALUES STANDARD
     if (state.calculator_type == 'Standard') {
         get_and_create_all_values_standard(scope, state);
-    } else if (state.calculator_type == 'Each Way') {
+    } else if (state.calculator_type == 'Each Way' || state.calculator_type == 'Extra Place') {
         get_and_create_all_values_each_way(scope, state);
     }
 
@@ -633,6 +690,8 @@ function add_values_for_calculator(scope, state, is_create) {
         set_results_for_standard(scope, state);
     } else if (state.calculator_type == 'Each Way') {
         set_results_for_each_way(scope, state);
+    } else if (state.calculator_type == 'Extra Place') {
+        set_results_for_extra_place(scope, state);
     }
 
 
@@ -747,7 +806,7 @@ function calculate_each_way_bet(scope, state) {
     state.data_object.exchange_place_commission = (parseFloat(scope.querySelector('#commission-input-3').value)) / 100;
     state.data_object.each_way_stake = parseFloat(scope.querySelector('#back-stake-input').value);
 
-    state.data_object = calculator_helper.calculate_each_way_and_extra_place(state.data_object);
+    state.data_object = calculator_helper.calculate_each_way_and_extra_place(state.data_object, state.calculator_type == 'Extra Place');
 
 }
 
@@ -764,7 +823,9 @@ function set_results_for_standard(scope, state) {
         // then set lay stake using #lay-stake-span
         scope.querySelector('#lay-stake-span-2').textContent = '£' + state.data_object.lay_stake || '';
         scope.querySelector('#lay-stake-span-2').classList.add('copy-on-click');
-        scope.querySelector('.copy-icon').classList.remove('hidden_row_above_columns');
+        scope.querySelector('#copy-icon-2').classList.remove('hidden_row_above_columns');
+
+        scope.querySelector('#lay-odds-span-2').textContent = state.data_object.lay_odds + ' Lay Odds' || '';
 
         // then set the profit items
         scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';
@@ -790,16 +851,46 @@ function set_results_for_each_way(scope, state) {
         // then set lay stake using #lay-stake-span
         scope.querySelector('#lay-stake-span-2').textContent = '£' + state.data_object.lay_stake_win || '';
         scope.querySelector('#lay-stake-span-2').classList.add('copy-on-click');
-        scope.querySelector('.copy-icon').classList.remove('hidden_row_above_columns');
+        scope.querySelector('#copy-icon-2').classList.remove('hidden_row_above_columns');
 
         scope.querySelector('#lay-stake-span-3').textContent = '£' + state.data_object.lay_stake_place || '';
         scope.querySelector('#lay-stake-span-3').classList.add('copy-on-click');
-        scope.querySelector('.copy-icon').classList.remove('hidden_row_above_columns');
+        scope.querySelector('#copy-icon-3').classList.remove('hidden_row_above_columns');
 
         // then set the profit items
         scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';
         scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
         select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_qualifying_loss'), state.data_object.qualifying_loss);
+
+    } else {
+
+        set_results_to_default(scope, state);
+
+    }
+
+}
+
+
+function set_results_for_extra_place(scope, state) {
+
+    if (!state.data_object.incomplete_data) {
+
+        // then set lay stake using #lay-stake-span
+        scope.querySelector('#lay-stake-span-2').textContent = '£' + state.data_object.lay_stake_win || '';
+        scope.querySelector('#lay-stake-span-2').classList.add('copy-on-click');
+        scope.querySelector('#copy-icon-2').classList.remove('hidden_row_above_columns');
+
+        scope.querySelector('#lay-stake-span-3').textContent = '£' + state.data_object.lay_stake_place || '';
+        scope.querySelector('#lay-stake-span-3').classList.add('copy-on-click');
+        scope.querySelector('#copy-icon-3').classList.remove('hidden_row_above_columns');
+
+        // then set the profit items
+        scope.querySelector('.profit_and_log__item_value_implied_odds').textContent = state.data_object.implied_odds || '0';
+        scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_qualifying_loss'), state.data_object.qualifying_loss);
+        scope.querySelector('.profit_and_log__item_value_potential_profit').textContent = ('£' + state.data_object.potential_profit).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_potential_profit'), state.data_object.potential_profit);
+
 
     } else {
 
@@ -838,6 +929,12 @@ function set_results_to_default(scope, state) {
             // pass
         }
 
+        try {
+            lay_bet_spans.querySelector('span[id^="lay-odds-span"]').textContent = '... Lay Odds';
+        } catch (error) {
+            // pass
+        }
+
     });
 
 
@@ -849,6 +946,8 @@ function set_results_to_default(scope, state) {
 
         if (profit_and_log_item_value.classList.contains('profit_and_log__item_value_rating')) {
             profit_and_log_item_value.textContent = ('0%');
+        } else if (profit_and_log_item_value.classList.contains('profit_and_log__item_value_implied_odds')) {
+            profit_and_log_item_value.textContent = ('0');
         } else {
             profit_and_log_item_value.textContent = ('£0.00');
             select_boxes_helper.set_class_for_profit_info_item(profit_and_log_item_value, '0.00');
