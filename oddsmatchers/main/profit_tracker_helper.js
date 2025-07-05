@@ -828,6 +828,14 @@ export function append_platforms_to_platform_selectors(dropdown_container, platf
 
     let input_value = dropdown_container.parentElement.querySelector('input').value;
 
+    if (dropdown_container.dataset.type == 'Each Way Bookmaker') {
+        platforms = platforms.filter(platform => !Object.keys(exchangeImages).includes(platform));
+    } 
+
+    if (dropdown_container.dataset.type == 'Win Lay Exchange' || dropdown_container.dataset.type == 'Place Lay Exchange') {
+        platforms = platforms.filter(platform => !Object.keys(bookmakerImages).includes(platform));
+    }
+
     platforms.forEach(platform => {
         // Create the option container
         const optionDiv = document.createElement('div');

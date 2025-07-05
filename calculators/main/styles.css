@@ -55,7 +55,7 @@
 
 }
 
-.calc-input-div-standard {
+.calc-input-div-standard, .calculator-bet-info-section-div {
     display: flex;
     flex-direction: column;
     gap: var(--padding-calculator-gaps);
@@ -191,3 +191,33 @@
 }
 
 
+
+
+
+
+
+.calculator-bet-info-section-div .filter-item {
+    width: 15.5vw;
+}
+
+
+.input-section-div-vertical-types {
+    gap: calc(var(--padding-calculator-gaps) * 1.25);
+}
+
+.place_lay_fraction_input:before {
+    content: '1/';
+    font-size: calc(var(--font-size-currency-box) * 0.75);
+}
+
+.div_outside_bar_on_left_of_item {
+    height: 4.357vw;
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar_on_left_of_item {
+    height: var(--height-filter-inputs);
+    margin-top: auto;
+    border-radius: var(--border-radius-filter-inputs);
+}
