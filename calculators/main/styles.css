@@ -144,9 +144,10 @@
     padding-top: calc(var(--height-filter-inputs) / 1.75);
 }
 
-.select_bet_text_div span {
+.select_bet_text_div span, .seq-lay-profit-row span {
     font-size: var(--profit-item-title-font-size);
     text-align: left;
+    font-weight: bold;
 }
 
 .copy-icon {
@@ -178,14 +179,25 @@
     align-items: flex-end;
 }
 
-.select_bet_text_div_text {
+.select_bet_text_div_text, .seq-lay-profit-row span {
     height: var(--height-filter-inputs);
     line-height: var(--height-filter-inputs);
     align-items: flex-end;
     justify-content: flex-start;
+}
+
+.select_bet_text_div_text {
     padding-left: 0.5vw;
 }
 
+
+.seq-lay-profit-row {
+    height: calc(var(--height-filter-inputs) * 1.5);
+    line-height: calc(var(--height-filter-inputs) * 1.5);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
 
 
 .div-in-bottom-div-info-and-profit {
@@ -273,7 +285,7 @@
     padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
 }
 
-.minus-button, .add-row-button {
+.minus-button, .add-row-button, .minus-button-sequential-lay {
     width: var(--width-height-select-button);
     height: var(--width-height-select-button);
     background-color: #ff00c6;
@@ -320,11 +332,19 @@
     justify-content: flex-start;
 }
 
-.sequential-lay-select-controls-item {
+.sequential-lay-select-controls-item, .profit-div-sequential-lay {
     justify-content: center;
 
-    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 0.85)
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 0.85);
 }
 
+
+.profit-div-sequential-lay {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(var(--width-of-target-type-btn) * 4);
+    min-width: calc(var(--width-of-target-type-btn) * 4);
+    align-self: center;
+}
 
 
