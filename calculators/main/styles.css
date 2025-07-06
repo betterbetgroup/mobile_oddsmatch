@@ -312,11 +312,19 @@
     padding: var(--padding-calculator-gaps) 0;
 }
 
-.dutching-select-controls-item {
+.dutching-select-controls-item, .sequential-lay-select-controls-item {
     width: 100%;
     padding: 0;
     padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
     gap: var(--padding-calculator-gaps);
     justify-content: flex-start;
 }
+
+.sequential-lay-select-controls-item {
+    justify-content: center;
+
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 0.85)
+}
+
+
 

@@ -1,6 +1,3 @@
-
-
-
 function process_and_round_numbers(data) {
 
     for (let key in data) {
@@ -516,7 +513,342 @@ function calculate_dutching_target_total(data) {
 
 
 
+export function calculate_sequential_lay(data) {
 
 
+    data.incomplete_data = false;
+
+    if (!data.outcomes) {
+        data.incomplete_data = true;
+        return data;
+    }
+
+    // Calculate rating for any number of outcomes
+    const oddsValues = [];
+    const commissionValues = [];
+    let outcomeIndex = 1;
+    
+    // Collect all odds values using numbered keys
+    while (data[`leg${outcomeIndex}_odds`] !== undefined) {
+        const odds = data[`leg${outcomeIndex}_odds`];
+        if (!isNaN(odds)) {
+            oddsValues.push(odds);
+        }
+        outcomeIndex++;
+    }
+
+    // Reset outcomeIndex for commission collection
+    outcomeIndex = 1;
+    
+    // Collect all commission values using numbered keys
+    while (data[`leg${outcomeIndex}_commission`] !== undefined) {
+        const commission = data[`leg${outcomeIndex}_commission`];
+        if (!isNaN(commission)) {
+            commissionValues.push(commission);
+        }
+        outcomeIndex++;
+    }
+
+    // check that length of oddsValues is equal to data.outcomes
+    if (oddsValues.length != data.outcomes) {
+        data.incomplete_data = true;
+        return data;
+    }
+    
+    // then check commisssions and return if missing any 
+    if ((commissionValues.length != data.outcomes) || !data.back_stake || !data.back_odds) {
+        data.incomplete_data = true;
+        return data;
+    }
+    
+
+    if (data.method == 'Standard Bet') {
+
+        data = calculate_sequential_lay_standard(data);
+        
+    } else if (data.method == 'Standard Free') {
+
+        data = calculate_sequential_lay_standard_free(data);
+
+    } else if (data.method == 'Underlay') {
+        
+        data = calculate_sequential_lay_underlay(data);
+
+    } else if (data.method == 'Underlay Lock In') {
+
+        data = calculate_sequential_lay_underlay_lock_in(data);
+
+    }
+
+    
+    // loop over all values in data and if number then round to fixed (2)
+    data = process_and_round_numbers(data);
+
+    return data;
+
+}
+
+
+function calculate_sequential_lay_standard(data) {
+
+    // Calculate stakes starting from the last leg and working backwards
+    const stakes = [];
+    const liabilities = [];
+    const profits = [];
+    
+    // Ensure outcomes is an integer
+    const outcomes = parseInt(data.outcomes);
+    
+    // Calculate stakes from last leg to first leg
+    for (let i = outcomes; i >= 1; i--) {
+        const odds = data[`leg${i}_odds`];
+        const commission = data[`leg${i}_commission`];
+        
+        if (i === outcomes) {
+            // Last leg: stake = (back_stake * back_odds) / (odds - commission)
+            stakes[i-1] = (data.back_stake * data.back_odds) / (odds - commission);
+        } else {
+            // Previous legs: stake = (next_stake * (1 - next_commission)) / (odds - commission)
+            stakes[i-1] = (stakes[i] * (1 - data[`leg${i+1}_commission`])) / (odds - commission);
+        }
+        
+        // Calculate liability for this leg
+        liabilities[i-1] = stakes[i-1] * (odds - 1);
+        
+        // Store stake in data object
+        data[`leg${i}_stake`] = stakes[i-1];
+        data[`leg${i}_liability`] = liabilities[i-1];
+    }
+    
+    // Calculate total liability
+    const totalLiability = liabilities.reduce((sum, liability) => sum + liability, 0);
+    
+    // Calculate end profit (if all legs win)
+    data.profit_all_legs_win = (data.back_stake * (data.back_odds - 1)) - totalLiability;
+    
+    // Calculate profit for each leg if it loses
+    for (let i = 1; i <= outcomes; i++) {
+        const stake = stakes[i-1];
+        const commission = data[`leg${i}_commission`];
+        
+        // Calculate accumulated liability from previous legs
+        let accumulatedLiability = 0;
+        for (let j = 0; j < i-1; j++) {
+            accumulatedLiability += liabilities[j];
+        }
+        
+        // Profit if this leg loses = stake * (1 - commission) - back_stake - accumulated_liability
+        profits[i-1] = (stake * (1 - commission)) - data.back_stake - accumulatedLiability;
+        
+        // Store profit in data object
+        data[`leg${i}_profit`] = profits[i-1];
+    }
+    
+    // Set qualifying loss and potential profit
+    data.qualifying_loss = data.profit_all_legs_win;
+    data.potential_profit = data.profit_all_legs_win;
+
+
+    return data;
+
+}
+
+function calculate_sequential_lay_standard_free(data) {
+
+    // Calculate stakes starting from the last leg and working backwards
+    const stakes = [];
+    const liabilities = [];
+    const profits = [];
+    
+    // Ensure outcomes is an integer
+    const outcomes = parseInt(data.outcomes);
+    
+    // Calculate stakes from last leg to first leg
+    for (let i = outcomes; i >= 1; i--) {
+        const odds = data[`leg${i}_odds`];
+        const commission = data[`leg${i}_commission`];
+        
+        if (i === outcomes) {
+            // Last leg: stake = (back_stake * (back_odds - 1)) / (odds - commission)
+            stakes[i-1] = (data.back_stake * (data.back_odds - 1)) / (odds - commission);
+        } else {
+            // Previous legs: stake = (next_stake * (1 - next_commission)) / (odds - commission)
+            stakes[i-1] = (stakes[i] * (1 - data[`leg${i+1}_commission`])) / (odds - commission);
+        }
+        
+        // Calculate liability for this leg
+        liabilities[i-1] = stakes[i-1] * (odds - 1);
+        
+        // Store stake in data object
+        data[`leg${i}_stake`] = stakes[i-1];
+        data[`leg${i}_liability`] = liabilities[i-1];
+    }
+    
+    // Calculate total liability
+    const totalLiability = liabilities.reduce((sum, liability) => sum + liability, 0);
+    
+    // Calculate end profit (if all legs win)
+    data.profit_all_legs_win = (data.back_stake * (data.back_odds - 1)) - totalLiability;
+    
+    // Calculate profit for each leg if it loses
+    for (let i = 1; i <= outcomes; i++) {
+        const stake = stakes[i-1];
+        const commission = data[`leg${i}_commission`];
+        
+        // Calculate accumulated liability from previous legs
+        let accumulatedLiability = 0;
+        for (let j = 0; j < i-1; j++) {
+            accumulatedLiability += liabilities[j];
+        }
+        
+        // Profit if this leg loses = stake * (1 - commission) - accumulated_liability (no back_stake deduction)
+        profits[i-1] = (stake * (1 - commission)) - accumulatedLiability;
+        
+        // Store profit in data object
+        data[`leg${i}_profit`] = profits[i-1];
+    }
+    
+    // Set qualifying loss and potential profit
+    data.qualifying_loss = data.profit_all_legs_win;
+    data.potential_profit = data.profit_all_legs_win;
+
+    return data;
+
+}
+
+
+
+
+
+
+
+function calculate_sequential_lay_underlay(data) {
+
+    // Calculate stakes starting from the first leg and working forwards
+    const stakes = [];
+    const liabilities = [];
+    
+    // Ensure outcomes is an integer
+    const outcomes = parseInt(data.outcomes);
+    
+    // Calculate stakes from first leg to last leg
+    for (let i = 1; i <= outcomes; i++) {
+        const odds = data[`leg${i}_odds`];
+        const commission = data[`leg${i}_commission`];
+        
+        if (i === 1) {
+            // First leg: stake = back_stake / (1 - commission)
+            stakes[i-1] = data.back_stake / (1 - commission);
+        } else {
+            // Calculate sum of all previous liabilities
+            let sumOfPreviousLiabilities = 0;
+            for (let j = 0; j < i-1; j++) {
+                sumOfPreviousLiabilities += liabilities[j];
+            }
+            
+            // Subsequent legs: stake = (sum_of_previous_liabilities + back_stake) / (1 - commission)
+            stakes[i-1] = (sumOfPreviousLiabilities + data.back_stake) / (1 - commission);
+        }
+        
+        // Calculate liability for this leg
+        liabilities[i-1] = stakes[i-1] * (odds - 1);
+        
+        // Store stake in data object
+        data[`leg${i}_stake`] = stakes[i-1];
+        data[`leg${i}_liability`] = liabilities[i-1];
+    }
+    
+    // Calculate total liability
+    const totalLiability = liabilities.reduce((sum, liability) => sum + liability, 0);
+    
+    // Calculate end profit (if all legs win)
+    data.profit_all_legs_win = (data.back_stake * (data.back_odds - 1)) - totalLiability;
+    
+    // For underlay, all individual leg profits are 0 (as shown in the provided code)
+    for (let i = 1; i <= outcomes; i++) {
+        data[`leg${i}_profit`] = 0;
+    }
+    
+    // Set qualifying loss and potential profit
+    data.qualifying_loss = data.leg1_profit;
+    data.potential_profit = data.profit_all_legs_win;
+
+    return data;
+
+}
+
+
+
+function calculate_sequential_lay_underlay_lock_in(data) {
+
+    // Calculate stakes starting from the first leg and working forwards
+    const stakes = [];
+    const liabilities = [];
+    
+    // Ensure outcomes is an integer
+    const outcomes = parseInt(data.outcomes);
+    
+    // Calculate stakes from first leg to last leg
+    for (let i = 1; i <= outcomes; i++) {
+        const odds = data[`leg${i}_odds`];
+        const commission = data[`leg${i}_commission`];
+        
+        if (i === 1) {
+            // First leg: stake = back_stake / (1 - commission)
+            stakes[i-1] = data.back_stake / (1 - commission);
+        } else if (i === outcomes) {
+            // Last leg: stake = (back_stake * back_odds) / (odds - commission)
+            stakes[i-1] = (data.back_stake * data.back_odds) / (odds - commission);
+        } else {
+            // Middle legs: stake = (sum_of_previous_liabilities + back_stake) / (1 - commission)
+            let sumOfPreviousLiabilities = 0;
+            for (let j = 0; j < i-1; j++) {
+                sumOfPreviousLiabilities += liabilities[j];
+            }
+            stakes[i-1] = (sumOfPreviousLiabilities + data.back_stake) / (1 - commission);
+        }
+        
+        // Calculate liability for this leg
+        liabilities[i-1] = stakes[i-1] * (odds - 1);
+        
+        // Store stake in data object
+        data[`leg${i}_stake`] = stakes[i-1];
+        data[`leg${i}_liability`] = liabilities[i-1];
+    }
+    
+    // Calculate total liability
+    const totalLiability = liabilities.reduce((sum, liability) => sum + liability, 0);
+    
+    // Calculate end profit (if all legs win)
+    data.profit_all_legs_win = (data.back_stake * (data.back_odds - 1)) - totalLiability;
+    
+    // Calculate profit for each leg if it loses
+    for (let i = 1; i <= outcomes; i++) {
+        if (i === outcomes) {
+            // Last leg: calculate profit if it loses
+            const stake = stakes[i-1];
+            const commission = data[`leg${i}_commission`];
+            
+            // Calculate accumulated liability from all previous legs
+            let accumulatedLiability = 0;
+            for (let j = 0; j < i-1; j++) {
+                accumulatedLiability += liabilities[j];
+            }
+            
+            // Profit if last leg loses = stake * (1 - commission) - accumulated_liability - back_stake
+            data[`leg${i}_profit`] = (stake * (1 - commission)) - accumulatedLiability - data.back_stake;
+        } else {
+            // All other legs: profit is 0
+            data[`leg${i}_profit`] = 0;
+        }
+    }
+    
+    // Set qualifying loss and potential profit
+    data.qualifying_loss = data.profit_all_legs_win;
+    data.potential_profit = data.profit_all_legs_win;
+
+    return data;
+
+}
 
 

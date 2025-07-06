@@ -75,10 +75,6 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
     add_refresh_button_div(scope, state, calculator_container_div);
 
 
-
-
-
-
     if (state.calculator_type == 'Standard') {
         add_input_section_for_standard_calculator(scope, state, calculator_container_div);
     }
@@ -89,6 +85,10 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
 
     if (state.calculator_type == 'Dutching') {
         add_input_section_for_dutching_calculator(scope, state, calculator_container_div);
+    }
+
+    if (state.calculator_type == 'Sequential Lay') {
+        add_input_section_for_sequential_lay_calculator(scope, state, calculator_container_div);
     }
 
     add_event_listeners_for_dropdowns(scope, state, calculator_container_div);
@@ -347,6 +347,140 @@ function add_back_bet_row_dutching(scope, state, input_section_div, index) {
 }
 
 
+
+
+
+
+function add_input_section_for_sequential_lay_calculator(scope, state, calculator_container_div) {
+
+
+    // take the container and add a div with three divs in it, dividing the space equally
+    const input_section_div = document.createElement('div');
+    input_section_div.className = 'input-section-div input-section-div-outer';
+    calculator_container_div.appendChild(input_section_div);
+
+
+    // select the back-input-div
+    add_back_bet_row_sequential_lay(scope, state, input_section_div, 1);
+    add_lay_bet_row_sequential_lay(scope, state, input_section_div, 2);
+    add_lay_bet_row_sequential_lay(scope, state, input_section_div, 3);
+
+    state.data_object.outcomes = 2;
+
+
+    // then add another row 
+    add_outcome_div_sequential_lay(scope, state, input_section_div);
+
+
+
+    // ADD A CONTROL DIV 
+    const control_div_sequential_lay = document.createElement('div');
+    control_div_sequential_lay.className = 'calculator-bet-info-section-div control-div-bet-calculator-div';
+    calculator_container_div.appendChild(control_div_sequential_lay);
+    add_control_input_sequential_lay(control_div_sequential_lay, state);
+
+
+    
+
+
+    // THEN ADD LISTENERS HERE THAT CALL THE FUNCTIONS THAT LISTEN FOR CHANGES TO LEGS - perhaps put the + button in control div to add an extra outcome
+
+
+}
+
+
+function add_outcome_div_sequential_lay(scope, state, input_section_div) {
+
+    const row_div = document.createElement('div');
+    row_div.className = 'calculator-bet-info-section-div';
+    input_section_div.appendChild(row_div);
+
+    row_div.innerHTML += `
+
+
+        <div class="add-button-div">
+            Add Leg
+            <button class="add-row-button add-outcome-on-click-sequential-lay" id="add-row-button-sequential-lay">
+            +
+            </button>
+        </div>
+    `;
+
+}
+
+function add_lay_bet_row_sequential_lay(scope, state, input_section_div, index) {
+
+    // if index is bigger than 2 prepend it since, the final one is added first
+
+    const row_div = document.createElement('div');
+    row_div.className = 'calculator-bet-info-section-div lay-bet-calculator-div';
+    row_div.dataset.index = index;
+
+    if (index > 3) {
+        let row_divs = input_section_div.querySelectorAll('div.calculator-bet-info-section-div');
+        let last_row_div = row_divs[row_divs.length - 1];
+        input_section_div.insertBefore(row_div, last_row_div);
+    } else {
+        input_section_div.appendChild(row_div);
+    }
+
+
+
+    add_flag_div(row_div, true, true, index - 1);
+    add_odds_input(row_div, 'Lay', index);
+    add_commission_input(row_div, '', index);
+    add_platform_div_for_logging(row_div, 'Leg ' + (index - 1) + ' Exchange', index);
+
+    add_lay_bet_info_div(scope, state, row_div, index, 'info_text_lay');
+
+    add_minus_button(row_div, index - 1);
+
+
+    if (index > 3) {
+        let all_platforms = helper.get_all_platforms_profit_tracker();
+        // select all .dropdown-options in the div and get their id
+        let dropdown_containers = row_div.querySelectorAll('div.dropdown-options.dropdown-options-platforms-select');
+        dropdown_containers.forEach(dropdown_container => {
+            pt_helper.append_platforms_to_platform_selectors(dropdown_container, all_platforms, row_div, state)
+        });
+
+        // ALSO NEED TO ADD EVENT LISTENERS FOR THIS NEW DIV 
+
+        // also add a function to listen to all 'input' or 'change' events on all inputs in the div
+        row_div.querySelectorAll('input').forEach(input => { // CAPTURES FREE BET MODE SWITCH CHANGES TOO
+            input.addEventListener('input', (event) => {
+                add_values_for_calculator(scope, state, false);
+            });
+        });
+    }
+
+
+}
+
+
+function add_back_bet_row_sequential_lay(scope, state, input_section_div, index) {
+
+    // if index is bigger than 2 prepend it since, the final one is added first
+
+    const row_div = document.createElement('div');
+    row_div.className = 'calculator-bet-info-section-div lay-bet-calculator-div';
+    row_div.dataset.index = index;
+
+
+    input_section_div.appendChild(row_div);
+
+
+
+    add_flag_div(row_div, false, false, index);
+    add_stake_input(row_div, 'Back', 'back-stake-input');
+    add_odds_input(row_div, 'Back', index);
+    add_platform_div_for_logging(row_div, 'Back Bet Bookmaker', index);
+
+}
+
+
+
+
 function add_minus_button(div, index) {
 
     if (index == 1 || index == 2) {
@@ -371,6 +505,10 @@ function add_lay_bet_info_div(scope, state, top_div, index, info_text) {
     if (info_text == 'info_text_back') {
         info_text = 'on outcome ' + index;
         command_text = 'Back';
+    }
+
+    if (info_text == 'info_text_lay') {
+        info_text = 'on leg ' + (index - 1);
     }
 
     top_div.innerHTML += `
@@ -501,6 +639,31 @@ function add_control_input_dutching(control_input_div_select, state) {
     `;
 }
 
+function add_control_input_sequential_lay(control_input_div_select, state) {
+
+    control_input_div_select.innerHTML += `
+
+
+        <div class="select_div_item select_bet_controls_item sequential-lay-select-controls-item">
+
+
+            <div class="bet_type_control">
+                <div class="lay_type_control_container" data-_id="dutching-control-div">
+                    <button class="bet-type-btn target-type-btn" data-type="Underlay">Underlay</button>
+                    <button class="bet-type-btn target-type-btn" data-type="Underlay Lock In">Lock In</button>
+                    <button class="bet-type-btn target-type-btn active-lay-type" data-type="Standard Bet">Standard</button>
+                    <button class="bet-type-btn target-type-btn" data-type="Standard Free">Free Bet</button>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    `;
+}
+
 function add_platform_div_for_logging(logging_div, type_text, index) {
 
 
@@ -577,6 +740,8 @@ function add_div_for_info_and_profit(scope, state, calculator_container_div) {
         add_desc_profit_div_extra_place(info_and_profit_div);
     } else if (state.calculator_type == 'Dutching') {
         add_desc_profit_div_dutching(info_and_profit_div);
+    } else if (state.calculator_type == 'Sequential Lay') {
+        add_desc_profit_div_sequential_lay(info_and_profit_div);
     }
 
 }
@@ -789,6 +954,36 @@ function add_desc_profit_div_dutching(bottom_div) {
     `;
 }
 
+function add_desc_profit_div_sequential_lay(bottom_div) {
+
+
+    bottom_div.innerHTML += `
+        <div class="div-in-bottom-div-info-and-profit">
+            
+        
+            <div class="profit_display_profit_and_log_div profit_display_div_calculator">
+
+
+
+                    <div class="filter-item filter-item-description">
+                        <label class="filter-label">Description</label>
+                        <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
+                    </div>
+
+                    
+                    <div class="log-bet-button-div">
+                            <button id="log-bet-button" class="log-bet-button">Log Bet</button>
+                    </div>
+
+
+            </div>
+
+
+
+        </div>
+    `;
+}
+
 
 
 
@@ -915,6 +1110,8 @@ function add_values_for_calculator(scope, state, is_create) {
         get_and_create_all_values_each_way(scope, state);
     } else if (state.calculator_type == 'Dutching') {
         get_and_create_all_values_dutching(scope, state);
+    } else if (state.calculator_type == 'Sequential Lay') {
+        get_and_create_all_values_sequential_lay(scope, state);
     }
 
 
@@ -939,8 +1136,9 @@ function add_values_for_calculator(scope, state, is_create) {
         set_results_for_extra_place(scope, state);
     } else if (state.calculator_type == 'Dutching') {
         set_results_for_dutching(scope, state);
+    } else if (state.calculator_type == 'Sequential Lay') {
+        set_results_for_sequential_lay(scope, state);
     }
-
 
 }
 
@@ -1141,6 +1339,70 @@ function calculate_dutching_bet(scope, state) {
 
 
 
+function get_and_create_all_values_sequential_lay(scope, state) {
+
+
+    state.data_object.method = scope.querySelector('.active-lay-type').dataset.type;
+    state.data_object.back_stake = scope.querySelector('#back-stake-input').value;
+    state.data_object.back_odds = scope.querySelector('#odds-input-1').value;
+
+    state.data_object.platforms = [];
+
+    let index = 1;
+    // select all .lay-bet-calculator-div
+    let lay_bet_calculator_divs = scope.querySelectorAll('.lay-bet-calculator-div');
+    lay_bet_calculator_divs.forEach(lay_bet_calculator_div => {
+
+        let commission_input = lay_bet_calculator_div.querySelector(`input[placeholder="Enter commission"]`);
+        let commission_value = '';
+        if (commission_input) {
+            commission_value = commission_input.value;
+        }
+            
+
+        state.data_object.platforms.push({
+            index: index,
+            odds: lay_bet_calculator_div.querySelector(`input[placeholder="Enter odds"]`).value,
+            commission: commission_value,
+            platform: lay_bet_calculator_div.querySelector(`input[id^="platform-select"]`).value,
+            link: ''
+        });
+
+        index++;
+        
+    });
+
+    state.data_object.description = scope.querySelector('#bet-description-input').value;
+
+    calculate_sequential_lay_bet(scope, state);
+
+
+}
+
+function calculate_sequential_lay_bet(scope, state) {
+
+    // NOW BREAK DOWN PLATFORMS INTO ODDS AND COMMISSIONS
+    state.data_object.back_stake = parseFloat(scope.querySelector('#back-stake-input').value);
+    state.data_object.back_odds = parseFloat(scope.querySelector('#odds-input-1').value);
+
+    state.data_object.platforms.forEach(platform => {
+
+        if (platform.index != 1) {
+        
+            state.data_object[`leg${(platform.index - 1)}_odds`] = parseFloat(platform.odds);
+            state.data_object[`leg${(platform.index - 1)}_commission`] = parseFloat(platform.commission) / 100;
+    
+        }
+
+    });
+
+    state.data_object = calculator_helper.calculate_sequential_lay(state.data_object);
+
+
+}
+
+
+
 
 
 
@@ -1260,6 +1522,42 @@ function set_results_for_dutching(scope, state) {
 }
 
 
+
+function set_results_for_sequential_lay(scope, state) {
+
+    if (!state.data_object.incomplete_data) {
+
+
+        // make it loop over platforms 
+        state.data_object.platforms.forEach(platform => {
+
+            if (platform.index != 1) {
+
+                scope.querySelector(`#lay-stake-span-${platform.index}`).textContent = '£' + state.data_object[`leg${platform.index - 1}_stake`] || '';
+                scope.querySelector(`#lay-stake-span-${platform.index}`).classList.add('copy-on-click');
+                scope.querySelector(`#copy-icon-${platform.index}`).classList.remove('hidden_row_above_columns');
+
+            }
+
+        });
+
+
+        // JUST MAKE A ROW FOR EACH THING, THEN HIDE THE WHOLE DIV IF NO DATA ETC
+        add_profit_div_values_for_sequential_lay(scope, state);
+
+        // SHOULD ALWAYS BE THERE DON'T HIDE OR SHOW, MAKE IT SAY ... IF INCOMLETE DATA, AND ADJUST THE ROWS ON MINUS ROW AND ADD LEG BUTTONS
+
+
+    } else {
+
+        set_results_to_default(scope, state);
+
+    }
+
+
+}
+
+
 function set_results_to_default(scope, state) {
 
     // then set lay stake using #lay-stake-span
@@ -1339,6 +1637,13 @@ function set_all_values_to_default(scope, state) {
 
         try {
             scope.querySelector('.bet-type-btn[data-type="First"]').classList.add('active-lay-type');
+        } catch {
+            // pass
+        }
+
+
+        try {
+            scope.querySelector('.bet-type-btn[data-type="Standard Bet"]').classList.add('active-lay-type');
         } catch {
             // pass
         }
