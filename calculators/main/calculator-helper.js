@@ -1880,7 +1880,7 @@ function add_event_listeners_for_calculator(scope, state, div) {
         }
 
         if (event.target.classList.contains('minus-button')) {
-            let index = event.target.closest('div.lay-bet-calculator-div').dataset.index;
+            let index = parseInt(event.target.closest('div.lay-bet-calculator-div').dataset.index);
             state.data_object.outcomes--;
             let row_to_remove = div.querySelector(`div.lay-bet-calculator-div[data-index="${index}"]`);
             row_to_remove.remove();
@@ -1889,7 +1889,7 @@ function add_event_listeners_for_calculator(scope, state, div) {
         }
 
         if (event.target.classList.contains('minus-button-sequential-lay')) {
-            let index = event.target.closest('div.lay-bet-calculator-div').dataset.index;
+            let index = parseInt(event.target.closest('div.lay-bet-calculator-div').dataset.index);
             state.data_object.outcomes--;
             let row_to_remove = div.querySelector(`div.lay-bet-calculator-div[data-index="${index}"]`);
             row_to_remove.remove();
@@ -1938,7 +1938,7 @@ function make_adjustments_for_removing_row_dutching(scope, state, index) {
 
         if (row_div.dataset.index > index) {
 
-            let old_index = row_div.dataset.index;
+            let old_index = parseInt(row_div.dataset.index);
 
             let old_odds = row_div.querySelector(`#odds-input-${old_index}`).value;
             let old_commission = row_div.querySelector(`#commission-input-${old_index}`).value;
@@ -1955,22 +1955,22 @@ function make_adjustments_for_removing_row_dutching(scope, state, index) {
                 delete state.data_object[`outcome${old_index}_stake`];
             } catch {}
 
-            row_div.dataset.index--;
+            row_div.dataset.index = old_index - 1;
 
             row_div.innerHTML = '';
 
             // TAKEN STAIGHT FROM THE ADD_BACK_BET_ROW_DUTCHING FUNCTION
 
-            add_flag_div(row_div, false, true, row_div.dataset.index);
-            add_odds_input(row_div, 'Back', row_div.dataset.index);
-            add_commission_input(row_div, '', row_div.dataset.index);
-            add_platform_div_for_logging(row_div, 'Back Bet Platform', row_div.dataset.index);
-            add_lay_bet_info_div(scope, state, row_div, row_div.dataset.index, 'info_text_back');
-            add_minus_button(row_div, row_div.dataset.index, false);
+            add_flag_div(row_div, false, true, old_index - 1);
+            add_odds_input(row_div, 'Back', old_index - 1);
+            add_commission_input(row_div, '', old_index - 1);
+            add_platform_div_for_logging(row_div, 'Back Bet Platform', old_index - 1);
+            add_lay_bet_info_div(scope, state, row_div, old_index - 1, 'info_text_back');
+            add_minus_button(row_div, old_index - 1, false);
 
 
-            row_div.querySelector(`#odds-input-${row_div.dataset.index}`).value = old_odds;
-            row_div.querySelector(`#commission-input-${row_div.dataset.index}`).value = old_commission
+            row_div.querySelector(`#odds-input-${old_index - 1}`).value = old_odds;
+            row_div.querySelector(`#commission-input-${old_index - 1}`).value = old_commission
             row_div.querySelector('input.dropdown-option-platform-on-click').value = old_platform
 
 
@@ -2034,7 +2034,7 @@ function make_adjustments_for_removing_row_sequential_lay(scope, state, index) {
 
         if (row_div.dataset.index > index) {
 
-            let old_index = row_div.dataset.index;
+            let old_index = parseInt(row_div.dataset.index);
 
             let old_odds = row_div.querySelector(`#odds-input-${old_index}`).value;
             let old_commission = row_div.querySelector(`#commission-input-${old_index}`).value;
@@ -2056,22 +2056,22 @@ function make_adjustments_for_removing_row_sequential_lay(scope, state, index) {
                 delete state.data_object[`leg${old_index - 1}_liability`];
             } catch {}
 
-            row_div.dataset.index--;
+            row_div.dataset.index = old_index - 1;
 
             row_div.innerHTML = '';
 
             // TAKEN STAIGHT FROM THE ADD_LAY_BET_ROW_SEQUENTIAL_LAY FUNCTION
 
-            add_flag_div(row_div, true, true, row_div.dataset.index - 1);
-            add_odds_input(row_div, 'Lay', row_div.dataset.index);
-            add_commission_input(row_div, '', row_div.dataset.index);
-            add_platform_div_for_logging(row_div, 'Leg ' + (row_div.dataset.index - 1) + ' Exchange', row_div.dataset.index);
-            add_lay_bet_info_div(scope, state, row_div, row_div.dataset.index, 'info_text_lay');
-            add_minus_button(row_div, row_div.dataset.index - 1, true);
+            add_flag_div(row_div, true, true, parseInt(row_div.dataset.index) - 1);
+            add_odds_input(row_div, 'Lay', parseInt(row_div.dataset.index));
+            add_commission_input(row_div, '', parseInt(row_div.dataset.index));
+            add_platform_div_for_logging(row_div, 'Leg ' + (parseInt(row_div.dataset.index) - 1) + ' Exchange', parseInt(row_div.dataset.index));
+            add_lay_bet_info_div(scope, state, row_div, parseInt(row_div.dataset.index), 'info_text_lay');
+            add_minus_button(row_div, parseInt(row_div.dataset.index) - 1, true);
 
 
-            row_div.querySelector(`#odds-input-${row_div.dataset.index}`).value = old_odds;
-            row_div.querySelector(`#commission-input-${row_div.dataset.index}`).value = old_commission
+            row_div.querySelector(`#odds-input-${parseInt(row_div.dataset.index)}`).value = old_odds;
+            row_div.querySelector(`#commission-input-${parseInt(row_div.dataset.index)}`).value = old_commission
             row_div.querySelector('input.dropdown-option-platform-on-click').value = old_platform
 
 
@@ -2117,8 +2117,8 @@ function make_adjustments_for_removing_profit_row_sequential_lay(scope, state, i
     let profit_divs_seq_lay = scope.querySelectorAll('.seq-lay-profit-row');
     profit_divs_seq_lay.forEach(profit_div_seq_lay => {
 
-        if (profit_div_seq_lay.dataset.index != 'all' && profit_div_seq_lay.dataset.index > index) {
-            let old_index = profit_div_seq_lay.dataset.index;
+        if (profit_div_seq_lay.dataset.index != 'all' && parseInt(profit_div_seq_lay.dataset.index) > index) {
+            let old_index = parseInt(profit_div_seq_lay.dataset.index);
 
             profit_div_seq_lay.dataset.index = old_index - 1;
             profit_div_seq_lay.id = `seq-lay-profit-row-${old_index - 1}`;
