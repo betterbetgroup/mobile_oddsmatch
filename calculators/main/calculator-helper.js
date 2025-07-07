@@ -336,7 +336,7 @@ function add_input_section_for_dutching_calculator(scope, state, calculator_cont
 
     // ADD A CONTROL DIV 
     const control_div_dutching = document.createElement('div');
-    control_div_dutching.className = 'calculator-bet-info-section-div control-div-bet-calculator-div';
+    control_div_dutching.className = 'calculator-bet-info-section-div control-div-bet-calculator-div control-div-bet-calculator-div-dutching';
     calculator_container_div.appendChild(control_div_dutching);
     add_control_input_dutching(control_div_dutching, state);
 
@@ -690,7 +690,7 @@ function add_flag_div(div, is_lay, is_show_index, index) {
 
     <div class="div_outside_bar_on_left_of_item">
      
-        <div class="bar_on_left_of_item ${is_lay ? 'bar_on_left_of_item_lay' : ''}"><span>${is_show_index ? index : ''}</span></div>
+        <div class="bar_on_left_of_item ${is_lay ? 'bar_on_left_of_item_lay' : ''} ${is_show_index ? 'bar_on_left_of_item_show_index' : ''}"><span>${is_show_index ? index : ''}</span></div>
 
     </div>
 
@@ -770,6 +770,13 @@ function add_control_input_2up(control_input_div_select, state) {
 
 function add_control_input_dutching(control_input_div_select, state) {
 
+    let first_stake_text = 'Target First Selection';
+    let total_stake_text = 'Target Total Stake';
+    if (window.innerWidth < 700) {
+        first_stake_text = 'First Stake';
+        total_stake_text = 'Total Stake';
+    }
+
     control_input_div_select.innerHTML += `
 
 
@@ -784,8 +791,8 @@ function add_control_input_dutching(control_input_div_select, state) {
 
             <div class="bet_type_control">
                 <div class="lay_type_control_container" data-_id="dutching-control-div">
-                    <button class="bet-type-btn target-type-btn active-lay-type" data-type="First">Target First Selection</button>
-                    <button class="bet-type-btn target-type-btn" data-type="Total">Target Total Stake</button>
+                    <button class="bet-type-btn target-type-btn active-lay-type" data-type="First">${first_stake_text}</button>
+                    <button class="bet-type-btn target-type-btn" data-type="Total">${total_stake_text}</button>
                 </div>
             </div>
 
@@ -932,29 +939,37 @@ function add_desc_profit_div_standard(bottom_div) {
 
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
-                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
-                                Bet Rating
+
+                    <div class="div_around_profit_display_items">
+
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                                <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                    Bet Rating
+                                </span>
+                                <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
+                        </div>
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                Qualifying Loss
                             </span>
-                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
-                    </div>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
+                        
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                                Potential Profit
+                            </span>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                        </div>
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
-                            Qualifying Loss
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
-                    </div>
-                    
-
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
-                            Potential Profit
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
                     </div>
 
 
@@ -991,29 +1006,35 @@ function add_desc_profit_div_2up(bottom_div) {
 
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
-                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
-                                Bet Rating
+                    <div class="div_around_profit_display_items">
+
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                                <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                    Bet Rating
+                                </span>
+                                <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
+                        </div>
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                No FTA Profit
                             </span>
-                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
-                    </div>
 
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
+                        
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
-                            No FTA Profit
-                        </span>
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                                FTA Profit
+                            </span>
 
-                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
-                    </div>
-                    
+                            <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                        </div>
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
-                            FTA Profit
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
                     </div>
 
 
@@ -1049,20 +1070,27 @@ function add_desc_profit_div_each_way(bottom_div) {
 
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
-                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
-                                Bet Rating
+                    <div class="div_around_profit_display_items div_around_profit_display_items_two_results">
+
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                                <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                    Bet Rating
+                                </span>
+                                <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
+                        </div>
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                Bet Profit
                             </span>
-                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
-                    </div>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
-                            Bet Profit
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
                     </div>
                     
                     <div class="log-bet-button-div">
@@ -1094,29 +1122,36 @@ function add_desc_profit_div_extra_place(bottom_div) {
                         <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
                     </div>
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
-                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
-                                Implied Odds
+
+
+                    <div class="div_around_profit_display_items">
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                                <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                    Implied Odds
+                                </span>
+                                <span class="profit_and_log__item_value profit_and_log__item_value_implied_odds">0</span>
+                        </div>
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                Qualifying Loss
                             </span>
-                            <span class="profit_and_log__item_value profit_and_log__item_value_implied_odds">0</span>
-                    </div>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
+                        
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                                Potential Profit
+                            </span>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                        </div>
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
-                            Qualifying Loss
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
-                    </div>
-                    
-
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
-                            Potential Profit
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
                     </div>
 
                     
@@ -1149,20 +1184,27 @@ function add_desc_profit_div_dutching(bottom_div) {
                         <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
                     </div>
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
-                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
-                                Bet Rating 
+
+
+                    <div class="div_around_profit_display_items div_around_profit_display_items_two_results">
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                                <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                    Bet Rating 
+                                </span>
+                                <span class="profit_and_log__item_value profit_and_log__item_value_rating">0%</span>
+                        </div>
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                Bet Profit
                             </span>
-                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">0%</span>
-                    </div>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
 
 
-                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
-                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
-                            Bet Profit
-                        </span>
-
-                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
                     </div>
                     
 
@@ -1188,7 +1230,6 @@ function add_desc_profit_div_sequential_lay(bottom_div) {
             
         
             <div class="profit_display_profit_and_log_div profit_display_div_calculator">
-
 
 
                     <div class="filter-item filter-item-description">
@@ -1593,7 +1634,6 @@ function get_and_create_all_values_dutching(scope, state) {
 
 
 
-
     let label_text = 'First Selection Stake';
     let free_bet_mode_control = scope.querySelector('.free_bet_mode_control');
     free_bet_mode_control.style.opacity = '1';
@@ -1601,6 +1641,7 @@ function get_and_create_all_values_dutching(scope, state) {
     if (!state.is_desktop) {
         free_bet_mode_control.style.display = 'flex';
     }
+
     if (state.data_object.target === 'Total') {
         label_text = 'Total Stake';
         free_bet_mode_control.style.opacity = '0';
