@@ -75,7 +75,7 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
     add_refresh_button_div(scope, state, calculator_container_div);
 
 
-    if (state.calculator_type == 'Standard') {
+    if (state.calculator_type == 'Standard' || state.calculator_type == '2up') {
         add_input_section_for_standard_calculator(scope, state, calculator_container_div);
     }
 
@@ -151,7 +151,10 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
     add_stake_input(first_row_div, 'Back', 'back-stake-input');
     add_odds_input(first_row_div, 'Back', 1);
     add_platform_div_for_logging(first_row_div, 'Back Bet Bookmaker', 1);
-    add_free_bet_mode_control(first_row_div);
+
+    if (state.calculator_type == 'Standard') {
+        add_free_bet_mode_control(first_row_div);
+    }
 
 
     // select the lay-input-div
@@ -174,8 +177,76 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
     // add the lay type div - make it be in the main div
     const lay_control_div = document.createElement('div');
     lay_control_div.className = 'calculator-bet-info-section-div control-div-bet-calculator-div';
-    calculator_container_div.appendChild(lay_control_div);
-    add_control_input_standard(lay_control_div);
+    if (state.calculator_type == '2up') {
+
+        add_control_input_2up(input_section_div);
+
+    } else {
+
+        calculator_container_div.appendChild(lay_control_div);
+        add_control_input_standard(lay_control_div);
+
+    }
+
+}
+
+function add_2up_bet_section(scope, state) {
+
+
+    let input_section_div = scope.querySelector('div.input-section-div.input-section-div-outer');
+
+    if (scope.querySelector('#is_payout_switch').checked) {
+
+        if (input_section_div.querySelector('div.calculator-bet-info-section-div.early-payout-div')) {
+            return;
+        }
+
+        // add three divs to the input section div
+        const is_payout_div = document.createElement('div');
+        is_payout_div.className = 'calculator-bet-info-section-div early-payout-div';    
+        input_section_div.appendChild(is_payout_div);
+
+        // select the lay-input-div
+        add_flag_div(is_payout_div, false);
+        add_odds_input(is_payout_div, 'Back', 3);
+        add_commission_input(is_payout_div, 'Back', 3);
+        add_platform_div_for_logging(is_payout_div, 'Back Bet Platform', 3);
+
+        add_lay_bet_info_div(scope, state, is_payout_div, 3, 'info_text_2up');
+
+
+        let all_platforms = helper.get_all_platforms_profit_tracker();
+        // select all .dropdown-options in the div and get their id
+        let dropdown_containers = is_payout_div.querySelectorAll('div.dropdown-options.dropdown-options-platforms-select');
+        dropdown_containers.forEach(dropdown_container => {
+            pt_helper.append_platforms_to_platform_selectors(dropdown_container, all_platforms, is_payout_div, state)
+        });
+
+        // ALSO NEED TO ADD EVENT LISTENERS FOR THIS NEW DIV 
+
+        // also add a function to listen to all 'input' or 'change' events on all inputs in the div
+        is_payout_div.querySelectorAll('input').forEach(input => { // CAPTURES FREE BET MODE SWITCH CHANGES TOO
+            input.addEventListener('input', (event) => {
+                add_values_for_calculator(scope, state, false);
+            });
+        });
+
+
+    } else {
+
+        if (state.data_object.new_back_odds) {
+            delete state.data_object.new_back_odds;
+        }
+        if (state.data_object.new_back_commission) {
+            delete state.data_object.new_back_commission;
+        }
+
+        // delete the div if it exists
+        if (input_section_div.querySelector('div.calculator-bet-info-section-div.early-payout-div')) {
+            input_section_div.querySelector('div.calculator-bet-info-section-div.early-payout-div').remove();
+        }
+    }
+
 
 
 }
@@ -581,6 +652,11 @@ function add_lay_bet_info_div(scope, state, top_div, index, info_text) {
         command_text = 'Back';
     }
 
+    if (info_text == 'info_text_2up') {
+        info_text = 'at <span id="back-odds-span-3"> Back Odds';
+        command_text = 'Back';
+    }
+
     if (info_text == 'info_text_lay') {
         info_text = 'on leg ' + (index - 1);
     }
@@ -671,6 +747,21 @@ function add_control_input_standard(control_input_div_select, state) {
                     <button class="bet-type-btn active-lay-type" data-type="Standard">Standard</button>
                     <button class="bet-type-btn" data-type="Overlay">Overlay</button>
                 </div>
+            </div>
+
+
+    `;
+}
+
+function add_control_input_2up(control_input_div_select, state) {
+    control_input_div_select.innerHTML += `
+
+            <div class="free_bet_mode_control early-payout-switch-div">
+                <label class="switch switch_select_free_bet_mode">
+                    <input type="checkbox" class="free_bet_mode_switch" id="is_payout_switch">
+                    <span class="slider slider_select_free_bet_mode"></span>
+                </label>
+                <span class="free_bet_mode_label">Bookmaker Has Paid Out Early</span>
             </div>
 
 
@@ -808,6 +899,8 @@ function add_div_for_info_and_profit(scope, state, calculator_container_div) {
 
     if (state.calculator_type == 'Standard') {
         add_desc_profit_div_standard(info_and_profit_div);
+    } else if (state.calculator_type == '2up') {
+        add_desc_profit_div_2up(info_and_profit_div);
     } else if (state.calculator_type == 'Each Way') {
         add_desc_profit_div_each_way(info_and_profit_div);
     } else if (state.calculator_type == 'Extra Place') {
@@ -859,6 +952,65 @@ function add_desc_profit_div_standard(bottom_div) {
                     <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
                         <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
                             Potential Profit
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                    </div>
+
+
+
+                    <div class="log-bet-button-div">
+                            <button id="log-bet-button" class="log-bet-button">Log Bet</button>
+                    </div>
+
+
+            </div>
+
+
+
+        </div>
+    `;
+}
+
+
+function add_desc_profit_div_2up(bottom_div) {
+
+
+    bottom_div.innerHTML += `
+        <div class="div-in-bottom-div-info-and-profit">
+            
+        
+            <div class="profit_display_profit_and_log_div profit_display_div_calculator">
+
+
+
+                    <div class="filter-item filter-item-description">
+                        <label class="filter-label">Description</label>
+                        <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
+                    </div>
+
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_rating">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_rating">
+                                Bet Rating
+                            </span>
+                            <span class="profit_and_log__item_value profit_and_log__item_value_rating">100.00%</span>
+                    </div>
+
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                            No FTA Profit
+                        </span>
+
+                        <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                    </div>
+                    
+
+                    <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                        <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                            FTA Profit
                         </span>
 
                         <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
@@ -1166,6 +1318,18 @@ function add_values_for_calculator(scope, state, is_create) {
             }
         }
 
+        let is_payout_switch = scope.querySelector('#is_payout_switch');
+        // then free bet mode 
+        if (is_payout_switch) {
+            if (state.data_object.is_payout) {
+                free_bet_switch.checked = true;
+            } else {
+                free_bet_switch.checked = false;
+            }
+        }
+
+
+
 
         // then lay type
         // remove all active-lay-type classes
@@ -1205,8 +1369,13 @@ function add_values_for_calculator(scope, state, is_create) {
     }
 
 
+    if (state.calculator_type == '2up') {
+        add_2up_bet_section(scope, state);
+    }
+
+
     // SHOULD PROBABLY HAVE A FUNCTION HERE LIKE COLLECT VALUES STANDARD
-    if (state.calculator_type == 'Standard') {
+    if (state.calculator_type == 'Standard' || state.calculator_type == '2up') {
         get_and_create_all_values_standard(scope, state);
     } else if (state.calculator_type == 'Each Way' || state.calculator_type == 'Extra Place') {
         get_and_create_all_values_each_way(scope, state);
@@ -1230,7 +1399,7 @@ function add_values_for_calculator(scope, state, is_create) {
 
 
 
-    if (state.calculator_type == 'Standard') {
+    if (state.calculator_type == 'Standard' || state.calculator_type == '2up') {
         set_results_for_standard(scope, state);
     } else if (state.calculator_type == 'Each Way') {
         set_results_for_each_way(scope, state);
@@ -1286,19 +1455,49 @@ function update_local_data(scope, state) {
 
 function get_and_create_all_values_standard(scope, state) {
 
-    state.data_object.laytype = scope.querySelector('.active-lay-type').dataset.type;
-    state.data_object.isfree = scope.querySelector('#free_bet_mode_switch').checked;
+    if (state.calculator_type == 'Standard') {
 
-    if (!state.data_object.platforms) {
-        state.data_object.platforms = [{}, {}]
+        state.data_object.laytype = scope.querySelector('.active-lay-type').dataset.type;
+        state.data_object.isfree = scope.querySelector('#free_bet_mode_switch').checked;
+
     }
 
+
+
+    state.data_object.platforms = [];
+
+
     // set the platform data
-    state.data_object.platforms[0].odds = scope.querySelector('#odds-input-1').value;
-    state.data_object.platforms[1].odds = scope.querySelector('#odds-input-2').value;
-    state.data_object.platforms[1].commission = scope.querySelector('#commission-input-2').value;
-    state.data_object.platforms[0].platform = scope.querySelector('#platform-select-1').value;
-    state.data_object.platforms[1].platform = scope.querySelector('#platform-select-2').value;
+
+    state.data_object.platforms.push({
+        index: 1,
+        odds: scope.querySelector('#odds-input-1').value,
+        platform: scope.querySelector('#platform-select-1').value,
+    })
+
+    state.data_object.platforms.push({
+        index: 2,
+        odds: scope.querySelector('#odds-input-2').value,
+        platform: scope.querySelector('#platform-select-2').value,
+        commission: scope.querySelector('#commission-input-2').value
+    })
+
+
+    if (state.calculator_type == '2up') {
+
+        // get the is_payout from the switch -- this also needs to be set on load
+        state.data_object.is_payout = scope.querySelector('#is_payout_switch').checked;
+
+        if (state.data_object.is_payout) {
+            state.data_object.platforms.push({
+                index: 3,
+                odds: scope.querySelector('#odds-input-3').value,
+                platform: scope.querySelector('#platform-select-3').value,
+                commission: scope.querySelector('#commission-input-3').value
+            })
+        }
+    }
+
 
     state.data_object.backstake = scope.querySelector('#back-stake-input').value;
 
@@ -1314,7 +1513,18 @@ function calculate_standard_bet(scope, state) {
     state.data_object.lay_commission = (parseFloat(scope.querySelector('#commission-input-2').value)) / 100;
     state.data_object.back_stake = parseFloat(scope.querySelector('#back-stake-input').value);
 
-    state.data_object = calculator_helper.calculate_standard(state.data_object);
+    if (state.calculator_type == '2up') {
+        if (state.data_object.is_payout) {
+            state.data_object.new_back_odds = parseFloat(scope.querySelector('#odds-input-3').value);
+            state.data_object.new_back_commission = (parseFloat(scope.querySelector('#commission-input-3').value)) / 100;
+        } 
+    }
+
+    if (state.calculator_type == '2up') {
+        state.data_object = calculator_helper.calculate_2up_bet_data(state.data_object);
+    } else {
+        state.data_object = calculator_helper.calculate_standard(state.data_object);
+    }
 
 }
 
@@ -1519,6 +1729,23 @@ function set_results_for_standard(scope, state) {
 
         scope.querySelector('#lay-odds-span-2').textContent = state.data_object.lay_odds + ' Lay Odds' || '';
 
+
+        if (state.calculator_type == '2up' && state.data_object.is_payout) {
+
+            if (!state.data_object.incomplete_new_data) {
+
+                scope.querySelector('#lay-stake-span-3').textContent = '£' + state.data_object.new_back_stake || '';
+                scope.querySelector('#lay-stake-span-3').classList.add('copy-on-click');
+                scope.querySelector('#copy-icon-3').classList.remove('hidden_row_above_columns');
+
+                scope.querySelector('#back-odds-span-3').textContent = state.data_object.new_back_odds + ' Back Odds' || '';
+
+            } else {
+                set_new_data_to_default(scope, state);
+            }
+
+        }
+
         // then set the profit items
         scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';
         scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
@@ -1683,6 +1910,37 @@ function set_results_for_sequential_lay(scope, state) {
 
 }
 
+function set_new_data_to_default(scope, state) {
+
+    try {
+        scope.querySelector('#back-odds-span-3').textContent = '... Back Odds';
+    } catch (error) {
+        // pass
+    }
+
+    try {
+        scope.querySelector('#lay-stake-span-3').textContent = '...';
+    } catch (error) {
+        // pass
+    }
+
+    try {
+        scope.querySelector('#lay-stake-span-3').classList.remove('copy-on-click');
+    } catch (error) {
+        // pass
+    }
+
+    try {
+        scope.querySelector('#copy-icon-3').classList.add('hidden_row_above_columns');
+    } catch (error) {
+        // pass
+    }
+
+
+
+
+    
+}
 
 function set_results_to_default(scope, state) {
 
@@ -1719,6 +1977,14 @@ function set_results_to_default(scope, state) {
         }
 
     });
+
+
+
+    try {
+        scope.querySelector('#back-odds-span-3').textContent = '... Back Odds';
+    } catch (error) {
+        // pass
+    }
 
 
     // then set the profit items
@@ -1790,6 +2056,11 @@ function set_all_values_to_default(scope, state) {
     let free_bet_switch = scope.querySelector('#free_bet_mode_switch');
     if (free_bet_switch) {
         free_bet_switch.checked = false;
+    }
+
+    let is_payout_switch = scope.querySelector('#is_payout_switch');
+    if (is_payout_switch) {
+        is_payout_switch.checked = false;
     }
 
     // set all text inputs to '' unless their id contains 'commission' then set to 0

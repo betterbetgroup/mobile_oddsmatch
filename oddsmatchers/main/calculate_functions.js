@@ -62,12 +62,32 @@ export function calculate_2up_bet_data(data) {
         data.potential_profit = data.twouptotal;
 
         // loop over all values in data and if number then round to fixed (2)
-        data = process_and_round_numbers(data);
 
     }
-    
-    return data;
 
+    if (!data.is_payout) {
+        data = process_and_round_numbers(data);
+        return data;
+    } else {
+
+        // more functionality using new back odds and new back commission
+        data.incomplete_new_data = false;
+
+        if (isNaN(data.new_back_odds) || isNaN(data.new_back_commission)) {
+            data.incomplete_new_data = true;
+        } else {
+            data.new_back_stake = 10;
+            data.qualifying_loss = 344;
+            data.potential_profit = data.qualifying_loss;
+        }
+
+
+
+
+        data = process_and_round_numbers(data);
+        return data;
+
+    }
 }
 
 
@@ -717,11 +737,6 @@ function calculate_sequential_lay_standard_free(data) {
 }
 
 
-
-
-
-
-
 function calculate_sequential_lay_underlay(data) {
 
     // Calculate stakes starting from the first leg and working forwards
@@ -776,7 +791,6 @@ function calculate_sequential_lay_underlay(data) {
     return data;
 
 }
-
 
 
 function calculate_sequential_lay_underlay_lock_in(data) {

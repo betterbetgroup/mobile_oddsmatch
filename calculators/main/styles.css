@@ -348,3 +348,9 @@
 }
 
 
+.early-payout-switch-div {
+    width: 100%;
+    margin: calc(var(--height-filter-inputs) / 1.8) 0;
+}
+
+
