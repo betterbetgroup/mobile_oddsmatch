@@ -1236,6 +1236,24 @@ function add_values_for_calculator(scope, state, is_create) {
     if (is_create) {
 
 
+        let is_payout_switch = scope.querySelector('#is_payout_switch');
+        // then free bet mode 
+        if (is_payout_switch) {
+            if (state.data_object.is_payout) {
+                is_payout_switch.checked = true;
+            } else {
+                is_payout_switch.checked = false;
+            }
+        }
+
+
+
+        if (state.calculator_type == '2up') {
+            add_2up_bet_section(scope, state);
+        }
+
+
+
 
         if (state.calculator_type == 'Dutching') {
 
@@ -1318,15 +1336,6 @@ function add_values_for_calculator(scope, state, is_create) {
             }
         }
 
-        let is_payout_switch = scope.querySelector('#is_payout_switch');
-        // then free bet mode 
-        if (is_payout_switch) {
-            if (state.data_object.is_payout) {
-                free_bet_switch.checked = true;
-            } else {
-                free_bet_switch.checked = false;
-            }
-        }
 
 
 

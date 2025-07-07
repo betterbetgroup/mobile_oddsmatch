@@ -23,9 +23,115 @@
         let finalData = {
         "premium_member": false,
         "is_desktop": false,
-        "is_calc": false,
-        "is_calc_data": {},
-        "local_calc_data": {},
+        "is_calc": true,
+        "is_calc_data": {
+    "platforms": [
+        {
+            "index": 1,
+            "odds": "2",
+            "platform": "Other",
+            "commission": "",
+            "link": ""
+        },
+        {
+            "index": 2,
+            "odds": "2.05",
+            "platform": "Other",
+            "commission": "0",
+            "link": ""
+        },
+        {
+            "index": 3,
+            "odds": "1.12",
+            "platform": "Other",
+            "commission": "5",
+            "link": ""
+        }
+    ],
+    "is_payout": true,
+    "backstake": "10",
+    "description": "",
+    "back_odds": "2.00",
+    "lay_odds": "2.05",
+    "lay_commission": "0.00",
+    "back_stake": "10.00",
+    "incomplete_data": false,
+    "rating": "97.56%",
+    "qualifying_loss": "1.90",
+    "potential_profit": "1.90",
+    "bookmaker_profit_if_back_win": "10.00",
+    "lay_stake": "9.76",
+    "exchange_profit_if_back_win": "-10.24",
+    "total_profit_if_back_win": "-0.24",
+    "bookmaker_profit_if_lay_win": "-10.00",
+    "exchange_profit_if_lay_win": "9.76",
+    "total_profit_if_lay_win": "-0.24",
+    "twoupbookmaker": "10.00",
+    "twoupexchange": "9.76",
+    "twouptotal": "19.76",
+    "new_back_odds": "1.12",
+    "new_back_commission": "0.05",
+    "incomplete_new_data": false,
+    "new_lay_liability": "10.24",
+    "new_back_stake": "17.86",
+    "date": "07/07/2025",
+    "date_and_time": "07/07/25 12:00",
+    "iscalc": true,
+    "complete": false,
+    "betId": "0cfaf1wqt5tc_1751886690317",
+    "oddsmatcher_type": "Manual",
+    "event": "",
+    "actualprofit": "",
+    "bet_outcome": "",
+    "calculator": "2up"
+},
+        "local_calc_data": {
+    "platforms": [
+        {
+            "index": 1,
+            "odds": "2",
+            "platform": "Other"
+        },
+        {
+            "index": 2,
+            "odds": "2.05",
+            "platform": "Other",
+            "commission": "0"
+        },
+        {
+            "index": 3,
+            "odds": "1.12",
+            "platform": "10Bet",
+            "commission": "0"
+        }
+    ],
+    "is_payout": true,
+    "backstake": "10",
+    "description": "",
+    "back_odds": "2.00",
+    "lay_odds": "2.05",
+    "lay_commission": "0.00",
+    "back_stake": "10.00",
+    "incomplete_data": false,
+    "rating": "97.56%",
+    "qualifying_loss": "1.90",
+    "potential_profit": "1.90",
+    "bookmaker_profit_if_back_win": "10.00",
+    "lay_stake": "9.76",
+    "exchange_profit_if_back_win": "-10.24",
+    "total_profit_if_back_win": "-0.24",
+    "bookmaker_profit_if_lay_win": "-10.00",
+    "exchange_profit_if_lay_win": "9.76",
+    "total_profit_if_lay_win": "-0.24",
+    "twoupbookmaker": "10.00",
+    "twoupexchange": "9.76",
+    "twouptotal": "19.76",
+    "new_back_odds": "1.12",
+    "new_back_commission": "0.00",
+    "incomplete_new_data": false,
+    "new_lay_liability": "10.24",
+    "new_back_stake": "17.86"
+},
 }
             setTimeout(() => {
                 document.querySelector('two-up-calculator').setAttribute('data-odds', JSON.stringify(finalData))

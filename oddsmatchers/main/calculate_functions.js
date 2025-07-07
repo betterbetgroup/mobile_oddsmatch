@@ -63,6 +63,8 @@ export function calculate_2up_bet_data(data) {
 
         // loop over all values in data and if number then round to fixed (2)
 
+
+
     }
 
     if (!data.is_payout) {
@@ -76,11 +78,31 @@ export function calculate_2up_bet_data(data) {
         if (isNaN(data.new_back_odds) || isNaN(data.new_back_commission)) {
             data.incomplete_new_data = true;
         } else {
-            data.new_back_stake = 10;
-            data.qualifying_loss = 344;
-            data.potential_profit = data.qualifying_loss;
-        }
 
+            if (parseFloat(data.new_back_odds) == 1) {
+                data.incomplete_new_data = true;
+                data = process_and_round_numbers(data);
+                return data;
+            }
+
+
+
+
+            data.lay_liability = ((data.back_stake * data.back_odds) / (data.lay_odds - data.lay_commission)) * (data.lay_odds - 1)
+
+            // Calculate new_back_stake to make qualifying_loss = potential_profit
+            // This creates a guaranteed profit scenario
+            const numerator = data.exchange_profit_if_lay_win + data.back_stake - (data.back_odds - 1) * data.back_stake + data.lay_liability;
+            const denominator = (data.new_back_odds - 1) * (1 - data.new_back_commission) + 1;
+            data.new_back_stake = numerator / denominator;
+
+            data.qualifying_loss = data.exchange_profit_if_lay_win + data.back_stake - data.new_back_stake;
+
+            data.potential_profit = (data.new_back_stake * (data.new_back_odds - 1)) * (1 - data.new_back_commission) + ((data.back_odds - 1) * data.back_stake) - data.lay_liability;
+
+            
+
+        }
 
 
 
@@ -89,6 +111,12 @@ export function calculate_2up_bet_data(data) {
 
     }
 }
+
+
+
+
+
+
 
 
 export function calculate_standard(data) {
