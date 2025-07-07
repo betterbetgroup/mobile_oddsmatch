@@ -2468,8 +2468,8 @@ function log_bet(scope, state) {
     state.data_object.oddsmatcher_type = 'Manual';
     state.data_object.event = '';
     state.data_object.actualprofit = '';
-    state.data_object.qualifying_loss = state.data_object.qualifying_loss.replace('£', '');
-    state.data_object.potential_profit = state.data_object.potential_profit.replace('£', '');
+    state.data_object.qualifying_loss = (state.data_object.qualifying_loss || '0.00').toString().replace(/£/g, '').trim();
+    state.data_object.potential_profit = (state.data_object.potential_profit || '0.00').toString().replace(/£/g, '').trim();
     state.data_object.bet_outcome = '';
     state.data_object.calculator = state.calculator_type;
 

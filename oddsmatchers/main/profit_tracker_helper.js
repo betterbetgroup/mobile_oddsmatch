@@ -832,7 +832,7 @@ export function append_platforms_to_platform_selectors(dropdown_container, platf
         platforms = platforms.filter(platform => !Object.keys(exchangeImages).includes(platform));
     } 
 
-    if (dropdown_container.dataset.type == 'Win Lay Exchange' || dropdown_container.dataset.type == 'Place Lay Exchange' || dropdown_container.dataset.type == 'Lay Bet Exchange' || dropdown_container.dataset.type.includes('Leg ')) {
+    if (dropdown_container.dataset.type && (dropdown_container.dataset.type == 'Win Lay Exchange' || dropdown_container.dataset.type == 'Place Lay Exchange' || dropdown_container.dataset.type == 'Lay Bet Exchange' || dropdown_container.dataset.type.includes('Leg '))) {
         platforms = platforms.filter(platform => !Object.keys(bookmakerImages).includes(platform));
     }
 

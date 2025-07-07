@@ -9,9 +9,8 @@ import * as Helpers from '../main/calculator-helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/calculators/main/styles.css';
 
 
-    html_script = '../main/z.html';
-    styles_script = '../main/styles.css';
 
+    styles_script = '../main/styles.css'
 
 
     class twoUpCalculator extends HTMLElement {

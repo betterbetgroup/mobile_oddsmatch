@@ -222,6 +222,16 @@
     justify-self: flex-end;
     margin-left: 0;
     margin-right: 0;
+
+
+
+    min-width: fit-content;
+    white-space: nowrap;
+}
+
+.log-bet-button {
+    white-space: nowrap;
+    min-width: fit-content;
 }
 
 .div_around_profit_display_items {
