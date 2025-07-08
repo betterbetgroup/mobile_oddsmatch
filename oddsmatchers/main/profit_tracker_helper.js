@@ -497,7 +497,7 @@ function load_data_for_profit_tracker_select_first_section(scope, state, div, ro
     add_event_listener_for_platform_divs(div);
 
     // add event listener for the dropdown options
-    add_event_listener_for_dropdown_options(scope, state, div);
+    add_event_listener_for_dropdown_options(scope, state, div, row);
 
 }
 
@@ -755,7 +755,7 @@ export function add_event_listener_for_platform_divs(div) {
 }
 
 // this is adding the event listener for the dropdown options
-export function add_event_listener_for_dropdown_options(scope, state, div) {
+export function add_event_listener_for_dropdown_options(scope, state, div, row) {
 
     div.addEventListener('click', (event) => {
 

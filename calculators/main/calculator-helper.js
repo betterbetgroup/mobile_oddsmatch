@@ -31,6 +31,14 @@ export function process_new_final_data(data, scope, state) {
             add_values_for_calculator(scope, state, true);
         } catch (error) {
             console.log(error)
+            state.loaded_from_tracker = false;
+            scope.querySelector('#log-bet-button').textContent = 'Log Bet';
+            state.data_object = data.local_calc_data;
+            try {
+                add_values_for_calculator(scope, state, true);
+            } catch (error) {
+                console.log(error)
+            }
         }
         return
     }
