@@ -548,7 +548,7 @@
     }
 
     .profit_and_log__item_value {
-        font-size: calc(var(--profit-item-value-font-size) * 0.75);
+        font-size: calc(var(--profit-item-value-font-size) * 0.9);
 
     }
 

@@ -317,6 +317,7 @@ function create_and_inject_select_div(scope, state, id) {
             calculator: 'No Calculator',
             oddsmatcher_type: 'Manual',
             is_manual_log: true,
+            is_calc: false
         }
         state.globalData.push(row);
         // PREPEND THE TR TO THE TABLE
@@ -2536,7 +2537,7 @@ function log_bet(scope, state, div, row, data_object) {
     data_object.complete = false;
     data_object.betId = row._id + '_' + Date.now(); // as they can log the same oddsmatcher bet multiple times
     //data_object.userId = state.user_id;    add in userId on wix
-    data_object.oddsmatcher_type = state.oddsmatcher_type;
+
     data_object.event = row.fixture;
     data_object.actualprofit = '';
     data_object.qualifying_loss = data_object.qualifying_loss.replace('£', '');
@@ -2545,7 +2546,6 @@ function log_bet(scope, state, div, row, data_object) {
     data_object.bet_outcome = row.outcome;
     data_object.ispayout = false;
     data_object.stakereturned = false;
-    data_object.calculator = 'Standard';
 
     let platforms = [];
 
@@ -2567,6 +2567,8 @@ function log_bet(scope, state, div, row, data_object) {
             'link': row.exchange_link,
             'commission': div.querySelector('#commission-input_' + row._id).value
         })
+
+        data_object.calculator = 'Standard';
     }
 
     if (state.oddsmatcher_type == '2up') {
@@ -2642,6 +2644,24 @@ function log_bet(scope, state, div, row, data_object) {
     if (data_object.hasOwnProperty('_id')) {
         delete data_object._id;
     }
+
+
+
+    let fix_oddsmatcher_type_object = {
+        '2up': '2up',
+        'standard': 'Standard',
+        'bog': 'BOG',
+        'standard_free': 'Standard',
+        'qualifying_bet_tutorial': 'Standard',
+        'free_bet_tutorial': 'Standard',
+        'each_way': 'Each Way',
+        'extra_place': 'Extra Place',
+        'dutching': 'Dutching',
+    }
+
+
+    data_object.oddsmatcher_type = fix_oddsmatcher_type_object[state.oddsmatcher_type];
+
 
 
 

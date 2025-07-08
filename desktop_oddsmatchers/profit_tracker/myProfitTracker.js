@@ -188,7 +188,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 
-
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
 
             function convertDateToJSDate(dateStr) {
@@ -243,14 +242,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 
-    
-                let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
-                    filter.toLowerCase().replace(/ /g, '_') === row.oddsmatcher_type?.toLowerCase().replace(/ /g, '_')
-                );
-                // also make it such that if select all oddsmatchers then it shows all
-                if (globalFilters.oddsmatchers.length == oddsmatcher_list.length) {
-                    oddsmatcherMatch = true;
-                }
+
+
+                const oddsmatcherMatch = globalFilters.oddsmatchers.includes(row.oddsmatcher_type)
 
                 const calculatorMatch = globalFilters.calculators.includes(row.calculator);
 
@@ -277,7 +271,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             });
         
         }
-
 
     
         create_row(row, scope, state) {

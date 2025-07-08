@@ -7,7 +7,7 @@ import * as select_boxes_helper from '../../oddsmatchers/main/select_boxes.js';
 
 
 const MAX_UPDATE_INTERVAL_LOCAL_DATA = 1000;
-
+const MAX_WIDTH_FOR_MOBILE = 700;
 
 
 
@@ -27,7 +27,11 @@ export function process_new_final_data(data, scope, state) {
         state.data_object = data.is_calc_data;
         state.loaded_from_tracker = true;
         scope.querySelector('#log-bet-button').textContent = 'Update Bet';
-        add_values_for_calculator(scope, state, true);
+        try {
+            add_values_for_calculator(scope, state, true);
+        } catch (error) {
+            console.log(error)
+        }
         return
     }
 
@@ -35,7 +39,11 @@ export function process_new_final_data(data, scope, state) {
         console.log('fill inputs with local data - should include platform, date etc')
         state.data_object = data.local_calc_data;
         console.log(state.data_object)
-        add_values_for_calculator(scope, state, true);
+        try {
+            add_values_for_calculator(scope, state, true);
+        } catch (error) {
+            console.log(error)
+        }
         return
     }
 
@@ -772,7 +780,7 @@ function add_control_input_dutching(control_input_div_select, state) {
 
     let first_stake_text = 'Target First Selection';
     let total_stake_text = 'Target Total Stake';
-    if (window.innerWidth < 700) {
+    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
         first_stake_text = 'First Stake';
         total_stake_text = 'Total Stake';
     }
@@ -2471,8 +2479,43 @@ function log_bet(scope, state) {
     state.data_object.qualifying_loss = (state.data_object.qualifying_loss || '0.00').toString().replace(/£/g, '').trim();
     state.data_object.potential_profit = (state.data_object.potential_profit || '0.00').toString().replace(/£/g, '').trim();
     state.data_object.bet_outcome = '';
+
+    
+
+    /* 
+
+
+    if (state.calculator_type == 'Standard') {
+        state.data_object.calculator = 'Standard'
+    }
+
+    if (state.calculator_type == '2up') {
+        state.data_object.calculator = '2up'
+    }
+
+    if (state.calculator_type == 'Each Way') {
+        state.data_object.calculator = 'Each Way'
+    }
+
+    if (state.calculator_type == 'Extra Place') {
+        state.data_object.calculator = 'Extra Place'
+    }
+
+    if (state.calculator_type == 'Dutching') {
+        state.data_object.calculator = 'Dutching'
+    }
+
+    if (state.calculator_type == 'Sequential Lay') {
+        state.data_object.calculator = 'Sequential Lay';
+    }
+
+
+    */
+
     state.data_object.calculator = state.calculator_type;
 
+
+    
 
     if (state.data_object.platforms) {
         let platform_index = 1;
@@ -2523,6 +2566,11 @@ function log_bet(scope, state) {
 
 export function handleResize(scope) {
 
+    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
+        return;
+    }
+
+    
     let width = window.innerWidth;
     const contentDiv = scope.getElementById('outer-container-div');
     contentDiv.style.width = `${width}px`;

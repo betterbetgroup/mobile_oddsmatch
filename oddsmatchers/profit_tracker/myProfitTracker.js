@@ -239,14 +239,9 @@ import * as Helpers from './main-helper.js';
 
 
 
-    
-                let oddsmatcherMatch = globalFilters.oddsmatchers.some(filter => 
-                    filter.toLowerCase().replace(/ /g, '_') === row.oddsmatcher_type?.toLowerCase().replace(/ /g, '_')
-                );
-                // also make it such that if select all oddsmatchers then it shows all
-                if (globalFilters.oddsmatchers.length == oddsmatcher_list.length) {
-                    oddsmatcherMatch = true;
-                }
+
+
+                const oddsmatcherMatch = globalFilters.oddsmatchers.includes(row.oddsmatcher_type)
 
                 const calculatorMatch = globalFilters.calculators.includes(row.calculator);
 

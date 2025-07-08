@@ -3,7 +3,7 @@ import * as select_boxes_helpers from './select_boxes.js'
 
 let estimated_max_chars_per_line_profit_tracker_truncation = 90;
 
-
+const MAX_WIDTH_FOR_MOBILE = 700;
 
 
 // make a dictionary that matches the keys to the appropriate html
@@ -1881,6 +1881,11 @@ export function sort_data_on_click(sortValue, scope, state) {
 
 
 export function handleResize(scope) {
+
+
+    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
+        return;
+    }
 
     let width = window.innerWidth;
     const contentDiv = scope.getElementById('outer-container-div');

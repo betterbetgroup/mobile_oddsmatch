@@ -1,3 +1,7 @@
+
+
+const MAX_WIDTH_FOR_MOBILE = 700;
+
 let delay_for_filtering_data = 300;
 
 
@@ -1006,6 +1010,10 @@ function process_upgrade_click(scope, state) {
 // exact functions from oddsmatcher
 
 export function handleResize(scope) {
+
+    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
+        return;
+    }
 
     let width = window.innerWidth;
     const contentDiv = scope.getElementById('outer-container-div');
