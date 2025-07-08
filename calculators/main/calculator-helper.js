@@ -1314,6 +1314,19 @@ function add_values_for_calculator(scope, state, is_create) {
 
         if (state.calculator_type == 'Dutching') {
 
+
+            // SELECT ALL INPUT ROWS WITH A MINUS SIGN - THIS IS FOR WHEN THEY ADD LEGS THEN CLICK EXAMPLE IN GUIDES PAGE
+            let input_sections = scope.querySelectorAll('div.calculator-bet-info-section-div');
+            input_sections.forEach(section => {
+                let minus_button = section.querySelector('div.minus-button-div');
+                if (minus_button) {
+                    section.remove();
+                }
+            });
+
+
+
+
             // get the odds, commission, platform, and stake    
             let input_section_div = scope.querySelector('div.input-section-div.input-section-div-outer');
     
@@ -1331,6 +1344,18 @@ function add_values_for_calculator(scope, state, is_create) {
 
 
         if (state.calculator_type == 'Sequential Lay') {
+
+
+            // SELECT ALL INPUT ROWS WITH A MINUS SIGN - THIS IS FOR WHEN THEY ADD LEGS THEN CLICK EXAMPLE IN GUIDES PAGE
+            let input_sections = scope.querySelectorAll('div.calculator-bet-info-section-div');
+            input_sections.forEach(section => {
+                let minus_button = section.querySelector('div.minus-button-div');
+                if (minus_button) {
+                    section.remove();
+                }
+            });
+
+
 
             // get the odds, commission, platform, and stake    
             let input_section_div = scope.querySelector('div.input-section-div.input-section-div-outer');
