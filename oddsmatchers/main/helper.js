@@ -629,8 +629,8 @@ export function sort_rows_by_ImpliedOdds(rows) {
 
 export function sort_rows_by_qualifying_loss(rows) {
     return rows.sort((a, b) => {
-        const ratingA = parseFloat(a.qualifying_loss.replace('£', '').replace('+', ''));
-        const ratingB = parseFloat(b.qualifying_loss.replace('£', '').replace('+', ''));
+        const ratingA = parseFloat(a.qualifying_loss.toString().replace('£', '').replace('+', ''));
+        const ratingB = parseFloat(b.qualifying_loss.toString().replace('£', '').replace('+', ''));
         return ratingB - ratingA;  // Sort in descending order
     });
 }
@@ -664,7 +664,7 @@ export function sort_rows_by_date_and_time(rows) {
     return rows.sort((a, b) => {
         const dateA = parseDateAndTime(a.date_and_time);
         const dateB = parseDateAndTime(b.date_and_time);
-        return dateB - dateA;
+        return dateA - dateB;
     });
 }
 

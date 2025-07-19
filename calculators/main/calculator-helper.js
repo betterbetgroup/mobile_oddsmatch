@@ -1357,6 +1357,18 @@ function add_values_for_calculator(scope, state, is_create) {
 
 
 
+            // same for profit rows 
+            let profit_rows = scope.querySelectorAll('div.seq-lay-profit-row');
+            profit_rows.forEach(row => {
+                if (row.dataset.index == 'all' || parseInt(row.dataset.index) <= 2) {
+                    // pass
+                } else {
+                    row.remove();
+                }
+            });
+
+
+
             // get the odds, commission, platform, and stake    
             let input_section_div = scope.querySelector('div.input-section-div.input-section-div-outer');
     

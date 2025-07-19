@@ -1,4 +1,4 @@
-import * as Helpers from './main-helper.js';
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 (function () {
@@ -225,6 +225,7 @@ import * as Helpers from './main-helper.js';
                 const potentialProfitMatch = globalFilters.minPotentialProfit === null || parseFloat(row.potential_profit.replace('£', '')) >= globalFilters.minPotentialProfit;
         
                 // Parse row date and time
+                row.date_and_time = '12/07/25 13:00';
                 const rowDateTime = parseDateAndTime_filterData(row.date_and_time);
                 let timeMatch = true; // Default to true if (No Selected Filter) is set
         
