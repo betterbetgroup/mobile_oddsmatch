@@ -29,11 +29,12 @@
     background: var(--global-main-background-colour);
     width: var(--width-calculator-container);
     border: var(--global-border-main);
-    border-radius: var(--larger-border-radius-above-columns-panel);
+    border-radius: calc(var(--larger-border-radius-above-columns-panel) / 1.5);
     padding: calc(var(--padding-calculator-gaps) * 1.25);
     padding-top: var(--padding-calculator-gaps);
     gap: calc(var(--padding-calculator-gaps) * 1.75);
     flex-direction: column;
+    min-height: 100vh;
 }
 
 .refresh-button-div {

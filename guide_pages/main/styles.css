@@ -1,3 +1,5 @@
+@import url('../../desktop_oddsmatchers/main/styles.css') screen and (min-width: 700px);
+@import url('../../oddsmatchers/main/styles.css') screen and (max-width: 699px);
 
 
 
@@ -5,7 +7,7 @@
 
 
 * { 
-    font-family: 'Arial', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     box-sizing: border-box;
 }
 
@@ -116,7 +118,7 @@ body {
 }
 
 #left_main_div h1 {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 8.8vw; 
     color: #ff00c6;
 
@@ -247,7 +249,7 @@ button {
 
 
     * { 
-        font-family: 'Arial', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         box-sizing: border-box;
     }
     
@@ -358,7 +360,7 @@ button {
     }
     
     #left_main_div h1 {
-        font-family: 'Archivo Black', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         font-size: 8.8vw; 
         color: #ff00c6;
     

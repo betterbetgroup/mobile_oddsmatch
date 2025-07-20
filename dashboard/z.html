@@ -1,36 +1,493 @@
 <body>
     <div id="outer-container-div">
-
-        <div id="div_around_main_container">
-            
-            <div id="main_container_left">
-                <div id="left_main_div">
-                    <div>
-                        <h1>Better Bet.</h1>
-                        <p>Join 1,000+ Members Already Beating the Bookies!</p>
-                    </div>
-
-                    <div id="we_offer_div">
-                        <p id="we_offer_text">We Offer <span class="typed-text"></span><span class="cursor"></span></p>
-                    </div>
-
+        <div class="dashboard-container">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="header-title">
+                    <img src="https://img.icons8.com/?size=100&id=uWyVYfqqdYxW&format=png&color=000000" alt="Dashboard Icon" class="dashboard-icon">
+                    <h1>Dashboard</h1>
                 </div>
-                
-            </div>    
 
-                        
-            <div id="main_container_right">
-                <div id="youtube_tutorial">
-                    <iframe src="https://www.youtube.com/embed/3eEdy-7mGPQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <button id="tutorial-button">START FREE TRIAL</button>
-                <button id="learn-more-button">LEARN MORE</button>
             </div>
 
+
+
+
+            <!-- Feature Cards Section -->
+            <div class="feature-cards-section">
+                <div class="feature-card pro-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Better Bet Pro</h3>
+                        <p>Gain access to new tools and exclusive offers for pro members.</p>
+
+                    </div>
+                </div>
+
+                <div class="feature-card guides-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Guides and Tutorials</h3>
+                        <p>Step-by-step guides and video tutorials to help you master matched betting.</p>
+
+                    </div>
+                </div>
+
+                <div class="feature-card signup-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+                        <h3>Bookmaker Signup Offers</h3>
+                        <p>Begin your matched betting journey with these easy-to-complete offers.</p>
+
+                    </div>
+                </div>
+
+                <div class="feature-card weekly-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-repeat"></i>
+                        </div>
+                        <h3>Weekly Bet Club Offers</h3>
+                        <p>Use these offers to advance your matched betting skills and profit from them every week.</p>
+
+                    </div>
+                </div>
+
+                <div class="feature-card discord-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fa-brands fa-discord"></i>
+                        </div>
+                        <h3>Discord Group</h3>
+                        <p>Join our community to chat with other matched bettors and access time-sensitive offers.</p>
+
+                    </div>
+                </div>
+
+                <div class="feature-card support-card">
+                    <div class="feature-overlay"></div>
+                    <div class="feature-content">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                        </div>
+                        <h3>Help & Assistance</h3>
+                        <p>Reach out to our support team for any issues you may have.</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Main Content Grid -->
+            <div class="main-content-grid">
+
+
+
+
+
+                <!-- Membership Status Section -->
+                <div class="membership-section card">
+                    <h2>Membership Status</h2>
+                    <div class="membership-content">
+                        <div class="membership-status" id="membership-status">
+                            <div class="status-badge" id="status-badge">Free Member</div>
+                            <div class="membership-details" id="membership-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">Plan:</span>
+                                    <span class="detail-value" id="plan-name">Free</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Valid Until:</span>
+                                    <span class="detail-value" id="plan-expiry">-</span>
+                                </div>
+                            </div>
+                            <div class="membership-actions">
+                                <button class="subscription-btn" id="manage-subscription">
+                                    <i class="fas fa-cog"></i>
+                                    Manage Subscription
+                                </button>
+                                <button class="upgrade-btn" id="upgrade-membership">
+                                    <i class="fas fa-arrow-up"></i>
+                                    Upgrade Plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Your Profit Section -->
+                <div class="profit-section card">
+                    <h2>Your Profit</h2>
+                    <div class="profit-stats">
+                        <div class="profit-item">
+                            <span class="profit-label">Today</span>
+                            <span class="profit-value" id="profit-today">£0.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">This Month</span>
+                            <span class="profit-value" id="profit-month">£0.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">Last Month</span>
+                            <span class="profit-value" id="profit-last-month">£0.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">This Year</span>
+                            <span class="profit-value" id="profit-year">£0.00</span>
+                        </div>
+                        <div class="profit-item">
+                            <span class="profit-label">Lifetime Total Profit</span>
+                            <span class="profit-value" id="profit-lifetime">£0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <!-- Offer Progress Section -->
+                <div class="offer-progress-section card">
+                    <h2>Matched Betting Progress</h2>
+                    <div class="progress-items">
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Signup Offers Complete</span>
+                                <span class="progress-count" id="sportsbook-count">0 / 0</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="signup-offers-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Weekly Bet Club Offers Complete</span>
+                                <span class="progress-count" id="weekly-bet-club-count">0 / 0</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="weekly-bet-club-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Reload Offers Complete</span>
+                                <span class="progress-count" id="reload-count">0 / 0</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="reload-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Guides & Tutorials Complete</span>
+                                <span class="progress-count" id="guides-count">0 / 0</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="guides-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Quick Tools Grid -->
+            <div class="quick-tools-section">
+
+
+
+                <!-- Oddsmatchers Category -->
+                <div class="tools-category">
+                    <h3 class="category-title">Oddsmatchers</h3>
+                    <div class="tools-grid">
+
+
+                        <div class="tool-card" data-tool="oddsmatcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-desktop"></i>
+                            </div>
+                            <span class="tool-title">Standard Oddsmatcher</span>
+                        </div>
+            
+
+                        <div class="tool-card" data-tool="dutching-matcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <span class="tool-title">Dutching Matcher</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="each-way-matcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-horse"></i>
+                            </div>
+                            <span class="tool-title">Each Way Matcher</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="extra-place-matcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-ranking-star"></i>
+                            </div>
+                            <span class="tool-title">Extra Place Matcher</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="bog-matcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-flag-checkered"></i>
+                            </div>
+                            <span class="tool-title">BOG Matcher</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="2up-master">
+                            <div class="tool-icon">
+                                <i class="fas fa-soccer-ball"></i>
+                            </div>
+                            <span class="tool-title">2up Matcher</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="acca-matcher">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-list-ol"></i>
+                            </div>
+                            <span class="tool-title">Acca Matcher</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="price-boost-matcher">
+                            <div class="tool-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <span class="tool-title">Price Boost Matcher</span>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                
+                <!-- Calculators Category -->
+                <div class="tools-category">
+                    <h3 class="category-title">Calculators</h3>
+                    <div class="tools-grid">
+
+                        
+                        <div class="tool-card" data-tool="calculator">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-plus-minus"></i>
+                            </div>
+                            <span class="tool-title">Standard Calculator</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="2up-calculator">
+                            <div class="tool-icon">
+                                <i class="fas fa-soccer-ball"></i>
+                            </div>
+                            <span class="tool-title">2up Calculator</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="each-way-calculator">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-horse"></i>
+                            </div>
+                            <span class="tool-title">Each Way Calculator</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="extra-place-calculator">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-ranking-star"></i>
+                            </div>
+                            <span class="tool-title">Extra Place Calculator</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="dutching-calculator">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <span class="tool-title">Dutching Calculator</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="sequential-lay-calculator">
+                            <div class="tool-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <span class="tool-title">Sequential Lay Calculator</span>
+                        </div>
+
+
+
+                        <div class="tool-card" data-tool="more-calculators">
+                            <div class="tool-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <span class="tool-title">More Calculators</span>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            
+
+
+
+
+                
+                <!-- Offers Category -->
+                <div class="tools-category">
+                    <h3 class="category-title">Offers</h3>
+                    <div class="tools-grid">
+
+                        
+                        <div class="tool-card" data-tool="signup-offers">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-address-card"></i>
+                            </div>
+                            <span class="tool-title">Signup Offers</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="weekly-offers">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-repeat"></i>
+                            </div>
+                            <span class="tool-title">Weekly Bet Club Offers</span>
+                        </div>
+
+
+
+                        <div class="tool-card" data-tool="reload-offers">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <span class="tool-title">Reload Offers</span>
+                        </div>
+
+
+                        <div class="tool-card" data-tool="extra-place-races">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <span class="tool-title">Extra Place Races</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="non-betting-offers">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-sterling-sign"></i>
+                            </div>
+                            <span class="tool-title">Non-Betting Offers</span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+                <!-- Tracking & Management Category -->
+                <div class="tools-category">
+                    <h3 class="category-title">Tracking & Management</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card" data-tool="profit-tracker">
+                            <div class="tool-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <span class="tool-title">Profit Tracker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community & Support Category -->
+                <div class="tools-category">
+                    <h3 class="category-title">Community & Support</h3>
+                    <div class="tools-grid">
+                        <div class="tool-card" data-tool="forum">
+                            <div class="tool-icon">
+                                <i class="fa-brands fa-discord"></i>
+                            </div>
+                            <span class="tool-title">Discord Group</span>
+                        </div>
+
+                        <div class="tool-card" data-tool="help-support">
+                            <div class="tool-icon">
+                                <i class="fa-solid fa-handshake-angle"></i>
+                            </div>
+                            <span class="tool-title">Help & Assistance</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-
     </div>
-
-    <bog-oddsmatcher></bog-oddsmatcher>
-
 </body>
