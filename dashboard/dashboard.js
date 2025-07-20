@@ -62,9 +62,7 @@ class Dashboard extends HTMLElement {
     runSpecificScript() {
 
         this.make_typed_text_run();
-
         this.style.visibility = 'visible';
-
         this.add_event_listener_for_button();
 
     }
@@ -72,8 +70,8 @@ class Dashboard extends HTMLElement {
 
 
     render() {
-        //return fetch('z.html')
-        return fetch('https://betterbetgroup.github.io/betterbet_html/homepage/z.html')
+        return fetch('z.html')
+        //return fetch('https://betterbetgroup.github.io/betterbet_html/homepage/z.html')
             .then(response => response.text())
             .then(html => {
                 this.shadowRoot.innerHTML = html;
@@ -109,11 +107,11 @@ class Dashboard extends HTMLElement {
     }
 
 
-    loadExternalScript(scriptUrl) {
+    loadExternalScript(scriptUrl, isModule = false) {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = scriptUrl;
-            script.type = 'text/javascript';
+            script.type = isModule ? 'module' : 'text/javascript';
             script.onload = resolve;
             script.onerror = reject;
             document.head.appendChild(script);
