@@ -1,4 +1,4 @@
-import * as Helpers from './list-page-helper.js'
+import * as Helpers from '../main/helper.js'
 
 
 
@@ -7,6 +7,9 @@ import * as Helpers from './list-page-helper.js'
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/sign_up.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
+
+
+    styles_script = '../main/styles.css';
 
 
     class SignUpOfferList extends HTMLElement {
