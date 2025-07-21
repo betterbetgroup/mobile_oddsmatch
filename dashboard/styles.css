@@ -4,57 +4,58 @@
 
 
 
+
 .dashboard-container {
 
     --dashboard-container-width: 90%;
-    --var-main-dashboard-container-padding: 40px;
+    --var-main-dashboard-container-padding: 2.78vw;
 
     --main-dashboard-container-gap: calc(var(--var-main-dashboard-container-padding) * 2);
 
-    --main-dashboard-border-radius: 20px;
+    --main-dashboard-border-radius: 1.39vw;
 
     /* item global stuff */
-    --gap-main-dashboard-item-gap: 30px; 
+    --gap-main-dashboard-item-gap: 2.08vw; 
     --global-main-dashboard-item-transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --shadow-main-dashboard-item: 0 4px 6px rgba(0, 0, 0, 0.15);
+    --shadow-main-dashboard-item: 0 0.28vw 0.42vw rgba(0, 0, 0, 0.15);
 
-    --hover-main-dashboard-item-transform: translateY(-4px) scale(1.01);
-    --hover-main-dashboard-item-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
+    --hover-main-dashboard-item-transform: translateY(-0.28vw) scale(1.01);
+    --hover-main-dashboard-item-shadow: 0 0.42vw 0.56vw rgba(0, 0, 0, 0.25);
 
-    --padding-buttons-dashboard: 11px 20px;
+    --padding-buttons-dashboard: 0.76vw 1.39vw;
 
 
     /* header part */
     --dashboard-border-colour: #1f1f1f;
     --main-dashboard-border-bottom-design: var(--global-border-width-main) solid var(--dashboard-border-colour);
 
-    --font-size-dashboard-header-title: 40px; /* smaller than title size on other pages */
+    --font-size-dashboard-header-title: 2.78vw; /* smaller than title size on other pages */
 
 
 
 
     /* feature cards part */
-    --height-filter-items-dashboard: 200px;
+    --height-filter-items-dashboard: 13.89vw;
     --feature-overlay-background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    --feature-overlay-blur: 1px;
-    --padding-feature-card-content: 28px 24px;
+    --feature-overlay-blur: 0.07vw;
+    --padding-feature-card-content: 1.94vw 1.67vw;
 
-    --feature-icon-size: 48px;
+    --feature-icon-size: 3.33vw;
     --feature-icon-background: rgba(255, 255, 255, 0.2);
-    --feature-icon-border-radius: 12px;
-    --vertical-gap-feature-icon: 8px;
-    --feature-icon-blur-second: 10px;
+    --feature-icon-border-radius: 0.83vw;
+    --vertical-gap-feature-icon: 0.56vw;
+    --feature-icon-blur-second: 0.69vw;
     --feature-icon-border: var(--global-border-width-main) solid rgba(255, 255, 255, 0.3);
-    --feature-icon-icon-size: 24px;
+    --feature-icon-icon-size: 1.67vw;
 
-    --feature-title-dashboard-font-size: 21px;
+    --feature-title-dashboard-font-size: 1.46vw;
 
-    --feature-text-dashboard-text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --feature-text-dashboard-text-shadow: 0 0.14vw 0.28vw rgba(0, 0, 0, 0.3);
     --feature-text-line-height: 1.3;
 
-    --feature-text-dashboard-smaller-font-size: 13.5px;
+    --feature-text-dashboard-smaller-font-size: 1.11vw;
     --feature-text-dashboard-smaller-line-height: 1.5;
-    --feature-text-dashboard-smaller-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --feature-text-dashboard-smaller-text-shadow: 0 0.07vw 0.21vw rgba(0, 0, 0, 0.4);
 
 
 
@@ -63,46 +64,46 @@
 
     /* main content cards */
     --main-dashboard-item-background-colour: #2a2a2a;
-    --padding-dashboard-main-content-cards: 25px;
+    --padding-dashboard-main-content-cards: 1.74vw;
     --border-main-dashboard-items: var(--global-border-width-main) solid #333;
 
-    --font-size-dashboard-main-content-cards-title: 24px;
-    --margin-below-tite-text-dashboard-main-content-cards: 25px;
+    --font-size-dashboard-main-content-cards-title: 1.67vw;
+    --margin-below-tite-text-dashboard-main-content-cards: 1.74vw;
 
     --main-dashboard-profit-section-only-item-background-colour: linear-gradient(135deg, #2a2a2a, #333);
 
-    --gap-main-dashboard-items-inner: 20px;
+    --gap-main-dashboard-items-inner: 1.39vw;
 
-    --font-size-dashboard-main-content-text: 15px;
+    --font-size-dashboard-main-content-text: 1.04vw;
 
-    --border-bottom-main-section-items: 1px solid #404040;
+    --border-bottom-main-section-items: 0.07vw solid #404040;
 
-    --height-progress-bar-dashboard: 8px;
-    --border-radius-progress-bar-dashboard: 4px;
+    --height-progress-bar-dashboard: 0.56vw;
+    --border-radius-progress-bar-dashboard: 0.28vw;
     --progress-bar-fill-gradient-dashboard: linear-gradient(90deg, #ffffff, #ff00c6);
 
-    --padding-buttons-main-section-dashboard: 10px 20px;
+    --padding-buttons-main-section-dashboard: 0.69vw 1.39vw;
 
-    --border-radius-buttons-dashboard: 8px;
+    --border-radius-buttons-dashboard: 0.56vw;
 
 
 
 
     /* quick tools section */
 
-    --border-radius-tool-card-dashboard: 12px;
+    --border-radius-tool-card-dashboard: 0.83vw;
 
-    --padding-tool-card-dashboard: 20px;
+    --padding-tool-card-dashboard: 1.39vw;
 
-    --size-tool-card-dashboard: 145px;
+    --size-tool-card-dashboard: 10.07vw;
 
-    --size-tool-icon-card-dashboard: 48px;
+    --size-tool-icon-card-dashboard: 3.33vw;
 
-    --size-of-icons-in-quick-tools-section: 20px;
+    --size-of-icons-in-quick-tools-section: 1.39vw;
 
-    --tool-icon-inner-margin-top: 8px;
+    --tool-icon-inner-margin-top: 0.56vw;
 
-    --height-tool-title-text-quick-tools-section: 40px;
+    --height-tool-title-text-quick-tools-section: 2.78vw;
 
 
 
@@ -411,7 +412,7 @@ div.offer-progress-section.card h2 {
     font-size: var(--font-size-dashboard-main-content-text);
     font-weight: var(--font-weight-main-oddsmatcher);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0.35vw;
     text-align: center;
     width: fit-content;
 }
@@ -567,7 +568,7 @@ div.offer-progress-section.card h2 {
     color: #ffffff;
     padding-bottom: calc(var(--gap-main-dashboard-item-gap) / 2);
     border-bottom: var(--global-border-width-main) solid #333;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0.35vw;
 }
 
 .tools-grid {
@@ -595,7 +596,7 @@ div.offer-progress-section.card h2 {
 
 .tool-card:hover {
     background: #333;
-    transform: translateY(-2px);
+    transform: translateY(-0.14vw);
 }
 
 .tool-icon {
@@ -664,195 +665,154 @@ div.offer-progress-section.card h2 {
 
 
 /* Responsive Design */
-@media (max-width: 999px) {
-    .main-content-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .feature-cards-section {
-        justify-content: center;
-    }
-    
-    .feature-card {
-        width: 350px;
-        height: 175px;
-    }
-    
-    .feature-icon {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 12px;
-    }
-    
-    .feature-icon i {
-        font-size: 20px;
-    }
-}
-
-
-
-
 @media (max-width: 699px) {
+
+
+    #outer-container-div {
+        background-color: var(--global-main-background-colour);
+    }
+
+
     .dashboard-container {
-        padding: 16px;
-    }
+
+
+
+        border: none;
+        border-radius: 0;
+
+
+
+
+        --dashboard-container-width: 100%;
+
+        --main-dashboard-border-radius: 5.00vw;
+
+        --font-size-dashboard-header-title: 6.75vw;
+
+        --var-main-dashboard-container-padding: 5.00vw;
+
+        --main-dashboard-container-gap: 10.00vw;
+
+        --gap-main-dashboard-item-gap: 5.00vw;
+
+        --padding-buttons-dashboard: 2.75vw 5.00vw;
+
+
+
+
     
-    .dashboard-header {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
+        
     
-    .dashboard-header h1 {
-        font-size: 2rem;
-    }
+
+
+        /* feature cards part */
+        --height-filter-items-dashboard: 42.50vw;
+        --padding-feature-card-content: 5.75vw 4.50vw;
+
+        --feature-icon-size: 10.00vw;
+        --feature-icon-border-radius: 2.00vw;
+        --vertical-gap-feature-icon: 1.50vw;
+        --feature-icon-border: var(--global-border-width-main) solid rgba(255, 255, 255, 0.3);
+        --feature-icon-icon-size: 5.00vw;
+
+        --feature-title-dashboard-font-size: 5.00vw;
+
+        --feature-text-dashboard-smaller-font-size: 3.00vw;
+
+
+        
+        
     
-    .dashboard-icon {
-        height: 2rem;
+
+
+
+
+
+        /* main content cards */
+        --padding-dashboard-main-content-cards: 5.50vw;
+
+        --font-size-dashboard-main-content-cards-title: 6.00vw;
+        --margin-below-tite-text-dashboard-main-content-cards: 6.25vw;
+
+
+        --gap-main-dashboard-items-inner: 5.00vw;
+
+        --font-size-dashboard-main-content-text: 3.25vw;
+
+
+        --height-progress-bar-dashboard: 1.50vw;
+        --border-radius-progress-bar-dashboard: 1.00vw;
+
+        --padding-buttons-main-section-dashboard: 2.25vw 5.00vw;
+
+        --border-radius-buttons-dashboard: 2.00vw;
+
+
+
+
+        
+
+
+
+        /* quick tools section */
+
+        --new-gap-for-mobile-quick-tools-section: 3.75vw; /* new */
+
+        --border-radius-tool-card-dashboard: 2.50vw;
+
+        --padding-tool-card-dashboard: 3.00vw;
+
+        --size-tool-card-dashboard: 109.1.00vw;
+
+        --size-tool-icon-card-dashboard: 9.00vw;
+
+        --size-of-icons-in-quick-tools-section: 3.50vw;
+
+        --tool-icon-inner-margin-top: 2.00vw;
+
+        --height-tool-title-text-quick-tools-section: 20.50vw;
+
+
+
+
+
+
+
     }
-    
-    .quick-tools-section {
-        gap: 30px;
+
+
+
+
+
+
+    /* Feature Cards - Single Column */
+    .feature-card {
+        width: 100%;
     }
-    
-    .tools-category {
-        gap: 16px;
-    }
-    
-    .category-title {
-        font-size: 1rem;
-        padding-bottom: 6px;
-    }
-    
-    .tools-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 16px;
-    }
-    
-    .tool-card {
-        padding: 16px;
-    }
-    
-    .tool-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-    
-    .tool-title {
-        font-size: 13px;
-    }
-    
+
+    /* Main Content Grid - Single Column */
     .main-content-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
-    
-    .feature-cards-section {
-        justify-content: center;
-        gap: 16px;
-    }
-    
-    .feature-card {
-        width: 300px;
-        height: 150px;
-    }
-    
-    .feature-content {
-        padding: 20px 18px;
-    }
-    
-    .feature-card h3 {
-        font-size: 1.1rem;
-    }
-    
-    .feature-card p {
-        font-size: 12px;
-    }
-    
-    .card {
-        padding: 20px;
-    }
-    
-    .profit-value {
-        font-size: 16px;
-    }
-    
-    .membership-actions {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .subscription-btn,
-    .upgrade-btn {
-        min-width: auto;
-        padding: 12px 16px;
-    }
-}
 
-@media (max-width: 480px) {
-    .dashboard-container {
-        padding: 12px;
-    }
-    
-    .quick-tools-section {
-        gap: 24px;
-    }
-    
-    .tools-category {
-        gap: 12px;
-    }
-    
-    .category-title {
-        font-size: 0.9rem;
-        padding-bottom: 4px;
-    }
-    
+
+
     .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: var(--new-gap-for-mobile-quick-tools-section);
     }
-    
-    .tool-card {
-        padding: 12px;
-    }
-    
+
     .tool-icon {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
+        margin-bottom: calc(var(--tool-icon-inner-margin-top) * 1.4);
     }
-    
-    .tool-title {
-        font-size: 12px;
-    }
-    
-    .feature-card {
-        width: 280px;
-        height: 140px;
-    }
-    
-    .feature-content {
-        padding: 16px 14px;
-    }
-    
-    .feature-icon {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 8px;
-    }
-    
-    .feature-icon i {
-        font-size: 16px;
-    }
-    
-    .feature-card h3 {
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-    
-    .feature-card p {
-        font-size: 11px;
-    }
+
+
+
+
+
+
+
+
+
 }
 
 

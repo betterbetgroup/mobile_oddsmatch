@@ -2,7 +2,7 @@ import re
 
 def convert_px_to_vw(match):
     px_value = int(match.group(1))  # Extract the pixel value
-    base_width = 1440  # The viewport width at which the design looks good
+    base_width = 400  # The viewport width at which the design looks good
     vw_value = (px_value / base_width) * 100  # Convert px to vw
     return f"{vw_value:.2f}vw"  # Format the vw value to two decimal places
 
@@ -28,7 +28,7 @@ def process_css_file(input_file_path, output_file_path):
         file.write(converted_css)
 
 # Paths to the input and output CSS files
-input_css_path = "desktop_oddsmatchers/main/styles.css"
+input_css_path = "dashboard/styles.css"
 output_css_path = "new_styles.css"
 
 # Call the function to process the CSS file

@@ -94,12 +94,18 @@ class Dashboard extends HTMLElement {
     updateProfitValues(scope, profitData) {
         const formatCurrency = (value) => {
             const num = parseFloat(value) || 0;
-            return num >= 0 ? `£${num.toFixed(2)}` : `-£${Math.abs(num).toFixed(2)}`;
+            const absNum = Math.abs(num);
+            const formattedNum = absNum.toLocaleString('en-GB', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            return num >= 0 ? `£${formattedNum}` : `-£${formattedNum}`;
         };
 
         const profitToday = scope.getElementById('profit-today');
         const profitMonth = scope.getElementById('profit-month');
         const profitLastMonth = scope.getElementById('profit-last-month');
+        const profitThisYear = scope.getElementById('profit-this-year');
         const profitLifetime = scope.getElementById('profit-lifetime');
 
         if (profitToday && profitData.today !== undefined) {
@@ -113,9 +119,13 @@ class Dashboard extends HTMLElement {
         if (profitLastMonth && profitData.lastMonth !== undefined) {
             profitLastMonth.textContent = formatCurrency(profitData.lastMonth);
         }
+
+        if (profitThisYear && profitData.thisYear !== undefined) {
+            profitThisYear.textContent = formatCurrency(profitData.thisYear);
+        }
         
-        if (profitLifetime && profitData.lifetime !== undefined) {
-            profitLifetime.textContent = formatCurrency(profitData.lifetime);
+        if (profitLifetime && profitData.total !== undefined) {
+            profitLifetime.textContent = formatCurrency(profitData.total);
         }
     }
 
@@ -136,11 +146,11 @@ class Dashboard extends HTMLElement {
 
         
         if (offersData.signup) {
-            updateProgress('signup', offersData.signup.completed, offersData.signup.total);
+            updateProgress('signup-offers', offersData.signup.completed, offersData.signup.total);
         }
         
         if (offersData.weekly) {
-            updateProgress('weekly', offersData.weekly.completed, offersData.weekly.total);
+            updateProgress('weekly-bet-club-offers', offersData.weekly.completed, offersData.weekly.total);
         }
         
         if (offersData.reload) {
@@ -158,7 +168,6 @@ class Dashboard extends HTMLElement {
         const statusBadge = scope.getElementById('status-badge');
         const planName = scope.getElementById('plan-name');
         const planExpiry = scope.getElementById('plan-expiry');
-        const toolsAccess = scope.getElementById('tools-access');
         
         if (!statusBadge) return;
         
@@ -183,16 +192,7 @@ class Dashboard extends HTMLElement {
         if (planExpiry) {
             planExpiry.textContent = membershipData.expiryDate || '-';
         }
-        
-        if (toolsAccess) {
-            const accessLevels = {
-                'free': 'Basic Tools',
-                'premium-trial': 'Premium Tools',
-                'premium': 'Premium Tools',
-                'pro': 'All Tools + Pro Features'
-            };
-            toolsAccess.textContent = accessLevels[status] || 'Basic Tools';
-        }
+    
         
         // Update button visibility and text based on status
         this.updateMembershipButtons(scope, status);
@@ -212,8 +212,8 @@ class Dashboard extends HTMLElement {
             
             // Update upgrade button text based on current status
             const upgradeTexts = {
-                'free': 'Upgrade to Premium',
-                'premium-trial': 'Upgrade to Premium',
+                'free': 'Start 7-Day Free Trial',
+                'premium-trial': 'Upgrade to Pro',
                 'premium': 'Upgrade to Pro'
             };
             
@@ -221,26 +221,9 @@ class Dashboard extends HTMLElement {
             upgradeBtn.innerHTML = `${icon.outerHTML} ${upgradeTexts[status] || 'Upgrade Plan'}`;
         }
         
-        // Update manage button text based on status
-        if (status === 'free') {
-            const icon = manageBtn.querySelector('i');
-            manageBtn.innerHTML = `${icon.outerHTML} View Plans`;
-        } else {
-            const icon = manageBtn.querySelector('i');
-            manageBtn.innerHTML = `${icon.outerHTML} Manage Subscription`;
-        }
-    }
-
-
-
-    getCurrentMembershipStatus() {
-        const statusBadge = document.querySelector('#status-badge');
-        if (!statusBadge) return 'free';
         
-        const classes = statusBadge.className.split(' ');
-        const statusClass = classes.find(cls => cls !== 'status-badge');
-        return statusClass || 'free';
     }
+
 
 
 

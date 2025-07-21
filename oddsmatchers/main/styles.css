@@ -1967,7 +1967,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 @media screen and (max-width: 699px) {
     #outer-container-div {
-        --font-weight-main-oddsmatcher: 400;
+        --font-weight-main-oddsmatcher: 550;
     }
 }
 
