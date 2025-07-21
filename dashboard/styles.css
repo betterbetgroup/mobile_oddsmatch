@@ -21,6 +21,8 @@
     --hover-main-dashboard-item-transform: translateY(-4px) scale(1.01);
     --hover-main-dashboard-item-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
 
+    --padding-buttons-dashboard: 11px 20px;
+
 
     /* header part */
     --dashboard-border-colour: #1f1f1f;
@@ -63,6 +65,44 @@
     --main-dashboard-item-background-colour: #2a2a2a;
     --padding-dashboard-main-content-cards: 25px;
     --border-main-dashboard-items: var(--global-border-width-main) solid #333;
+
+    --font-size-dashboard-main-content-cards-title: 24px;
+    --margin-below-tite-text-dashboard-main-content-cards: 25px;
+
+    --main-dashboard-profit-section-only-item-background-colour: linear-gradient(135deg, #2a2a2a, #333);
+
+    --gap-main-dashboard-items-inner: 20px;
+
+    --font-size-dashboard-main-content-text: 15px;
+
+    --border-bottom-main-section-items: 1px solid #404040;
+
+    --height-progress-bar-dashboard: 8px;
+    --border-radius-progress-bar-dashboard: 4px;
+    --progress-bar-fill-gradient-dashboard: linear-gradient(90deg, #ffffff, #ff00c6);
+
+    --padding-buttons-main-section-dashboard: 10px 20px;
+
+    --border-radius-buttons-dashboard: 8px;
+
+
+
+
+    /* quick tools section */
+
+    --border-radius-tool-card-dashboard: 12px;
+
+    --padding-tool-card-dashboard: 20px;
+
+    --size-tool-card-dashboard: 145px;
+
+    --size-tool-icon-card-dashboard: 48px;
+
+    --size-of-icons-in-quick-tools-section: 20px;
+
+    --tool-icon-inner-margin-top: 8px;
+
+    --height-tool-title-text-quick-tools-section: 40px;
 
 
 
@@ -260,33 +300,33 @@
 }
 
 .card h2 {
-    margin: 0 0 20px 0;
-    font-size: 1.5rem;
-    font-weight: 600;
+    margin: 0 0 var(--margin-below-tite-text-dashboard-main-content-cards) 0;
+    font-size: var(--font-size-dashboard-main-content-cards-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
     color: #ffffff;
 }
 
 div.offer-progress-section.card h2 {
-    margin: 0 0 40px 0;
+    margin: 0 0 calc(var(--margin-below-tite-text-dashboard-main-content-cards) * 1.5) 0;
 }
 
 /* Profit Section */
 .profit-section {
-    background: linear-gradient(135deg, #2a2a2a, #333);
+    background: var(--main-dashboard-profit-section-only-item-background-colour);
 }
 
 .profit-stats {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-main-dashboard-items-inner);
 }
 
 .profit-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #404040;
+    padding: calc(var(--gap-main-dashboard-items-inner) / 1.5) 0;
+    border-bottom: var(--border-bottom-main-section-items);
 }
 
 .profit-item:last-child {
@@ -294,14 +334,14 @@ div.offer-progress-section.card h2 {
 }
 
 .profit-label {
-    font-size: 14px;
+    font-size: var(--font-size-dashboard-main-content-text);
     color: #ccc;
-    font-weight: 400;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .profit-value {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
     color: #ffffff;
 }
 
@@ -309,13 +349,13 @@ div.offer-progress-section.card h2 {
 .progress-items {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: calc(var(--gap-main-dashboard-items-inner) * 1.75);
 }
 
 .progress-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.75);
 }
 
 .progress-header {
@@ -325,29 +365,29 @@ div.offer-progress-section.card h2 {
 }
 
 .progress-label {
-    font-size: 14px;
+    font-size: var(--font-size-dashboard-main-content-text);
     color: #ffffff;
-    font-weight: 500;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .progress-count {
-    font-size: 14px;
+    font-size: var(--font-size-dashboard-main-content-text);
     color: #ccc;
-    font-weight: 500;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .progress-bar {
     width: 100%;
-    height: 8px;
+    height: var(--height-progress-bar-dashboard);
     background: #404040;
-    border-radius: 4px;
+    border-radius: var(--border-radius-progress-bar-dashboard);
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #ffffff, #ff00c6);
-    border-radius: 4px;
+    background: var(--progress-bar-fill-gradient-dashboard);
+    border-radius: var(--border-radius-progress-bar-dashboard);
     transition: width 0.6s ease;
 }
 
@@ -361,22 +401,24 @@ div.offer-progress-section.card h2 {
 .membership-status {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-main-dashboard-items-inner);
     height: 100%;
 }
 
 .status-badge {
-    background: linear-gradient(90deg, #ffffff, #ff00c6);
-    color: #1a1a1a;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 700;
+    padding: var(--padding-buttons-main-section-dashboard);
+    border-radius: var(--main-dashboard-border-radius);
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     text-align: center;
     width: fit-content;
 }
+
+
+
+
 
 .status-badge.free {
     background: #666;
@@ -398,18 +440,22 @@ div.offer-progress-section.card h2 {
     color: #ffffff;
 }
 
+
+
+
+
 .membership-details {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.75);
 }
 
 .detail-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #404040;
+    padding: calc(var(--gap-main-dashboard-items-inner) / 1.75) 0;
+    border-bottom: var(--border-bottom-main-section-items);
 }
 
 .detail-item:last-child {
@@ -417,20 +463,20 @@ div.offer-progress-section.card h2 {
 }
 
 .detail-label {
-    font-size: 14px;
+    font-size: var(--font-size-dashboard-main-content-text);
     color: #ccc;
-    font-weight: 400;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .detail-value {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
     color: #ffffff;
 }
 
 .membership-actions {
     display: flex;
-    gap: 15px;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.25);
     flex-direction: column;
     margin-top: auto;
 }
@@ -438,24 +484,24 @@ div.offer-progress-section.card h2 {
 .subscription-btn,
 .upgrade-btn {
     flex: 1;
-    min-width: 140px;
-    padding: 10px 16px;
+    min-width: 100%;
+    padding: var(--padding-buttons-dashboard);
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: var(--border-radius-buttons-dashboard);
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.5);
 }
 
 .subscription-btn {
     background: #333;
     color: #ffffff;
-    border: 1px solid #555;
+    border: var(--global-border-width-main) solid #555;
 }
 
 .subscription-btn:hover {
@@ -464,13 +510,12 @@ div.offer-progress-section.card h2 {
 }
 
 .upgrade-btn {
-    background: linear-gradient(90deg, #4ecdc4, #44a08d);
-    color: #1a1a1a;
+    background: linear-gradient(90deg, #ff00c6, #b300ff);
+    color: #ffffff;
 }
 
 .upgrade-btn:hover {
-    background: linear-gradient(90deg, #5ee7da, #4fb3a0);
-    transform: translateY(-1px);
+    background: linear-gradient(90deg, #ff33d1, #cc00ff);
 }
 
 .upgrade-btn.hidden {
@@ -506,21 +551,21 @@ div.offer-progress-section.card h2 {
 .quick-tools-section {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: calc(var(--gap-main-dashboard-item-gap) * 1.5);
 }
 
 .tools-category {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--gap-main-dashboard-item-gap);
 }
 
 .category-title {
     margin: 0;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: var(--font-size-dashboard-main-content-cards-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
     color: #ffffff;
-    padding-bottom: 8px;
+    padding-bottom: calc(var(--gap-main-dashboard-item-gap) / 2);
     border-bottom: var(--global-border-width-main) solid #333;
     letter-spacing: 0.5px;
 }
@@ -530,22 +575,21 @@ div.offer-progress-section.card h2 {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 30px;
+    gap: var(--gap-main-dashboard-item-gap);
 }
 
 .tool-card {
-    background: #2a2a2a;
-    border-radius: 12px;
-    padding: 20px;
+    background: var(--main-dashboard-item-background-colour);
+    border-radius: var(--border-radius-tool-card-dashboard);
+    padding: var(--padding-tool-card-dashboard);
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    height: 140px;
-    width: 140px;
-    padding-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    height: var(--size-tool-card-dashboard);
+    width: var(--size-tool-card-dashboard);
+    padding-top: calc(var(--padding-tool-card-dashboard) / 2);
     justify-content: flex-start;
 }
 
@@ -555,26 +599,26 @@ div.offer-progress-section.card h2 {
 }
 
 .tool-icon {
-    width: 48px;
+    width: var(--size-tool-icon-card-dashboard);
     aspect-ratio: 1;
     background: #000000;
-    border-radius: 12px;
+    border-radius: var(--border-radius-tool-card-dashboard);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: var(--size-of-icons-in-quick-tools-section);
     color: white;
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin-top: var(--tool-icon-inner-margin-top);
+    margin-bottom: calc(var(--tool-icon-inner-margin-top) * 2);
 }
 
 .tool-title {
     text-align: center;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: var(--font-size-dashboard-main-content-text);
     color: #ffffff;
-    line-height: 1.4;
-    height: 40px;
+    line-height: var(--feature-text-dashboard-smaller-line-height);
+    height: var(--height-tool-title-text-quick-tools-section);
     display: flex;
     align-items: center;
     justify-content: center;
