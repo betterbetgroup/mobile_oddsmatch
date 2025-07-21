@@ -231,55 +231,7 @@ class Dashboard extends HTMLElement {
         }
     }
 
-    setupMembershipButtons(scope) {
-        const upgradeBtn = scope.getElementById('upgrade-membership');
-        const manageBtn = scope.getElementById('manage-subscription');
-        
-        if (upgradeBtn) {
-            upgradeBtn.addEventListener('click', () => {
-                this.handleUpgradeClick();
-            });
-        }
-        
-        if (manageBtn) {
-            manageBtn.addEventListener('click', () => {
-                this.handleManageSubscriptionClick();
-            });
-        }
-    }
 
-    handleUpgradeClick() {
-        // Define upgrade routes based on current membership
-        const currentStatus = this.getCurrentMembershipStatus();
-        const upgradeRoutes = {
-            'free': '../sales_pages/homepage/',
-            'premium-trial': '../sales_pages/homepage/',
-            'premium': '#upgrade-to-pro'
-        };
-        
-        const route = upgradeRoutes[currentStatus] || '../sales_pages/homepage/';
-        
-        if (route.startsWith('../')) {
-            window.location.href = route;
-        } else {
-            console.log(`Navigate to ${route}`);
-            // Handle internal upgrade logic here
-        }
-    }
-
-    handleManageSubscriptionClick() {
-        const currentStatus = this.getCurrentMembershipStatus();
-        
-        if (currentStatus === 'free') {
-            // Redirect to plans page for free users
-            window.location.href = '../sales_pages/homepage/';
-        } else {
-            // Redirect to subscription management for paid users
-            console.log('Navigate to subscription management');
-            // You can implement subscription management logic here
-            // For example: window.location.href = '#manage-subscription';
-        }
-    }
 
     getCurrentMembershipStatus() {
         const statusBadge = document.querySelector('#status-badge');
@@ -290,98 +242,26 @@ class Dashboard extends HTMLElement {
         return statusClass || 'free';
     }
 
-    setupToolCardEvents(scope) {
-        const toolCards = scope.querySelectorAll('.tool-card');
-        
-        toolCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const tool = card.getAttribute('data-tool');
-                this.handleToolClick(tool);
-            });
-        });
-    }
 
-    handleToolClick(tool) {
-        // Define routing logic for each tool
-        const toolRoutes = {
-            'oddsmatcher': '../oddsmatchers/standard_oddsmatcher/',
-            'calculator': '../calculators/standard/',
-            'advanced-calculators': '../calculators/',
-            'extra-place-master': '../oddsmatchers/extra_place_matcher/',
-            '2up-master': '../oddsmatchers/2up_oddsmatcher/',
-            'profit-tracker': '../oddsmatchers/profit_tracker/',
-            'balance-sheet': '#balance-sheet',
-            'refer-friend': '#refer-friend',
-            'acca-catcher': '../oddsmatchers/bog_matcher/',
-            'match-catcher': '../oddsmatchers/standard_oddsmatcher/',
-            'extra-place-catcher': '../list_pages/extra_places/',
-            'slots-database': '#slots-database',
-            'forum': '#forum',
-            'simulator': '#simulator',
-            'help-support': '#help-support'
-        };
 
-        const route = toolRoutes[tool];
-        if (route && route.startsWith('../')) {
-            // Navigate to relative path
-            window.location.href = route;
-        } else if (route && route.startsWith('#')) {
-            // Handle internal navigation or external links
-            console.log(`Navigate to ${route}`);
-            // You can implement specific logic for each internal link here
-        }
-    }
 
-    setupFeatureCardEvents(scope) {
-        const featureCards = scope.querySelectorAll('.feature-card');
-        
-        featureCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const cardClass = card.className.split(' ').find(cls => cls.endsWith('-card'));
-                this.handleFeatureCardClick(cardClass);
-            });
-        });
-    }
 
-    handleFeatureCardClick(cardType) {
-        const featureRoutes = {
-            'pro-card': '#better-bet-pro',
-            'guides-card': '../list_pages/guides/',
-            'signup-card': '../list_pages/signup/',
-            'weekly-card': '../list_pages/weekly/',
-            'discord-card': '#discord-group',
-            'support-card': '#help-support'
-        };
 
-        const route = featureRoutes[cardType];
-        if (route && route.startsWith('../')) {
-            window.location.href = route;
-        } else if (route) {
-            console.log(`Navigate to ${route}`);
-        }
-    }
 
-    setupCustomizeButton(scope) {
-        const customizeBtn = scope.getElementById('customize-links');
-        if (customizeBtn) {
-            customizeBtn.addEventListener('click', () => {
-                this.handleCustomizeLinks(scope);
-            });
-        }
-    }
 
-    handleCustomizeLinks(scope) {
-        // Simple implementation - could be enhanced with a modal
-        alert('Customize Quick Links feature coming soon!');
-    }
+
+
+
+
+
+
+
+
 
     runSpecificScript(scope, state) {
         
-        // Setup event listeners
-        this.setupToolCardEvents(scope);
-        this.setupFeatureCardEvents(scope);
-        this.setupCustomizeButton(scope);
-        this.setupMembershipButtons(scope);
+        // Setup global click listener for .on-click-go-to elements
+        this.setupGoToClickListener(scope);
         
         // Add window resize listener
         window.addEventListener('resize', () => {
@@ -389,6 +269,20 @@ class Dashboard extends HTMLElement {
         });
     }
 
+    setupGoToClickListener(scope) {
+        // Use event delegation to listen for clicks on .on-click-go-to elements
+        scope.addEventListener('click', (event) => {
+            // Check if the clicked element or its parent has the .on-click-go-to class
+            const clickedElement = event.target.closest('.on-click-go-to');
+            
+            if (clickedElement) {
+                const gotoUrl = clickedElement.getAttribute('data-gotourl');
+                if (gotoUrl) {
+                    console.log('Go to URL:', gotoUrl);
+                }
+            }
+        });
+    }
 
     handleResize(scope) {
 
@@ -404,7 +298,6 @@ class Dashboard extends HTMLElement {
         }
     
     }
-    
     
     addStyles(scope, state, styles_script) {
     
@@ -427,7 +320,6 @@ class Dashboard extends HTMLElement {
         });
     }
 
-
     render(scope, state, html_script) {
         return fetch(html_script)
             .then(response => response.text())
@@ -442,8 +334,6 @@ class Dashboard extends HTMLElement {
                 console.error('Error loading script or processing data:', error);
             });
     }
-
-
 
 
 

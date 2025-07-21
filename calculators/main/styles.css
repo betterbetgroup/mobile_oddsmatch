@@ -35,6 +35,7 @@
     gap: calc(var(--padding-calculator-gaps) * 1.75);
     flex-direction: column;
     min-height: 100vh;
+    justify-content: flex-start;
 }
 
 .refresh-button-div {
@@ -146,7 +147,7 @@
 .select_bet_text_div span, .seq-lay-profit-row span {
     font-size: var(--profit-item-title-font-size);
     text-align: left;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .copy-icon {
@@ -277,7 +278,7 @@
     text-align: center;
     width: 100%;
     line-height: var(--height-filter-inputs);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -295,7 +296,7 @@
     font-size: var(--profit-item-title-font-size);
     gap: calc(var(--padding-calculator-gaps) * 0.75);
     align-items: center;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     margin: auto;
     padding-top: calc(var(--padding-calculator-gaps) * 0.5);
     padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
@@ -309,7 +310,7 @@
     border-radius: 50%;
     border: none;
     color: white;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 

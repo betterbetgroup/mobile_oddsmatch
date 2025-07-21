@@ -157,7 +157,7 @@
 }
 
 .title_text {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .info_text {
@@ -250,7 +250,7 @@
 }
 .item_title_div {
     font-size: var(--font-size-item-title);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     align-self: start;
 }
 
@@ -301,7 +301,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     font-size: var(--font-size-filter-inputs);
     z-index: 2;
     color: #02bc55;
@@ -318,7 +318,7 @@
     border: 0;
     font-size: var(--font-size-offer-button);
     padding: 0 var(--padding-left-and-right-of-offer-button);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     margin-left: calc(var(--gap-between-items-in-item) / 1.5);
     display: flex;
     flex-direction: row;
@@ -407,7 +407,7 @@
 }
 
 .place_title_div {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     align-self: center;
     font-size: calc(var(--font-size-filter-inputs) * 1.25);
 

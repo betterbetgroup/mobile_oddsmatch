@@ -228,9 +228,7 @@ body {
     padding-left: var(--outer-container-div-padding-horizontal);
     padding-right: var(--outer-container-div-padding-horizontal);
     margin: 0 auto;
-    justify-content: center;  
     align-items: center;
-    justify-content: center; 
     align-items: center;   
     padding-bottom: var(--outer-container-div-padding-bottom);
     padding-top: 0;
@@ -239,6 +237,8 @@ body {
     flex-direction: column;
     margin-bottom: var(--outer-container-div-margin-bottom);
     min-height: 100vh;
+    justify-content: flex-start;
+
 }
 
 
@@ -546,7 +546,7 @@ strong.mobile-row-title-dutching-profit-and-rating {
 
 .mobile-row a {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -688,7 +688,7 @@ strong.mobile-row-title-dutching-profit-and-rating {
 .filter-label {
     font-size: var(--smaller-font-size-filter-label-and-filter-delete-buttons);
     color: #ffffff;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     margin-bottom: var(--margin-left-and-bottom-filter-label);
     margin-left: var(--margin-left-and-bottom-filter-label);
 }
@@ -753,7 +753,7 @@ strong.mobile-row-title-dutching-profit-and-rating {
     width: var(--width-currency-box);
     border-bottom-left-radius: var(--border-radius-filter-inputs);
     border-top-left-radius: var(--border-radius-filter-inputs);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 
     border: var(--border-filters);
     display: flex;
@@ -906,7 +906,7 @@ input[type="checkbox"] {
     padding: 0;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s;
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     border: 0;
     height: var(--height-filter-inputs);
     display: flex;
@@ -1035,7 +1035,7 @@ input[type="checkbox"] {
   
 #data_timer {
     font-size: var(--global-main-font-size);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -1136,7 +1136,7 @@ input[type="checkbox"] {
     padding: var(--padding-upgrade-button);
     border-radius: var(--upgrade-button-border-radius);
     font-size: var(--font-size-upgrade-button);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1177,7 +1177,7 @@ input[type="checkbox"] {
 }
 
 .title_text {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 .info_text {
@@ -1494,7 +1494,7 @@ input[type="checkbox"] {
 
 .select_bet_text_div span {
     font-size: var(--global-main-font-size); /* CHANGED */
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     text-align: center; /* CHANGED */
 }
 
@@ -1550,7 +1550,7 @@ input[type="checkbox"] {
 .free_bet_mode_label {
     color: white;
     font-size: var(--font-size-filter-inputs); 
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -1608,7 +1608,7 @@ input[type="checkbox"] {
 
 .bet-type-btn.active-lay-type {
     background-color: var(--active-lay-type-background-color);
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -1642,7 +1642,7 @@ input[type="checkbox"] {
 }
 
 .select_profit_explanation_profit, .select_profit_explanation_loss {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     color: var(--color-of-positive-profit-text);
 }
 
@@ -1651,7 +1651,7 @@ input[type="checkbox"] {
 }
 
 .select_bet_explanation_title_item div span {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     font-size: calc(var(--global-main-font-size) * 1.2);
 }
 
@@ -1661,7 +1661,7 @@ input[type="checkbox"] {
 
 .explanation_text_expand_or_collapse {
 
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
 }
 
 
@@ -1726,7 +1726,7 @@ input[type="checkbox"] {
 
 
 .profit_and_log__item_title {
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     font-size: calc(var(--global-main-font-size) * 1.35); /* CHANGED */
     display: flex;
 }
@@ -1734,7 +1734,7 @@ input[type="checkbox"] {
 .profit_and_log__item_value {
     font-size: var(--global-main-font-size); /* CHANGED */
     margin-top: calc(var(--profit-item-value-margin-top) * 2.5); /* CHANGED */
-    font-weight: bold;
+    font-weight: var(--font-weight-main-oddsmatcher);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1955,3 +1955,26 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 .hidden_row_above_columns {
     display: none !important;
 }
+
+
+
+
+
+
+
+
+/* Media Queries for Better Font Weight on Different Screen Sizes */
+
+@media screen and (max-width: 699px) {
+    #outer-container-div {
+        --font-weight-main-oddsmatcher: 400;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #outer-container-div {
+        --font-weight-main-oddsmatcher: 700;
+    }
+}
+
+
