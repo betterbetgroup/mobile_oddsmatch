@@ -1,10 +1,12 @@
-import * as Helpers from './main-helper.js';
+import * as Helpers from '../main/helper.js';
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/bog_matcher/styles.css';
+
+    styles_script = 'styles.css'
 
  
     class bogOddsmatcher extends HTMLElement {

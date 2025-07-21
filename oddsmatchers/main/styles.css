@@ -93,20 +93,20 @@
     --background-colour-filters: #333;
     --border-filters: var(--global-border-width-main) solid #444;
     --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
-    --height-filter-inputs: 9.50vw;
-    --padding-left-filter-inputs: 1.50vw;
-    --border-radius-filter-inputs: 1.25vw;
+    --height-filter-inputs: 10vw;
+    --padding-left-filter-inputs: 2.5vw;
+    --border-radius-filter-inputs: 1.5vw;
     --font-size-filter-inputs: var(--global-main-font-size);
-    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
+    --padding-left-filter-inputs-select-boxes-arrow: 4.50vw; /* think this is for the dropdowns with checkboxes */
     --font-size-currency-box: 5.00vw;
     --font-size-multiplier-for-percentage: 0.85;
     --max-height-dropdown-options: 50.00vw;
     --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
-    --padding-dropdown-options: 2vw 3.00vw;
+    --padding-dropdown-options: 3vw 3.00vw;
     --padding-left-dropdown-options-label: 1.25vw;
     --margin-right-checkbox: 2.50vw;
     --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
-    --margin-left-and-bottom-filter-label: 1.00vw;
+    --margin-left-and-bottom-filter-label: 1.20vw;
     --width-currency-box: 6.25vw;
 
 
@@ -1967,13 +1967,13 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 @media screen and (max-width: 699px) {
     #outer-container-div {
-        --font-weight-main-oddsmatcher: 550;
+        --font-weight-main-oddsmatcher: 650;
     }
 }
 
 @media screen and (min-width: 700px) {
     #outer-container-div {
-        --font-weight-main-oddsmatcher: 700;
+        --font-weight-main-oddsmatcher: 750;
     }
 }
 
