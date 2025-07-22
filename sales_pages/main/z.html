@@ -1,32 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
 <body>
     <div id="outer-container-div">
+        
+        <!-- Hero Section with Better Layout -->
+        <section class="hero-section" id="hero-section">
+            <div class="hero-background">
+                <div class="floating-elements">
+                    <div class="floating-element"></div>
+                    <div class="floating-element"></div>
+                    <div class="floating-element"></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-main">
+                        <h1 class="hero-title" id="hero-title">Transform Your Betting Into <span class="gradient-text">Guaranteed Profits</span></h1>
+                        <p class="hero-subtitle" id="hero-subtitle">Join 15,000+ successful matched bettors earning consistent income with our professional tools and expert guidance</p>
+                        
+                        <!-- Live Stats Counter -->
+                        <div class="live-stats" id="live-stats">
+                            <div class="live-indicator">
+                                <div class="pulse-dot"></div>
+                                <span>Live Member Activity</span>
+                            </div>
+                            <div class="stat-counter">
+                                <span class="counter-number" data-target="4200000">£0</span>
+                                <span class="counter-label">+ earned this month</span>
+                            </div>
+                        </div>
 
-        <div id="div_around_main_container">
-            
-            <div id="main_container_left">
-                <div id="left_main_div">
-                    <div>
-                        <h1>Better Bet.</h1>
-                        <p>Join 1,000+ Members Already Beating the Bookies!</p>
+                        <div class="hero-cta">
+                            <button class="cta-primary glow-effect" id="main-cta">
+                                <span>Start Free Trial</span>
+                                <i class="fas fa-rocket"></i>
+                                <div class="button-shine"></div>
+                            </button>
+                            <button class="cta-secondary" id="watch-demo">
+                                <i class="fas fa-play"></i>
+                                <span>Watch Demo</span>
+                            </button>
+                        </div>
+
+                        <!-- Social Proof -->
+                        <div class="social-proof">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9/5 from 2,847 reviews</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div id="we_offer_div">
-                        <p id="we_offer_text">We Offer <span class="typed-text"></span><span class="cursor"></span></p>
+                    
+                    <div class="hero-visual">
+                        <div class="video-container modern-glass" id="video-container">
+                            <div class="video-placeholder">
+                                <div class="play-button-large">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="video-overlay">
+                                    <span>Watch How Members Make £1000+/Month</span>
+                                    <small>3 min demo video</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Success Cards -->
+                        <div class="floating-success-cards">
+                            <div class="success-card card-1">
+                                <div class="success-amount">£2,847</div>
+                                <div class="success-text">Sarah M. - This month</div>
+                            </div>
+                            <div class="success-card card-2">
+                                <div class="success-amount">£1,456</div>
+                                <div class="success-text">David L. - Last week</div>
+                            </div>
+                            <div class="success-card card-3">
+                                <div class="success-amount">£894</div>
+                                <div class="success-text">Emma K. - Yesterday</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Trust Indicators Strip -->
+        <section class="trust-section" id="trust-section">
+            <div class="container">
+                <div class="trust-content">
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% Legal & Secure</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 Expert Support</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-users"></i>
+                            <span>15,000+ Active Members</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>98% Success Rate</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>£4.2M+ Member Profits</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem & Solution Section -->
+        <section class="problem-solution-section" id="problem-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Tired of <span class="danger-text">Losing Money</span> on Sports Betting?</h2>
+                    <p>Stop gambling with your money and start using mathematics to guarantee profits</p>
                 </div>
                 
-            </div>        
-            
-            <div id="main_container_right">
-                <div id="youtube_tutorial">
-                    <iframe src="https://www.youtube.com/embed/3eEdy-7mGPQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="problem-solution-grid">
+                    <div class="problem-side">
+                        <div class="problem-card">
+                            <h3>Traditional Betting Problems</h3>
+                            <div class="problem-list">
+                                <div class="problem-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>Unpredictable outcomes = lost money</span>
+                                </div>
+                                <div class="problem-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>Emotional decisions lead to big losses</span>
+                                </div>
+                                <div class="problem-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>No guaranteed way to profit</span>
+                                </div>
+                                <div class="problem-item">
+                                    <i class="fas fa-times-circle"></i>
+                                    <span>Complex strategies that don't work</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-side">
+                        <div class="solution-card">
+                            <h3>Our Mathematical Solution</h3>
+                            <div class="solution-list">
+                                <div class="solution-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>100% guaranteed profits every time</span>
+                                </div>
+                                <div class="solution-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Mathematical certainty, not luck</span>
+                                </div>
+                                <div class="solution-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Risk-free matched betting system</span>
+                                </div>
+                                <div class="solution-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Start earning from day one</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button id="tutorial-button">START FREE TRIAL</button>
-                <button id="learn-more-button">LEARN MORE</button>
             </div>
+        </section>
 
-        </div>
+        <!-- Animated Success Metrics -->
+        <section class="metrics-section" id="metrics-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Real Results From <span class="gradient-text">Real Members</span></h2>
+                    <p>See the actual profits our members are generating every single day</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card highlight">
+                        <div class="metric-icon">
+                            <i class="fas fa-pound-sign"></i>
+                        </div>
+                        <div class="metric-number animated-counter" data-target="4200000">£0</div>
+                        <div class="metric-label">Total Member Profits</div>
+                        <div class="metric-description">Generated in the last 12 months</div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+23% this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="metric-number animated-counter" data-target="1847">£0</div>
+                        <div class="metric-label">Average Monthly Profit</div>
+                        <div class="metric-description">Per active member</div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+15% vs last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="metric-number animated-counter" data-target="98.2" data-suffix="%">0%</div>
+                        <div class="metric-label">Success Rate</div>
+                        <div class="metric-description">Members making profit</div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Industry leading</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-number animated-counter" data-target="24" data-suffix=" hrs">0 hrs</div>
+                        <div class="metric-label">Time to First Profit</div>
+                        <div class="metric-description">Average for new members</div>
+                        <div class="metric-trend">
+                            <i class="fas fa-check"></i>
+                            <span>Same day results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Everything You Need to <span class="gradient-text">Succeed</span></h2>
+                    <p>Professional-grade tools and guidance designed for maximum profits</p>
+                </div>
+                <div class="features-grid" id="features-grid">
+                    <!-- Features will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Timeline */
+        <section class="how-it-works-section" id="how-it-works-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How It Works</h2>
+                    <p>Three simple steps to start earning guaranteed profits today</p>
+                </div>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    <div class="steps-container">
+                        <div class="step-item" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Sign Up & Get Instant Access</h3>
+                                <p>Access our professional calculators, oddsmatcher tools, and complete guide library instantly</p>
+                                <div class="step-features">
+                                    <span>✓ Professional calculators</span>
+                                    <span>✓ Live oddsmatcher</span>
+                                    <span>✓ Complete tutorials</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Follow Our Proven System</h3>
+                                <p>Use our step-by-step guides to complete your first profitable matched bet within 24 hours</p>
+                                <div class="step-features">
+                                    <span>✓ Video walkthroughs</span>
+                                    <span>✓ Live chat support</span>
+                                    <span>✓ Safety checks</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Scale Your Profits</h3>
+                                <p>Increase your betting bank and profits using our advanced strategies and ongoing offers</p>
+                                <div class="step-features">
+                                    <span>✓ Advanced strategies</span>
+                                    <span>✓ Weekly offers</span>
+                                    <span>✓ Profit tracking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animated Testimonials Carousel -->
+        <section class="testimonials-section" id="testimonials-section">
+            <div class="section-header">
+                <h2>What Our Members Say</h2>
+                <p>Real profits from real people - see their actual results</p>
+            </div>
+            
+            <div class="testimonials-carousel-container">
+                <div class="testimonials-carousel" id="testimonials-carousel">
+                    <!-- Testimonials will be dynamically populated and animated -->
+                </div>
+            </div>
+            
+            <!-- Member Success Ticker -->
+            <div class="success-ticker">
+                <div class="ticker-content">
+                    <span class="ticker-item">🎉 Sarah M. just made £247 today</span>
+                    <span class="ticker-item">💰 David L. earned £1,456 this week</span>
+                    <span class="ticker-item">🚀 Emma K. hit £2,000 monthly profit</span>
+                    <span class="ticker-item">⭐ Michael R. made £89 in his first hour</span>
+                    <span class="ticker-item">🔥 Lisa T. just completed her 50th profitable bet</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="pricing-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose Your <span class="gradient-text">Success Plan</span></h2>
+                    <p>Start free, upgrade when you're ready to maximize your profits</p>
+                </div>
+                <div class="pricing-grid" id="pricing-grid">
+                    <!-- Pricing cards will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Everything you need to know about matched betting success</p>
+                </div>
+                <div class="faq-container" id="faq-container">
+                    <!-- FAQ items will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Money Back Guarantee -->
+        <section class="guarantee-section" id="guarantee-section">
+            <div class="container">
+                <div class="guarantee-content">
+                    <div class="guarantee-badge pulse-glow">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>30-Day Money Back Guarantee</span>
+                    </div>
+                    <h2>Try Risk-Free For 30 Days</h2>
+                    <p>We're so confident you'll make money with our system that we offer a full 30-day money-back guarantee. If you don't make a profit in your first month, we'll refund every penny - no questions asked.</p>
+                    
+                    <div class="guarantee-grid">
+                        <div class="guarantee-item">
+                            <i class="fas fa-tools"></i>
+                            <span>Full access to all professional tools</span>
+                        </div>
+                        <div class="guarantee-item">
+                            <i class="fas fa-headset"></i>
+                            <span>Priority support during trial period</span>
+                        </div>
+                        <div class="guarantee-item">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span>Cancel anytime with one click</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="final-cta-section" id="final-cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <div class="urgency-banner animate-pulse">
+                        <i class="fas fa-fire"></i>
+                        <span>Limited Time: Free Trial + Bonus Training Worth £297</span>
+                    </div>
+                    
+                    <h2 id="final-cta-title">Ready to Start Your <span class="gradient-text">Profit Journey?</span></h2>
+                    <p id="final-cta-subtitle">Join 15,000+ successful matched bettors earning £1,000+ monthly with guaranteed profits</p>
+                    
+                    <div class="final-cta-buttons">
+                        <button class="cta-primary mega-button" id="final-cta-primary">
+                            <span>Start Free Trial Now</span>
+                            <i class="fas fa-rocket"></i>
+                            <div class="button-shine"></div>
+                        </button>
+                    </div>
+                    
+                    <div class="cta-guarantee">
+                        <i class="fas fa-lock"></i>
+                        <span>7-day free trial • Cancel anytime • 30-day money back guarantee</span>
+                    </div>
+                    
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <i class="fas fa-users"></i>
+                            <span>15,000+ Happy Members</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-star"></i>
+                            <span>4.9/5 Rating</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% Secure</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-credit-card"></i>
+                            <span>SSL Protected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 </body>
+</html>

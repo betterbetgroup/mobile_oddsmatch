@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+
 * {
     box-sizing: border-box; 
 }
@@ -11,7 +14,7 @@
 
     /* global */
 
-    --global-main-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --global-main-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     --blur-amount: 1.25vw;
 
@@ -511,6 +514,13 @@ body {
     text-align: left;
 }
 
+@media screen and (max-width: 699px) {
+    .mobile-row strong:not([data-text="Returns & Rating:"]) {
+        width: 20vw;
+    }
+}
+
+
 strong.mobile-row-title-dutching-profit-and-rating {
     width: auto;
 }
@@ -710,7 +720,7 @@ strong.mobile-row-title-dutching-profit-and-rating {
 }
 
 .date-range-input {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 
@@ -1764,7 +1774,7 @@ input[type="checkbox"] {
     color: #eee;
     outline: none;
     font-size: var(--font-size-filter-inputs);
-    padding: calc(var(--padding-left-filter-inputs) * 1.25); /* CHANGED */
+    padding: calc(var(--padding-left-filter-inputs) * 0.5) calc(var(--padding-left-filter-inputs) * 0.75); /* CHANGED */
     height: 100%;
 }
 
@@ -1973,7 +1983,7 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 @media screen and (min-width: 700px) {
     #outer-container-div {
-        --font-weight-main-oddsmatcher: 750;
+        --font-weight-main-oddsmatcher: bold;
     }
 }
 
