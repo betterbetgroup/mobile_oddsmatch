@@ -32,8 +32,7 @@ class Homepage extends HTMLElement {
         .then(() => {
             Helpers.addStyles(this.shadowRoot, this.state, styles_script)
             .then(() => {
-                this.style.visibility = 'visible'; 
-                this.runSpecificScript(); 
+                    this.runSpecificScript(); 
                 this.isContentLoaded = true;
                 this.processQueuedAttributeChanges();
                 Helpers.handleResize(this.shadowRoot);
@@ -72,12 +71,17 @@ class Homepage extends HTMLElement {
         // Initialize the sales page functionality using the already imported helper
         const homepageData = {
             hero: {
-                title: "Turn Your Betting Into Guaranteed Profits",
-                subtitle: "Join 15,000+ successful matched bettors earning consistent income with our professional tools and expert guidance",
+                title: `Turn Your Betting Into <span class="gradient-text">Guaranteed Profits</span>`,
+                subtitle: "Join 3,000+ successful matched bettors earning consistent income with our professional tools and expert guidance",
                 stats: [
                     { number: "£4.2M+", label: "Member Profits" },
                     { number: "15,000+", label: "Active Users" },
                     { number: "98%", label: "Success Rate" }
+                ],
+                bulletPoints: [
+                    "Watch the Demo Video to Learn the Basics",
+                    "Use Our Tutorial to Complete Your First Offer",
+                    "Repeat the Process to Earn More",
                 ],
                 primaryCTA: "Start Free Trial",
                 videoUrl: "https://www.youtube.com/embed/3eEdy-7mGPQ", // Replace with actual video
@@ -211,13 +215,19 @@ class Homepage extends HTMLElement {
             }
         };
 
+
+
         // Initialize the sales page with homepage data using the imported helper
-        try {
-            this.salesManager = Helpers.initializeSalesPage(homepageData, this.shadowRoot);
-            console.log('Homepage sales page initialized successfully');
-        } catch (error) {
-            console.error('Failed to load sales page functionality:', error);
-        }
+        Helpers.initializeSalesPage(homepageData, this.shadowRoot)
+            .then((manager) => {
+                this.salesManager = manager;
+                this.style.visibility = 'visible';
+                console.log('Homepage sales page initialized successfully');
+            })
+            .catch((error) => {
+                console.error('Failed to load sales page functionality:', error);
+                this.style.visibility = 'visible'; // Show even if there's an error
+            });
     }
 
 

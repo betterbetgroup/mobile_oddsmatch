@@ -34,8 +34,7 @@ class HomepageSecond extends HTMLElement {
         .then(() => {
             Helpers.addStyles(this.shadowRoot, this.state, styles_script)
             .then(() => {
-                this.style.visibility = 'visible'; 
-                this.runSpecificScript(); 
+                    this.runSpecificScript(); 
                 this.isContentLoaded = true;
                 this.processQueuedAttributeChanges();
                 Helpers.handleResize(this.shadowRoot);
@@ -214,18 +213,20 @@ class HomepageSecond extends HTMLElement {
                 };
 
                         // Initialize the sales page with variant data using the imported helper
-        try {
-            this.salesManager = Helpers.initializeSalesPage(homepageSecondData, this.shadowRoot);
-            
-            // Hide testimonials section for this variant (A/B testing)
-            setTimeout(() => {
-                this.salesManager.toggleSection('testimonials-section', false);
-            }, 200);
-            
-            console.log('Homepage second variant initialized successfully');
-        } catch (error) {
-            console.error('Failed to load sales page functionality:', error);
-        }
+
+
+                        
+        // Initialize the sales page with homepage data using the imported helper
+        Helpers.initializeSalesPage(homepageData, this.shadowRoot)
+            .then((manager) => {
+                this.salesManager = manager;
+                this.style.visibility = 'visible';
+                console.log('Homepage sales page initialized successfully');
+            })
+            .catch((error) => {
+                console.error('Failed to load sales page functionality:', error);
+                this.style.visibility = 'visible'; // Show even if there's an error
+            });
     }
 
 

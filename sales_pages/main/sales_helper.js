@@ -2,15 +2,24 @@
 
 const MAX_WIDTH_FOR_MOBILE = 700;
 
+
+
+
 // Default sales data structure
 export const defaultSalesData = {
     hero: {
-        title: "Transform Your Betting Into Guaranteed Profits",
+        title: "Transform Your Betting",
         subtitle: "Join 15,000+ successful matched bettors earning consistent income with our professional tools and expert guidance",
         stats: [
             { number: "4.2M", label: "Member Profits", target: 4200000 },
             { number: "15,000", label: "Active Users", target: 15000 },
             { number: "98%", label: "Success Rate", target: 98.2 }
+        ],
+        bulletPoints: [
+            "Start earning guaranteed profits in 24 hours",
+            "100% legal and risk-free matched betting system",
+            "Professional tools trusted by 15,000+ members",
+            "Complete training and ongoing expert support"
         ],
         primaryCTA: "Start Free Trial",
         videoUrl: "https://www.youtube.com/embed/3eEdy-7mGPQ",
@@ -171,6 +180,8 @@ export const defaultSalesData = {
     }
 };
 
+
+
 export class SalesPageManager {
     constructor(salesData, shadowRoot = null) {
         this.salesData = salesData;
@@ -207,15 +218,30 @@ export class SalesPageManager {
             if (span) span.textContent = this.salesData.hero.primaryCTA;
         }
 
-        // Set up video
+        // Set up auto-playing video
         if (this.salesData.hero.videoUrl) {
             const videoContainer = this.shadowRoot.getElementById('video-container');
             if (videoContainer) {
-                videoContainer.addEventListener('click', () => {
-                    this.playVideo(this.salesData.hero.videoUrl);
-                });
+                this.setupAutoPlayVideo(videoContainer, this.salesData.hero.videoUrl);
             }
         }
+
+        // Populate bullet points
+        this.populateHeroBulletPoints();
+    }
+
+    populateHeroBulletPoints() {
+        if (!this.salesData.hero || !this.salesData.hero.bulletPoints) return;
+
+        const bulletPointsContainer = this.shadowRoot.getElementById('hero-bullet-points');
+        if (!bulletPointsContainer) return;
+
+        bulletPointsContainer.innerHTML = this.salesData.hero.bulletPoints.map((point, index) => `
+            <div class="bullet-point">
+                <div class="bullet-icon">${index + 1}</div>
+                <div class="bullet-text">${point}</div>
+            </div>
+        `).join('');
     }
 
     populateFeatures() {
@@ -456,15 +482,185 @@ export class SalesPageManager {
         });
     }
 
-    initializeVideoHandlers() {
-        const videoContainer = this.shadowRoot.getElementById('video-container');
-        const watchDemoButton = this.shadowRoot.getElementById('watch-demo');
+    setupAutoPlayVideo(container, videoUrl) {
+        if (!videoUrl || !container) return;
         
-        if (videoContainer) {
-            videoContainer.addEventListener('click', () => {
-                this.playVideo(this.salesData.hero?.videoUrl);
+        // Try multiple approaches for autoplay
+        this.tryMultipleAutoplayMethods(container, videoUrl);
+    }
+
+    tryMultipleAutoplayMethods(container, videoUrl) {
+        // Method 1: Try aggressive YouTube autoplay
+        this.tryYouTubeAutoplay(container, videoUrl);
+        
+        // Method 2: Fallback with interaction trigger
+        setTimeout(() => {
+            this.addInteractionTrigger(container, videoUrl);
+        }, 3000);
+    }
+
+    tryYouTubeAutoplay(container, videoUrl) {
+        const videoId = this.extractYouTubeId(videoUrl);
+        if (!videoId) return;
+        
+        // Most aggressive autoplay parameters
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&modestbranding=1&enablejsapi=1&origin=${window.location.origin}&playsinline=1&start=1&disablekb=1&iv_load_policy=3`;
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: inherit;
+        `;
+        
+        // Most permissive allow attributes
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('loading', 'eager');
+        iframe.setAttribute('importance', 'high');
+        iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        
+        container.innerHTML = '';
+        container.appendChild(iframe);
+        
+        // Multiple autoplay attempts
+        const attempts = [500, 1000, 2000, 3000];
+        attempts.forEach(delay => {
+            setTimeout(() => {
+                this.forcePlay(iframe);
+            }, delay);
+        });
+    }
+
+    forcePlay(iframe) {
+        try {
+            // Try different postMessage commands
+            const commands = [
+                '{"event":"command","func":"playVideo","args":""}',
+                '{"event":"command","func":"unMute","args":""}',
+                '{"event":"command","func":"setVolume","args":[0]}'
+            ];
+            
+            commands.forEach(command => {
+                if (iframe.contentWindow) {
+                    iframe.contentWindow.postMessage(command, '*');
+                }
             });
+        } catch (e) {
+            console.log('PostMessage failed:', e);
         }
+    }
+
+    addInteractionTrigger(container, videoUrl) {
+        // Add a nearly invisible play button that triggers on any user interaction
+        const playTrigger = document.createElement('div');
+        playTrigger.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+        
+        const playIcon = document.createElement('div');
+        playIcon.innerHTML = `
+            <div style="
+                width: 60px;
+                height: 60px;
+                background: rgba(255, 0, 198, 0.9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.5rem;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                animation: pulse 2s infinite;
+            ">
+                <i class="fas fa-play" style="margin-left: 3px;"></i>
+            </div>
+        `;
+        
+        playTrigger.appendChild(playIcon);
+        
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        playTrigger.addEventListener('click', () => {
+            this.forceVideoPlay(container, videoUrl);
+            playTrigger.remove();
+        });
+        
+        // Also trigger on any mouse movement over the container
+        container.addEventListener('mouseenter', () => {
+            setTimeout(() => {
+                this.forceVideoPlay(container, videoUrl);
+                playTrigger.remove();
+            }, 100);
+        }, { once: true });
+        
+        container.style.position = 'relative';
+        container.appendChild(playTrigger);
+    }
+
+    forceVideoPlay(container, videoUrl) {
+        const videoId = this.extractYouTubeId(videoUrl);
+        if (!videoId) return;
+        
+        // Force play with controls enabled for user interaction
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}&controls=1&rel=0&modestbranding=1&enablejsapi=1&origin=${window.location.origin}`;
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: inherit;
+        `;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        
+        // Clear container and add new iframe
+        container.innerHTML = '';
+        container.appendChild(iframe);
+        
+        console.log('Video should now be playing with user interaction');
+    }
+
+    extractYouTubeId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    checkAutoplayStatus(container, iframe) {
+        // This method can be used to add fallback UI if autoplay doesn't work
+        // For now, we'll just log the status
+        console.log('Checking autoplay status - video should be playing automatically');
+        
+        // If autoplay fails due to browser policies, the video will still be visible
+        // and users can manually click play using YouTube's built-in controls
+    }
+
+    initializeVideoHandlers() {
+        const watchDemoButton = this.shadowRoot.getElementById('watch-demo');
         
         if (watchDemoButton) {
             watchDemoButton.addEventListener('click', () => {
@@ -576,18 +772,29 @@ export class SalesPageManager {
 
 // Initialize sales page function
 export function initializeSalesPage(customData = {}, shadowRoot = null) {
-    const salesData = { ...defaultSalesData, ...customData };
-    const manager = new SalesPageManager(salesData, shadowRoot);
-    
-    // Populate content immediately if shadowRoot is available
-    if (shadowRoot) {
-        // Wait a bit for DOM to be ready
-        setTimeout(() => {
-            manager.populateContent();
-        }, 100);
-    }
-    
-    return manager;
+    return new Promise((resolve, reject) => {
+        // This line merges the default sales data with any custom data provided
+        // It creates a new object by spreading defaultSalesData first, then overlaying customData
+        // Any matching properties in customData will override those in defaultSalesData
+        const salesData = { ...defaultSalesData, ...customData };
+        const manager = new SalesPageManager(salesData, shadowRoot);
+        
+        // Populate content and resolve Promise only after content is loaded
+        if (shadowRoot) {
+            // Wait a bit for DOM to be ready, then populate content
+            setTimeout(() => {
+                try {
+                    manager.populateContent();
+                    resolve(manager);
+                } catch (error) {
+                    reject(error);
+                }
+            }, 100);
+        } else {
+            // If no shadowRoot, resolve immediately
+            resolve(manager);
+        }
+    });
 }
 
 // Helper functions for custom element lifecycle
