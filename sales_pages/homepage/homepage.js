@@ -73,19 +73,282 @@ class Homepage extends HTMLElement {
             hero: {
                 title: `Turn Your Betting Into <span class="gradient-text">Guaranteed Profits</span>`,
                 subtitle: "Join 3,000+ successful matched bettors earning consistent income with our professional tools and expert guidance",
-                stats: [
-                    { number: "£4.2M+", label: "Member Profits" },
-                    { number: "15,000+", label: "Active Users" },
-                    { number: "98%", label: "Success Rate" }
+                primaryCTA: {
+                    text: "Start Free Trial",
+                    icon: "fas fa-rocket"
+                },
+                watchDemo: {
+                    text: "Watch Demo",
+                    icon: "fas fa-play"
+                },
+                socialProof: {
+                    stars: 5,
+                    rating: "4.9/5",
+                    reviewCount: "1,350+",
+                    text: "reviews"
+                },
+                successCards: [
+                    {
+                        amount: "£2,847",
+                        text: "Sarah M. - This month"
+                    },
+                    {
+                        amount: "£1,456", 
+                        text: "David L. - Last week"
+                    },
+                    {
+                        amount: "£894",
+                        text: "Emma K. - Yesterday"
+                    }
                 ],
                 bulletPoints: [
                     "Watch the Demo Video to Learn the Basics",
                     "Use Our Tutorial to Complete Your First Offer",
                     "Repeat the Process to Earn More",
                 ],
-                primaryCTA: "Start Free Trial",
-                videoUrl: "https://www.youtube.com/embed/3eEdy-7mGPQ", // Replace with actual video
+                videoUrl: "https://www.youtube.com/embed/3eEdy-7mGPQ",
                 videoThumbnail: null
+            },
+            whatIs: {
+                header: {
+                    title: "What <span class='highlight-text'>is</span> Matched Betting?",
+                    sectionLabel: null
+                },
+                explanation: {
+                    mainText: "Matched Betting is a way of turning bookmaker free bets into cash. We do this by placing multiple bets on the same event to make sure we cover every possible outcome, and we use free bets to lock in a guaranteed profit - as long as you do it correctly!",
+                    keyBenefit: {
+                        text: "That's right, ",
+                        highlight: "win, lose or draw, you'll make money!"
+                    },
+                    trustStatement: "People all over the UK choose and trust Better Bet to learn about matched betting. We've already taught over 15,000 people how to do it, making us the <strong>#1 Matched Betting service.</strong>"
+                },
+                features: [
+                    {
+                        title: "Complete Training",
+                        description: "Step-by-step guides from beginner to advanced strategies"
+                    },
+                    {
+                        title: "Professional Calculators", 
+                        description: "Calculate exact bets and guaranteed profits instantly"
+                    },
+                    {
+                        title: "Live Odds Matcher",
+                        description: "Find the best opportunities automatically, updated in real-time"
+                    }
+                ],
+                cta: {
+                    text: "Start My Free Trial",
+                    icon: "fas fa-rocket"
+                },
+                visual: {
+                    screenTitle: "Better Bet",
+                    calculator: {
+                        rows: [
+                            { label: "Back Stake:", value: "£50.00" },
+                            { label: "Lay Stake:", value: "£48.78" },
+                            { label: "Profit:", value: "£8.45", success: true }
+                        ],
+                        buttons: [
+                            { text: "Calculate", primary: true },
+                            { text: "Clear", secondary: true }
+                        ]
+                    },
+                    notification: {
+                        icon: "fas fa-check-circle",
+                        title: "Profit Guaranteed!",
+                        amount: "+£8.45"
+                    }
+                }
+            },
+            testimonials: {
+                header: {
+                    title: "See What Our <span class='gradient-text'>Members Say</span>",
+                    subtitle: "Check out what our community is saying about their matched betting journey"
+                },
+                heroTestimonial: {
+                    quote: "I've made over £4,200 in 6 months using Better Bet. The tools are professional grade and the support is incredible. This genuinely changed my life.",
+                    author: {
+                        name: "James S.",
+                        avatar: "JS",
+                        avatarSrc: "images/james.jpg",
+                        profit: "+£4,200 profit",
+                        verified: "✓ Verified Member"
+                    },
+                    profits: [
+                        { label: "This Month", amount: "£687" },
+                        { label: "Total Earnings", amount: "£4,200" },
+                        { label: "Success Rate", amount: "98%" }
+                    ]
+                },
+                cards: [
+                    {
+                        rating: 5,
+                        date: "2 days ago",
+                        content: "Made £247 in my first week. The step-by-step guides made it so easy!",
+                        author: {
+                            name: "Emma M.",
+                            avatar: "EM",
+                            avatarSrc: "images/emma.jpg",
+                            profit: "+£247"
+                        }
+                    },
+                    {
+                        rating: 5,
+                        date: "5 days ago", 
+                        content: "Best investment decision I've made. Paying for itself every single day.",
+                        author: {
+                            name: "David L.",
+                            avatar: "DL",
+                            avatarSrc: "images/david.jpg",
+                            profit: "+£1,890"
+                        }
+                    },
+                    {
+                        rating: 5,
+                        date: "1 week ago",
+                        content: "The calculators are incredible. Takes all the guesswork out of matched betting.",
+                        author: {
+                            name: "Sophie R.",
+                            avatar: "SR",
+                            avatarSrc: "images/sophie.jpg", 
+                            profit: "+£456"
+                        }
+                    },
+                    {
+                        rating: 5,
+                        date: "1 week ago",
+                        content: "Support team helped me through everything. Made my first profit in 3 hours!",
+                        author: {
+                            name: "Stephen T.",
+                            avatar: "ST",
+                            avatarSrc: "images/Stephen.jpg",
+                            profit: "+£78"
+                        }
+                    },
+                    {
+                        rating: 5,
+                        date: "2 weeks ago",
+                        content: "£500+ monthly now. This platform changed my financial situation completely.",
+                        author: {
+                            name: "Anna L.",
+                            avatar: "AL",
+                            avatarSrc: "images/anna.jpg",
+                            profit: "+£2,100"
+                        }
+                    },
+                    {
+                        rating: 5,
+                        date: "3 weeks ago",
+                        content: "Perfect for beginners. Everything is explained clearly with video tutorials.",
+                        author: {
+                            name: "Michael K.",
+                            avatar: "MK",
+                            avatarSrc: "images/Michael.jpg",
+                            profit: "+£334"
+                        }
+                    }
+                ]
+            },
+            getStarted: {
+                companyIntro: {
+                    title: "Better Bet: Your <span class='gradient-text'>Complete Matched Betting Solution</span>",
+                    description: "We're the UK's leading matched betting platform, providing everything you need to turn bookmaker offers into guaranteed profits. With our professional tools, expert guidance, and proven system, we've helped over 15,000 members earn consistent income from matched betting."
+                },
+                steps: {
+                    header: {
+                        title: "How It Works",
+                        subtitle: "3 simple steps to start earning guaranteed profits"
+                    },
+                    list: [
+                        {
+                            number: 1,
+                            icon: "fas fa-play-circle",
+                            title: "Watch Demo & Get Free Trial",
+                            time: "5 min",
+                            description: "See exactly how matched betting works with our demo video, then get instant access to all our professional tools with your free 7-day trial.",
+                            features: [
+                                { icon: "fas fa-check", text: "Instant platform access" },
+                                { icon: "fas fa-check", text: "Video tutorials included" },
+                                { icon: "fas fa-check", text: "No credit card required" }
+                            ]
+                        },
+                        {
+                            number: 2,
+                            icon: "fas fa-calculator",
+                            title: "Place Your First Bet",
+                            time: "30 min",
+                            description: "Use our professional calculators to complete your first matched bet. Our tools do all the complex math while you follow simple step-by-step instructions.",
+                            features: [
+                                { icon: "fas fa-check", text: "Guaranteed profit calculation" },
+                                { icon: "fas fa-check", text: "Live support available" },
+                                { icon: "fas fa-check", text: "Safety checks included" }
+                            ]
+                        },
+                        {
+                            number: 3,
+                            icon: "fas fa-chart-line",
+                            title: "Scale Your Earnings",
+                            time: "Ongoing",
+                            description: "Follow our weekly profitable offers and advanced strategies to consistently scale your earnings. Most active members earn £300-500+ monthly.",
+                            features: [
+                                { icon: "fas fa-check", text: "Weekly profitable offers" },
+                                { icon: "fas fa-check", text: "Advanced strategies" },
+                                { icon: "fas fa-check", text: "Profit tracking tools" }
+                            ]
+                        }
+                    ],
+                    cta: {
+                        text: "Start My Free Trial",
+                        icon: "fas fa-rocket"
+                    }
+                }
+            },
+            trust: {
+                header: {
+                    title: "Trusted by <span class='animated-counter trust-member-count' data-target='15000'>0</span>+ Successful Members",
+                    subtitle: "Join the UK's most trusted matched betting community"
+                },
+                stats: [
+                    {
+                        value: "£4.2M+",
+                        label: "Member Profits This Year",
+                        target: 4200000,
+                        featured: true
+                    },
+                    {
+                        value: "98%", 
+                        label: "Guaranteed Success Rate",
+                        target: 98
+                    },
+                    {
+                        value: "24hrs",
+                        label: "Average Time to Profit", 
+                        target: 24
+                    }
+                ],
+                indicators: [
+                    {
+                        icon: "fa-solid fa-gavel",
+                        text: "100% Legal & Regulated"
+                    },
+                    {
+                        icon: "fas fa-lock",
+                        text: "Bank-Level Security"
+                    },
+                    {
+                        icon: "fas fa-headset",
+                        text: "24/7 Expert Support"
+                    },
+                    {
+                        icon: "fas fa-undo-alt",
+                        text: "30-Day Money Back"
+                    }
+                ],
+                liveActivity: {
+                    memberCount: "247",
+                    timeframe: "24 hours",
+                    totalAmount: "+£18,423"
+                }
             },
             features: [
                 {
@@ -119,23 +382,98 @@ class Homepage extends HTMLElement {
                     description: "Access all tools on any device, optimized for mobile and desktop use"
                 }
             ],
-            testimonials: [
-                {
-                    content: "I made £2,847 in my first month! The tools are incredibly easy to use and the support team helped me every step of the way. Couldn't be happier with my decision to join.",
-                    author: "Sarah M.",
-                    role: "Premium Member since March 2024"
-                },
-                {
-                    content: "These calculators are absolutely game-changing. I went from being completely confused about matched betting to making £1,500+ monthly in just 6 weeks.",
-                    author: "David L.",
-                    role: "Pro Member since January 2024"
-                },
-                {
-                    content: "Best investment I've ever made. The tools literally pay for themselves within the first week. The community is incredibly supportive too!",
-                    author: "Emma K.",
-                    role: "Premium Member since February 2024"
+            featuresSection: {
+                header: {
+                    title: "Everything You Need to <span class='gradient-text'>Succeed</span>",
+                    subtitle: "Professional-grade tools and guidance designed for maximum profits"
                 }
-            ],
+            },
+            problemSolution: {
+                header: {
+                    title: "Tired of <span class='danger-text'>Losing Money</span> on Sports Betting?",
+                    subtitle: "Stop gambling with your money and start using mathematics to guarantee profits"
+                },
+                problem: {
+                    title: "Traditional Betting Problems",
+                    items: [
+                        {
+                            icon: "fas fa-times-circle",
+                            text: "Unpredictable outcomes = lost money"
+                        },
+                        {
+                            icon: "fas fa-times-circle", 
+                            text: "Emotional decisions lead to big losses"
+                        },
+                        {
+                            icon: "fas fa-times-circle",
+                            text: "No guaranteed way to profit"
+                        },
+                        {
+                            icon: "fas fa-times-circle",
+                            text: "Complex strategies that don't work"
+                        }
+                    ]
+                },
+                solution: {
+                    title: "Our Mathematical Solution",
+                    items: [
+                        {
+                            icon: "fas fa-check-circle",
+                            text: "100% guaranteed profits every time"
+                        },
+                        {
+                            icon: "fas fa-check-circle",
+                            text: "Mathematical certainty, not luck"
+                        },
+                        {
+                            icon: "fas fa-check-circle", 
+                            text: "Risk-free matched betting system"
+                        },
+                        {
+                            icon: "fas fa-check-circle",
+                            text: "Start earning from day one"
+                        }
+                    ]
+                }
+            },
+            howItWorks: {
+                header: {
+                    title: "How It Works",
+                    subtitle: "Three simple steps to start earning guaranteed profits today"
+                },
+                steps: [
+                    {
+                        number: 1,
+                        title: "Sign Up & Get Instant Access",
+                        description: "Access our professional calculators, oddsmatcher tools, and complete guide library instantly",
+                        features: [
+                            "✓ Professional calculators",
+                            "✓ Live oddsmatcher", 
+                            "✓ Complete tutorials"
+                        ]
+                    },
+                    {
+                        number: 2,
+                        title: "Follow Our Proven System",
+                        description: "Use our step-by-step guides to complete your first profitable matched bet within 24 hours",
+                        features: [
+                            "✓ Video walkthroughs",
+                            "✓ Live chat support",
+                            "✓ Safety checks"
+                        ]
+                    },
+                    {
+                        number: 3,
+                        title: "Scale Your Profits", 
+                        description: "Increase your betting bank and profits using our advanced strategies and ongoing offers",
+                        features: [
+                            "✓ Advanced strategies",
+                            "✓ Weekly offers",
+                            "✓ Profit tracking"
+                        ]
+                    }
+                ]
+            },
             pricing: [
                 {
                     id: "free",
@@ -209,6 +547,46 @@ class Homepage extends HTMLElement {
                     answer: "We provide 24/7 email support, live chat during business hours, an active Discord community, comprehensive video tutorials, and written guides. Premium members get priority support, and Pro members get 1-on-1 coaching sessions."
                 }
             ],
+            faqSection: {
+                header: {
+                    title: "Frequently Asked Questions",
+                    subtitle: "Everything you need to know about matched betting success"
+                }
+            },
+            finalCTA: {
+                urgencyBanner: {
+                    icon: "fas fa-fire",
+                    text: "Limited Time: Free Trial + Bonus Training Worth £297"
+                },
+                title: "Ready to Start Your <span class='gradient-text'>Profit Journey?</span>",
+                subtitle: "Join 15,000+ successful matched bettors earning £1,000+ monthly with guaranteed profits",
+                primaryButton: {
+                    text: "Start Free Trial",
+                    icon: "fas fa-rocket"
+                },
+                guarantee: {
+                    icon: "fas fa-lock",
+                    text: "7-day free trial • Cancel anytime"
+                },
+                trustBadges: [
+                    {
+                        icon: "fas fa-users",
+                        text: "15,000+ Happy Members"
+                    },
+                    {
+                        icon: "fas fa-star",
+                        text: "4.9/5 Rating"
+                    },
+                    {
+                        icon: "fas fa-shield-alt",
+                        text: "100% Secure"
+                    },
+                    {
+                        icon: "fas fa-credit-card",
+                        text: "SSL Protected"
+                    }
+                ]
+            },
             cta: {
                 redirectUrl: "https://app.yourdomain.com/signup",
                 customHandler: null

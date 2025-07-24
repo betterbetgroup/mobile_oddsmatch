@@ -8,22 +8,278 @@ const MAX_WIDTH_FOR_MOBILE = 700;
 // Default sales data structure
 export const defaultSalesData = {
     hero: {
-        title: "Transform Your Betting",
+        title: "Transform Your Betting <span class='gradient-text'>Profits</span>",
         subtitle: "Join 15,000+ successful matched bettors earning consistent income with our professional tools and expert guidance",
-        stats: [
-            { number: "4.2M", label: "Member Profits", target: 4200000 },
-            { number: "15,000", label: "Active Users", target: 15000 },
-            { number: "98%", label: "Success Rate", target: 98.2 }
+        primaryCTA: {
+            text: "Start Free Trial",
+            icon: "fas fa-rocket"
+        },
+        watchDemo: {
+            text: "Watch Demo",
+            icon: "fas fa-play"
+        },
+        socialProof: {
+            stars: 5,
+            rating: "4.9/5",
+            reviewCount: "1,350+",
+            text: "reviews"
+        },
+        successCards: [
+            {
+                amount: "£2,847",
+                text: "Sarah M. - This month"
+            },
+            {
+                amount: "£1,456", 
+                text: "David L. - Last week"
+            },
+            {
+                amount: "£894",
+                text: "Emma K. - Yesterday"
+            }
         ],
         bulletPoints: [
-            "Start earning guaranteed profits in 24 hours",
-            "100% legal and risk-free matched betting system",
-            "Professional tools trusted by 15,000+ members",
-            "Complete training and ongoing expert support"
+            "Watch the Demo Video to Learn the Basics",
+            "Use Our Tutorial to Complete Your First Offer", 
+            "Repeat the Process to Earn More"
         ],
-        primaryCTA: "Start Free Trial",
         videoUrl: "https://www.youtube.com/embed/3eEdy-7mGPQ",
         videoThumbnail: null
+    },
+    whatIs: {
+        header: {
+            title: "What <span class='highlight-text'>is</span> Matched Betting?",
+            sectionLabel: null
+        },
+        explanation: {
+            mainText: "Matched Betting is a way of turning bookmaker free bets into cash. We do this by placing multiple bets on the same event to make sure we cover every possible outcome, and we use free bets to lock in a guaranteed profit - as long as you do it correctly!",
+            keyBenefit: {
+                text: "That's right, ",
+                highlight: "win, lose or draw, you'll make money!"
+            },
+            trustStatement: "People all over the UK choose and trust Better Bet to learn about matched betting. We've already taught over 15,000 people how to do it, making us the <strong>#1 Matched Betting service.</strong>"
+        },
+        features: [
+            {
+                title: "Complete Training",
+                description: "Step-by-step guides from beginner to advanced strategies"
+            },
+            {
+                title: "Professional Calculators", 
+                description: "Calculate exact bets and guaranteed profits instantly"
+            },
+            {
+                title: "Live Odds Matcher",
+                description: "Find the best opportunities automatically, updated in real-time"
+            }
+        ],
+        cta: {
+            text: "Start My Free Trial",
+            icon: "fas fa-rocket"
+        },
+        visual: {
+            screenTitle: "Better Bet",
+            calculator: {
+                rows: [
+                    { label: "Back Stake:", value: "£50.00" },
+                    { label: "Lay Stake:", value: "£48.78" },
+                    { label: "Profit:", value: "£8.45", success: true }
+                ],
+                buttons: [
+                    { text: "Calculate", primary: true },
+                    { text: "Clear", secondary: true }
+                ]
+            },
+            notification: {
+                icon: "fas fa-check-circle",
+                title: "Profit Guaranteed!",
+                amount: "+£8.45"
+            }
+        }
+    },
+    testimonials: {
+        header: {
+            title: "See What Our <span class='gradient-text'>Members Say</span>",
+            subtitle: "Check out what our community is saying about their matched betting journey"
+        },
+        heroTestimonial: {
+            quote: "I've made over £4,200 in 6 months using Better Bet. The tools are professional grade and the support is incredible. This genuinely changed my life.",
+            author: {
+                name: "James S.",
+                avatar: "JS",
+                avatarSrc: "",
+                profit: "+£4,200 profit",
+                verified: "✓ Verified Member"
+            },
+            profits: [
+                { label: "This Month", amount: "£687" },
+                { label: "Total Earnings", amount: "£4,200" },
+                { label: "Success Rate", amount: "98%" }
+            ]
+        },
+        cards: [
+            {
+                rating: 5,
+                date: "2 days ago",
+                content: "Made £247 in my first week. The step-by-step guides made it so easy!",
+                author: {
+                    name: "Emma M.",
+                    avatar: "EM",
+                    profit: "+£247"
+                }
+            },
+            {
+                rating: 5,
+                date: "5 days ago", 
+                content: "Best investment decision I've made. Paying for itself every single day.",
+                author: {
+                    name: "David L.",
+                    avatar: "DL",
+                    profit: "+£1,890"
+                }
+            },
+            {
+                rating: 5,
+                date: "1 week ago",
+                content: "The calculators are incredible. Takes all the guesswork out of matched betting.",
+                author: {
+                    name: "Sophie R.",
+                    avatar: "SR", 
+                    profit: "+£456"
+                }
+            },
+            {
+                rating: 5,
+                date: "1 week ago",
+                content: "Support team helped me through everything. Made my first profit in 3 hours!",
+                author: {
+                    name: "Mike T.",
+                    avatar: "MT",
+                    profit: "+£78"
+                }
+            },
+            {
+                rating: 5,
+                date: "2 weeks ago",
+                content: "£500+ monthly now. This platform changed my financial situation completely.",
+                author: {
+                    name: "Anna L.",
+                    avatar: "AL",
+                    profit: "+£2,100"
+                }
+            },
+            {
+                rating: 5,
+                date: "3 weeks ago",
+                content: "Perfect for beginners. Everything is explained clearly with video tutorials.",
+                author: {
+                    name: "Rachel K.",
+                    avatar: "RK",
+                    profit: "+£334"
+                }
+            }
+        ]
+    },
+    getStarted: {
+        companyIntro: {
+            title: "Better Bet: Your <span class='gradient-text'>Complete Matched Betting Solution</span>",
+            description: "We're the UK's leading matched betting platform, providing everything you need to turn bookmaker offers into guaranteed profits. With our professional tools, expert guidance, and proven system, we've helped over 15,000 members earn consistent income from matched betting."
+        },
+        steps: {
+            header: {
+                title: "How It Works",
+                subtitle: "3 simple steps to start earning guaranteed profits"
+            },
+            list: [
+                {
+                    number: 1,
+                    icon: "fas fa-play-circle",
+                    title: "Watch Demo & Get Free Trial",
+                    time: "5 min",
+                    description: "See exactly how matched betting works with our demo video, then get instant access to all our professional tools with your free 7-day trial.",
+                    features: [
+                        { icon: "fas fa-check", text: "Instant platform access" },
+                        { icon: "fas fa-check", text: "Video tutorials included" },
+                        { icon: "fas fa-check", text: "No credit card required" }
+                    ]
+                },
+                {
+                    number: 2,
+                    icon: "fas fa-calculator",
+                    title: "Place Your First Bet",
+                    time: "30 min",
+                    description: "Use our professional calculators to complete your first matched bet. Our tools do all the complex math while you follow simple step-by-step instructions.",
+                    features: [
+                        { icon: "fas fa-check", text: "Guaranteed profit calculation" },
+                        { icon: "fas fa-check", text: "Live support available" },
+                        { icon: "fas fa-check", text: "Safety checks included" }
+                    ]
+                },
+                {
+                    number: 3,
+                    icon: "fas fa-chart-line",
+                    title: "Scale Your Earnings",
+                    time: "Ongoing",
+                    description: "Follow our weekly profitable offers and advanced strategies to consistently scale your earnings. Most active members earn £300-500+ monthly.",
+                    features: [
+                        { icon: "fas fa-check", text: "Weekly profitable offers" },
+                        { icon: "fas fa-check", text: "Advanced strategies" },
+                        { icon: "fas fa-check", text: "Profit tracking tools" }
+                    ]
+                }
+            ],
+            cta: {
+                text: "Start My Free Trial",
+                icon: "fas fa-rocket"
+            }
+        }
+    },
+    trust: {
+        header: {
+            title: "Trusted by <span class='animated-counter trust-member-count' data-target='15000'>0</span>+ Successful Members",
+            subtitle: "Join the UK's most trusted matched betting community"
+        },
+        stats: [
+            {
+                value: "£4.2M+",
+                label: "Member Profits This Year",
+                target: 4200000,
+                featured: true
+            },
+            {
+                value: "98%", 
+                label: "Guaranteed Success Rate",
+                target: 98
+            },
+            {
+                value: "24hrs",
+                label: "Average Time to Profit", 
+                target: 24
+            }
+        ],
+        indicators: [
+            {
+                icon: "fa-solid fa-gavel",
+                text: "100% Legal & Regulated"
+            },
+            {
+                icon: "fas fa-lock",
+                text: "Bank-Level Security"
+            },
+            {
+                icon: "fas fa-headset",
+                text: "24/7 Expert Support"
+            },
+            {
+                icon: "fas fa-undo-alt",
+                text: "30-Day Money Back"
+            }
+        ],
+        liveActivity: {
+            memberCount: "247",
+            timeframe: "24 hours",
+            totalAmount: "+£18,423"
+        }
     },
     features: [
         {
@@ -57,50 +313,98 @@ export const defaultSalesData = {
             description: "Access all tools on any device, optimized for mobile and desktop use with offline capabilities"
         }
     ],
-    testimonials: [
-        {
-            content: "I made £2,847 in my first month! The tools are incredibly easy to use and the support team helped me every step of the way. I've already paid off my credit cards!",
-            author: "Sarah M.",
-            role: "Premium Member since March 2024",
-            profit: "£2,847",
-            timeframe: "First Month"
-        },
-        {
-            content: "These calculators are absolutely game-changing. I went from being completely confused about matched betting to making £1,500+ monthly in just 6 weeks. Best decision ever!",
-            author: "David L.",
-            role: "Pro Member since January 2024",
-            profit: "£1,500",
-            timeframe: "Monthly"
-        },
-        {
-            content: "Best investment I've ever made. The tools literally pay for themselves within the first week. The community is incredibly supportive and the guides are crystal clear.",
-            author: "Emma K.",
-            role: "Premium Member since February 2024",
-            profit: "£950",
-            timeframe: "Weekly"
-        },
-        {
-            content: "I was skeptical at first, but after making £89 in my very first hour, I knew this was the real deal. Now I'm earning more than my day job!",
-            author: "Michael R.",
-            role: "Pro Member since April 2024",
-            profit: "£89",
-            timeframe: "First Hour"
-        },
-        {
-            content: "The step-by-step guidance made everything so simple. I hit my first £1,000 profit within 3 weeks and haven't looked back since.",
-            author: "Lisa T.",
-            role: "Premium Member since May 2024",
-            profit: "£1,000",
-            timeframe: "3 Weeks"
-        },
-        {
-            content: "Amazing support team and foolproof system. I've made £3,200 so far this year and it's only getting better each month.",
-            author: "James W.",
-            role: "Pro Member since December 2023",
-            profit: "£3,200",
-            timeframe: "This Year"
+    featuresSection: {
+        header: {
+            title: "Everything You Need to <span class='gradient-text'>Succeed</span>",
+            subtitle: "Professional-grade tools and guidance designed for maximum profits"
         }
-    ],
+    },
+    problemSolution: {
+        header: {
+            title: "Tired of <span class='danger-text'>Losing Money</span> on Sports Betting?",
+            subtitle: "Stop gambling with your money and start using mathematics to guarantee profits"
+        },
+        problem: {
+            title: "Traditional Betting Problems",
+            items: [
+                {
+                    icon: "fas fa-times-circle",
+                    text: "Unpredictable outcomes = lost money"
+                },
+                {
+                    icon: "fas fa-times-circle", 
+                    text: "Emotional decisions lead to big losses"
+                },
+                {
+                    icon: "fas fa-times-circle",
+                    text: "No guaranteed way to profit"
+                },
+                {
+                    icon: "fas fa-times-circle",
+                    text: "Complex strategies that don't work"
+                }
+            ]
+        },
+        solution: {
+            title: "Our Mathematical Solution",
+            items: [
+                {
+                    icon: "fas fa-check-circle",
+                    text: "100% guaranteed profits every time"
+                },
+                {
+                    icon: "fas fa-check-circle",
+                    text: "Mathematical certainty, not luck"
+                },
+                {
+                    icon: "fas fa-check-circle", 
+                    text: "Risk-free matched betting system"
+                },
+                {
+                    icon: "fas fa-check-circle",
+                    text: "Start earning from day one"
+                }
+            ]
+        }
+    },
+    howItWorks: {
+        header: {
+            title: "How It Works",
+            subtitle: "Three simple steps to start earning guaranteed profits today"
+        },
+        steps: [
+            {
+                number: 1,
+                title: "Sign Up & Get Instant Access",
+                description: "Access our professional calculators, oddsmatcher tools, and complete guide library instantly",
+                features: [
+                    "✓ Professional calculators",
+                    "✓ Live oddsmatcher", 
+                    "✓ Complete tutorials"
+                ]
+            },
+            {
+                number: 2,
+                title: "Follow Our Proven System",
+                description: "Use our step-by-step guides to complete your first profitable matched bet within 24 hours",
+                features: [
+                    "✓ Video walkthroughs",
+                    "✓ Live chat support",
+                    "✓ Safety checks"
+                ]
+            },
+            {
+                number: 3,
+                title: "Scale Your Profits", 
+                description: "Increase your betting bank and profits using our advanced strategies and ongoing offers",
+                features: [
+                    "✓ Advanced strategies",
+                    "✓ Weekly offers",
+                    "✓ Profit tracking"
+                ]
+            }
+        ]
+    },
     pricing: [
         {
             id: "free",
@@ -174,6 +478,46 @@ export const defaultSalesData = {
             answer: "We provide 24/7 email support, live chat during business hours, an active Discord community, comprehensive video tutorials, and written guides. Premium members get priority support, and Pro members get 1-on-1 coaching sessions."
         }
     ],
+    faqSection: {
+        header: {
+            title: "Frequently Asked Questions",
+            subtitle: "Everything you need to know about matched betting success"
+        }
+    },
+    finalCTA: {
+        urgencyBanner: {
+            icon: "fas fa-fire",
+            text: "Limited Time: Free Trial + Bonus Training Worth £297"
+        },
+        title: "Ready to Start Your <span class='gradient-text'>Profit Journey?</span>",
+        subtitle: "Join 15,000+ successful matched bettors earning £1,000+ monthly with guaranteed profits",
+        primaryButton: {
+            text: "Start Free Trial",
+            icon: "fas fa-rocket"
+        },
+        guarantee: {
+            icon: "fas fa-lock",
+            text: "7-day free trial • Cancel anytime"
+        },
+        trustBadges: [
+            {
+                icon: "fas fa-users",
+                text: "15,000+ Happy Members"
+            },
+            {
+                icon: "fas fa-star",
+                text: "4.9/5 Rating"
+            },
+            {
+                icon: "fas fa-shield-alt",
+                text: "100% Secure"
+            },
+            {
+                icon: "fas fa-credit-card",
+                text: "SSL Protected"
+            }
+        ]
+    },
     cta: {
         redirectUrl: "https://app.yourdomain.com/signup",
         customHandler: null
@@ -192,12 +536,26 @@ export class SalesPageManager {
 
     populateContent() {
         this.populateHero();
-        this.populateFeatures();
+        this.populateWhatIs();
         this.populateTestimonials();
+        this.populateGetStarted();
+        this.populateTrust();
+        this.populateFeatures();
+        this.populateProblemSolution();
+        this.populateHowItWorks();
         this.populatePricing();
         this.populateFAQ();
+        this.populateFinalCTA();
         this.initializeCounters();
         this.initializeTestimonialCarousel();
+        
+        // Initialize all interactivity after content is populated
+        setTimeout(() => {
+            this.initializeFAQ();
+            this.initializeCTAButtons();
+            this.initializeVideoHandlers();
+            this.initializeScrollAnimations();
+        }, 50);
     }
 
     populateHero() {
@@ -206,6 +564,7 @@ export class SalesPageManager {
         const titleElement = this.shadowRoot.getElementById('hero-title');
         const subtitleElement = this.shadowRoot.getElementById('hero-subtitle');
         const mainCTAElement = this.shadowRoot.getElementById('main-cta');
+        const watchDemoElement = this.shadowRoot.getElementById('watch-demo');
 
         if (titleElement) {
             titleElement.innerHTML = this.salesData.hero.title;
@@ -215,8 +574,22 @@ export class SalesPageManager {
         }
         if (mainCTAElement) {
             const span = mainCTAElement.querySelector('span');
-            if (span) span.textContent = this.salesData.hero.primaryCTA;
+            const icon = mainCTAElement.querySelector('i');
+            if (span) span.textContent = this.salesData.hero.primaryCTA.text;
+            if (icon) icon.className = this.salesData.hero.primaryCTA.icon;
         }
+        if (watchDemoElement) {
+            const span = watchDemoElement.querySelector('span');
+            const icon = watchDemoElement.querySelector('i');
+            if (span) span.textContent = this.salesData.hero.watchDemo.text;
+            if (icon) icon.className = this.salesData.hero.watchDemo.icon;
+        }
+
+        // Populate social proof
+        this.populateHeroSocialProof();
+        
+        // Populate success cards
+        this.populateHeroSuccessCards();
 
         // Set up auto-playing video
         if (this.salesData.hero.videoUrl) {
@@ -230,63 +603,434 @@ export class SalesPageManager {
         this.populateHeroBulletPoints();
     }
 
-    populateHeroBulletPoints() {
-        if (!this.salesData.hero || !this.salesData.hero.bulletPoints) return;
+    populateHeroSocialProof() {
+        if (!this.salesData.hero?.socialProof) return;
 
-        const bulletPointsContainer = this.shadowRoot.getElementById('hero-bullet-points');
-        if (!bulletPointsContainer) return;
+        const socialProofElement = this.shadowRoot.querySelector('.social-proof .rating-stars');
+        if (!socialProofElement) return;
 
-        bulletPointsContainer.innerHTML = this.salesData.hero.bulletPoints.map((point, index) => `
-            <div class="bullet-point">
-                <div class="bullet-icon">${index + 1}</div>
-                <div class="bullet-text">${point}</div>
+        const proof = this.salesData.hero.socialProof;
+        const starsHTML = Array(proof.stars).fill('<i class="fas fa-star"></i>').join('');
+        const spanElement = socialProofElement.querySelector('span');
+        
+        // Update stars
+        const starsContainer = socialProofElement;
+        const currentStars = starsContainer.querySelectorAll('i');
+        currentStars.forEach(star => star.remove());
+        starsContainer.insertAdjacentHTML('afterbegin', starsHTML);
+        
+        // Update text
+        if (spanElement) {
+            spanElement.textContent = `${proof.rating} from ${proof.reviewCount} ${proof.text}`;
+        }
+    }
+
+    populateHeroSuccessCards() {
+        if (!this.salesData.hero?.successCards) return;
+
+        const successCardsContainer = this.shadowRoot.querySelector('.success-cards-below');
+        if (!successCardsContainer) return;
+
+        successCardsContainer.innerHTML = this.salesData.hero.successCards.map((card, index) => `
+            <div class="success-card card-${index + 1}">
+                <div class="success-amount">${card.amount}</div>
+                <div class="success-text">${card.text}</div>
             </div>
         `).join('');
     }
 
-    populateFeatures() {
-        if (!this.salesData.features) return;
+    populateWhatIs() {
+        if (!this.salesData.whatIs) return;
 
-        const featuresGrid = this.shadowRoot.getElementById('features-grid');
-        if (!featuresGrid) return;
+        // Header
+        const headerElement = this.shadowRoot.querySelector('.what-is-header h2');
+        if (headerElement) {
+            headerElement.innerHTML = this.salesData.whatIs.header.title;
+        }
 
-        featuresGrid.innerHTML = this.salesData.features.map(feature => `
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="${feature.icon}"></i>
+        // Main explanation
+        const mainExplanationElement = this.shadowRoot.querySelector('.main-explanation');
+        if (mainExplanationElement) {
+            mainExplanationElement.textContent = this.salesData.whatIs.explanation.mainText;
+        }
+
+        // Key benefit
+        const benefitTextElement = this.shadowRoot.querySelector('.benefit-text');
+        const benefitHighlightElement = this.shadowRoot.querySelector('.benefit-highlight');
+        if (benefitTextElement && benefitHighlightElement) {
+            benefitTextElement.textContent = this.salesData.whatIs.explanation.keyBenefit.text;
+            benefitHighlightElement.textContent = this.salesData.whatIs.explanation.keyBenefit.highlight;
+        }
+
+        // Trust statement
+        const trustStatementElement = this.shadowRoot.querySelector('.trust-statement');
+        if (trustStatementElement) {
+            trustStatementElement.innerHTML = this.salesData.whatIs.explanation.trustStatement;
+        }
+
+        // Features
+        const featuresContainer = this.shadowRoot.querySelector('.what-is-features');
+        if (featuresContainer) {
+            featuresContainer.innerHTML = this.salesData.whatIs.features.map(feature => `
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h4>${feature.title}</h4>
+                        <p>${feature.description}</p>
+                    </div>
                 </div>
-                <h3 class="feature-title">${feature.title}</h3>
-                <p class="feature-description">${feature.description}</p>
-            </div>
-        `).join('');
+            `).join('');
+        }
+
+        // CTA
+        const ctaElement = this.shadowRoot.getElementById('what-is-cta');
+        if (ctaElement) {
+            const span = ctaElement.querySelector('span');
+            const icon = ctaElement.querySelector('i');
+            if (span) span.textContent = this.salesData.whatIs.cta.text;
+            if (icon) icon.className = this.salesData.whatIs.cta.icon;
+        }
+
+        // Visual elements
+        this.populateWhatIsVisual();
+    }
+
+    populateWhatIsVisual() {
+        if (!this.salesData.whatIs?.visual) return;
+
+        // Screen title
+        const screenTitleElement = this.shadowRoot.querySelector('.screen-title');
+        if (screenTitleElement) {
+            screenTitleElement.textContent = this.salesData.whatIs.visual.screenTitle;
+        }
+
+        // Calculator interface
+        const calculatorElement = this.shadowRoot.querySelector('.calculator-interface');
+        if (calculatorElement && this.salesData.whatIs.visual.calculator) {
+            const rowsHTML = this.salesData.whatIs.visual.calculator.rows.map(row => `
+                <div class="calc-row ${row.success ? 'highlight' : ''}">
+                    <span class="calc-label">${row.label}</span>
+                    <span class="calc-value ${row.success ? 'success' : ''}">${row.value}</span>
+                </div>
+            `).join('');
+            calculatorElement.innerHTML = rowsHTML;
+        }
+
+        // Buttons
+        const buttonsContainer = this.shadowRoot.querySelector('.interface-buttons');
+        if (buttonsContainer && this.salesData.whatIs.visual.calculator?.buttons) {
+            const buttonsHTML = this.salesData.whatIs.visual.calculator.buttons.map(button => `
+                <div class="${button.primary ? 'btn-calculate' : 'btn-secondary'}">${button.text}</div>
+            `).join('');
+            buttonsContainer.innerHTML = buttonsHTML;
+        }
+
+        // Notification
+        const notificationElement = this.shadowRoot.querySelector('.success-notification');
+        if (notificationElement && this.salesData.whatIs.visual.notification) {
+            const notification = this.salesData.whatIs.visual.notification;
+            notificationElement.innerHTML = `
+                <div class="notification-icon">
+                    <i class="${notification.icon}"></i>
+                </div>
+                <div class="notification-text">
+                    <div class="notification-title">${notification.title}</div>
+                    <div class="notification-amount">${notification.amount}</div>
+                </div>
+            `;
+        }
     }
 
     populateTestimonials() {
         if (!this.salesData.testimonials) return;
 
-        const testimonialsCarousel = this.shadowRoot.getElementById('testimonials-carousel');
-        if (!testimonialsCarousel) return;
+        // Header
+        const headerTitleElement = this.shadowRoot.querySelector('.testimonials-header h2');
+        const headerSubtitleElement = this.shadowRoot.querySelector('.testimonials-header p');
+        
+        if (headerTitleElement) {
+            headerTitleElement.innerHTML = this.salesData.testimonials.header.title;
+        }
+        if (headerSubtitleElement) {
+            headerSubtitleElement.textContent = this.salesData.testimonials.header.subtitle;
+        }
 
-        // Create duplicated testimonials for seamless infinite scroll
-        const duplicatedTestimonials = [...this.salesData.testimonials, ...this.salesData.testimonials];
+        // Hero testimonial
+        this.populateHeroTestimonial();
 
-        testimonialsCarousel.innerHTML = duplicatedTestimonials.map(testimonial => `
-            <div class="testimonial-card">
-                <div class="testimonial-content">
-                    "${testimonial.content}"
+        // Testimonial cards
+        this.populateTestimonialCards();
+    }
+
+    populateHeroTestimonial() {
+        if (!this.salesData.testimonials?.heroTestimonial) return;
+
+        const hero = this.salesData.testimonials.heroTestimonial;
+        
+        // Quote
+        const quoteElement = this.shadowRoot.querySelector('.hero-testimonial-content h3');
+        if (quoteElement) {
+            quoteElement.textContent = hero.quote;
+        }
+
+        // Author info
+        const authorNameElement = this.shadowRoot.querySelector('.hero-author-info h4');
+        const profitElement = this.shadowRoot.querySelector('.profit');
+        const verifiedElement = this.shadowRoot.querySelector('.verified');
+        const avatarElement = this.shadowRoot.querySelector('.hero-avatar img');
+        if (avatarElement) avatarElement.src = hero.author.avatarSrc;
+        console.log(hero.author.avatarSrc);
+
+        if (authorNameElement) authorNameElement.textContent = hero.author.name;
+        if (profitElement) profitElement.textContent = hero.author.profit;
+        if (verifiedElement) verifiedElement.textContent = hero.author.verified;
+        if (avatarElement) avatarElement.alt = hero.author.avatar;
+
+        // Profits showcase
+        const profitsContainer = this.shadowRoot.querySelector('.profit-showcase');
+        if (profitsContainer) {
+            profitsContainer.innerHTML = hero.profits.map(profit => `
+                <div class="profit-item">
+                    <span class="profit-label">${profit.label}</span>
+                    <span class="profit-amount">${profit.amount}</span>
                 </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">
-                        ${testimonial.author.charAt(0)}
+            `).join('');
+        }
+    }
+
+    populateTestimonialCards() {
+        if (!this.salesData.testimonials?.cards) return;
+
+        const cardsContainer = this.shadowRoot.querySelector('.testimonials-grid');
+        if (!cardsContainer) return;
+
+        cardsContainer.innerHTML = this.salesData.testimonials.cards.map(card => {
+            const starsHTML = Array(card.rating).fill('★').join('');
+            return `
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <span class="stars">${starsHTML}</span>
+                        <span class="date">${card.date}</span>
                     </div>
-                    <div class="author-info">
-                        <h4>${testimonial.author}</h4>
-                        <p>${testimonial.role}</p>
-                        ${testimonial.profit ? `<p class="profit-highlight">Made ${testimonial.profit} ${testimonial.timeframe}</p>` : ''}
+                    <p>"${card.content}"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="${card.author.avatarSrc}" alt="${card.author.name}" />
+                        </div>
+                        <div class="author-info">
+                            <h5>${card.author.name}</h5>
+                            <span class="profit-tag">${card.author.profit}</span>
+                        </div>
                     </div>
                 </div>
+            `;
+        }).join('');
+    }
+
+    populateGetStarted() {
+        if (!this.salesData.getStarted) return;
+
+        // Company intro
+        const introTitleElement = this.shadowRoot.querySelector('.intro-content h2');
+        const introDescElement = this.shadowRoot.querySelector('.intro-description');
+        
+        if (introTitleElement) {
+            introTitleElement.innerHTML = this.salesData.getStarted.companyIntro.title;
+        }
+        if (introDescElement) {
+            introDescElement.textContent = this.salesData.getStarted.companyIntro.description;
+        }
+
+        // Steps header
+        const stepsHeaderTitleElement = this.shadowRoot.querySelector('.steps-header h3');
+        const stepsHeaderSubtitleElement = this.shadowRoot.querySelector('.steps-header p');
+        
+        if (stepsHeaderTitleElement) {
+            stepsHeaderTitleElement.textContent = this.salesData.getStarted.steps.header.title;
+        }
+        if (stepsHeaderSubtitleElement) {
+            stepsHeaderSubtitleElement.textContent = this.salesData.getStarted.steps.header.subtitle;
+        }
+
+        // Steps list
+        this.populateStepsList();
+    }
+
+    populateStepsList() {
+        if (!this.salesData.getStarted?.steps?.list) return;
+
+        const stepsContainer = this.shadowRoot.querySelector('.steps-list');
+        if (!stepsContainer) return;
+
+        let stepsHTML = '';
+        
+        this.salesData.getStarted.steps.list.forEach((step, index) => {
+            const featuresHTML = step.features.map(feature => `
+                <span><i class="${feature.icon}"></i> ${feature.text}</span>
+            `).join('');
+
+            stepsHTML += `
+                <div class="step">
+                    <div class="step-number">
+                        <span class="number">${step.number}</span>
+                        <i class="${step.icon} step-icon"></i>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h4>${step.title}</h4>
+                            <span class="step-time">${step.time}</span>
+                        </div>
+                        <p>${step.description}</p>
+                        <div class="step-features">
+                            ${featuresHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (index < this.salesData.getStarted.steps.list.length - 1) {
+                stepsHTML += '<div class="step-connector"></div>';
+            }
+        });
+
+        // Add CTA
+        stepsHTML += `
+            <div class="step-section-cta">
+                <button class="cta-primary glow-effect" id="step-cta">
+                    <span>${this.salesData.getStarted.steps.cta.text}</span>
+                    <i class="${this.salesData.getStarted.steps.cta.icon}"></i>
+                    <div class="button-shine"></div>
+                </button>
             </div>
-        `).join('');
+        `;
+
+        stepsContainer.innerHTML = stepsHTML;
+    }
+
+    populateTrust() {
+        if (!this.salesData.trust) return;
+
+        // Header
+        const headerTitleElement = this.shadowRoot.querySelector('.trust-header h3');
+        const headerSubtitleElement = this.shadowRoot.querySelector('.trust-header p');
+        
+        if (headerTitleElement) {
+            headerTitleElement.innerHTML = this.salesData.trust.header.title;
+        }
+        if (headerSubtitleElement) {
+            headerSubtitleElement.textContent = this.salesData.trust.header.subtitle;
+        }
+
+        // Stats
+        const statsContainer = this.shadowRoot.querySelector('.trust-stats-grid');
+        if (statsContainer) {
+            statsContainer.innerHTML = this.salesData.trust.stats.map(stat => `
+                <div class="stat-item ${stat.featured ? 'featured' : ''}">
+                    <div class="stat-value">${stat.value}</div>
+                    <div class="stat-label">${stat.label}</div>
+                </div>
+            `).join('');
+        }
+
+        // Trust indicators
+        const indicatorsContainer = this.shadowRoot.querySelector('.trust-indicators');
+        if (indicatorsContainer) {
+            indicatorsContainer.innerHTML = this.salesData.trust.indicators.map(indicator => `
+                <div class="trust-indicator">
+                    <i class="${indicator.icon}"></i>
+                    <span>${indicator.text}</span>
+                </div>
+            `).join('');
+        }
+
+        // Live activity
+        const activityElement = this.shadowRoot.querySelector('.live-activity-banner .activity-text');
+        const activityAmountElement = this.shadowRoot.querySelector('.live-activity-banner .activity-amount');
+        
+        if (activityElement) {
+            activityElement.innerHTML = `<strong>${this.salesData.trust.liveActivity.memberCount} members</strong> earned profits in the last ${this.salesData.trust.liveActivity.timeframe}`;
+        }
+        if (activityAmountElement) {
+            activityAmountElement.textContent = `${this.salesData.trust.liveActivity.totalAmount} total`;
+        }
+    }
+
+    populateProblemSolution() {
+        if (!this.salesData.problemSolution) return;
+
+        // Header
+        const headerElement = this.shadowRoot.querySelector('.problem-solution-section .section-header');
+        if (headerElement) {
+            const titleElement = headerElement.querySelector('h2');
+            const subtitleElement = headerElement.querySelector('p');
+            
+            if (titleElement) titleElement.innerHTML = this.salesData.problemSolution.header.title;
+            if (subtitleElement) subtitleElement.textContent = this.salesData.problemSolution.header.subtitle;
+        }
+
+        // Problem card
+        const problemCardElement = this.shadowRoot.querySelector('.problem-card');
+        if (problemCardElement) {
+            const titleElement = problemCardElement.querySelector('h3');
+            const listElement = problemCardElement.querySelector('.problem-list');
+            
+            if (titleElement) titleElement.textContent = this.salesData.problemSolution.problem.title;
+            if (listElement) {
+                listElement.innerHTML = this.salesData.problemSolution.problem.items.map(item => `
+                    <div class="problem-item">
+                        <i class="${item.icon}"></i>
+                        <span>${item.text}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Solution card
+        const solutionCardElement = this.shadowRoot.querySelector('.solution-card');
+        if (solutionCardElement) {
+            const titleElement = solutionCardElement.querySelector('h3');
+            const listElement = solutionCardElement.querySelector('.solution-list');
+            
+            if (titleElement) titleElement.textContent = this.salesData.problemSolution.solution.title;
+            if (listElement) {
+                listElement.innerHTML = this.salesData.problemSolution.solution.items.map(item => `
+                    <div class="solution-item">
+                        <i class="${item.icon}"></i>
+                        <span>${item.text}</span>
+                    </div>
+                `).join('');
+            }
+        }
+    }
+
+    populateHowItWorks() {
+        if (!this.salesData.howItWorks) return;
+
+        // Header
+        const headerElement = this.shadowRoot.querySelector('.how-it-works-section .section-header');
+        if (headerElement) {
+            const titleElement = headerElement.querySelector('h2');
+            const subtitleElement = headerElement.querySelector('p');
+            
+            if (titleElement) titleElement.textContent = this.salesData.howItWorks.header.title;
+            if (subtitleElement) subtitleElement.textContent = this.salesData.howItWorks.header.subtitle;
+        }
+
+        // Steps
+        const stepsContainer = this.shadowRoot.querySelector('.steps-container');
+        if (stepsContainer) {
+            stepsContainer.innerHTML = this.salesData.howItWorks.steps.map(step => `
+                <div class="step-item" data-step="${step.number}">
+                    <div class="step-number">${step.number}</div>
+                    <div class="step-content">
+                        <h3>${step.title}</h3>
+                        <p>${step.description}</p>
+                        <div class="step-features">
+                            ${step.features.map(feature => `<span>${feature}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
     }
 
     populatePricing() {
@@ -323,6 +1067,18 @@ export class SalesPageManager {
     populateFAQ() {
         if (!this.salesData.faq) return;
 
+        // Header
+        if (this.salesData.faqSection?.header) {
+            const headerElement = this.shadowRoot.querySelector('.faq-section .section-header');
+            if (headerElement) {
+                const titleElement = headerElement.querySelector('h2');
+                const subtitleElement = headerElement.querySelector('p');
+                
+                if (titleElement) titleElement.textContent = this.salesData.faqSection.header.title;
+                if (subtitleElement) subtitleElement.textContent = this.salesData.faqSection.header.subtitle;
+            }
+        }
+
         const faqContainer = this.shadowRoot.getElementById('faq-container');
         if (!faqContainer) return;
 
@@ -335,6 +1091,101 @@ export class SalesPageManager {
                 <div class="faq-answer" id="faq-answer-${index}">
                     ${item.answer}
                 </div>
+            </div>
+        `).join('');
+    }
+
+    populateFinalCTA() {
+        if (!this.salesData.finalCTA) return;
+
+        // Urgency banner
+        const urgencyBannerElement = this.shadowRoot.querySelector('.urgency-banner');
+        if (urgencyBannerElement) {
+            const iconElement = urgencyBannerElement.querySelector('i');
+            const spanElement = urgencyBannerElement.querySelector('span');
+            
+            if (iconElement) iconElement.className = this.salesData.finalCTA.urgencyBanner.icon;
+            if (spanElement) spanElement.textContent = this.salesData.finalCTA.urgencyBanner.text;
+        }
+
+        // Title and subtitle
+        const titleElement = this.shadowRoot.getElementById('final-cta-title');
+        const subtitleElement = this.shadowRoot.getElementById('final-cta-subtitle');
+        
+        if (titleElement) titleElement.innerHTML = this.salesData.finalCTA.title;
+        if (subtitleElement) subtitleElement.textContent = this.salesData.finalCTA.subtitle;
+
+        // Primary button
+        const primaryButtonElement = this.shadowRoot.getElementById('final-cta-primary');
+        if (primaryButtonElement) {
+            const spanElement = primaryButtonElement.querySelector('span');
+            const iconElement = primaryButtonElement.querySelector('i');
+            
+            if (spanElement) spanElement.textContent = this.salesData.finalCTA.primaryButton.text;
+            if (iconElement) iconElement.className = this.salesData.finalCTA.primaryButton.icon;
+        }
+
+        // Guarantee
+        const guaranteeElement = this.shadowRoot.querySelector('.cta-guarantee');
+        if (guaranteeElement) {
+            const iconElement = guaranteeElement.querySelector('i');
+            const spanElement = guaranteeElement.querySelector('span');
+            
+            if (iconElement) iconElement.className = this.salesData.finalCTA.guarantee.icon;
+            if (spanElement) spanElement.textContent = this.salesData.finalCTA.guarantee.text;
+        }
+
+        // Trust badges
+        const trustBadgesContainer = this.shadowRoot.querySelector('.trust-badges');
+        if (trustBadgesContainer) {
+            trustBadgesContainer.innerHTML = this.salesData.finalCTA.trustBadges.map(badge => `
+                <div class="trust-badge">
+                    <i class="${badge.icon}"></i>
+                    <span>${badge.text}</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    populateFeatures() {
+        if (!this.salesData.features) return;
+
+        // Header
+        if (this.salesData.featuresSection?.header) {
+            const headerElement = this.shadowRoot.querySelector('.features-section .section-header');
+            if (headerElement) {
+                const titleElement = headerElement.querySelector('h2');
+                const subtitleElement = headerElement.querySelector('p');
+                
+                if (titleElement) titleElement.innerHTML = this.salesData.featuresSection.header.title;
+                if (subtitleElement) subtitleElement.textContent = this.salesData.featuresSection.header.subtitle;
+            }
+        }
+
+        const featuresGrid = this.shadowRoot.getElementById('features-grid');
+        if (!featuresGrid) return;
+
+        featuresGrid.innerHTML = this.salesData.features.map(feature => `
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="${feature.icon}"></i>
+                </div>
+                <h3 class="feature-title">${feature.title}</h3>
+                <p class="feature-description">${feature.description}</p>
+            </div>
+        `).join('');
+    }
+
+    populateHeroBulletPoints() {
+        if (!this.salesData.hero || !this.salesData.hero.bulletPoints) return;
+
+        const bulletPointsContainer = this.shadowRoot.getElementById('hero-bullet-points');
+        if (!bulletPointsContainer) return;
+
+        bulletPointsContainer.innerHTML = this.salesData.hero.bulletPoints.map((point, index) => `
+            <div class="bullet-point">
+                <div class="bullet-icon">${index + 1}</div>
+                <div class="bullet-text">${point}</div>
             </div>
         `).join('');
     }
@@ -430,41 +1281,42 @@ export class SalesPageManager {
 
     initializeInteractivity() {
         // FAQ toggles
-        setTimeout(() => {
-            this.initializeFAQ();
-            this.initializeCTAButtons();
-            this.initializeVideoHandlers();
-            this.initializeScrollAnimations();
-        }, 100);
+        // This method is now called from populateContent
     }
 
     initializeFAQ() {
         const faqQuestions = this.shadowRoot.querySelectorAll('.faq-question');
         
-        faqQuestions.forEach(question => {
+        console.log(`Initializing FAQ with ${faqQuestions.length} questions`);
+        
+        faqQuestions.forEach((question, index) => {
             question.addEventListener('click', () => {
                 const faqIndex = question.dataset.faq;
                 const answer = this.shadowRoot.getElementById(`faq-answer-${faqIndex}`);
                 const icon = question.querySelector('i');
+                const parentItem = question.closest('.faq-item');
                 
-                if (answer) {
+                console.log(`FAQ question ${faqIndex} clicked`);
+                
+                if (answer && icon) {
                     const isActive = answer.classList.contains('active');
                     
-                    // Close all other FAQ items
-                    const allAnswers = this.shadowRoot.querySelectorAll('.faq-answer');
-                    const allIcons = this.shadowRoot.querySelectorAll('.faq-question i');
-                    
-                    allAnswers.forEach(item => item.classList.remove('active'));
-                    allIcons.forEach(item => {
-                        item.classList.remove('fa-chevron-up');
-                        item.classList.add('fa-chevron-down');
-                    });
-                    
+                    // Toggle current item only
                     if (!isActive) {
                         answer.classList.add('active');
+                        parentItem.classList.add('active');
                         icon.classList.remove('fa-chevron-down');
                         icon.classList.add('fa-chevron-up');
+                        console.log(`FAQ answer ${faqIndex} opened`);
+                    } else {
+                        answer.classList.remove('active');
+                        parentItem.classList.remove('active');
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                        console.log(`FAQ answer ${faqIndex} closed`);
                     }
+                } else {
+                    console.error(`FAQ elements not found for index ${faqIndex}`, { answer, icon });
                 }
             });
         });

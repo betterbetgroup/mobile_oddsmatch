@@ -1760,8 +1760,8 @@ section {
 }
 
 .hero-avatar {
-    width: 4.17vw;
-    height: 4.17vw;
+    width: 7vw;
+    height: 7vw;
     border-radius: 50%;
     overflow: hidden;
     border: 0.14vw solid var(--accent);
@@ -1904,6 +1904,14 @@ section {
     font-weight: 700;
     font-size: 0.97vw;
     flex-shrink: 0;
+    overflow: hidden;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .author-info {
@@ -2046,12 +2054,16 @@ section {
 }
 
 .faq-item {
-    border-bottom: 0.07vw solid var(--border-main);
-    margin-bottom: var(--space-md);
+    background: var(--gradient-card);
+    border: 0.07vw solid var(--border-light);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .faq-question {
-    padding: var(--space-lg) 0;
+    padding: var(--space-md);
     font-size: 1.25vw;
     font-weight: 600;
     color: var(--text-primary);
@@ -2059,23 +2071,29 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    background: transparent;
 }
 
-.faq-question:hover {
-    color: var(--primary);
-}
+
+
+
+
+
 
 .faq-answer {
-    padding: 0 0 var(--space-lg) 0;
+    padding: var(--space-md);
     color: var(--text-secondary);
     line-height: 1.6;
+    font-size: 1.125vw;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 0.07vw solid rgba(255, 255, 255, 0.08);
     display: none;
 }
 
 .faq-answer.active {
     display: block;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
@@ -3316,6 +3334,14 @@ section {
         font-weight: 700;
         font-size: 3.50vw;
         flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    .author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
     }
 
     .author-info {
@@ -3395,6 +3421,13 @@ section {
         height: 11.00vw;
         border-radius: 50%;
         border: 0.50vw solid var(--accent);
+        overflow: hidden;
+    }
+
+    .hero-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     
     .hero-author-info h4 {
@@ -3835,7 +3868,7 @@ section {
         background: var(--gradient-card);
         border: 0.25vw solid var(--border-light);
         border-radius: var(--radius-md);
-        margin-bottom: var(--space-md);
+        margin-bottom: var(--space-lg);
         overflow: hidden;
         transition: all 0.3s ease;
     }
@@ -3852,24 +3885,19 @@ section {
         line-height: 1.4;
         transition: color 0.3s ease;
     }
-    
-    .faq-question i {
-        color: var(--accent);
-        font-size: 3.50vw;
-        transition: transform 0.3s ease;
-    }
+
     
     .faq-item.active .faq-question i {
         transform: rotate(180deg);
     }
     
     .faq-answer {
-        padding: 0 var(--space-md) var(--space-md);
-        font-size: 3.50vw;
+        padding: var(--space-sm);
+        font-size: 3.25vw;
         line-height: 1.6;
         color: var(--text-secondary);
         background: rgba(255, 255, 255, 0.02);
-        border-top: 0.25vw solid rgba(255, 255, 255, 0.05);
+        border-top: 0.25vw solid rgba(255, 255, 255, 0.08);
         display: none;
     }
     
