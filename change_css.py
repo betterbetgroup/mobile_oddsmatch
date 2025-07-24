@@ -18,7 +18,7 @@ def process_css_file(input_file_path, output_file_path):
         css_content = file.read()
 
     # Replace all pixel values with vw
-    converted_css = re.sub(r"(\d+)px", convert_px_to_vw, css_content)
+    converted_css = re.sub(r"(\d+\.?\d*)rem", convert_rem_to_px, css_content)
 
     # Replace all vw values with px
     #converted_css = re.sub(r"(\d+\.?\d*)vw", convert_vw_to_px, css_content)
@@ -27,8 +27,16 @@ def process_css_file(input_file_path, output_file_path):
     with open(output_file_path, 'w') as file:
         file.write(converted_css)
 
+# Convert rem values to px
+def convert_rem_to_px(match):
+    rem_value = float(match.group(1))  # Extract the rem value
+    base_px = 16  # Standard browser base font size
+    px_value = rem_value * base_px  # Convert rem to px
+    return f"{px_value:.0f}px"  # Return px value rounded to whole number
+
+
 # Paths to the input and output CSS files
-input_css_path = "dashboard/styles.css"
+input_css_path = "sales_pages/main/styles.css"
 output_css_path = "new_styles.css"
 
 # Call the function to process the CSS file

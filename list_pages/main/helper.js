@@ -176,7 +176,7 @@ export function process_new_final_data(data, scope, state, page) {
     data = JSON.parse(data);
 
     state.is_premium_member = data.premium_member;
-    state.is_desktop = data.is_desktop;
+    state.is_desktop = window.innerWidth > MAX_WIDTH_FOR_MOBILE;
 
     if (state.list_type == 'reload') {
         state.globalData = data.offer_data;
@@ -195,8 +195,6 @@ export function process_new_final_data(data, scope, state, page) {
             });
         }
     }
-
-    adjust_classes_based_on_is_desktop(scope, state);
 
     runSpecificScript(scope, state);
 
@@ -218,8 +216,7 @@ export function process_new_final_data(data, scope, state, page) {
 
 function adjust_classes_based_on_is_desktop(scope, state) {
 
-    if (state.is_desktop) {
-
+    if (window.innerWidth > MAX_WIDTH_FOR_MOBILE) {
         if (state.list_type == 'guides') {
             scope.querySelector('.above-columns').classList.add('guides-above-columns');
             scope.querySelector('.item_container_div').classList.add('item_container_div_guides');
@@ -284,6 +281,8 @@ export function runSpecificScript(scope, state) {
 
     // this is only used for offer list pages
     state.create_offer_id_function = create_offer_id;
+
+    adjust_classes_based_on_is_desktop(scope, state);
 
     // SHOULD CHANGE THE HTML BASED ON IS_DESKTOP
     add_in_above_columns_items(scope, state);
@@ -632,7 +631,7 @@ function display_races_left(scope, state, races_left) {
 // the rest of these kinds of functions are at the bottom where it matched the oddsmatcher functions
 function add_in_above_columns_items(scope, state) {
 
-    if (state.is_desktop) {
+    if (window.innerWidth > MAX_WIDTH_FOR_MOBILE) {
         state.above_columns_items.forEach(item => {
             const item_html = above_columns_items_dict[item];
             const new_div = document.createElement('div');

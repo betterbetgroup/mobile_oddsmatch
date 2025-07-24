@@ -1,4 +1,5 @@
 @import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 
 
@@ -60,70 +61,71 @@
 
 }
 
-#outer-container-div.outer-container-div-mobile {
-    
-    /* MOBILE SIZE CHANGES - MAKE THIS OUTER-CONTAINER-DIV-MOBILE */
 
-    /* global - includes stuff taken from original mobile */
-    --global-border-radius: 3.50vw;
-    --global-main-font-size: 3.8vw;
-    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
-    --padding-main-containers: 5vw;
+@media (max-width: 700px) {
+    #outer-container-div {
+        
+        /* MOBILE SIZE CHANGES - MAKE THIS OUTER-CONTAINER-DIV-MOBILE */
 
-    --outer-container-div-margin-bottom: 50.00vw;
+        /* global - includes stuff taken from original mobile */
+        --global-border-radius: 3.50vw;
+        --global-main-font-size: 3.8vw;
+        --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+        --padding-main-containers: 5vw;
 
+        --outer-container-div-margin-bottom: 50.00vw;
 
-    --border-radius-filter-inputs: 1.25vw;
 
-    --padding-left-filter-inputs: 1.50vw;
-    --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
-    --padding-dropdown-options: 1.75vw 3.00vw;
+        --border-radius-filter-inputs: 1.25vw;
 
-    --max-height-dropdown-options: 50.00vw;
+        --padding-left-filter-inputs: 1.50vw;
+        --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
+        --padding-dropdown-options: 1.75vw 3.00vw;
 
-    --loading-and-no-data-div-font-size: 6.00vw;
+        --max-height-dropdown-options: 50.00vw;
 
-    --blur-amount: 1.3vw;
+        --loading-and-no-data-div-font-size: 6.00vw;
 
+        --blur-amount: 1.3vw;
 
 
-    
-    /* upgrade button in upgrade div */
-    --upgrade-button-border-radius: 2.50vw;
-    --padding-upgrade-button: 2.50vw 6.25vw;
-    --font-size-upgrade-button: 4.50vw;
-    --width-height-padlock-image-in-button: 6.25vw;
-    --margin-left-padlock-image-in-button: 2.50vw;
 
+        
+        /* upgrade button in upgrade div */
+        --upgrade-button-border-radius: 2.50vw;
+        --padding-upgrade-button: 2.50vw 6.25vw;
+        --font-size-upgrade-button: 4.50vw;
+        --width-height-padlock-image-in-button: 6.25vw;
+        --margin-left-padlock-image-in-button: 2.50vw;
 
 
 
-    /* above columns stuff */
-    --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 0.5);
-    --width-filter-details-above-columns: 100%;
 
-    --width-info-items-at-top: 100%;
+        /* above columns stuff */
+        --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 0.5);
+        --width-filter-details-above-columns: 100%;
 
-    --margin-top-info-text-mobile: 2.5vw;
+        --width-info-items-at-top: 100%;
 
+        --margin-top-info-text-mobile: 2.5vw;
 
-    /* item stuff */
-    --font-size-item-title: 4.7vw;
-    --gap-between-items-in-item: 4vw;
 
-    --interaction-row-items-height: 9.5vw;
-    --height-filter-inputs: var(--interaction-row-items-height);
+        /* item stuff */
+        --font-size-item-title: 4.7vw;
+        --gap-between-items-in-item: 4vw;
 
-    --margin-right-of-item-title-div-mobile: 28.125vw;
+        --interaction-row-items-height: 9.5vw;
+        --height-filter-inputs: var(--interaction-row-items-height);
 
+        --margin-right-of-item-title-div-mobile: 28.125vw;
 
-    /* offer button */
-    --font-size-offer-button: 3.7vw;
 
+        /* offer button */
+        --font-size-offer-button: 3.7vw;
 
-    /* slider */
-    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
 
+        /* slider */
+        --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
 
 
 
@@ -146,154 +148,154 @@
 
 
 
-    /* JUST COPYING IN FROM ORIGINAL STYLES.CSS */
 
+        /* JUST COPYING IN FROM ORIGINAL STYLES.CSS */
 
 
 
-    /* global */
 
-    --global-main-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        /* global */
 
-    --blur-amount: 1.25vw;
+        --global-main-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    --global-border-radius: 3.50vw;
-    --global-container-width: 95%;
-    --global-main-font-size: 3.50vw;
-    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
-    --global-border-width-main: 0.25vw;
+        --blur-amount: 1.25vw;
 
-    --global-smaller-border-radius: 1vw;
+        --global-border-radius: 3.50vw;
+        --global-container-width: 95%;
+        --global-main-font-size: 3.50vw;
+        --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+        --global-border-width-main: 0.25vw;
 
-    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+        --global-smaller-border-radius: 1vw;
 
-    --global-main-background-colour: #121212;
+        --global-border-main: var(--global-border-width-main) solid #1f1f1f;
 
+        --global-main-background-colour: #121212;
 
 
-    --outer-container-div-margin-bottom: 50.00vw;
 
+        --outer-container-div-margin-bottom: 50.00vw;
 
 
 
-    /* body */
-    --body-padding: 1.43vw;
 
-    /* outer container div */
-    --outer-container-div-padding-horizontal: 0.36vw;
-    --outer-container-div-padding-bottom: 11.52vw;
-    --outer-container-div-width: 100.00vw;
+        /* body */
+        --body-padding: 1.43vw;
 
+        /* outer container div */
+        --outer-container-div-padding-horizontal: 0.36vw;
+        --outer-container-div-padding-bottom: 11.52vw;
+        --outer-container-div-width: 100.00vw;
 
-    /* loading and no data div */
-    --loading-and-no-data-div-padding: 5.00vw;
-    --loading-and-no-data-div-aspect-ratio: 2;
-    --loading-aspect-ratio: 1;
-    --loading-and-no-data-div-font-size: 4.00vw;
 
-    /* neon part */
-    --neon-pulse-width-and-height: 20.00vw;
-    --neon-pulse-perspective: 150.00vw;
-    --neon-bar-width: 2.50vw;
-    --neon-bar-height: 10.00vw;
-    --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
-    --loading-text-margin-top: 17.50vw;
+        /* loading and no data div */
+        --loading-and-no-data-div-padding: 5.00vw;
+        --loading-and-no-data-div-aspect-ratio: 2;
+        --loading-aspect-ratio: 1;
+        --loading-and-no-data-div-font-size: 4.00vw;
 
+        /* neon part */
+        --neon-pulse-width-and-height: 20.00vw;
+        --neon-pulse-perspective: 150.00vw;
+        --neon-bar-width: 2.50vw;
+        --neon-bar-height: 10.00vw;
+        --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
+        --loading-text-margin-top: 17.50vw;
 
-    /* mobile card */
-    --mobile-card-padding: 4.00vw 5.00vw;
-    --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
-    --outer-mobile-card-total-padding: 2.00vw;
-    --gap-between-data-rows: 2.00vw;
-    --inner-background-colour: #000000;
 
+        /* mobile card */
+        --mobile-card-padding: 4.00vw 5.00vw;
+        --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+        --outer-mobile-card-total-padding: 2.00vw;
+        --gap-between-data-rows: 2.00vw;
+        --inner-background-colour: #000000;
 
 
-    /* mobile row */
-    --gap-in-mobile-row: 1.25vw;
-    --margin-bottom-mobile-row: 3.00vw;
-    --width-mobile-row-strong: 25.00vw; 
-    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
 
-    --color-mobile-row-title: #fff;
+        /* mobile row */
+        --gap-in-mobile-row: 1.25vw;
+        --margin-bottom-mobile-row: 3.00vw;
+        --width-mobile-row-strong: 25.00vw; 
+        --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
 
+        --color-mobile-row-title: #fff;
 
-    /* content items i.e. logo img, odds combo, etc */
-    --height-of-img-logo: 5.50vw;
-    --gap-in-odds-combo: 2.00vw;
-    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
-    --gap-between-profit-and-loss-and-rating: 1.25vw;
-    --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
 
+        /* content items i.e. logo img, odds combo, etc */
+        --height-of-img-logo: 5.50vw;
+        --gap-in-odds-combo: 2.00vw;
+        --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
+        --gap-between-profit-and-loss-and-rating: 1.25vw;
+        --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
 
-    /* filter panel container and above columns */
-    --padding-main-containers: 4.00vw;
-    --gap-between-filters-horizontal-and-vertical: 3.00vw;
 
+        /* filter panel container and above columns */
+        --padding-main-containers: 4.00vw;
+        --gap-between-filters-horizontal-and-vertical: 3.00vw;
 
-    /* filter stuff */
-    --background-colour-filters: #333;
-    --border-filters: var(--global-border-width-main) solid #444;
-    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
-    --height-filter-inputs: 10vw;
-    --padding-left-filter-inputs: 2.5vw;
-    --border-radius-filter-inputs: 1.5vw;
-    --font-size-filter-inputs: var(--global-main-font-size);
-    --padding-left-filter-inputs-select-boxes-arrow: 4.50vw; /* think this is for the dropdowns with checkboxes */
-    --font-size-currency-box: 5.00vw;
-    --font-size-multiplier-for-percentage: 0.85;
-    --max-height-dropdown-options: 50.00vw;
-    --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
-    --padding-dropdown-options: 3vw 3.00vw;
-    --padding-left-dropdown-options-label: 1.25vw;
-    --margin-right-checkbox: 2.50vw;
-    --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
-    --margin-left-and-bottom-filter-label: 1.20vw;
-    --width-currency-box: 6.25vw;
 
+        /* filter stuff */
+        --background-colour-filters: #333;
+        --border-filters: var(--global-border-width-main) solid #444;
+        --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
+        --height-filter-inputs: 10vw;
+        --padding-left-filter-inputs: 2.5vw;
+        --border-radius-filter-inputs: 1.5vw;
+        --font-size-filter-inputs: var(--global-main-font-size);
+        --padding-left-filter-inputs-select-boxes-arrow: 4.50vw; /* think this is for the dropdowns with checkboxes */
+        --font-size-currency-box: 5.00vw;
+        --font-size-multiplier-for-percentage: 0.85;
+        --max-height-dropdown-options: 50.00vw;
+        --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
+        --padding-dropdown-options: 3vw 3.00vw;
+        --padding-left-dropdown-options-label: 1.25vw;
+        --margin-right-checkbox: 2.50vw;
+        --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
+        --margin-left-and-bottom-filter-label: 1.20vw;
+        --width-currency-box: 6.25vw;
 
 
 
-    /* selecting filter section specifically now */
-    --padding-filter-delete-buttons: 1.00vw 2.50vw;
-    --border-radius-filter-delete-buttons: 0.75vw;
 
+        /* selecting filter section specifically now */
+        --padding-filter-delete-buttons: 1.00vw 2.50vw;
+        --border-radius-filter-delete-buttons: 0.75vw;
 
-    /* above columns */ 
-    --gap-in-above-columns: 6.25vw;
-    --gap-between-above-column-rows: 3.75vw;
 
-    /* above columns items stuff */
-    --margin-right-confirm-filter-name: 3.75vw;
-    --refresh-results-margin-against-timer: 1.50vw;
-    --width-height-cancel-making-filter-svg: 5.00vw;
-    --width-height-button-images: 5.00vw;
-    --margin-left-refresh-results-img: 1.5vw;
-    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+        /* above columns */ 
+        --gap-in-above-columns: 6.25vw;
+        --gap-between-above-column-rows: 3.75vw;
 
+        /* above columns items stuff */
+        --margin-right-confirm-filter-name: 3.75vw;
+        --refresh-results-margin-against-timer: 1.50vw;
+        --width-height-cancel-making-filter-svg: 5.00vw;
+        --width-height-button-images: 5.00vw;
+        --margin-left-refresh-results-img: 1.5vw;
+        --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
 
-    /* pagination */
-    --padding-pagination-container: 3.00vw 0.00vw;
-    --width-pagination-button: 18.75vw;
-    --padding-pagination-button: 0.00vw 3.75vw;
-    --font-size-pagination: 3.00vw;
 
+        /* pagination */
+        --padding-pagination-container: 3.00vw 0.00vw;
+        --width-pagination-button: 18.75vw;
+        --padding-pagination-button: 0.00vw 3.75vw;
+        --font-size-pagination: 3.00vw;
 
-    /* covering filter box */
-    --covering-filter-box-inset: -0.25vw;
-    --height-width-covering-filter-box-padlock: 30.00vw;
-    
 
-    /* upgrade div box */   
-    --padding-outer-div-upgrade: 3.75vw;
+        /* covering filter box */
+        --covering-filter-box-inset: -0.25vw;
+        --height-width-covering-filter-box-padlock: 30.00vw;
+        
 
-    /* upgrade button in upgrade div */
-    --upgrade-button-border-radius: 2.50vw;
-    --padding-upgrade-button: 2.50vw 6.25vw;
-    --font-size-upgrade-button: 4.50vw;
-    --width-height-padlock-image-in-button: 6.25vw;
-    --margin-left-padlock-image-in-button: 2.50vw;
+        /* upgrade div box */   
+        --padding-outer-div-upgrade: 3.75vw;
 
+        /* upgrade button in upgrade div */
+        --upgrade-button-border-radius: 2.50vw;
+        --padding-upgrade-button: 2.50vw 6.25vw;
+        --font-size-upgrade-button: 4.50vw;
+        --width-height-padlock-image-in-button: 6.25vw;
+        --margin-left-padlock-image-in-button: 2.50vw;
 
 
 
@@ -301,17 +303,17 @@
 
 
 
-    /* profit tracker mobile change */
 
-    --margin-top-info-text-mobile: 2.5vw;
+        /* profit tracker mobile change */
 
+        --margin-top-info-text-mobile: 2.5vw;
 
 
 
 
-    /* PROFIT TRACKER */
-    --log-bet-button-padding-left-right: 2.15vw;
 
+        /* PROFIT TRACKER */
+        --log-bet-button-padding-left-right: 2.15vw;
 
 
 
@@ -323,25 +325,26 @@
 
 
 
-    /* STUFF FOR SELECT BOXES SO FAR */
 
-    /* GLOBAL */
+        /* STUFF FOR SELECT BOXES SO FAR */
 
-    --back-bet-background-color: #2888ef;
-    --lay-bet-background-color: #e1687c;
+        /* GLOBAL */
 
-    --color-of-positive-profit-text: #00bb00;
-    --color-of-negative-profit-text: #dd0000;
+        --back-bet-background-color: #2888ef;
+        --lay-bet-background-color: #e1687c;
 
-    --active-lay-type-background-color: black;
+        --color-of-positive-profit-text: #00bb00;
+        --color-of-negative-profit-text: #dd0000;
 
+        --active-lay-type-background-color: black;
 
+
+
+
+    }
 
 
 }
-
-
-
 
 
 

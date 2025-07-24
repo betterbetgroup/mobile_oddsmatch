@@ -184,7 +184,7 @@ import * as Helpers from '../main/helper.js'
                         <div class="item_button">
                             <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
                                 Offer Guide
-                                <img class='offer_guide_icon' src="https://img.icons8.com/?size=100&id=1767&format=png&color=ffffff" alt="Guide Icon">
+                                <i class="fa-solid fa-book offer_guide_icon"></i>
                             </a>
                         </div>
 

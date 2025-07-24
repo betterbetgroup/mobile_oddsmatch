@@ -1,4 +1,4 @@
-import * as Helpers from './list-page-helper.js'
+import * as Helpers from '../main/helper.js'
 
 
     let general_info_script = 'not used'
