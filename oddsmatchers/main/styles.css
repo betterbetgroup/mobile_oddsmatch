@@ -239,7 +239,6 @@ body {
     display: flex;
     flex-direction: column;
     margin-bottom: var(--outer-container-div-margin-bottom);
-    min-height: 100vh;
     justify-content: flex-start;
 
 }

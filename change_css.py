@@ -35,9 +35,31 @@ def convert_rem_to_px(match):
     return f"{px_value:.0f}px"  # Return px value rounded to whole number
 
 
+
+
+# write the code for a function that will take the css file and get all the vw values multiple it by 0.72 and put it back as vw 
+def convert_vw_to_vw_0_72(match):
+    # current 0.72 as minuses 280px
+    vw_value = float(match.group(1))  # Extract the vw value
+    vw_value_0_72 = vw_value * 0.68 # Multiply by 0.72
+    return f"{vw_value_0_72:.2f}vw"  # Return vw value rounded to two decimal places
+
+
+# write the code for functino that opens he file and gets all the vw values and multiple it by 0.72 and put it back as vw 
+def convert_vw_to_vw_0_72_file(file_path, output_file_path):
+    with open(file_path, 'r') as file:
+        css_content = file.read()
+    converted_css = re.sub(r"(\d+\.?\d*)vw", convert_vw_to_vw_0_72, css_content)
+    with open(output_file_path, 'w') as file:
+        file.write(converted_css)
+
+
+
 # Paths to the input and output CSS files
-input_css_path = "sales_pages/main/styles.css"
+input_css_path = "desktop_oddsmatchers/main/styles.css"
 output_css_path = "new_styles.css"
 
+convert_vw_to_vw_0_72_file(input_css_path, output_css_path)
+
 # Call the function to process the CSS file
-process_css_file(input_css_path, output_css_path)
+#process_css_file(input_css_path, output_css_path)

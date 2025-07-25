@@ -1,4 +1,4 @@
-import * as Helpers from './main-helper.js';
+import * as Helpers from '../../oddsmatchers/main/helper.js';
 
 
 (function () {
@@ -7,6 +7,8 @@ import * as Helpers from './main-helper.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/qualifying_bet/styles.css';
 
+
+    styles_script = '../desktop_oddsmatchers/free_bet/styles.css'
 
 
     class freeBetOddsmatcher extends HTMLElement {
@@ -162,7 +164,7 @@ import * as Helpers from './main-helper.js';
                     Helpers.add_loading_row(this.shadowRoot, this.state);
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
-                    Helpers.handleResize(this.shadowRoot);
+                    Helpers.handleResize(this.shadowRoot, true);
                     ;
                 });
             });

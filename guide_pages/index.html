@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coral - £20 in Free Bets Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body style="margin: 0; background-color: #0a0a0a;">
+
+    <div id="app">
+        <guide-page data-odds='{
+            "bookmaker": {
+                "name": "Coral",
+                "logo": "https://static.wixstatic.com/media/7a0e3a_0203374d89e4480f9686d5581f599a29~mv2.png",
+                "signupUrl": "https://www.coral.co.uk/en/sports/promotions/details/newcustomeroffer",
+                "offerTitle": "£20 in Free Bets"
+            },
+            "offer": {
+                "type": "Bet & Get",
+                "profit": "£15.75"
+            },
+            "steps": [
+                {
+                    "id": 1,
+                    "title": "Account Setup",
+                    "content": {
+                        "text": "1) Open a Smarkets account if you do not have one already. You will require this to match bets placed with bookmakers.\\n2) Create an account with Coral.\\n3) Fund your account with £5 via debit card.\\n4) Change your odds display to decimal format.",
+                        "tips": "Make sure to use accurate personal details when signing up to avoid verification issues later."
+                    }
+                },
+                {
+                    "id": 2,
+                    "title": "Qualifying Bet",
+                    "content": {
+                        "text": "1) Identify an appropriate selection by comparing the back odds on Coral with the lay odds on Smarkets, ensuring your qualifying bet meets the minimum odds requirement of 1.50 (1/2).\\n2) Determine your required lay stake using the Qualifying Bet feature in the Matched Betting Calculator.\\n3) Within 14 days of registration, place a £5 back bet at Coral as your qualifying wager.\\n4) Position your lay bet at Smarkets opposing the identical selection.",
+                        "tips": "Aim for a small qualifying loss of around £0.25 to maximize overall profit.",
+                        "oddsmatcher": {
+                            "type": "qualifying_bet",
+                            "filters": {
+                                "minOdds": 1.50,
+                                "maxQualifyingLoss": 0.50,
+                                "bookmaker": "coral"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": 3,
+                    "title": "Free Bets",
+                    "content": {
+                        "text": "1) You will receive four £5 free bets once you have placed your qualifying bet.\\n2) Identify a suitable selection by comparing the back odds on Coral and the lay odds on Smarkets.\\n3) Calculate your lay stake using the Free Bet option in the Matched Betting Calculator.\\n4) Use your first £5 free back bet at Coral (valid for 7 days from when it is credited).\\n5) Place a corresponding lay bet on the identical selection at Smarkets.\\n6) Repeat steps 2-5 for each of your three remaining £5 free bets.",
+                        "tips": "Place free bets on high odds selections to maximize returns. Aim for 80% conversion rate (£16 from £20 in free bets).",
+                        "oddsmatcher": {
+                            "type": "free_bet",
+                            "filters": {
+                                "minOdds": 4.0,
+                                "bookmaker": "coral",
+                                "betType": "free_bet"
+                            }
+                        }
+                    }
+                }
+            ]
+        }'></guide-page>
+    </div>
+
+    <script src="guidePage.js" type="module"></script>
+
+</body>
+</html>

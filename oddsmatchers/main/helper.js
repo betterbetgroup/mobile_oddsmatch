@@ -1880,7 +1880,7 @@ export function sort_data_on_click(sortValue, scope, state) {
 
 
 
-export function handleResize(scope) {
+export function handleResize(scope, is_tutorial) {
 
 
     if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
@@ -1888,6 +1888,11 @@ export function handleResize(scope) {
     }
 
     let width = window.innerWidth;
+
+    if (is_tutorial) {
+        width = width * 0.72;
+    }
+
     const contentDiv = scope.getElementById('outer-container-div');
     contentDiv.style.width = `${width}px`; 
 
@@ -1982,7 +1987,7 @@ function add_desktop_table_header(scope, state) {
 export function runSpecificScript(scope, state) {
 
     // use scope and on window resize run the function handleResize
-    window.addEventListener('resize', () => { handleResize(scope); });
+    window.addEventListener('resize', () => { handleResize(scope, (state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'qualifying_bet_tutorial')); });
 
     // set the inner html of the header using the js
     if (state.is_desktop) {
