@@ -182,6 +182,28 @@ export function process_new_final_data(data, scope, state) {
 }
 
 
+export function process_new_final_data_tutorial(data, scope, state) {
+    state.data_loaded_from_wix = true;
+    data = JSON.parse(data);
+
+    if (data.is_first) {
+        add_filters(data.wix_filters, scope, state);
+        state.is_premium_member = data.premium_member;
+    } else {
+        state.waiting_globalData = data.rows;
+        if (!state.loaded_tutorial_data) {
+            state.globalData = data.rows;
+            filterData(scope, state);
+        }
+        state.loaded_tutorial_data = true;
+    }
+        
+}
+
+
+
+
+
 // creates date_and_time and automates time to 12:00 if not already present
 function process_profit_tracker_data(rows) {
     return rows.map(row => {

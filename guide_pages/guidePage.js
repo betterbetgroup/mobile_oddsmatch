@@ -44,7 +44,7 @@ import * as Helpers from './guide_helper.js';
         attributeChangedCallback(name, oldValue, newValue) {
             if (this.isContentLoaded) {
                 if (name === 'data-odds') {
-                    Helpers.process_new_final_data(newValue, this.shadowRoot, this.state);
+                    Helpers.process_new_final_data(newValue, this.shadowRoot);
                 }
             } else {
                 this.attributeChangeQueue.push({ name, oldValue, newValue });

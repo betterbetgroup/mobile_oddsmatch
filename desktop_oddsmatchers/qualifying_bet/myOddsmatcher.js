@@ -180,7 +180,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         attributeChangedCallback(name, oldValue, newValue) {
             if (this.isContentLoaded) {
                 if (name === 'data-odds') {
-                    Helpers.process_new_final_data(newValue, this.shadowRoot, this.state);
+                    Helpers.process_new_final_data_tutorial(newValue, this.shadowRoot, this.state);
                 }
             } else {
                 this.attributeChangeQueue.push({ name, oldValue, newValue });

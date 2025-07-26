@@ -1,12 +1,13 @@
+// Global oddsmatcher data storage
+let globalOddsmatcherData = {};
+
+let MAX_WIDTH_FOR_MOBILE = 700;
+
 // Simple Blog-Style Guide Helper
 export class GuidePageManager {
     constructor(shadowRoot, guideData = null) {
         this.shadowRoot = shadowRoot;
-        this.guideData = guideData || {
-            bookmaker: { name: "Coral", logo: "", offerTitle: "£20 in Free Bets" },
-            offer: { profit: "£15.75" },
-            steps: []
-        };
+        this.guideData = guideData;
         this.currentStep = 1;
         this.loadedOddsmatchers = new Set();
     }
@@ -27,7 +28,7 @@ export class GuidePageManager {
         const subtitle = this.shadowRoot.querySelector('.offer-subtitle');
         const badge = this.shadowRoot.querySelector('.profit-badge');
 
-        if (logo && this.guideData.bookmaker.logo) {
+        if (logo && this.guideData &&this.guideData.bookmaker.logo) {
             logo.src = this.guideData.bookmaker.logo;
         }
         
@@ -35,22 +36,22 @@ export class GuidePageManager {
             bookmakerName.textContent = this.guideData.bookmaker.name;
         }
         
-        if (title && this.guideData.bookmaker.offerTitle) {
+        if (title && this.guideData && this.guideData.bookmaker.offerTitle) {
             title.textContent = this.guideData.bookmaker.offerTitle;
         }
         
-        if (subtitle && this.guideData.bookmaker.name) {
+        if (subtitle && this.guideData && this.guideData.bookmaker.name) {
             subtitle.textContent = `Complete ${this.guideData.bookmaker.name} Sign-up Guide`;
         }
         
-        if (badge && this.guideData.offer.profit) {
+        if (badge && this.guideData && this.guideData.offer.profit) {
             badge.textContent = this.guideData.offer.profit;
         }
     }
 
     populateStepList() {
         const stepList = this.shadowRoot.querySelector('.step-list');
-        if (!stepList || !this.guideData.steps) return;
+        if (!stepList || !this.guideData || !this.guideData.steps) return;
 
         const stepsHTML = this.guideData.steps.map(step => `
             <div class="guide-step-item ${step.id === 1 ? 'active' : ''}" data-step="${step.id}">
@@ -68,18 +69,13 @@ export class GuidePageManager {
             return;
         }
         
-        if (!this.guideData.steps || this.guideData.steps.length === 0) {
-            console.error('No steps data available:', this.guideData);
+        if (!this.guideData || !this.guideData.steps || this.guideData.steps.length === 0) {
             return;
         }
 
-        console.log('Populating steps:', this.guideData.steps);
-
         let stepsHTML = '';
 
-        for (const step of this.guideData.steps) {
-            console.log('Processing step:', step);
-            
+        for (const step of this.guideData.steps) {            
             // Format step text
             const formattedText = step.content?.text
                 ? step.content.text
@@ -111,30 +107,38 @@ export class GuidePageManager {
                                      omType === 'free_bet' ? 'freebet-oddsmatcher' : 
                                      `${omType.replace('_', '-')}-oddsmatcher`;
                 
-                console.log('Loading oddsmatcher:', omType, 'with tag:', oddsmatcherTag);
                 
                 // Load oddsmatcher if not already loaded
                 if (!this.loadedOddsmatchers.has(omType)) {
                     try {
                         await this.loadOddsmatcher(omType);
                         this.loadedOddsmatchers.add(omType);
-                        console.log('Successfully loaded oddsmatcher:', omType);
                     } catch (error) {
                         console.warn('Failed to load oddsmatcher:', omType, error);
                     }
                 }
 
+                // Prepare data with wix_filters
+                const oddsmatcherData = {
+                    wix_filters: step.content.oddsmatcher.filters,
+                    is_first: true,
+                    premium_member: true
+                };
+
                 oddsmatcherHTML = `
-                    <div class="oddsmatcher-section">
-                        <div class="oddsmatcher-header">
-                            <h3>Find ${omType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} Opportunities</h3>
-                            <p>Use the oddsmatcher below to find suitable selections for this step.</p>
+                    <div class="oddsmatcher-wrapper">
+                        <div class="oddsmatcher-intro">
+                            <div class="tool-icon">⚡</div>
+                            <div class="tool-content">
+                                <h4>${omType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} Oddsmatcher</h4>
+                                <p>Use our odds matching tool to find the best selections for this step</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="oddsmatcher-container">
-                        <${oddsmatcherTag} class="added_oddsmatcher" data-odds='${JSON.stringify(step.content.oddsmatcher.filters)}'></${oddsmatcherTag}>
-                    </div>
-                `;
+
+                    <${oddsmatcherTag} class="added_oddsmatcher" data-odds='${JSON.stringify(oddsmatcherData)}'></${oddsmatcherTag}>
+
+                    `;
             }
 
             // Build complete step section
@@ -148,22 +152,17 @@ export class GuidePageManager {
             `;
         }
 
-        console.log('Generated steps HTML:', stepsHTML);
         allStepsContent.innerHTML = stepsHTML;
-        console.log('Steps populated successfully');
     }
 
     async loadOddsmatcher(type) {
-        console.log('Loading oddsmatcher script for type:', type);
         const scriptPath = `../desktop_oddsmatchers/${type}/myOddsmatcher.js`;
-        console.log('Script path:', scriptPath);
         
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = scriptPath;
             script.type = 'module';
             script.onload = () => {
-                console.log('Successfully loaded script:', scriptPath);
                 resolve();
             };
             script.onerror = (error) => {
@@ -205,44 +204,31 @@ export class GuidePageManager {
         const progressElement = this.shadowRoot.querySelector('.step-progress h3');
         if (progressElement) {
             const percentage = (currentStep / totalSteps) * 100;
-            console.log(`Updating progress bar: step ${currentStep}/${totalSteps} = ${percentage}%`);
             
             // Update the width of the ::before element (progress fill)
             progressElement.style.setProperty('--progress-width', `${percentage}%`);
             
             // Double check the CSS variable is set
-            console.log('CSS variable set to:', progressElement.style.getPropertyValue('--progress-width'));
         } else {
             console.error('Progress element not found');
         }
     }
 
     initializeScrollDetection() {
-        console.log('Attempting to initialize scroll detection...');
         
         const stepSections = this.shadowRoot.querySelectorAll('.step-section');
         const stepItems = this.shadowRoot.querySelectorAll('.guide-step-item');
         const mainContent = this.shadowRoot.querySelector('.main-content');
 
-        console.log('Found elements:', {
-            stepSections: stepSections.length,
-            stepItems: stepItems.length,
-            mainContent: !!mainContent
-        });
 
         if (stepSections.length === 0 || stepItems.length === 0 || !mainContent) {
-            console.error('No step sections, step items, or main content found for scroll detection');
-            console.log('Available elements in shadow root:', this.shadowRoot.innerHTML);
             
             // Retry after a longer delay
             setTimeout(() => {
-                console.log('Retrying scroll detection initialization...');
                 this.initializeScrollDetection();
             }, 500);
             return;
         }
-
-        console.log('Successfully initializing scroll detection for', stepSections.length, 'sections');
 
         const updateActiveStep = () => {
             let newActiveStep = this.currentStep || 1; // Keep current step as default
@@ -267,7 +253,6 @@ export class GuidePageManager {
 
             // Only update if the step actually changed
             if (newActiveStep !== this.currentStep) {
-                console.log('Step changed from', this.currentStep, 'to', newActiveStep);
 
                 // Update sidebar highlighting with animation
                 stepItems.forEach(item => {
@@ -289,7 +274,6 @@ export class GuidePageManager {
                 this.currentStep = newActiveStep;
                 
                 // Update progress bar
-                console.log('About to update progress bar...');
                 this.updateProgressBar(newActiveStep, stepSections.length);
             }
         };
@@ -306,7 +290,50 @@ export class GuidePageManager {
             window.removeEventListener('scroll', updateActiveStep);
         };
     }
+
+    updateAllOddsmatchers() {
+        
+        if (!globalOddsmatcherData || globalOddsmatcherData.length === 0) {
+            return;
+        }
+
+        // Find all oddsmatcher elements by class
+        const oddsmatcherElements = this.shadowRoot.querySelectorAll('.added_oddsmatcher');
+        
+        oddsmatcherElements.forEach(oddsmatcherElement => {
+            // Prepare data with rows
+            const oddsmatcherData = {
+                rows: globalOddsmatcherData,
+                is_first: false,
+            };
+            
+            oddsmatcherElement.setAttribute('data-odds', JSON.stringify(oddsmatcherData));
+        });
+    }
+
+    // Function to set global oddsmatcher data and update all oddsmatchers
+    setGlobalOddsmatcherData(rows) {
+        this.updateAllOddsmatchers();
+    }
 }
+
+export function handleResize(scope, is_tutorial) {
+
+
+    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
+        return;
+    }
+
+    let width = window.innerWidth;
+
+    if (is_tutorial) {
+        width = width * 0.72;
+    }
+
+    const contentDiv = scope.getElementById('outer-container-div');
+    contentDiv.style.width = `${width}px`; 
+
+}  
 
 // Helper functions
 export async function render(shadowRoot, state, htmlUrl) {
@@ -341,34 +368,29 @@ export function runSpecificScript(shadowRoot, state) {
     shadowRoot.guideManager = manager;
 }
 
-export function process_new_final_data(newData, shadowRoot, state) {
-    console.log('Processing new guide data:', newData);
+export function process_new_final_data(newData, shadowRoot) {
     try {
         const parsedData = typeof newData === 'string' ? JSON.parse(newData) : newData;
-        console.log('Parsed data:', parsedData);
+        
+        // Extract and store global oddsmatcher data from .rows
         
         // Update the guide with new data
-        if (shadowRoot.guideManager) {
-            console.log('Updating existing guide manager');
-            shadowRoot.guideManager.guideData = parsedData;
+        if (shadowRoot.guideManager && parsedData.is_first) {
+            shadowRoot.guideManager.guideData = parsedData.item_data;
             shadowRoot.guideManager.populateContent();
-        } else {
-            console.log('Creating new guide manager');
-            const manager = new GuidePageManager(shadowRoot, parsedData);
-            manager.populateContent();
-            shadowRoot.guideManager = manager;
+        } 
+
+        if (parsedData && parsedData.rows) {
+            globalOddsmatcherData = parsedData.rows;
+            shadowRoot.guideManager.setGlobalOddsmatcherData(globalOddsmatcherData);
         }
+
+
     } catch (error) {
         console.error('Failed to process guide data:', error);
     }
 }
 
-export function handleResize(shadowRoot) {
-    // Handle responsive behavior if needed
-    window.addEventListener('resize', () => {
-        // Add any resize-specific logic here
-    });
-}
 
 function getInlineHTML() {
     return `

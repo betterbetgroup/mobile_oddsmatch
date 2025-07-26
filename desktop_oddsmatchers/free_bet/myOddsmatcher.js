@@ -137,7 +137,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 is_tutorial: true,
                 oddsmatcher_type: 'free_bet_tutorial',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'sport', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard', 'rating']
+                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard']
                 
             };
             
@@ -181,7 +181,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         attributeChangedCallback(name, oldValue, newValue) {
             if (this.isContentLoaded) {
                 if (name === 'data-odds') {
-                    Helpers.process_new_final_data(newValue, this.shadowRoot, this.state);
+                    Helpers.process_new_final_data_tutorial(newValue, this.shadowRoot, this.state);
                 }
             } else {
                 this.attributeChangeQueue.push({ name, oldValue, newValue });
