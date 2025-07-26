@@ -137,7 +137,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 is_tutorial: true,
                 oddsmatcher_type: 'qualifying_bet_tutorial',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'sport', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard', 'rating']
+                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard']
                 
             };
             
@@ -299,7 +299,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
             tr.innerHTML = `
                 <td class="date_and_time_data" id="date_time_${row._id}">${row.date_and_time}</td>
-                <td class="sport_data" id="sport_${row._id}"><img src="${sport_icon_url}" alt="${row.sport}" style="width: 2.14vw; height: 2.14vw;"></td>
                 <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
                 <td class="outcome_data" id="outcome_${row._id}">${row.outcome}</td>
         
@@ -334,9 +333,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                         <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
                         <div id='potential_profit_${row._id}' class='${potential_profit_class}'>${potential_profit}</div>
                     </div>
-                </td>
-                <td id="rating_${row._id}">
-                    ${row.rating}
                 </td>
             `;
         

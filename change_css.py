@@ -41,7 +41,7 @@ def convert_rem_to_px(match):
 def convert_vw_to_vw_0_72(match):
     # current 0.72 as minuses 280px
     vw_value = float(match.group(1))  # Extract the vw value
-    vw_value_0_72 = vw_value * 0.68 # Multiply by 0.72
+    vw_value_0_72 = vw_value * 0.75 # Multiply by 0.72
     return f"{vw_value_0_72:.2f}vw"  # Return vw value rounded to two decimal places
 
 
