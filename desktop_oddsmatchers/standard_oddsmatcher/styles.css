@@ -1,0 +1,11 @@
+@import url('../main/styles.css');
+
+
+
+
+
+
+.outcome_data, .fixture_data {
+    padding-bottom: 0;
+    padding-top: 0;
+}

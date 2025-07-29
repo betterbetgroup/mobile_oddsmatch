@@ -1,0 +1,331 @@
+
+@import url('../main/styles.css');
+
+
+
+/* FOR THIS CSS USE CHANGE_CSS.PY TO CHANGE THE VW VALUES TO 0.72 VW */ 
+
+
+
+#outer-container-div {
+
+
+
+
+    /* global */
+
+    --global-container-width: 100%;
+    --blur-amount: 0.27vw;
+    --global-border-radius: 0.80vw;
+    --global-main-font-size: 0.85vw;
+    --global-gap-between-main-items: 1.60vw; /* this is gap between above and filter panel and table/mobile-container */
+    --global-border-width-main: 0.05vw;
+    --global-smaller-border-radius: 0.22vw;
+
+    --global-box-shadow-main: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+
+    --outer-container-div-margin-bottom: 80px;
+
+
+    /* upgrade box */
+    --padding-top-box-so-upgrade-button-is-in-middle: calc(var(--global-gap-between-main-items) + 4.60vw); /* this is as it's in table so not blurred - and it's height of table header */
+
+
+    /* body */
+    --body-padding: 0;
+
+
+    /* outer container div */
+    --outer-container-div-padding-horizontal: 0;
+    --outer-container-div-padding-bottom: 2.68vw;
+
+
+    /* loading and no data div */
+    --loading-and-no-data-div-padding: 2.15vw;
+    --loading-and-no-data-div-font-size: 1.50vw;
+    --loading-and-no-data-div-aspect-ratio: 4;
+    --loading-aspect-ratio: 3;
+
+    /* neon part */
+    --neon-pulse-width-and-height: 6.97vw;
+    --neon-pulse-perspective: 64.28vw;
+    --neon-bar-width: 0.80vw;
+    --neon-bar-height: 3.75vw;
+    --neon-bar-box-shadow: 0.00vw 0.00vw 0.53vw rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 3.75vw;
+
+
+
+
+
+    /* filter panel container and above columns */
+    --gap-between-filters-horizontal-and-vertical: 1.07vw;
+    --padding-main-containers: 1.34vw;
+
+    --larger-border-radius-above-columns-panel: 2.68vw;
+
+
+
+    /* filter stuff */
+
+    --border-radius-filter-inputs: 0.32vw;
+    --height-filter-inputs: 2.25vw;
+    --padding-left-filter-inputs: 0.53vw;
+    --padding-left-filter-inputs-select-boxes-arrow: 1.34vw; /* this is the text from the arrow for list filter items */
+    --font-size-currency-box: 1.28vw;
+    --font-size-multiplier-for-percentage: 0.85;
+    --max-height-dropdown-options: 16.07vw;
+    --padding-dropdown-options: 0.53vw 0.75vw;
+    --padding-left-dropdown-options-label: 0.16vw;
+    --margin-right-checkbox: 0.38vw;
+    --smaller-font-size-filter-label-and-filter-delete-buttons: 0.65vw;
+    --height-of-filter-label: 0.75vw;
+    --margin-left-and-bottom-filter-label: 0.27vw;
+    --width-currency-box: 1.60vw;
+
+
+
+    /* selecting filter section specifically now */
+    --padding-filter-delete-buttons: 0.22vw 0.53vw;
+    --border-radius-filter-delete-buttons: 0.22vw;
+
+
+    /* above columns */ 
+
+    --padding-left-right-above-columns: 1.60vw;
+    --gap-between-above-column-rows: 0.27vw;
+    --width-buttons-above-columns: 13.39vw;
+    --width-filter-details-above-columns: 15.00vw;
+
+    
+
+    /* above columns items stuff */
+    --margin-right-confirm-filter-name: 1.07vw;
+    --refresh-results-margin-against-timer: 0.80vw;
+    --width-height-cancel-making-filter-svg: 1.34vw;
+    --width-height-button-images: 1.34vw;
+    --margin-left-refresh-results-img: 0.53vw;
+    --border-radius-switch-slider: 2.68vw; /* Round borders for the slider - think could be 100 */
+
+
+    /* pagination */
+    --padding-pagination-container: 0.75vw 0.00vw;
+    --width-pagination-button: 4.28vw;
+    --padding-pagination-button: 0.00vw 0.97vw;
+    --font-size-pagination: 0.75vw;
+
+
+    /* covering filter box */
+    --covering-filter-box-inset: -0.05vw;
+    --height-width-covering-filter-box-padlock: 6.43vw;
+    
+
+    /* upgrade div box */   
+    --padding-outer-div-upgrade: 0.80vw;
+
+
+    /* upgrade button in upgrade div */
+    --upgrade-button-border-radius: 0.80vw;
+    --padding-upgrade-button: 0.70vw 2.41vw;
+    --font-size-upgrade-button: 1.18vw;
+    --width-height-padlock-image-in-button: 1.60vw;
+    --margin-left-padlock-image-in-button: 0.80vw;
+
+
+
+
+
+
+    /* table stuff ( this is where the mobile part was ) */
+    --table-header-and-data-items-padding-top-and-bottom: 0.65vw;
+    --table-header-and-data-items-padding-sides: 0.85vw;
+    --padding-bottom-header-with-sorting: calc(var(--table-header-and-data-items-padding-top-and-bottom) / 2);
+    --margin-top-sort-by: var(--padding-bottom-header-with-sorting);
+    --font-size-header: 0.85vw;
+    --width-sort-by: 1.28vw;
+
+    /* table body */
+    --table-data-first-background-colour: #222;
+    --table-data-second-background-colour: #1e1e1e;
+    --table-data-hover-colour: #333;
+    --font-size-data: 0.75vw;
+
+    /* line height for date and time data */
+    --line-height-for-date-and-time-data: 1.4;
+
+    /* expected profit header */
+    --min-width-container-in-expected-profit-header: 9.64vw; /* this is important so the expected profit header is 2 lines */
+
+    /* each way back bet */
+    --min-width-each-way-back-bet: 15.53vw;
+
+    /* ROW HEIGHT IS SET BY THE EXPECTED PROFIT DATA HEIGHT */
+    --row-height-set-by-expected-profit-data: 3.48vw;
+
+    /* height for odds and bookmaker images */
+    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2);
+
+    /* background colours for positive and negative profit data */
+    --background-colour-for-positive-profit-data: linear-gradient( 145deg, rgba(0,171,0,0.5), rgba(39,212,39,0.15)); /* A green to light green gradient at 50% opacity */
+    --background-colour-for-negative-profit-data: linear-gradient( 145deg, rgba(228,0,0,0.5), rgba(236,71,71,0.15)); /* A red to orange gradient at 50% opacity */
+
+    /* max width for outcome value in dutching matcher */
+    --max-width-outcome-value-dutching-matcher: 3.22vw;
+
+
+
+
+
+
+    /* odds and bookmaker */
+    --width-odds-and-bookmaker: 13.12vw;
+    --padding-left-and-right-odds-and-bookmaker: 0.53vw;
+
+    --min-width-odds-button: 2.95vw;
+
+    /* at symbol */
+    --font-size-at-symbol: 0.85vw;
+
+
+
+
+
+    /* select buttons */
+    --width-height-select-button: 1.88vw;
+    --margin-left-select-button: 0.53vw;
+    --select-button-background-colour: #ff00c6;
+    --font-size-select-button: 1.18vw;
+    --select-button-background-colour-hover: #ff33d1;
+
+
+
+
+
+
+    /* pagintion */
+
+    --margin-between-pagination-buttons-and-pages: 5.35vw;
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+/* AT WIDTH OF 1440PX */
+
+.select_button_div, .calculator-container-div {
+    
+
+    /* global kind of items in select div */
+    --padding-for-items-in-select-div: 1.56vw;
+
+    
+
+    /* select bet sections */
+    --width-of-bar-on-left-of-bet-item: var(--padding-for-items-in-select-div);
+    --bar-on-left-of-bet-item-height: 5.73vw;
+
+
+    --height-of-bookmaker-logo-img-in-select-bet: calc(var(--height-filter-inputs) / 1.25);
+
+    --font-size-select-bet-text-div-instructions: calc(var(--font-size-filter-inputs) * 1.25);
+    --margin-left-copy-on-click: -0.16vw;
+    --dotted-border-bottom-copy-on-click: 0.16vw dotted #fff;
+    --border-spacing-copy-on-click: 0.42vw;
+
+    --gap-between-inputs-vertically-in-select-bet-div: calc(var(--padding-for-items-in-select-div) / 2);
+
+
+
+    /* controls section */
+    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
+    --gap-in-free-bet-mode-control: calc(var(--padding-for-items-in-select-div) / 2);
+
+    --height-of-checkbox: calc(var(--height-filter-inputs) * 0.75);
+
+    --padding-top-bottom-select-lay-type: 0.78vw;
+    --width-of-lay-bet-type-btn: 9.38vw;
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 1.3);
+
+
+
+
+
+    /* explanation text section */
+    --padding-left-right-for-explanation-text-div: calc(var(--padding-for-items-in-select-div) * 1.85);
+    --line-height-for-explanation-text-div: 1.6;
+
+
+
+
+
+
+    /* profit and log section */
+    --height-of-profit-and-log-div: 9.89vw;
+    --gap-between-left-and-right-of-profit-and-log-div: 5.21vw;
+
+    --gap-between-log-bet-button-and-description: 2.60vw;
+
+    --padding-left-right-for-log-bet-button-and-description-right-div: calc(var(--gap-between-log-bet-button-and-description) / 2);
+
+
+    --profit-item-title-font-size: calc(var(--font-size-filter-inputs) * 1.4);
+    --profit-item-value-font-size: var(--font-size-filter-inputs);
+    --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
+
+    --log-bet-button-padding-left-right: 1.69vw; /* slightly larger testing */
+
+
+
+
+
+
+
+    /* DUTCHING SPECIFIC THINGS FOR CONTROL PART */
+
+    --margin-top-of-free-bet-mode-control-input-div: -0.79vw;
+    --width-of-free-bet-mode-control-input-div: 16.08vw;
+
+    --padding-for-dutching-controls-section: calc(var(--padding-for-controls-section) * 1.3);
+
+
+
+
+
+    /* PROFIT TRACKER SPECIFIC */
+    --gap-between-items-profit-tracker-select: 1.61vw;
+
+    --width-of-filter-item-profit-tracker-bookmaker-selects: 14.73vw;
+
+    --height-of-bet-description-input-profit-tracker: 4.28vw;
+
+
+}
+
+
+
+
+
+
+
+.outcome_data, .fixture_data {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#outer-container-div {
+    margin: 0 !important;
+}
+
+#fixture_header {
+    width: 100%;
+}

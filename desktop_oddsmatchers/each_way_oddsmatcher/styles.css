@@ -1,0 +1,28 @@
+
+
+@import url('../main/styles.css');
+
+
+
+
+
+#outer-container-div {
+
+    /* width odds and bookmaker */
+    --width-odds-and-bookmaker: 15.00vw;
+
+    /* height for odds and bookmaker images */
+    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2.4);
+
+    /* padding around bookmaker images and odds */ 
+    --padding-left-and-right-odds-and-bookmaker: 0.71vw;
+
+    /* padding around odds anchor */
+    --min-width-odds-button: 3.57vw;
+
+}
+
+/* this is for dutching with less than 3 bets */ 
+td.hide_data > * {
+    display: none;
+}

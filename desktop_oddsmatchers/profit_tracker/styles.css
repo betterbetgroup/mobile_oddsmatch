@@ -1,0 +1,294 @@
+@import url('../main/styles.css');
+
+
+
+
+
+
+#outer-container-div {
+
+    /* above columns */
+    --width-of-total-profit-div: 8.3vw;
+    --gap-in-above-columns-row-profit-tracker: 2.5vw;
+    
+    --log-bet-button-div-width: 9vw; /* THIS IS TAKEN BY CHECKING THE PX OF LOG BET BUTTON SINCE IT'S SET BY PADDING */  
+
+
+
+
+    /* table header stuff */
+
+    --width-date-and-time-header: 6.5vw;
+
+    --width-for-items-on-right-row: calc(var(--row-height-set-by-expected-profit-data) * 1.5);
+
+
+
+
+    /* table stuff */
+    --margin-left-of-more-button: 0.25vw;
+
+
+    /* settled checkbox stuff */
+    --background-color-settled-checkbox-hover: #c4b6f3;
+    --background-color-settled-checkbox-checked: #030457;
+    
+    --checkbox-size-settled-checkbox: 1.79vw;
+
+
+
+
+
+
+    /* TOOLTIP */
+
+    --padding-tooltip: 0.57vw;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* above columns stuff */
+
+.above_columns_row_profit_tracker {
+    justify-content: center;
+    gap: var(--gap-in-above-columns-row-profit-tracker);
+}
+
+.div-outside-filter-dropdown-select-filters {
+    margin-right: 0;
+}
+
+.div-outside-info {
+    width: var(--width-of-total-profit-div);
+}
+
+.adding_gap_for_profit_divs {
+    gap: var(--gap-in-above-columns-row-profit-tracker);
+}
+
+.log-bet-button-div {
+    width: var(--log-bet-button-div-width);
+}
+
+
+
+
+
+
+
+
+
+/* date range stuff */
+
+.date-range-input::-webkit-calendar-picker-indicator {
+    background: none;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.date-range-input {
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* header stuff */
+
+#expected_profit_header, .container_in_expected_profit_header_ql_and_pp {
+    width: calc(var(--width-for-items-on-right-row) * 1.65) !important;
+}
+
+#bet_settled_header {
+    min-width: var(--row-height-set-by-expected-profit-data);
+    max-width: var(--row-height-set-by-expected-profit-data);
+    padding: 0;
+}
+
+#final_profit_header {
+    max-width: var(--width-for-items-on-right-row);
+}
+
+#date_and_time_header {
+    min-width: var(--width-date-and-time-header);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.date_and_time_data {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* THIS IS WHEN IT HAS CALCULATOR IT NEEDS TO BE 3 */
+tbody tr:last-child td:last-child:first-child:last-child, /* this is for making sure it always gets corners right by checking if it's both first and last child */
+tbody tr:last-child td:nth-last-child(3) {
+    border-bottom-right-radius: var(--global-border-radius);
+}
+
+
+
+
+/* TOOLTIP FOR CALCULATOR BUTTON */
+
+.calc_select_button[data-tooltip] {
+    position: absolute;
+}
+
+.calc_select_button[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(var(--width-height-select-button) * -1);
+    left: 50%;
+    padding: var(--padding-tooltip);
+    background: black;
+    color: white;
+    border-radius: var(--border-radius-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    border: var(--global-border-main);
+    z-index: 1000;
+}
+
+.calc_select_button[data-tooltip]:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+/* DESCRIPTION stuff */
+
+.description_data {
+    text-align: left;
+    width: auto;
+    max-width: none;
+    word-wrap: break-word;
+    white-space: normal;
+    position: relative;
+    line-height: normal;
+}
+
+.description_data.expanded {
+    position: absolute;
+    z-index: 5;
+    background: var(--table-data-first-background-colour);
+    border: var(--global-border-main);
+    border-radius: var(--global-border-radius);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: var(--global-box-shadow-main);
+    padding: var(--table-header-and-data-items-padding-top-and-bottom) var(--table-header-and-data-items-padding-sides);
+    overflow-y: auto;
+    top: 0;
+    left: var(--width-date-and-time-header);
+    margin: 0;
+}
+
+.description_data .description-text {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+.description_data .more-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: var(--font-size-data);
+    padding: 0;
+    margin-left: var(--margin-left-of-more-button);
+    display: none;
+}
+
+.description_data .more-button:hover {
+    color: #ff00c6;
+}
+
+.description_data .more-button.visible {
+    display: inline;
+}
+
+
+
+
+
+
+
+/* settled checkbox stuff */
+
+
+.settled_data {
+    padding: 0;
+}
+
+.expected_profit_data input[type="checkbox"] {
+    margin: 0;
+}
+
+.settled_checkbox {
+    width: var(--row-height-set-by-expected-profit-data);
+    aspect-ratio: 1;
+    -webkit-appearance: none;  
+    -moz-appearance: none;     
+    appearance: none;          
+    background-color: white;   
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s; 
+    display: inline-block; 
+    position: relative; 
+    margin: 0;
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: var(--checkbox-size-settled-checkbox);
+}
+
+.settled_checkbox:hover {
+    background-color: var(--background-color-settled-checkbox-hover); 
+}
+
+.settled_checkbox:checked {
+    background-color: var(--background-color-settled-checkbox-checked); 
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff" stroke="%23ffffff" width="24" height="24"><polyline fill="none" points="3.7 14.3 9.6 19 20.3 5" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></svg>'); 
+}
+
+
+
+
+
+
+

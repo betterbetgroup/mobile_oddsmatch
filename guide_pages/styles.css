@@ -1,0 +1,1162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff; /* Ensure all text is white by default */
+}
+
+body {
+    background: #000;
+    color: #fff;
+    line-height: 1.6;
+    overflow-x: hidden !important;
+    min-height: 100vh !important;
+    height: auto !important;
+}
+
+html {
+    overflow-x: hidden !important;
+    height: auto !important;
+}
+
+/* Blog Container */
+.blog-container {
+    margin: 0 auto;
+    margin-bottom: 50px;
+    background: #000;
+    color: #fff;
+}
+
+/* Premium Header Design */
+.blog-header {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    padding: 60px 40px 80px 40px;
+    border-bottom: 3px solid #ff00c6;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 0, 198, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bookmaker-section {
+    margin-bottom: 32px;
+}
+
+.bookmaker-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(1.1) contrast(1.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.title-section {
+    margin-bottom: 40px;
+}
+
+.main-title {
+    font-size: 50px;
+    font-weight: 800;
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 16px 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(255, 0, 198, 0.3);
+}
+
+.offer-subtitle {
+    font-size: 20px;
+    color: #ccc;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.profit-section {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #6c757d, #495057);
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.profit-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), transparent);
+    border-radius: inherit;
+}
+
+.profit-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.profit-label {
+    font-size: 11px;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Blog Content Layout - Isolated from sales page CSS */
+.blog-content {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 50px;
+    padding: 50px 40px;
+    contain: layout style;
+    isolation: isolate;
+}
+
+/* Base sidebar styling */
+.step-sidebar {
+    height: fit-content;
+}
+
+/* Ensure main content has proper left margin */
+.main-content {
+    margin-left: 0;
+    max-width: none;
+    contain: layout;
+}
+
+/* Step activation animation */
+@keyframes stepActivate {
+    0% {
+        transform: translateX(8px) scale(1);
+        box-shadow: 0 4px 20px rgba(255, 0, 198, 0.3);
+    }
+    50% {
+        transform: translateX(12px) scale(1.05);
+        box-shadow: 0 8px 30px rgba(255, 0, 198, 0.5);
+    }
+    100% {
+        transform: translateX(8px) scale(1);
+        box-shadow: 0 4px 20px rgba(255, 0, 198, 0.3);
+    }
+}
+
+/* Step Progress Container Enhancement */
+.step-progress {
+    background: #0f0f0f;
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #2a2a2a;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.step-progress h3 {
+    font-size: 16px;
+    margin-bottom: 14px;
+    color: #fff;
+    text-align: center;
+    padding-bottom: 8px;
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.step-progress h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+}
+
+.step-progress h3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--progress-width, 33%);
+    height: 4px;
+    background: linear-gradient(90deg, #ff00c6, #b300ff);
+    border-radius: 2px;
+    transition: width 0.5s ease;
+    z-index: 1;
+    box-shadow: 0 0 8px rgba(255, 0, 198, 0.4);
+}
+
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.guide-step-item {
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #2a2a2a;
+    font-size: 13px;
+    color: #ccc;
+    background: #1a1a1a;
+    margin-bottom: 4px;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+}
+
+.guide-step-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.guide-step-item:hover {
+    background: #252525;
+    border-color: #404040;
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.guide-step-item:hover::before {
+    background: #ff00c6;
+    width: 4px;
+}
+
+.guide-step-item.active {
+    background: linear-gradient(135deg, #ff00c6, #b300ff);
+    color: white;
+    font-weight: 600;
+    border-color: #ff00c6;
+    transform: translateX(8px);
+    box-shadow: 0 4px 16px rgba(255, 0, 198, 0.25);
+}
+
+.guide-step-item.active::before {
+    background: rgba(255, 255, 255, 0.8);
+    width: 4px;
+}
+
+
+/* Enhanced Step Section */
+.step-section {
+    margin-bottom: 80px;
+    scroll-margin-top: 40px;
+    padding: 32px 0 40px 0;
+    position: relative;
+}
+
+.step-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
+    border-radius: 1px;
+}
+
+.step-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    color: #fff;
+    position: relative;
+    padding-left: 16px;
+}
+
+.step-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 50px;
+    background: linear-gradient(180deg, #ff00c6, #b300ff);
+    border-radius: 2px;
+}
+
+.step-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.step-text p {
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Step Content Styling - Enhanced Design */
+.step-content {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.step-instruction {
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0;
+    border-left: 4px solid #ff00c6;
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-instruction::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
+}
+
+/* Enhanced Step Item Types */
+.step-item-text {
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 0;
+    border-left: 4px solid #ff00c6;
+    color: #e0e0e0;
+    font-size: 15px;
+    line-height: 1.6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-item-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
+}
+
+/* Enhanced Button Design */
+.step-item-button {
+    margin: 8px 0;
+    text-align: center;
+    padding: 16px 0;
+}
+
+.step-button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff00c6, #b300ff);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 8px 25px rgba(255, 0, 198, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+.step-button-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.step-button-primary:hover::before {
+    left: 100%;
+}
+
+.step-button-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 12px 35px rgba(255, 0, 198, 0.5),
+        0 6px 15px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-decoration: none;
+}
+
+.step-button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(15px);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    min-width: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-button-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.step-button-secondary:hover::before {
+    left: 100%;
+}
+
+.step-button-secondary:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Enhanced Info and Warning Boxes */
+.step-item-info {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(0, 200, 255, 0.08));
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 14px;
+    color: #e8e8e8;
+    box-shadow: 
+        0 4px 15px rgba(0, 255, 255, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-item-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+}
+
+.step-item-info i {
+    color: #00ffff;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.5));
+}
+
+.step-item-warning {
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.12), rgba(255, 140, 0, 0.08));
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 14px;
+    color: #e8e8e8;
+    box-shadow: 
+        0 4px 15px rgba(255, 170, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-item-warning::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffaa00, transparent);
+}
+
+.step-item-warning i {
+    color: #ffaa00;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    filter: drop-shadow(0 0 4px rgba(255, 170, 0, 0.5));
+}
+
+/* Enhanced Tip Design */
+.step-item-tip {
+    background: linear-gradient(135deg, rgba(255, 170, 0, 0.15), rgba(255, 140, 0, 0.08));
+    border: 1px solid rgba(255, 170, 0, 0.4);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 
+        0 6px 20px rgba(255, 170, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-item-tip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffaa00, transparent);
+}
+
+.step-item-tip .tip-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #ffaa00;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.step-item-tip .tip-header i {
+    font-size: 20px;
+    filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.6));
+}
+
+.step-item-tip p {
+    color: #f0f0f0;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Enhanced Checkbox Design */
+.step-item-checkbox {
+    margin: 0;
+    padding: 20px 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #e8e8e8;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container:hover {
+    color: #fff;
+}
+
+.step-checkbox {
+    display: none;
+}
+
+.checkbox-checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.checkbox-checkmark::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(45deg);
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-checkbox:checked + .checkbox-checkmark {
+    background: linear-gradient(135deg, #ff00c6, #b300ff);
+    border-color: #ff00c6;
+    box-shadow: 0 4px 15px rgba(255, 0, 198, 0.4);
+}
+
+.step-checkbox:checked + .checkbox-checkmark::after {
+    transform: translate(-50%, -50%) scale(1) rotate(45deg);
+}
+
+.checkbox-container:hover .checkbox-checkmark {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.checkbox-text {
+    font-weight: 500;
+    user-select: none;
+}
+
+.step-tips {
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid #ffaa00;
+    border-radius: 8px;
+    padding: 14px;
+    margin: 20px 0 32px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.tips-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: #ffaa00;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.step-tips p {
+    color: #fff;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Oddsmatcher Tool Section */
+.oddsmatcher-wrapper {
+    margin: 24px 0 36px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.oddsmatcher-intro {
+    background: linear-gradient(135deg, #ff00c6, #b300ff);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 12px 12px 0 0;
+}
+
+.tool-icon {
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.tool-content h4 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.tool-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.oddsmatcher-container {
+    background: linear-gradient(145deg, #0a0a0a, #151515);
+    border: 1px solid #2a2a2a;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+}
+
+
+
+/* Mobile Responsive */
+@media (max-width: 700px) {
+        /* Header Section - Mobile Optimized */
+
+    .blog-container {
+        margin-bottom: 30px;
+    }
+
+
+
+    .blog-header {
+        padding: 24px 20px 36px 20px;
+        min-height: auto;
+    }
+
+    .step-title::before {
+        height: 20px;
+    }
+
+    .header-content {
+        text-align: center;
+        gap: 16px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .bookmaker-section {
+        margin-bottom: 16px;
+    }
+
+    .bookmaker-logo {
+        height: 48px;
+        border-radius: 14px;
+    }
+
+    .main-title {
+        font-size: 27px;
+        line-height: 1.2;
+        margin-bottom: 14px;
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    .offer-subtitle {
+        font-size: 16px;
+    }
+    
+    .profit-section {
+        flex-direction: row;
+        gap: 15px;
+        padding: 10px 28px;
+        border-radius: 14px;
+        max-width: 260px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .profit-badge {
+        font-size: 12px;
+        padding: 4px 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .profit-label {
+        font-size: 10px;
+        opacity: 0.9;
+    }
+
+    /* Layout - Mobile Grid */
+    .blog-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 16px 20px;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Sidebar - Horizontal Navigation */
+    .step-sidebar {
+        display: none;
+    }
+
+    .step-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px 0 16px 0;
+        gap: 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #ff00c6 transparent;
+    }
+
+    .step-list::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .step-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+
+    .step-list::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #ff00c6, #b300ff);
+        border-radius: 2px;
+    }
+
+    .guide-step-item {
+        flex-shrink: 0;
+        min-width: 100px;
+        text-align: center;
+        color: #fff;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s ease;
+        font-size: 13px;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+        white-space: nowrap;
+        touch-action: manipulation;
+    }
+
+    .guide-step-item:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 0, 198, 0.4);
+        transform: translateY(-1px);
+    }
+
+    .guide-step-item.active {
+        background: linear-gradient(135deg, #ff00c6, #b300ff);
+        color: white;
+        font-weight: 600;
+        border-color: #ff00c6;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 0, 198, 0.4);
+    }
+
+    .main-content {
+        order: 2;
+    }
+
+    /* Step Sections - Mobile Optimized */
+    .step-section {
+        margin-bottom: 28px;
+        padding-bottom: 16px;
+        scroll-margin-top: 80px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .title-section {
+        margin-bottom: 30px;
+    }
+
+    .step-title {
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .step-instruction {
+        padding: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .step-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    /* Step Items - Mobile Friendly */
+    .step-item-text {
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        border-left: 3px solid #ff00c6;
+        margin: 0;
+        touch-action: manipulation;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .step-item-text::before {
+        display: none; /* Simplify for mobile */
+    }
+
+    /* Buttons - Mobile Touch Optimized */
+    .step-item-button {
+        margin: 12px 0;
+        text-align: center;
+        padding: 0;
+    }
+
+    .step-button-primary,
+    .step-button-secondary {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 14px 20px;
+        font-size: 15px;
+        border-radius: 20px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        touch-action: manipulation;
+        min-width: auto;
+        box-sizing: border-box;
+    }
+
+    .step-button-primary:hover,
+    .step-button-secondary:hover {
+        transform: translateY(-1px) scale(1.01);
+    }
+
+    /* Info/Warning/Tip Boxes - Mobile Optimized */
+    .step-item-info,
+    .step-item-warning,
+    .step-item-tip {
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        line-height: 1.5;
+        gap: 10px;
+        margin: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .step-item-info i,
+    .step-item-warning i {
+        font-size: 16px;
+        margin-top: 1px;
+    }
+
+    .step-item-info::before,
+    .step-item-warning::before,
+    .step-item-tip::before {
+        height: 2px;
+    }
+
+    /* Checkbox Section - Mobile Touch Friendly */
+    .step-item-checkbox {
+        padding: 16px;
+        border-radius: 12px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .checkbox-container {
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .step-checkbox {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .checkbox-checkmark {
+        width: 12px;
+        height: 12px;
+    }
+
+    .added_oddsmatcher {
+        width: 360px;
+        display: block;
+    }
+
+
+
+    /* Oddsmatcher - Mobile Responsive */
+    .oddsmatcher-wrapper {
+        margin: 16px 0;
+        padding: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .oddsmatcher-intro {
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        margin-bottom: 12px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .oddsmatcher-container {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+
+
+    /* Progress Bar - Mobile */
+    .step-progress {
+        display: none; /* Hide progress bar on mobile for cleaner look */
+    }
+
+    /* Typography Improvements */
+    h1, h2, h3, h4, h5, h6 {
+        line-height: 1.3;
+        word-wrap: break-word;
+    }
+
+    p {
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    /* Touch Improvements */
+    a, button, .guide-step-item, .step-button-primary, .step-button-secondary {
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+    }
+
+    /* Global mobile width constraints */
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ensure no elements overflow horizontally */
+    .main-content,
+    .step-content > *,
+    .step-item-button > *,
+    .step-instruction > * {
+        max-width: 100%;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Accessibility - Larger touch targets */
+    .guide-step-item {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Reduce motion for mobile users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        .guide-step-item,
+        .step-button-primary,
+        .step-button-secondary {
+            transition: none;
+        }
+        
+        .guide-step-item:hover,
+        .step-button-primary:hover,
+        .step-button-secondary:hover {
+            transform: none;
+        }
+    }
+}
+
+/* Desktop-only sticky positioning */
+@media (min-width: 701px) {
+    .step-sidebar {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 20px !important;
+        height: fit-content !important;
+        z-index: 999 !important;
+        contain: layout style !important;
+        isolation: isolate !important;
+        transform: translateZ(0) !important;
+        will-change: transform !important;
+    }
+}

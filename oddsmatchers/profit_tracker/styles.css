@@ -1,0 +1,250 @@
+@import url('../main/styles.css');
+
+
+
+
+
+
+#outer-container-div {
+
+    /* item */
+    --width-mobile-row-strong: 25vw;
+
+
+
+
+    /* bottom of item stuff */
+    --background-color-not-complete-badge: #555;
+    --color-not-complete-badge: #ddd;
+    --margin-top-bottom-items: calc(var(--margin-bottom-mobile-row) / 1.5);
+
+    --gap-between-description-title-and-text: calc(var(--margin-top-bottom-items) / 2.2);
+
+    /* slider stuff */
+    --adjusted-relative-width-for-switch: calc(var(--height-filter-inputs) / 1.45);
+
+
+}
+
+
+
+
+/* FILTER STUFF */
+
+.date-range-input {
+    color: white;
+    position: relative;
+    width: 100%;
+    height: var(--height-filter-inputs);
+    background: var(--background-colour-filters);
+    border: var(--border-filters);
+    border-radius: var(--border-radius-filter-inputs);
+    color: #eee;
+    align-items: center;
+    outline: none; 
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    padding-left: var(--padding-left-filter-inputs);
+    text-align: left;
+}
+
+/* Remove default focus outline and add custom focus styles */
+.date-range-input:focus,
+.custom-select-container:focus,
+.custom-input-container:focus,
+.text-input:focus,
+.custom-select-trigger input:focus,
+.custom-select-trigger-filter input:focus,
+.text-input-filter-name:focus {
+    outline: none;
+}
+
+/* Hide the calendar icon on date inputs */
+.date-range-input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+input::-webkit-date-and-time-value {
+    text-align: left;
+}
+
+
+
+.date-range-input::-webkit-inner-spin-button,
+.date-range-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* iPhone/Safari specific date input styling */
+.date-range-input::-webkit-datetime-edit {
+    color: #eee;
+    text-align: left;
+    width: 100%;
+}
+
+.date-range-input::-webkit-datetime-edit-fields-wrapper {
+    color: #eee;
+    text-align: left;
+}
+
+.date-range-input::-webkit-datetime-edit-text {
+    color: #eee;
+    text-align: left;
+}
+
+
+.date-range-input::-webkit-datetime-edit-month-field,
+.date-range-input::-webkit-datetime-edit-day-field,
+.date-range-input::-webkit-datetime-edit-year-field {
+    text-align: left;
+}
+
+
+
+
+
+
+/* Date wrapper styling to match other filter containers */
+.custom-date-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CREATE ROW STUFF */ 
+
+
+.mobile-row-description-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-between-description-title-and-text);
+}
+
+.mobile-row-description {
+    margin-bottom: calc(var(--margin-bottom-mobile-row) / 1.5);
+}
+
+.mobile-row-description-container .mobile-row-description span {
+    text-align: left;
+}
+
+
+
+/* bottom of each row */
+
+.profit_info_div_outer {
+    width: 100%;
+    display: flex;
+    margin-bottom: var(--margin-bottom-mobile-row);
+    justify-content: space-between;
+
+}
+
+.mobile-row a {
+    height: var(--height-of-img-logo);
+    display: flex;
+}
+
+.no_gap_for_profit_divs {
+    gap: 0;
+}
+
+.profit_info_div_inner {
+    flex: 1;
+}
+
+
+.log-bet-button-div, .log-bet-button {
+    width: 100%;
+}
+
+.profit_info_div_inner_title {
+    font-size: var(--global-main-font-size);
+    font-weight: var(--font-weight-mobile-row-strong);
+    text-align: center;
+    color: var(--color-mobile-row-title);
+}
+
+.loss-badge, .profit-badge {
+    font-size: var(--global-main-font-size);
+    font-weight: var(--font-weight-mobile-row-strong);
+    margin-top: var(--margin-top-bottom-items);
+    text-align: center;
+    width: 85%;
+}
+
+.not-complete-badge {
+    background-color: var(--background-color-not-complete-badge);
+    color: var(--color-not-complete-badge);
+}
+
+
+
+
+
+
+/* slider stuff */
+
+.item-complete-switch .switch {
+    position: relative;
+    display: inline-block;
+    width: calc(2 * var(--adjusted-relative-width-for-switch));
+    height: var(--adjusted-relative-width-for-switch);
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: var(--margin-top-bottom-items);
+}
+
+.item-complete-switch .slider:before {
+    height: calc(var(--adjusted-relative-width-for-switch) - 2 * var(--global-border-width-main));
+    width: calc(var(--adjusted-relative-width-for-switch) - 2 * var(--global-border-width-main));
+}
+
+.item-complete-switch input:checked + .slider:before {
+    transform: translateX(var(--adjusted-relative-width-for-switch));
+}
+
+
+
+
+
+
+/* JUST PROFIT TRACKER MOBILE STUFF */
+
+
+.switch_select_settled_bet {
+    width: calc(2 * var(--height-of-checkbox)); /* ADDED */
+    height: var(--height-of-checkbox); /* ADDED */
+}
+
+.slider_select_settled_bet:before {
+    height: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));/* ADDED */
+    width: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));/* ADDED */
+}
+
+.settled_bet_switch:checked + .slider_select_settled_bet:before {
+    transform: translateX(var(--height-of-checkbox)); /* ADDED */
+}
+
+.div-for-settled-bet-checkbox {
+    margin-top: var(--gap-between-items-profit-tracker-select); /* ADDED */
+}
+

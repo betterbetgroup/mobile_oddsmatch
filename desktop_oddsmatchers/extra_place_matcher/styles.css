@@ -1,0 +1,47 @@
+
+@import url('../main/styles.css');
+
+
+
+
+
+#outer-container-div {
+
+    /* width odds and bookmaker */
+    --width-odds-and-bookmaker: 13.57vw;
+
+    /* height for odds and bookmaker images */
+    --height-odds-and-bookmaker-images: calc(var(--row-height-set-by-expected-profit-data) / 2.6);
+
+    /* padding around bookmaker images and odds */ 
+    --padding-left-and-right-odds-and-bookmaker: 0.36vw;
+
+    /* padding around odds anchor */
+    --min-width-odds-button: 3.43vw;
+
+
+    /* new width for each way back bet */
+    --min-width-each-way-back-bet: 18.93vw;
+
+
+    /* padding around expected profit extra place */
+    --padding-left-and-right-for-expected-profit-extra-place: 0.14vw;
+
+
+
+}
+
+/* this is for dutching with less than 3 bets */ 
+td.hide_data > * {
+    display: none;
+}
+
+#expected_profit_header {
+    padding-left: var(--padding-left-and-right-for-expected-profit-extra-place);
+    padding-right: var(--padding-left-and-right-for-expected-profit-extra-place);
+}
+
+.outcome_data, .fixture_data {
+    padding-bottom: 0;
+    padding-top: 0;
+}

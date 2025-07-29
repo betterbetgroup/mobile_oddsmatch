@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+
+# VS Code settings (optional: keep if you want project-wide settings saved)
+.vscode/
+
+# Node dependencies (only if using npm or yarn later)
+node_modules/
+
+# Build output (if you ever build your JS/CSS)
+dist/
+build/
+
+# Logs
+*.log
+
+# Environment variables / secrets (just in case)
+.env
+.env.*

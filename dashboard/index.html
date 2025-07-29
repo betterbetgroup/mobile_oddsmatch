@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+</head>
+
+<body style="margin: 0; background-color: black;">
+
+    <div id="app">
+        <dashboard-page></dashboard-page>
+    </div>
+
+    <script src="dashboard.js"></script>
+
+
+    <script>
+        const dashboard = document.querySelector('dashboard-page');
+        dashboard.setAttribute('data-odds', JSON.stringify({
+            "profit": {
+                "today": -303,
+                "thisMonth": 339,
+                "lastMonth": 220,
+                "thisYear": 34333,
+                "total": 4379293
+            },
+            "offers": {
+                "signup": {
+                    "completed": 64,
+                    "total": 83
+                },
+                "weekly": {
+                    "completed": 22,
+                    "total": 40
+                },
+                "reload": {
+                    "completed": 2,
+                    "total": 10
+                },                
+                "guides": {
+                    "completed": 4,
+                    "total": 15
+                }
+            },
+            "membership": {
+                "status": "free",
+                "planName": "Premium Free Trial",
+                "expiryDate": "2024-02-15"
+            }
+        }));
+    </script>
+
+</body>
+
+</html>

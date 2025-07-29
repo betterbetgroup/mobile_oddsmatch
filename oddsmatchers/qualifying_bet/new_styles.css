@@ -1,0 +1,301 @@
+@import url('../main/styles.css');
+
+/* CSS MADE USING SCALE DOWN OF 0.9 */
+
+#outer-container-div {
+
+
+
+
+    /* global */
+
+    --global-main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --blur-amount: 1.12vw;
+
+    --global-border-radius: 3.15vw;
+    --global-container-width: 95%;
+    --global-main-font-size: 3.15vw;
+    --global-gap-between-main-items: 3.38vw; /* this is gap between above and filter panel and table/mobile-container */
+    --global-border-width-main: 0.23vw;
+
+    --global-smaller-border-radius: 0.90vw;
+
+    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+
+    --global-main-background-colour: #121212;
+
+
+
+    --outer-container-div-margin-bottom: 45.00vw;
+
+
+
+
+    /* body */
+    --body-padding: 1.29vw;
+
+    /* outer container div */
+    --outer-container-div-padding-horizontal: 0.32vw;
+    --outer-container-div-padding-bottom: 10.37vw;
+    --outer-container-div-width: 90.00vw;
+
+
+    /* loading and no data div */
+    --loading-and-no-data-div-padding: 4.50vw;
+    --loading-and-no-data-div-aspect-ratio: 2;
+    --loading-aspect-ratio: 1;
+    --loading-and-no-data-div-font-size: 3.60vw;
+
+    /* neon part */
+    --neon-pulse-width-and-height: 18.00vw;
+    --neon-pulse-perspective: 135.00vw;
+    --neon-bar-width: 2.25vw;
+    --neon-bar-height: 9.00vw;
+    --neon-bar-box-shadow: 0.00vw 0.00vw 2.25vw rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 15.75vw;
+
+
+    /* mobile card */
+    --mobile-card-padding: 3.60vw 4.50vw;
+    --mobile-card-box-shadow: 0 0.45vw 2.25vw rgba(0, 0, 0, 0.4);
+    --outer-mobile-card-total-padding: 1.80vw;
+    --gap-between-data-rows: 1.80vw;
+    --inner-background-colour: #000000;
+
+
+
+    /* mobile row */
+    --gap-in-mobile-row: 1.12vw;
+    --margin-bottom-mobile-row: 2.70vw;
+    --width-mobile-row-strong: 22.50vw; 
+    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
+
+    --color-mobile-row-title: #fff;
+
+
+    /* content items i.e. logo img, odds combo, etc */
+    --height-of-img-logo: 4.95vw;
+    --gap-in-odds-combo: 1.80vw;
+    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.57vw;
+    --gap-between-profit-and-loss-and-rating: 1.12vw;
+    --padding-profit-loss-rating-badge: 1.35vw 1.80vw;
+
+
+    /* filter panel container and above columns */
+    --padding-main-containers: 3.60vw;
+    --gap-between-filters-horizontal-and-vertical: 2.70vw;
+
+
+    /* filter stuff */
+    --background-colour-filters: #333;
+    --border-filters: var(--global-border-width-main) solid #444;
+    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
+    --height-filter-inputs: 9.00vw;
+    --padding-left-filter-inputs: 2.25vw;
+    --border-radius-filter-inputs: 1.35vw;
+    --font-size-filter-inputs: var(--global-main-font-size);
+    --padding-left-filter-inputs-select-boxes-arrow: 4.05vw; /* think this is for the dropdowns with checkboxes */
+    --font-size-currency-box: 4.50vw;
+    --font-size-multiplier-for-percentage: 0.85;
+    --max-height-dropdown-options: 45.00vw;
+    --box-shadow-dropdown-options: 0 0.45vw 1.80vw rgba(0, 0, 0, 0.4);
+    --padding-dropdown-options: 2.70vw 2.70vw;
+    --padding-left-dropdown-options-label: 1.12vw;
+    --margin-right-checkbox: 2.25vw;
+    --smaller-font-size-filter-label-and-filter-delete-buttons: 2.25vw;
+    --margin-left-and-bottom-filter-label: 1.08vw;
+    --width-currency-box: 5.62vw;
+
+
+
+
+    /* selecting filter section specifically now */
+    --padding-filter-delete-buttons: 0.90vw 2.25vw;
+    --border-radius-filter-delete-buttons: 0.68vw;
+
+
+    /* above columns */ 
+    --gap-in-above-columns: 5.62vw;
+    --gap-between-above-column-rows: 3.38vw;
+
+    /* above columns items stuff */
+    --margin-right-confirm-filter-name: 3.38vw;
+    --refresh-results-margin-against-timer: 1.35vw;
+    --width-height-cancel-making-filter-svg: 4.50vw;
+    --width-height-button-images: 4.50vw;
+    --margin-left-refresh-results-img: 1.35vw;
+    --border-radius-switch-slider: 11.25vw; /* Round borders for the slider - think could be 100 */
+
+
+    /* pagination */
+    --padding-pagination-container: 2.70vw 0.00vw;
+    --width-pagination-button: 18.00vw;
+    --padding-pagination-button: 0.00vw 3.38vw;
+    --font-size-pagination: 2.70vw;
+
+
+    /* covering filter box */
+    --covering-filter-box-inset: -0.23vw;
+    --height-width-covering-filter-box-padlock: 27.00vw;
+    
+
+    /* upgrade div box */   
+    --padding-outer-div-upgrade: 3.38vw;
+
+    /* upgrade button in upgrade div */
+    --upgrade-button-border-radius: 2.25vw;
+    --padding-upgrade-button: 2.25vw 5.62vw;
+    --font-size-upgrade-button: 4.05vw;
+    --width-height-padlock-image-in-button: 5.62vw;
+    --margin-left-padlock-image-in-button: 2.25vw;
+
+
+
+
+
+
+
+
+    /* profit tracker mobile change */
+
+    --margin-top-info-text-mobile: 2.25vw;
+
+
+
+
+
+    /* PROFIT TRACKER */
+    --log-bet-button-padding-left-right: 1.94vw;
+
+
+}
+
+
+
+
+/* AT WIDTH OF 1440PX */
+
+.select_button_div, .calculator-container-div {
+    
+
+    /* global kind of items in select div */
+    --padding-for-items-in-select-div: 1.87vw;
+
+    
+
+    /* select bet sections */
+    --width-of-bar-on-left-of-bet-item: var(--padding-for-items-in-select-div);
+    --bar-on-left-of-bet-item-height: 6.88vw;
+
+
+    --height-of-bookmaker-logo-img-in-select-bet: calc(var(--height-filter-inputs) / 1.25);
+
+    --font-size-select-bet-text-div-instructions: calc(var(--font-size-filter-inputs) * 1.25);
+    --margin-left-copy-on-click: -0.19vw;
+    --dotted-border-bottom-copy-on-click: 0.19vw dotted #fff;
+    --border-spacing-copy-on-click: 0.50vw;
+
+    --gap-between-inputs-vertically-in-select-bet-div: calc(var(--padding-for-items-in-select-div) / 2);
+
+
+
+    /* controls section */
+    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
+    --gap-in-free-bet-mode-control: calc(var(--padding-for-items-in-select-div) / 2);
+
+    --height-of-checkbox: calc(var(--height-filter-inputs) * 0.75);
+
+    --padding-top-bottom-select-lay-type: 0.94vw;
+    --width-of-lay-bet-type-btn: 11.25vw;
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 1.3);
+
+
+
+
+
+    /* explanation text section */
+    --padding-left-right-for-explanation-text-div: calc(var(--padding-for-items-in-select-div) * 1.85);
+    --line-height-for-explanation-text-div: 1.6;
+
+
+
+
+
+
+    /* profit and log section */
+    --height-of-profit-and-log-div: 11.87vw;
+    --gap-between-left-and-right-of-profit-and-log-div: 6.25vw;
+
+    --gap-between-log-bet-button-and-description: 3.12vw;
+
+    --padding-left-right-for-log-bet-button-and-description-right-div: calc(var(--gap-between-log-bet-button-and-description) / 2);
+
+
+    --profit-item-title-font-size: calc(var(--font-size-filter-inputs) * 1.4);
+    --profit-item-value-font-size: var(--font-size-filter-inputs);
+    --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
+
+
+
+
+
+
+
+
+    /* DUTCHING SPECIFIC THINGS FOR CONTROL PART */
+
+    --margin-top-of-free-bet-mode-control-input-div: -0.95vw;
+    --width-of-free-bet-mode-control-input-div: 19.29vw;
+
+    --padding-for-dutching-controls-section: calc(var(--padding-for-controls-section) * 1.3);
+
+
+
+
+
+
+
+
+    /* MOBILE ADDED */
+
+    --padding-top-bottom-item-divs: calc(var(--padding-for-items-in-select-div) * 2.35);
+
+    --gap-between-items-select-bet-div-mobile: calc(var(--margin-bottom-mobile-row) * 2);
+
+    --height-of-description_text-box-and-label-div: 24.75vw;
+
+    --border-radius-lay-type-buttons: 4.05vw;
+
+
+
+
+
+
+    /* PROFIT TRACKER SPECIFIC */
+    --gap-between-items-profit-tracker-select: 4.50vw; /* CHANGED */
+
+    --width-of-filter-item-profit-tracker-bookmaker-selects: 100%; /* CHANGED */
+
+    --height-of-bet-description-input-profit-tracker: 21.60vw; /* CHANGED */
+
+
+
+
+}
+
+
+
+
+#outer-container-div {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: calc(100%);
+    max-width: calc(100%);
+}
+
+
+.above-columns, #content {
+    width: 100%;
+}

@@ -1,0 +1,605 @@
+@import url('../../desktop_oddsmatchers/main/styles.css') screen and (min-width: 700px);
+@import url('../../oddsmatchers/main/styles.css') screen and (max-width: 699px);
+
+
+.calculator-container-div {
+
+    --width-calculator-container: 90%;
+
+
+    --padding-calculator-gaps: 2vw;
+
+    --padding-left-right-refresh-button: 3.5vw;
+
+
+
+
+    --width-filter-items-calculator: 15vw;
+
+
+}
+
+
+
+.calculator-container-div, .refresh-button-div {
+    display: flex;
+}
+
+.calculator-container-div {
+    background: var(--global-main-background-colour);
+    width: var(--width-calculator-container);
+    border: var(--global-border-main);
+    border-radius: calc(var(--larger-border-radius-above-columns-panel) / 1.5);
+    padding: calc(var(--padding-calculator-gaps) * 1.25);
+    padding-top: var(--padding-calculator-gaps);
+    gap: calc(var(--padding-calculator-gaps) * 1.75);
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.refresh-button-div {
+    width: 100%;
+}
+
+.refresh-button {
+    width: auto;
+    padding-left: var(--padding-left-right-refresh-button);
+    padding-right: var(--padding-left-right-refresh-button);
+    margin: auto;
+}
+
+
+
+.input-section-div {
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--padding-calculator-gaps) * 2);
+
+}
+
+.calc-input-div-standard, .calculator-bet-info-section-div {
+    display: flex;
+    flex-direction: row;
+    gap: var(--padding-calculator-gaps);
+}
+
+.back-input-div, .lay-input-div {
+    width: calc(25% - var(--padding-calculator-gaps));
+}
+
+.free_bet_mode_control {
+    margin-top: calc(var(--height-filter-inputs) / 1.8);
+    align-self: flex-start;
+}
+
+.bet_type_control {
+    display: flex;
+    margin-top: auto;
+    justify-self: flex-end;
+    align-self: flex-start;
+}
+
+.control-input-div {
+    display: flex;
+    align-items: center;
+}
+
+
+.control-div-bet-calculator-div {
+    justify-content: center;
+}
+
+
+
+
+
+.bottom_div_calculator_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.info-and-profit-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--padding-calculator-gaps);
+    width: 100%;
+}
+
+
+
+
+.upper-logging-div, .middle-logging-div {
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--padding-calculator-gaps) * 2);
+    width: 100%;
+}
+
+.middle-logging-div {
+    flex-direction: column;
+    gap: 0;
+    gap: var(--padding-calculator-gaps);
+
+}
+
+.filter-item-profit-tracker {
+    width: 25%;
+}
+
+.description-and-profit-section-inner-top-item {
+    gap: calc(var(--padding-calculator-gaps) * 2);
+
+}
+
+.filter-item-description {
+    width: 100%;
+    min-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--height-filter-inputs));
+    max-width: calc((var(--width-filter-items-calculator) * 2) + (2 * var(--padding-calculator-gaps)) + var(--height-filter-inputs));
+}
+
+
+.top-div-info-and-profit {
+    padding-top: calc(var(--height-filter-inputs) / 1.75);
+}
+
+.select_bet_text_div span, .seq-lay-profit-row span {
+    font-size: var(--profit-item-title-font-size);
+    text-align: left;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.copy-icon {
+    height: var(--profit-item-title-font-size);
+}
+
+.profit_and_log__item_title {
+    text-align: center;
+    font-size: calc(var(--profit-item-title-font-size) * 0.85);
+}
+
+.profit_and_log__item_value {
+    font-size: calc(var(--profit-item-value-font-size) * 0.9);
+}
+
+.bottom-div-info-and-profit {
+    display: flex;
+    justify-self: flex-end;
+    align-items: flex-end;
+    height: 100%;
+}
+
+
+.lay_bet_info_div {
+    margin: 0;
+    justify-content: flex-start;
+    display: flex;
+    text-align: left;
+    align-items: flex-end;
+}
+
+.select_bet_text_div_text, .seq-lay-profit-row span {
+    height: var(--height-filter-inputs);
+    line-height: var(--height-filter-inputs);
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.select_bet_text_div_text {
+    padding-left: 0.5vw;
+}
+
+
+.seq-lay-profit-row {
+    height: calc(var(--height-filter-inputs) * 1.5);
+    line-height: calc(var(--height-filter-inputs) * 1.5);
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+
+
+.div-in-bottom-div-info-and-profit {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.profit_display_div_calculator {
+    width: auto;
+    width: 100%;
+
+}
+
+.div_around_profit_display_items, .profit_display_div_calculator {
+    gap: calc(var(--padding-calculator-gaps) * 1);
+    justify-content: space-between;
+
+}
+
+.log-bet-button-div {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-left: 0;
+    margin-right: 0;
+
+
+
+    min-width: fit-content;
+    white-space: nowrap;
+}
+
+.log-bet-button {
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+.div_around_profit_display_items {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+.calculator-bet-info-section-div .filter-item {
+    max-width: var(--width-filter-items-calculator);
+    min-width: var(--width-filter-items-calculator);
+}
+
+
+.input-section-div-outer {
+    gap: calc(var(--padding-calculator-gaps) * 1);
+    flex-direction: column;
+}
+
+.place_lay_fraction_input:before {
+    content: '1/';
+    font-size: var(--font-size-filter-inputs);
+}
+
+.div_outside_bar_on_left_of_item {
+    display: flex;
+    align-items: flex-end;
+}
+
+.bar_on_left_of_item {
+    height: var(--height-filter-inputs);
+    width: var(--height-filter-inputs);
+    margin-top: auto;
+    border-radius: var(--border-radius-filter-inputs);
+}
+
+.bar_on_left_of_item span {
+    font-size: calc(var(--profit-item-title-font-size) * 1.2);
+    text-align: center;
+    width: 100%;
+    line-height: var(--height-filter-inputs);
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+.minus-button-div {
+    height: 100%;
+    display: flex;
+    align-self: flex-end;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.add-button-div {
+    display: flex;
+    justify-content: center;
+    font-size: var(--profit-item-title-font-size);
+    gap: calc(var(--padding-calculator-gaps) * 0.75);
+    align-items: center;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    margin: auto;
+    padding-top: calc(var(--padding-calculator-gaps) * 0.5);
+    padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
+}
+
+.minus-button, .add-row-button, .minus-button-sequential-lay {
+    width: var(--width-height-select-button);
+    height: var(--width-height-select-button);
+    background-color: #ff00c6;
+    font-size: var(--font-size-select-button);
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+.dutching-control-div-calculator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: calc(var(--padding-calculator-gaps) * 1);
+}
+
+.free-bet-mode-input-dutching-select {
+    margin-top: auto;
+    max-width: var(--width-filter-items-calculator);
+    min-width: var(--width-filter-items-calculator);
+    justify-content: flex-start;
+    margin-bottom: 0.57vw;
+}
+
+.calculator-bet-info-section-div .filter-item.filter-item-text-input-dutching-select {
+    min-width: calc(var(--height-filter-inputs) + var(--padding-calculator-gaps) + var(--width-filter-items-calculator));
+    max-width: calc(var(--height-filter-inputs) + var(--padding-calculator-gaps) + var(--width-filter-items-calculator));
+    margin-bottom: 0.25vw;
+}
+
+.dutching-control-div-calculator {
+    padding: var(--padding-calculator-gaps) 0;
+}
+
+.dutching-select-controls-item, .sequential-lay-select-controls-item {
+    width: 100%;
+    padding: 0;
+    padding-bottom: calc(var(--padding-calculator-gaps) * 0.5);
+    gap: var(--padding-calculator-gaps);
+    justify-content: flex-start;
+}
+
+.sequential-lay-select-controls-item, .profit-div-sequential-lay {
+    justify-content: center;
+
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 0.85);
+}
+
+
+.profit-div-sequential-lay {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(var(--width-of-target-type-btn) * 4);
+    min-width: calc(var(--width-of-target-type-btn) * 4);
+    align-self: center;
+}
+
+
+.early-payout-switch-div {
+    width: 100%;
+    margin: calc(var(--height-filter-inputs) / 1.8) 0;
+}
+
+
+
+
+
+.div_around_profit_display_items_two_results {
+    justify-content: space-evenly;
+    gap: auto;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+/* MAKING ADJUSTMENTS FOR MOBILE */
+
+@media screen and (max-width: 699px) {  
+
+    .calculator-container-div {
+        --width-calculator-container: 95%;
+        --padding-calculator-gaps: 5vw;
+        --padding-left-right-refresh-button: 7vw;
+        --width-filter-items-calculator: 100%;
+
+
+        --width-height-select-button: calc(var(--height-filter-inputs) / 1.35);
+        --font-size-select-button: calc(var(--font-size-filter-inputs) * 1.5);
+
+
+
+        --profit-item-title-font-size: 4vw;
+
+        
+        align-items: center;
+        border-radius: var(--global-border-radius);
+    }
+
+
+    .input-section-div, .profit_display_profit_and_log_div, .bottom_div_calculator_container {
+        width: 100%;
+    }
+
+    .input-section-div-outer {
+        gap: calc(var(--padding-calculator-gaps) * 2);
+    }
+
+    .select_bet_text_div {
+        justify-content: center;
+    }
+
+    .select_bet_text_div_text {
+        padding-left: 0;
+        height: auto;
+        line-height: normal;
+    }
+
+
+    div.calculator-bet-info-section-div {
+        flex-direction: column;
+    }
+
+
+    .bar_on_left_of_item {
+        height: calc(var(--height-filter-inputs) * 0.5);
+        width: var(--width-filter-items-calculator);
+    }
+
+
+
+    .bar_on_left_of_item_show_index {
+        height: calc(var(--height-filter-inputs) * 0.75);
+    }  
+    .bar_on_left_of_item_show_index span {
+        line-height: calc(var(--height-filter-inputs) * 0.75);
+        font-size: calc(var(--font-size-filter-inputs) * 1.2);
+    }   
+
+
+    .dutching-select-controls-item {
+        padding-bottom: 0;
+    }
+
+
+    .free_bet_mode_control {
+        margin-top: 0;
+    }
+
+    .early-payout-switch-div {
+        margin: 0;
+        justify-content: flex-start;
+
+    }
+
+
+
+    .profit_display_profit_and_log_div {
+        flex-direction: column;
+    }
+
+
+    .filter-item-description, div.select_div_item.select_bet_controls_item.dutching-select-controls-item .filter-item-text-input-dutching-select, .profit-div-sequential-lay  {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+
+
+
+
+
+    .lay_type_control_container, .bet_type_control, .free_bet_mode_control, .control-div-bet-calculator-div {
+        border: none;
+        width: 100%;
+    }
+
+
+    .bet-type-btn {
+        width: calc(100% / 3);
+    }
+
+
+
+
+
+    
+    div[data-_id="dutching-control-div"] .bet-type-btn {
+        width: calc(100% / 2);
+    }
+
+    .sequential-lay-select-controls-item .bet_type_control div[data-_id="dutching-control-div"] .bet-type-btn {
+        width: calc(100% / 4);
+        font-size: 3vw;
+    }
+
+    .sequential-lay-select-controls-item {
+        padding: 0;
+    }
+
+
+
+
+
+
+    .filter-item-description {
+        order: 6;
+    }
+
+    .log-bet-button-div {
+        order: 7;
+    }
+
+
+
+
+    .add-button-div {
+        padding: 0;
+        margin-bottom: calc(var(--padding-calculator-gaps) * 0.4);
+    }
+
+    .div_around_profit_display_items {
+        margin-bottom: calc(var(--padding-calculator-gaps) * 0.75);
+        justify-content: space-between;
+        gap: auto;
+        width: 100%;
+    }
+
+    .div_around_profit_display_items_two_results {
+        justify-content: space-around;
+    }
+
+    .profit_and_log__item_title {
+        font-size: var(--profit-item-title-font-size);
+    }
+
+    .profit_and_log__item_value {
+        font-size: calc(var(--profit-item-value-font-size) * 0.9);
+
+    }
+
+
+    .bottom_div_calculator_container {
+        order: 4;
+    }
+    .profit-div-sequential-lay {
+        order: 3;
+    }
+    .input-section-div-outer {
+        order: 3
+    }
+    .control-div-bet-calculator-div {
+        order: 3;
+    }
+    .refresh-button-div {
+        order: 1;
+    }
+
+    .control-div-bet-calculator-div-dutching {
+        order: 2;
+    }
+
+
+
+    .profit-div-sequential-lay {
+        width: 100%;
+    }
+
+    .seq-lay-profit-row {
+        height: calc(var(--height-filter-inputs) * 1);
+        line-height: calc(var(--height-filter-inputs) * 1);
+    }
+
+
+    .minus-button-div {
+        margin: auto;
+        align-self: center;
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,1989 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+
+* {
+    box-sizing: border-box; 
+}
+
+
+
+#outer-container-div {
+
+
+
+
+    /* global */
+
+    --global-main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    --blur-amount: 1.25vw;
+
+    --global-border-radius: 3.50vw;
+    --global-container-width: 95%;
+    --global-main-font-size: 3.50vw;
+    --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+    --global-border-width-main: 0.25vw;
+
+    --global-smaller-border-radius: 1vw;
+
+    --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+
+    --global-main-background-colour: #121212;
+
+
+
+    --outer-container-div-margin-bottom: 50.00vw;
+
+
+
+
+    /* body */
+    --body-padding: 1.43vw;
+
+    /* outer container div */
+    --outer-container-div-padding-horizontal: 0.36vw;
+    --outer-container-div-padding-bottom: 11.52vw;
+    --outer-container-div-width: 100.00vw;
+
+
+    /* loading and no data div */
+    --loading-and-no-data-div-padding: 5.00vw;
+    --loading-and-no-data-div-aspect-ratio: 2;
+    --loading-aspect-ratio: 1;
+    --loading-and-no-data-div-font-size: 4.00vw;
+
+    /* neon part */
+    --neon-pulse-width-and-height: 20.00vw;
+    --neon-pulse-perspective: 150.00vw;
+    --neon-bar-width: 2.50vw;
+    --neon-bar-height: 10.00vw;
+    --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
+    --loading-text-margin-top: 17.50vw;
+
+
+    /* mobile card */
+    --mobile-card-padding: 4.00vw 5.00vw;
+    --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+    --outer-mobile-card-total-padding: 2.00vw;
+    --gap-between-data-rows: 2.00vw;
+    --inner-background-colour: #000000;
+
+
+
+    /* mobile row */
+    --gap-in-mobile-row: 1.25vw;
+    --margin-bottom-mobile-row: 3.00vw;
+    --width-mobile-row-strong: 25.00vw; 
+    --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
+
+    --color-mobile-row-title: #fff;
+
+
+    /* content items i.e. logo img, odds combo, etc */
+    --height-of-img-logo: 5.50vw;
+    --gap-in-odds-combo: 2.00vw;
+    --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
+    --gap-between-profit-and-loss-and-rating: 1.25vw;
+    --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
+
+
+    /* filter panel container and above columns */
+    --padding-main-containers: 4.00vw;
+    --gap-between-filters-horizontal-and-vertical: 3.00vw;
+
+
+    /* filter stuff */
+    --background-colour-filters: #333;
+    --border-filters: var(--global-border-width-main) solid #444;
+    --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
+    --height-filter-inputs: 10vw;
+    --padding-left-filter-inputs: 2.5vw;
+    --border-radius-filter-inputs: 1.5vw;
+    --font-size-filter-inputs: var(--global-main-font-size);
+    --padding-left-filter-inputs-select-boxes-arrow: 4.50vw; /* think this is for the dropdowns with checkboxes */
+    --font-size-currency-box: 5.00vw;
+    --font-size-multiplier-for-percentage: 0.85;
+    --max-height-dropdown-options: 50.00vw;
+    --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
+    --padding-dropdown-options: 3vw 3.00vw;
+    --padding-left-dropdown-options-label: 1.25vw;
+    --margin-right-checkbox: 2.50vw;
+    --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
+    --margin-left-and-bottom-filter-label: 1.20vw;
+    --width-currency-box: 6.25vw;
+
+
+
+
+    /* selecting filter section specifically now */
+    --padding-filter-delete-buttons: 1.00vw 2.50vw;
+    --border-radius-filter-delete-buttons: 0.75vw;
+
+
+    /* above columns */ 
+    --gap-in-above-columns: 6.25vw;
+    --gap-between-above-column-rows: 3.75vw;
+
+    /* above columns items stuff */
+    --margin-right-confirm-filter-name: 3.75vw;
+    --refresh-results-margin-against-timer: 1.50vw;
+    --width-height-cancel-making-filter-svg: 5.00vw;
+    --width-height-button-images: 5.00vw;
+    --margin-left-refresh-results-img: 1.5vw;
+    --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+
+
+    /* pagination */
+    --padding-pagination-container: 3.00vw 0.00vw;
+    --width-pagination-button: 20vw;
+    --padding-pagination-button: 0.00vw 3.75vw;
+    --font-size-pagination: 3.00vw;
+
+
+    /* covering filter box */
+    --covering-filter-box-inset: -0.25vw;
+    --height-width-covering-filter-box-padlock: 30.00vw;
+    
+
+    /* upgrade div box */   
+    --padding-outer-div-upgrade: 3.75vw;
+
+    /* upgrade button in upgrade div */
+    --upgrade-button-border-radius: 2.50vw;
+    --padding-upgrade-button: 2.50vw 6.25vw;
+    --font-size-upgrade-button: 4.50vw;
+    --width-height-padlock-image-in-button: 6.25vw;
+    --margin-left-padlock-image-in-button: 2.50vw;
+
+
+
+
+
+
+
+
+    /* profit tracker mobile change */
+
+    --margin-top-info-text-mobile: 2.5vw;
+
+
+
+
+
+    /* PROFIT TRACKER */
+    --log-bet-button-padding-left-right: 2.15vw;
+
+
+
+
+
+
+
+
+
+
+
+
+    /* STUFF FOR SELECT BOXES SO FAR */
+
+    /* GLOBAL */
+
+    --back-bet-background-color: #2888ef;
+    --lay-bet-background-color: #e1687c;
+
+    --color-of-positive-profit-text: #00bb00;
+    --color-of-negative-profit-text: #dd0000;
+
+    --active-lay-type-background-color: black;
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+body {
+
+    background: rgb(27, 0, 25);
+    color: white;
+    font-family: var(--global-main-font);
+    padding: var(--body-padding);
+    margin: 0;
+    justify-content: center;  
+    min-height: 100vh;        
+    display: flex;
+    align-items: center;   
+
+}
+
+
+#outer-container-div {
+    background: none;
+    color: white;
+    font-family: var(--global-main-font);
+    padding-left: var(--outer-container-div-padding-horizontal);
+    padding-right: var(--outer-container-div-padding-horizontal);
+    margin: 0 auto;
+    align-items: center;
+    align-items: center;   
+    padding-bottom: var(--outer-container-div-padding-bottom);
+    padding-top: 0;
+    width: var(--outer-container-div-width);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--outer-container-div-margin-bottom);
+    justify-content: flex-start;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+.loading, .no-data-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg, #0a0010, #330033, #0a0010);
+    background-size: 400% 400%;
+    animation: bgAnimation 8s ease infinite;
+    color: white;
+    width: 100%;
+    padding: var(--loading-and-no-data-div-padding);
+    border-radius: var(--global-border-radius);
+    aspect-ratio: var(--loading-and-no-data-div-aspect-ratio);
+
+    background: transparent;
+}
+ 
+.no-data-div {
+    background: linear-gradient(270deg, #150020, #0c0033, #150020);
+
+    background: transparent;
+}
+
+/* TEMPORARY */
+.no-data-div h2, .loading-text {
+    font-size: var(--loading-and-no-data-div-font-size);
+}
+.text-input-no-data-div {
+    margin-top: 4vw;
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+}
+.button-no-data-div {
+    width: 20vw !important;
+}
+
+#email-input-oddsmatcher {
+    width: 65vw !important;
+}
+.loading-text {
+    text-transform: uppercase;
+}
+ 
+.loading {
+    aspect-ratio: var(--loading-aspect-ratio);
+}
+
+.neon-pulse {
+    position: relative;
+    width: var(--neon-pulse-width-and-height);
+    height: var(--neon-pulse-width-and-height);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    perspective: var(--neon-pulse-perspective);
+    animation: rotatePulse 2s linear infinite; 
+}
+ 
+.neon-bar {
+    width: var(--neon-bar-width);
+    height: var(--neon-bar-height);
+    background: #ff00c6;
+    box-shadow: var(--neon-bar-box-shadow); 
+    border-radius: var(--global-smaller-border-radius);
+    transform-origin: center bottom;
+    animation: neonGrow 1s ease-in-out infinite;
+}
+ 
+.loading-text {
+    margin-top: var(--loading-text-margin-top);
+    color: #ff00c6;
+    animation: fadeIn 2s ease-in-out infinite;
+}
+ 
+@keyframes contentFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+@keyframes neonGrow {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(1.5); 
+    }
+ }
+ 
+  @keyframes rotatePulse {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+ }
+ 
+ @keyframes bgAnimation {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+ }
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#content {
+    opacity: 0;
+    animation: contentFadeIn 2s forwards;
+    text-align: center;
+    color: white;
+    width: var(--global-container-width);
+}
+
+.mobile-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-between-data-rows);
+    padding: var(--global-gap-between-main-items) 0;
+    width: 100%;
+}
+
+.mobile-card {
+    background: var(--inner-background-colour);
+    color: #f5f5f5;
+    border-radius: var(--global-border-radius);
+    padding: var(--mobile-card-padding);
+    padding-bottom: 0;
+    box-shadow: var(--mobile-card-box-shadow);
+    width: 100%;
+}
+
+.outer-mobile-card {    
+    background: var(--global-main-background-colour);
+    padding: var(--outer-mobile-card-total-padding);
+    border: var(--global-border-main);
+}
+
+.mobile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: var(--gap-in-mobile-row);               
+    margin-bottom: var(--margin-bottom-mobile-row);
+    font-size: var(--global-main-font-size);
+    line-height: 1.4;
+}
+
+.mobile-row strong {
+    font-weight: var(--font-weight-mobile-row-strong);
+    color: var(--color-mobile-row-title);
+    flex-shrink: 0;
+    width: var(--width-mobile-row-strong);       
+    text-align: left;
+}
+
+@media screen and (max-width: 699px) {
+    .mobile-row strong:not([data-text="Returns & Rating:"]) {
+        width: 20vw;
+    }
+}
+
+
+strong.mobile-row-title-dutching-profit-and-rating {
+    width: auto;
+}
+
+.data-buttons-row {
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.data-buttons-row strong {
+    display: inline-flex;
+    align-items: center;
+}
+
+.mobile-row span,
+.mobile-row a {
+    flex: 1;                 
+    text-align: right;
+    word-break: break-word;
+}
+
+.mobile-row a,
+.mobile-row .mobile_at_symbol,
+.mobile-row .logo-img, .mobile_and_symbol {
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+.mobile-row div {
+    text-align: right;
+    word-break: break-word;
+}
+
+.mobile-row a {
+    text-decoration: none;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+.logo-img {
+    height: var(--height-of-img-logo);
+    width: auto;
+    vertical-align: middle;
+    border-radius: var(--global-smaller-border-radius);
+}
+
+.div_around_logo {
+    height: 100%;
+    width: 100%;
+}
+
+.odds-combo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gap-in-odds-combo);
+} 
+
+.odds-combo-each-and-extra {
+    justify-content: flex-end;
+}
+
+.div-outside-odds-combo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: var(--gap-outside-odds-combo-think-this-is-for-extra-place-etc);
+}
+
+.odds-combo span {
+    flex: 0;
+}
+
+.bookmaker_image_each_way {
+    flex: 0 !important;
+}
+
+.expected-profit-box {
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-between-profit-and-loss-and-rating);
+    text-align: right;
+    align-self: center;
+}
+
+.profit-badge,
+.loss-badge,
+.rating-badge {
+    padding: var(--padding-profit-loss-rating-badge);
+    border-radius: var(--global-smaller-border-radius);
+    font-weight: var(--font-weight-mobile-row-strong);
+    display: inline-block;
+    width: fit-content;
+    margin-left: auto;
+    line-height: 100%;
+}
+
+.profit-badge {
+    background-color: #114d28;
+    color: #52ff99;
+}
+
+.loss-badge {
+    background-color: #4d1111;
+    color: #ff5c5c;
+}
+
+.rating-badge {
+    background-color: #333;
+    color: #ffd700;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#filter-panel-container, .above-columns {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    color: #eee;
+    border-radius: var(--global-border-radius);
+    background: var(--global-main-background-colour);
+    width: var(--global-container-width);
+    border: var(--global-border-main);
+    text-align: center;
+    padding: var(--padding-main-containers);
+}
+
+
+
+
+#filter-panel-container {
+    display: none;
+    margin-top: var(--global-gap-between-main-items);
+    gap: var(--gap-between-filters-horizontal-and-vertical);
+    position: relative;
+}
+
+
+.filter-row {
+    display: flex;
+    width: 100%;
+    gap: var(--gap-between-filters-horizontal-and-vertical);
+}
+
+.filter-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.filter-label {
+    font-size: var(--smaller-font-size-filter-label-and-filter-delete-buttons);
+    color: #ffffff;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    margin-bottom: var(--margin-left-and-bottom-filter-label);
+    margin-left: var(--margin-left-and-bottom-filter-label);
+}
+
+
+.custom-select-container, .custom-input-container, .text-input, .custom-select-trigger input, .custom-select-trigger-filter input, .text-input-filter-name, .date-range-input, .button-for-profit {
+    position: relative;
+    width: 100%;
+    height: var(--height-filter-inputs);
+    background: var(--background-colour-filters);
+    border: var(--border-filters);
+    border-radius: var(--border-radius-filter-inputs);
+    color: #eee;
+    align-items: center;
+    outline: none; 
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    padding-left: var(--padding-left-filter-inputs);
+}
+
+.date-range-input {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+
+.custom-select-trigger input, .custom-select-trigger-filter input {
+    padding-left: var(--padding-left-filter-inputs-select-boxes-arrow);    
+    background: none;
+    border: 0;
+}
+
+.custom-select-trigger:after, .custom-select-trigger-filter:after {
+    content: '\0025BC'; 
+    color: #eee;
+    pointer-events: none;
+    position: absolute;
+}
+
+.custom-select-trigger, .custom-select-trigger-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.text-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.text-input-container:before {
+    content: '£';
+    position: absolute;
+    color: #ffffff;
+    font-size: var(--font-size-currency-box);
+    z-index: 3; 
+    background: var(--background-currency-box); 
+    height: calc(var(--height-filter-inputs) - 2 * var(--global-border-width-main));
+    width: var(--width-currency-box);
+    border-bottom-left-radius: var(--border-radius-filter-inputs);
+    border-top-left-radius: var(--border-radius-filter-inputs);
+    font-weight: var(--font-weight-main-oddsmatcher);
+
+    border: var(--border-filters);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.text-input-container-roi:before {
+    content: '%';
+    font-size: calc(var(--font-size-currency-box) * var(--font-size-multiplier-for-percentage));
+}
+
+.currency_in_input {
+    padding-left: calc(var(--width-currency-box) + var(--padding-left-filter-inputs));
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    background: var(--background-colour-filters);
+    border-radius: 0 0 var(--border-radius-filter-inputs) var(--border-radius-filter-inputs);
+    overflow: hidden;
+    display: none;
+    max-height: var(--max-height-dropdown-options);
+    overflow-y: auto;
+    box-shadow: var(--box-shadow-dropdown-options);
+    border: var(--border-filters); 
+    transition: all 0.3s ease; 
+    color: #fff;
+    width: calc(100% + 2 * var(--global-border-width-main));
+    z-index: 6;
+    font-size: var(--font-size-filter-inputs);
+    left: calc(-1 * var(--global-border-width-main));
+    right: 0;
+}
+
+.dropdown-options label, .dropdown-option-filter, .dropdown-option-sorting, .dropdown-option-platform {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: var(--border-filters);
+
+    padding: var(--padding-dropdown-options);
+}
+
+.dropdown-options label {
+    padding-left: var(--padding-left-dropdown-options-label);
+}
+
+.dropdown-options label:last-child, .dropdown-option-filter:last-child, .dropdown-option-sorting:last-child, .dropdown-option-platform:last-child {
+    border-bottom: none; 
+}
+
+.border-bottom-filters-off {
+    border-bottom: none;
+}
+
+.dropdown-option-filter.active, .dropdown-option-sorting.active, .dropdown-option-platform.active {
+    background: #252424; 
+    border-left: 0;
+}
+
+input[type="checkbox"] {
+    padding-left: 0;
+    margin-right: var(--margin-right-checkbox);
+}
+
+.filter-delete-button, .confirm-delete-button {
+    padding: var(--padding-filter-delete-buttons);
+    font-size: var(--smaller-font-size-filter-label-and-filter-delete-buttons);
+    background: #ae0404;
+    transition: all 0.3s ease; 
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius-filter-delete-buttons);
+    margin-left: auto;
+}
+
+.confirm-delete-button {
+    display: none; 
+}
+
+
+.border-radius-bottom-none {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.above-columns {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-in-above-columns);
+}
+
+.above_columns_row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-between-above-column-rows);
+
+}
+
+.above_columns_item {
+    text-align: left;
+    width: 100%;
+}
+
+.above_columns_row_log_bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-above-item {
+    flex: 1; 
+}
+.right-above-item {
+    flex: 3; 
+    align-self: flex-end;
+}
+
+.right-right-above-item {
+    flex: 0;
+    width: var(--height-filter-inputs);
+}
+.refresh_row_item {
+    text-align: center;
+}
+
+.save-filter-button, .get-alerts-button, .confirm-filter-name, .refresh_results, .cancel-making-filter, .log-bet-button {
+    background: linear-gradient( 145deg, #ff00c6, #ff00c6); 
+    border-radius: var(--border-radius-filter-inputs);
+    color: white;
+    font-size: var(--global-main-font-size);
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    border: 0;
+    height: var(--height-filter-inputs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.save-filter-button, .get-alerts-button, .refresh_results {
+    width: 100%;
+}
+
+.confirm-filter-name {
+    flex: 1;
+    margin-right: var(--margin-right-confirm-filter-name);
+}
+
+.refresh_results {
+    font-weight: normal;
+    margin-top: var(--refresh-results-margin-against-timer);
+    background: var(--background-colour-filters);
+    border: var(--border-filters);;
+}
+
+.cancel-making-filter {
+    height: calc(var(--height-filter-inputs) / 1.25);
+    width: calc(var(--height-filter-inputs) / 1.25);
+    background: var(--background-colour-filters);
+    border-radius: 100%;    
+}
+
+.cancel-making-filter svg {
+    width: var(--width-height-cancel-making-filter-svg);
+    height: var(--width-height-cancel-making-filter-svg);
+}
+
+.get-alerts-button {
+    width: var(--height-filter-inputs);
+    aspect-ratio: 1;
+}
+
+
+.get_alerts_img, .refresh_results_img {
+    width: var(--width-height-button-images);
+}
+
+.refresh_results_img{
+    margin-left: var(--margin-left-refresh-results-img);
+}
+
+.hidden_row_above_columns {
+    display: none;
+}
+
+.init_hidden_row_above_columns {
+    flex-direction: column;
+}
+
+.confirm_or_cancel_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: calc(2 * var(--height-filter-inputs)); 
+    height: var(--height-filter-inputs); 
+  }
+  
+  .switch:hover {
+      cursor: pointer
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #bbb; /* Off state color */
+    transition: .4s;
+    border-radius: var(--border-radius-switch-slider); /* Round borders for the slider */
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: calc(var(--height-filter-inputs) - 2 * var(--global-border-width-main));
+    width: calc(var(--height-filter-inputs) - 2 * var(--global-border-width-main));
+    left: var(--global-border-width-main);
+    bottom: var(--global-border-width-main);
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%; /* Circular shape for the toggle */
+  }
+  
+  input:checked + .slider {
+    background-color: #ff00c6; /* Pink color when the switch is ON */
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(var(--height-filter-inputs)); /* Move the toggle on switch activation */
+  }
+
+.switch_container {
+    align-content: center;
+    display: flex;
+    justify-content: flex-start;
+}
+  
+.div-outside-switch, .div-outside-filter-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+  
+#data_timer {
+    font-size: var(--global-main-font-size);
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+
+
+
+
+
+
+
+/* pagination stuff */
+
+#pagination-container {
+    background: var(--global-main-background-colour);
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    margin-top: var(--global-gap-between-main-items);
+    width: 100%;
+    border-radius: var(--global-border-radius);
+    border: var(--global-border-main);
+    justify-content: space-evenly;
+    padding: var(--padding-pagination-container);
+}
+
+#pagination-container button {
+    background: 0;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: normal; 
+    border: 0;
+    margin: 0;
+    padding: var(--padding-pagination-button);
+    width: var(--width-pagination-button);
+    font-size: var(--font-size-pagination);
+}
+
+#pagination-info {
+    padding: 0;
+    margin: 0;
+    font-size: var(--font-size-pagination);
+}
+
+
+
+
+
+
+
+
+
+
+.box2, .box3 {
+    position: absolute;
+    inset: var(--covering-filter-box-inset);
+    z-index: 5;
+    margin: 0 auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.box2::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: var(--global-border-radius);
+    z-index: -1;
+}
+
+#filters_padlock {
+    height: var(--height-width-covering-filter-box-padlock);
+    width: var(--height-width-covering-filter-box-padlock);
+}
+
+.blurred_tbody {
+    filter: blur(var(--blur-amount));
+    pointer-events: none; 
+    user-select: none;
+}
+
+
+.outer_div_upgrade {
+    border-radius: var(--global-border-radius);
+    background: none;
+    padding: var(--padding-outer-div-upgrade);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.upgrade-button {
+    background: #ff0000;
+    padding: var(--padding-upgrade-button);
+    border-radius: var(--upgrade-button-border-radius);
+    font-size: var(--font-size-upgrade-button);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.padlock-image-button {
+    width: var(--width-height-padlock-image-in-button);
+    height: var(--width-height-padlock-image-in-button);
+    margin-left: var(--margin-left-padlock-image-in-button);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* STUFF ADDED FOR PROFIT TRACKER */
+
+
+.div-outside-info {
+    width: 100%;
+    height: var(--height-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-outside-info div {
+    align-self: baseline;
+}
+
+.title_text {
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.info_text {
+    margin-top: auto;
+    margin-bottom: 0;
+    visibility: hidden;
+}
+
+
+
+
+/* AND WHEN MOBILE FOR PROFIT TRACKER */
+
+
+
+.side_by_side_divs_in_row .above_columns_item .div-outside-info div {
+    align-self: center;
+}
+
+
+.arrow-div {
+    padding: var(--mobile-card-padding);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.arrow-image {
+    height: var(--height-of-img-logo);
+}
+
+.arrow-image-open {
+    transform: rotate(180deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* AT WIDTH OF 1440PX */
+
+.select_button_div, .calculator-container-div {
+    
+
+    /* global kind of items in select div */
+    --padding-for-items-in-select-div: 2.08vw;
+
+    
+
+    /* select bet sections */
+    --width-of-bar-on-left-of-bet-item: var(--padding-for-items-in-select-div);
+    --bar-on-left-of-bet-item-height: 7.64vw;
+
+
+    --height-of-bookmaker-logo-img-in-select-bet: calc(var(--height-filter-inputs) / 1.25);
+
+    --font-size-select-bet-text-div-instructions: calc(var(--font-size-filter-inputs) * 1.25);
+    --margin-left-copy-on-click: -0.21vw;
+    --dotted-border-bottom-copy-on-click: 0.21vw dotted #fff;
+    --border-spacing-copy-on-click: 0.56vw;
+
+    --gap-between-inputs-vertically-in-select-bet-div: calc(var(--padding-for-items-in-select-div) / 2);
+
+
+
+    /* controls section */
+    --padding-for-controls-section: calc(var(--padding-for-items-in-select-div) * 1.25);
+    --gap-in-free-bet-mode-control: calc(var(--padding-for-items-in-select-div) / 2);
+
+    --height-of-checkbox: calc(var(--height-filter-inputs) * 0.75);
+
+    --padding-top-bottom-select-lay-type: 1.04vw;
+    --width-of-lay-bet-type-btn: 12.50vw;
+    --width-of-target-type-btn: calc(var(--width-of-lay-bet-type-btn) * 1.3);
+
+
+
+
+
+    /* explanation text section */
+    --padding-left-right-for-explanation-text-div: calc(var(--padding-for-items-in-select-div) * 1.85);
+    --line-height-for-explanation-text-div: 1.6;
+
+
+
+
+
+
+    /* profit and log section */
+    --height-of-profit-and-log-div: 13.19vw;
+    --gap-between-left-and-right-of-profit-and-log-div: 6.94vw;
+
+    --gap-between-log-bet-button-and-description: 3.47vw;
+
+    --padding-left-right-for-log-bet-button-and-description-right-div: calc(var(--gap-between-log-bet-button-and-description) / 2);
+
+
+    --profit-item-title-font-size: calc(var(--font-size-filter-inputs) * 1.4);
+    --profit-item-value-font-size: var(--font-size-filter-inputs);
+    --profit-item-value-margin-top: calc(var(--padding-for-items-in-select-div) * 0.5);
+
+
+
+
+
+
+
+
+    /* DUTCHING SPECIFIC THINGS FOR CONTROL PART */
+
+    --margin-top-of-free-bet-mode-control-input-div: -1.05vw;
+    --width-of-free-bet-mode-control-input-div: 21.435vw;
+
+    --padding-for-dutching-controls-section: calc(var(--padding-for-controls-section) * 1.3);
+
+
+
+
+
+
+
+
+    /* MOBILE ADDED */
+
+    --padding-top-bottom-item-divs: calc(var(--padding-for-items-in-select-div) * 2.35);
+
+    --gap-between-items-select-bet-div-mobile: calc(var(--margin-bottom-mobile-row) * 2);
+
+    --height-of-description_text-box-and-label-div: 27.5vw;
+
+    --border-radius-lay-type-buttons: 4.5vw;
+
+
+
+
+
+
+    /* PROFIT TRACKER SPECIFIC */
+    --gap-between-items-profit-tracker-select: 5vw; /* CHANGED */
+
+    --width-of-filter-item-profit-tracker-bookmaker-selects: 100%; /* CHANGED */
+
+    --height-of-bet-description-input-profit-tracker: 24vw; /* CHANGED */
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+.select_td {
+    padding: 0;
+    background-color: var(--global-main-background-colour);
+}
+
+.selected_row_td_original {
+    background-color: var(--global-main-background-colour) !important;
+}
+/* THIS JS ADJUSTS THE BACKGROUND USING THE VAR IN THE CSS ABOVE */
+
+.select_button_div_row, .select_button_div {
+    width: 100%;
+}
+
+.select_button_div {
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--padding-top-bottom-item-divs); /* ADDED */
+    /*border-bottom: var(--global-border-main);*/ /* REMOVED */
+}
+
+.select_div_item {
+    display: flex;
+    flex-direction: column; /* CHANGED */
+    padding: var(--padding-top-bottom-item-divs) 0; /* CHANGED */
+}
+.select_div_item:not(:last-child) {
+    border-bottom: 0; /* CHANGED */
+}
+
+.bar_on_left_of_item {
+    display: flex;
+    height: 0; /* CHANGED */
+    width: 0; /* CHANGED */
+    background-color: var(--back-bet-background-color);
+    align-self: center;
+}
+
+.bar_on_left_of_item_lay {
+    background-color: var(--lay-bet-background-color);
+}
+
+.bookmaker_logo_div_select_bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--height-of-bookmaker-logo-img-in-select-bet); /* ADDED */
+    /* margin-left: var(--padding-for-items-in-select-div) */ /* REMOVED */
+    margin-bottom: var(--gap-between-items-select-bet-div-mobile); /* ADDED */
+}
+
+.bookmaker_logo_img_select_bet {
+    height: var(--height-of-bookmaker-logo-img-in-select-bet);
+    border-radius: var(--global-smaller-border-radius); /* ADDED */
+}
+.select_bet_div_item {
+    display: flex;
+    flex: 1;
+    width: calc(100%); /* CHANGED */
+}
+
+.select_bet_section {
+    padding-left: 0; /* CHANGED */
+}
+
+.select_bet_section:not(:last-child) {
+    border-bottom: var(--global-border-main) !important; /* ADDED */    
+}
+
+
+
+
+/* Select bet div layout */
+.outer_bottom_select_bet_div {
+    display: flex;
+    width: 100%;
+    flex-direction: column; /* ADDED */
+}
+
+.inner_bottom_select_bet_div_left {
+    width: 100%; /* CHANGED */
+    /* min-height: 100%; */ /* REMOVED */   
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* CHANGED */
+    justify-content: flex-start;
+}
+
+.select_bet_text_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0; /* CHANGED */
+    margin-right: 0; /* CHANGED */
+    margin-bottom: var(--gap-between-items-select-bet-div-mobile); /* ADDED */
+}
+
+.select_bet_text_div span {
+    font-size: var(--global-main-font-size); /* CHANGED */
+    font-weight: var(--font-weight-main-oddsmatcher);
+    text-align: center; /* CHANGED */
+}
+
+.copy-icon {
+    height: var(--font-size-select-bet-text-div-instructions);
+    margin-left: var(--margin-left-copy-on-click);
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.copy-on-click {
+    cursor: pointer;
+    border-bottom: calc(var(--dotted-border-bottom-copy-on-click) * 3); /* CHANGED */
+    border-bottom-style: dotted;
+    border-spacing: calc(var(--border-spacing-copy-on-click) * 3); /* CHANGED */
+}
+
+.inner_bottom_select_bet_div_right {
+    display: flex;
+    flex-direction: row; /* CHANGED */
+    width: 100%; /* CHANGED */
+    gap: var(--gap-between-filters-horizontal-and-vertical); /* CHANGED */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Select bet controls layer */
+.select_bet_controls_item {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    /*padding: var(--padding-for-controls-section); */ /* REMOVED */
+    gap: calc(var(--padding-top-bottom-item-divs) * 1.5); /* ADDED */
+
+}
+
+.free_bet_mode_control {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* ADDED */
+    gap: calc(var(--gap-in-free-bet-mode-control) * 3); /* CHANGED */
+}
+
+.free_bet_mode_label {
+    color: white;
+    font-size: var(--font-size-filter-inputs); 
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+
+
+.switch_select_free_bet_mode {
+    width: calc(2 * var(--height-of-checkbox)); 
+    height: var(--height-of-checkbox); 
+}
+
+.slider_select_free_bet_mode:before {
+    height: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));
+    width: calc(var(--height-of-checkbox) - 2 * var(--global-border-width-main));
+}
+
+.free_bet_mode_switch:checked + .slider_select_free_bet_mode:before {
+    transform: translateX(var(--height-of-checkbox)); 
+}
+
+
+
+
+
+
+.bet_type_control {
+    display: flex;
+    align-items: center;
+}
+
+.lay_type_control_container {
+    display: flex;
+    overflow: hidden;
+    border-radius: var(--border-radius-lay-type-buttons); /* CHANGED */
+    border: var(--border-filters);
+}
+
+.bet-type-btn {
+    flex: 1;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    background-color: var(--background-colour-filters);
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.3s ease, font-weight 0.3s ease;
+    font-size: var(--font-size-filter-inputs); 
+    text-align: center;
+    padding-top: calc(var(--padding-top-bottom-select-lay-type) * 2.25); /* CHANGED */
+    padding-bottom: calc(var(--padding-top-bottom-select-lay-type) * 2.25); /* CHANGED */
+    width: calc(var(--width-of-lay-bet-type-btn) * 2); /* CHANGED */
+}
+
+.target-type-btn {
+    width: calc(var(--width-of-target-type-btn) * 2.7); /* CHANGED */
+}
+
+.bet-type-btn.active-lay-type {
+    background-color: var(--active-lay-type-background-color);
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+
+
+
+
+
+
+/* explanation text section */
+/*
+.select_bet_explanation_text_item {
+    /padding: var(--padding-for-items-in-select-div) var(--padding-left-right-for-explanation-text-div);/ / REMOVED /
+}
+
+*/
+
+.explanation_text_div {
+    font-size: var(--global-main-font-size); /* CHANGED */
+    text-align: left;
+    line-height: normal; /* CHANGED */
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--padding-for-items-in-select-div) * 2); /* CHANGED */
+}
+
+.explanation_text_div span {
+    font-size: var(--global-main-font-size); /* CHANGED */
+    text-align: left;
+    position: relative;
+}
+
+.select_profit_explanation_profit, .select_profit_explanation_loss {
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: var(--color-of-positive-profit-text);
+}
+
+.select_profit_explanation_loss {
+    color: var(--color-of-negative-profit-text);
+}
+
+.select_bet_explanation_title_item div span {
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: calc(var(--global-main-font-size) * 1.2);
+}
+
+.select_bet_explanation_title_item {
+    padding-bottom: 0;
+}
+
+.explanation_text_expand_or_collapse {
+
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+
+
+
+
+
+
+/* PROFIT AND LOG SECTION */
+
+.select_bet_div_profit_and_log {
+    height: auto; /* CHANGED */
+}
+
+.outer_bottom_select_bet_div_log_and_description_and_profit {
+    gap: calc(var(--padding-top-bottom-item-divs) * 2); /* CHANGED */
+}
+
+.select_bet_div_profit_and_log_left,
+.select_bet_div_profit_and_log_right {
+    height: 100%;
+    width: 100%; /* CHANGED */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select_bet_div_profit_and_log_right {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: var(--gap-between-log-bet-button-and-description);
+    /*padding: 0 var(--padding-left-right-for-log-bet-button-and-description-right-div);*/ /* REMOVED */
+    height: var(--height-of-description_text-box-and-label-div); /* ADDED */
+}
+
+.select_bet_div_profit_and_log {
+    display: flex;
+    width: 100%;
+    padding-bottom: calc(var(--padding-top-bottom-item-divs) / 2); /* ADDED */
+}
+
+
+.profit_display_profit_and_log_div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.profit_display_profit_and_log_div_item, .filter-item-description, .log-bet-button-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* THIS IS THE ONE VERTICALLY PUTTING THEM IN THE CENTER */
+    height: 100%;
+}
+
+.div_around_profit_title_and_value {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.profit_and_log__item_title {
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: calc(var(--global-main-font-size) * 1.35); /* CHANGED */
+    display: flex;
+}
+
+.profit_and_log__item_value {
+    font-size: calc(var(--global-main-font-size) * 0.85); /* CHANGED */
+    margin-top: calc(var(--profit-item-value-margin-top) * 2.5); /* CHANGED */
+    font-weight: var(--font-weight-main-oddsmatcher);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profit_and_log__item_value_positive {
+    color: var(--color-of-positive-profit-text);
+}
+
+.profit_and_log__item_value_negative {
+    color: var(--color-of-negative-profit-text);
+}
+
+.log-bet-button-div {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+
+.bet-description-input {
+    font-family: var(--global-main-font);
+    resize: none;
+    background: var(--background-colour-filters);
+    border: var(--border-filters);
+    border-radius: var(--border-radius-filter-inputs);
+    color: #eee;
+    outline: none;
+    font-size: var(--font-size-filter-inputs);
+    padding: calc(var(--padding-left-filter-inputs) * 0.5) calc(var(--padding-left-filter-inputs) * 0.75); /* CHANGED */
+    height: 100%;
+}
+
+
+.log-bet-button {
+    width: auto;
+    padding-left: calc(var(--log-bet-button-padding-left-right) * 2.75); /* CHANGED */
+    padding-right: calc(var(--log-bet-button-padding-left-right) * 2.75); /* CHANGED */
+}
+
+
+
+
+/* FOR TEXT INPUT FOR STAKE IN DUTCHING */
+
+.dutching-select-controls-item {
+    justify-content: space-between;
+    /*padding: var(--padding-for-dutching-controls-section);*/ /* REMOVED */
+}
+
+.filter-item-text-input-dutching-select, .free-bet-mode-input-dutching-select {
+    /*max-width: var(--width-of-free-bet-mode-control-input-div);*/ /* REMOVED */
+    /*min-width: var(--width-of-free-bet-mode-control-input-div);*/ /* REMOVED */
+    width: 100%; /* ADDED */
+}
+
+.filter-item-text-input-dutching-select {
+    margin-top: 0; /* CHANGED */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* PROFIT TRACKER PARTS */
+
+.platform-item {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.platform-section-outer {
+    border-bottom: 0;
+}
+
+.platform_logo_div_profit_tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-bottom: 0;
+    width: calc(var(--width-of-filter-item-profit-tracker-bookmaker-selects) * 0.5); /* ADDED */
+    align-self:first baseline; /* ADDED */
+    /* height: auto;  REMOVED */
+}
+
+.platform-section-outer {
+    gap: calc(var(--gap-between-items-profit-tracker-select) * 2); /* ADDED */
+}
+
+.platform_logo_img_profit_tracker {
+    height: calc(var(--height-of-bookmaker-logo-img-in-select-bet) * 1);
+    height: auto;
+    width: calc(var(--width-of-filter-item-profit-tracker-bookmaker-selects) * 1); 
+}
+
+.filter-item-profit-tracker {
+    width: var(--width-of-filter-item-profit-tracker-bookmaker-selects);
+}
+
+
+
+
+
+
+
+
+.description-and-profit-section-inner {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.description-and-profit-section-inner, .description-and-profit-section-inner-top-item, .platform-item {
+    gap: var(--gap-between-items-profit-tracker-select);
+}
+
+.description-and-profit-section-inner-top-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.div-for-settled-bet-checkbox {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+
+.div-for-profit-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.description-and-profit-section-inner-left {
+    padding-right: 0; /* CHANGED */
+}
+
+.description-and-profit-section-inner-right {
+    margin-top: var(--gap-between-items-profit-tracker-select); /* ADDED */
+    padding-left: 0; /* CHANGED */
+}
+
+.bet-description-input-profit-tracker {
+    height: var(--height-of-bet-description-input-profit-tracker);
+}
+
+.div-for-profit-buttons {
+    gap: calc(var(--gap-between-items-profit-tracker-select) / 3);
+    align-items: flex-end;
+}
+
+.button-for-profit {
+    width: 100%; /* CHANGED */
+    font-weight: normal; /* CHANGED */
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: 0;
+}
+
+.div-for-settled-bet-label {
+    gap: calc(var(--gap-between-items-profit-tracker-select) / 1.5);
+}
+
+.settled_bet_label {
+    font-size: calc(var(--font-size-filter-inputs) * 1.25);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* this is important as it will otherwise show the hidden items */ 
+.hidden_row_above_columns {
+    display: none !important;
+}
+
+
+
+
+
+
+
+
+/* Media Queries for Better Font Weight on Different Screen Sizes */
+
+@media screen and (max-width: 699px) {
+    #outer-container-div {
+        --font-weight-main-oddsmatcher: 650;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #outer-container-div {
+        --font-weight-main-oddsmatcher: bold;
+    }
+}
+
+

@@ -1,0 +1,805 @@
+@import url('https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/styles.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+
+
+
+/* ! INDEX FOR CSS ! */
+
+/* 1. VARIABLES */
+/* 2. VARIABLES MOBILE */
+/* 3. ABOVE COLUMNS STUFF */
+/* 4. LOADING AND NO DATA DIV */
+/* 5. PREMIUM COVERING STUFF */
+/* 6. WEEKLY/OFFER SPECIFIC ITEM CSS */
+/* 7. GUIDES SPECIFIC CSS */
+/* 8. EXTRA PLACES SPECIFIC CSS */
+/* 9. MOBILE CHANGES */
+
+
+
+
+
+
+
+#outer-container-div {
+
+    --outer-container-div-margin-bottom: 25.00vw;
+
+
+    /* above columns */
+
+    
+    /* info divs at top for profit info etc */
+    --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 2);
+
+
+    /* tooltip */
+    --padding-tooltip: 0.57vw;
+
+
+    /* ITEM STUFF */
+    --font-size-item-title: 1.57vw;
+    --gap-between-items-in-item: 1.43vw;
+
+
+    --interaction-row-items-height: 2.86vw;
+    --interaction-row-items-border-radius: calc(var(--global-border-radius) / 2);
+
+
+    --blur-amount: 0.4vw;
+
+
+    /* offer button */
+    --offer-button-background-colour: #539ce0;
+    --font-size-offer-button: 1.14vw;
+    --padding-left-and-right-of-offer-button: 2.50vw;
+
+    /* loading div */
+    --margin-top-loading-div: 7.14vw;
+
+
+}
+
+
+@media (max-width: 700px) {
+    #outer-container-div {
+        
+        /* MOBILE SIZE CHANGES - MAKE THIS OUTER-CONTAINER-DIV-MOBILE */
+
+        /* global - includes stuff taken from original mobile */
+        --global-border-radius: 3.50vw;
+        --global-main-font-size: 3.8vw;
+        --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+        --padding-main-containers: 5vw;
+
+        --outer-container-div-margin-bottom: 50.00vw;
+
+
+        --border-radius-filter-inputs: 1.25vw;
+
+        --padding-left-filter-inputs: 1.50vw;
+        --padding-left-filter-inputs-select-boxes-arrow: 5.00vw; /* think this is for the dropdowns with checkboxes */
+        --padding-dropdown-options: 1.75vw 3.00vw;
+
+        --max-height-dropdown-options: 50.00vw;
+
+        --loading-and-no-data-div-font-size: 6.00vw;
+
+        --blur-amount: 1.3vw;
+
+
+
+        
+        /* upgrade button in upgrade div */
+        --upgrade-button-border-radius: 2.50vw;
+        --padding-upgrade-button: 2.50vw 6.25vw;
+        --font-size-upgrade-button: 4.50vw;
+        --width-height-padlock-image-in-button: 6.25vw;
+        --margin-left-padlock-image-in-button: 2.50vw;
+
+
+
+
+        /* above columns stuff */
+        --width-info-items-at-top: calc(var(--width-filter-details-above-columns) / 0.5);
+        --width-filter-details-above-columns: 100%;
+
+        --width-info-items-at-top: 100%;
+
+        --margin-top-info-text-mobile: 2.5vw;
+
+
+        /* item stuff */
+        --font-size-item-title: 4.7vw;
+        --gap-between-items-in-item: 4vw;
+
+        --interaction-row-items-height: 9.5vw;
+        --height-filter-inputs: var(--interaction-row-items-height);
+
+        --margin-right-of-item-title-div-mobile: 28.125vw;
+
+
+        /* offer button */
+        --font-size-offer-button: 3.7vw;
+
+
+        /* slider */
+        --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* JUST COPYING IN FROM ORIGINAL STYLES.CSS */
+
+
+
+
+        /* global */
+
+        --global-main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+        --blur-amount: 1.25vw;
+
+        --global-border-radius: 3.50vw;
+        --global-container-width: 95%;
+        --global-main-font-size: 3.50vw;
+        --global-gap-between-main-items: 3.75vw; /* this is gap between above and filter panel and table/mobile-container */
+        --global-border-width-main: 0.25vw;
+
+        --global-smaller-border-radius: 1vw;
+
+        --global-border-main: var(--global-border-width-main) solid #1f1f1f;
+
+        --global-main-background-colour: #121212;
+
+
+
+        --outer-container-div-margin-bottom: 50.00vw;
+
+
+
+
+        /* body */
+        --body-padding: 1.43vw;
+
+        /* outer container div */
+        --outer-container-div-padding-horizontal: 0.36vw;
+        --outer-container-div-padding-bottom: 11.52vw;
+        --outer-container-div-width: 100.00vw;
+
+
+        /* loading and no data div */
+        --loading-and-no-data-div-padding: 5.00vw;
+        --loading-and-no-data-div-aspect-ratio: 2;
+        --loading-aspect-ratio: 1;
+        --loading-and-no-data-div-font-size: 4.00vw;
+
+        /* neon part */
+        --neon-pulse-width-and-height: 20.00vw;
+        --neon-pulse-perspective: 150.00vw;
+        --neon-bar-width: 2.50vw;
+        --neon-bar-height: 10.00vw;
+        --neon-bar-box-shadow: 0.00vw 0.00vw 2.50vw rgba(255, 0, 198, 0.8); 
+        --loading-text-margin-top: 17.50vw;
+
+
+        /* mobile card */
+        --mobile-card-padding: 4.00vw 5.00vw;
+        --mobile-card-box-shadow: 0 0.50vw 2.50vw rgba(0, 0, 0, 0.4);
+        --outer-mobile-card-total-padding: 2.00vw;
+        --gap-between-data-rows: 2.00vw;
+        --inner-background-colour: #000000;
+
+
+
+        /* mobile row */
+        --gap-in-mobile-row: 1.25vw;
+        --margin-bottom-mobile-row: 3.00vw;
+        --width-mobile-row-strong: 25.00vw; 
+        --font-weight-mobile-row-strong: 600; /* also applies for profit loss rating badge */
+
+        --color-mobile-row-title: #fff;
+
+
+        /* content items i.e. logo img, odds combo, etc */
+        --height-of-img-logo: 5.50vw;
+        --gap-in-odds-combo: 2.00vw;
+        --gap-outside-odds-combo-think-this-is-for-extra-place-etc: 1.75vw;
+        --gap-between-profit-and-loss-and-rating: 1.25vw;
+        --padding-profit-loss-rating-badge: 1.50vw 2.00vw;
+
+
+        /* filter panel container and above columns */
+        --padding-main-containers: 4.00vw;
+        --gap-between-filters-horizontal-and-vertical: 3.00vw;
+
+
+        /* filter stuff */
+        --background-colour-filters: #333;
+        --border-filters: var(--global-border-width-main) solid #444;
+        --background-currency-box: linear-gradient(to right, #000000, #1d1b1b);
+        --height-filter-inputs: 10vw;
+        --padding-left-filter-inputs: 2.5vw;
+        --border-radius-filter-inputs: 1.5vw;
+        --font-size-filter-inputs: var(--global-main-font-size);
+        --padding-left-filter-inputs-select-boxes-arrow: 4.50vw; /* think this is for the dropdowns with checkboxes */
+        --font-size-currency-box: 5.00vw;
+        --font-size-multiplier-for-percentage: 0.85;
+        --max-height-dropdown-options: 50.00vw;
+        --box-shadow-dropdown-options: 0 0.50vw 2.00vw rgba(0, 0, 0, 0.4);
+        --padding-dropdown-options: 3vw 3.00vw;
+        --padding-left-dropdown-options-label: 1.25vw;
+        --margin-right-checkbox: 2.50vw;
+        --smaller-font-size-filter-label-and-filter-delete-buttons: 2.50vw;
+        --margin-left-and-bottom-filter-label: 1.20vw;
+        --width-currency-box: 6.25vw;
+
+
+
+
+        /* selecting filter section specifically now */
+        --padding-filter-delete-buttons: 1.00vw 2.50vw;
+        --border-radius-filter-delete-buttons: 0.75vw;
+
+
+        /* above columns */ 
+        --gap-in-above-columns: 6.25vw;
+        --gap-between-above-column-rows: 3.75vw;
+
+        /* above columns items stuff */
+        --margin-right-confirm-filter-name: 3.75vw;
+        --refresh-results-margin-against-timer: 1.50vw;
+        --width-height-cancel-making-filter-svg: 5.00vw;
+        --width-height-button-images: 5.00vw;
+        --margin-left-refresh-results-img: 1.5vw;
+        --border-radius-switch-slider: 12.50vw; /* Round borders for the slider - think could be 100 */
+
+
+        /* pagination */
+        --padding-pagination-container: 3.00vw 0.00vw;
+        --width-pagination-button: 18.75vw;
+        --padding-pagination-button: 0.00vw 3.75vw;
+        --font-size-pagination: 3.00vw;
+
+
+        /* covering filter box */
+        --covering-filter-box-inset: -0.25vw;
+        --height-width-covering-filter-box-padlock: 30.00vw;
+        
+
+        /* upgrade div box */   
+        --padding-outer-div-upgrade: 3.75vw;
+
+        /* upgrade button in upgrade div */
+        --upgrade-button-border-radius: 2.50vw;
+        --padding-upgrade-button: 2.50vw 6.25vw;
+        --font-size-upgrade-button: 4.50vw;
+        --width-height-padlock-image-in-button: 6.25vw;
+        --margin-left-padlock-image-in-button: 2.50vw;
+
+
+
+
+
+
+
+
+        /* profit tracker mobile change */
+
+        --margin-top-info-text-mobile: 2.5vw;
+
+
+
+
+
+        /* PROFIT TRACKER */
+        --log-bet-button-padding-left-right: 2.15vw;
+
+
+
+
+
+
+
+
+
+
+
+
+        /* STUFF FOR SELECT BOXES SO FAR */
+
+        /* GLOBAL */
+
+        --back-bet-background-color: #2888ef;
+        --lay-bet-background-color: #e1687c;
+
+        --color-of-positive-profit-text: #00bb00;
+        --color-of-negative-profit-text: #dd0000;
+
+        --active-lay-type-background-color: black;
+
+
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* ABOUT COLUMNS STUFF FIRST */
+
+.above-columns {
+    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 3);
+
+}
+
+.div-outside-info {
+    width: var(--width-info-items-at-top);
+    height: var(--height-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-outside-info div {
+    align-self: baseline;
+}
+
+.title_text {
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.info_text {
+    margin-top: auto;
+    margin-bottom: 0;
+    visibility: hidden;
+}
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: var(--padding-tooltip);
+    background: black;
+    color: white;
+    border-radius: var(--border-radius-filter-inputs);
+    font-size: var(--font-size-filter-inputs);
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    border: var(--global-border-main);
+}
+
+
+
+@media (min-width: 700px) {
+    [data-tooltip]:hover:before {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+/* LOADING AND NO DATA DIV */
+
+.loading, .no-data-div {
+    background: 0;
+    margin-top: var(--margin-top-loading-div);
+}
+
+
+
+
+
+
+
+
+/* NOT PREMIUM MEMBERS COVERING ADJUSTED FOR HAVING NO PADLOCK */
+
+.box3 {
+    padding-top: 0;
+}
+
+
+
+
+
+/* weekly specific item css */ 
+/* extra places and say guide stuff might be different */
+
+.item_container_div {
+    margin-top: calc(var(--global-gap-between-main-items) * 1.5);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates exactly 2 columns of equal width */
+    grid-row-gap: calc(var(--global-gap-between-main-items) / 1); /* Slightly larger vertical gap */
+    grid-column-gap: calc(var(--global-gap-between-main-items) / 1.25); /* Keep same horizontal gap */
+    width: var(--global-container-width);
+    justify-content: start; /* Aligns items to the start (left) when there's an odd number */
+}
+.container_div_around_each_item {
+    position: relative;
+    width: 100%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: var(--global-border-main);
+    border-radius: var(--global-border-radius);
+    background: var(--global-main-background-colour);
+    padding: calc(var(--padding-main-containers) / 2);
+    margin: auto;
+    margin-top: 0;
+}
+.item_title_div {
+    font-size: var(--font-size-item-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    align-self: start;
+}
+
+.bottom_div_for_interaction_items {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.data_div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    font-size: var(--font-size-filter-inputs);
+    width: 100%;
+
+}
+
+.inner_div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    background: var(--inner-background-colour);
+    border-radius: calc(var(--global-border-radius) / 1.5);
+    padding: calc(var(--padding-main-containers) / 1.5);
+    gap: var(--gap-between-items-in-item);
+}
+
+.div_around_bookmaker_exhange_images {
+    display: flex;
+    align-self: start;
+}
+
+.bookmaker_img {
+    height: var(--interaction-row-items-height);
+    border-radius: var(--interaction-row-items-border-radius);
+}
+
+.profit_div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: calc(var(--gap-between-items-in-item) / 2.5) calc(var(--gap-between-items-in-item) / 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: var(--font-size-filter-inputs);
+    z-index: 2;
+    color: #02bc55;
+    background: var(--global-main-background-colour);
+    border-top-right-radius: var(--global-border-radius);
+    border-bottom-left-radius: var(--global-border-radius);
+}
+
+.offer_button {
+    height: var(--interaction-row-items-height);
+    border-radius: var(--interaction-row-items-border-radius);
+    color: inherit;
+    background: var(--offer-button-background-colour);
+    border: 0;
+    font-size: var(--font-size-offer-button);
+    padding: 0 var(--padding-left-and-right-of-offer-button);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    margin-left: calc(var(--gap-between-items-in-item) / 1.5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+}
+
+.offer_guide_icon {
+    width: var(--font-size-offer-button);
+    height: var(--font-size-offer-button);
+    margin-left: calc(var(--font-size-offer-button) / 1.5);
+    display: flex;
+    align-self: center;
+}
+
+.item-complete-switch {
+    margin-left: auto ;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* GUIDES SPECIFIC CSS */
+
+/* above columns */
+.guides-above-columns {
+    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 6)
+}
+
+.item_container_div_guides {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* item stuff */
+.inner_div_guides {
+    width: 100%;
+    gap: calc(var(--gap-between-items-in-item) * 1.3);
+}
+
+.guide_image_main {
+    width: 100%;
+}
+
+.item_title_div_guides {
+    align-self: center;
+}
+
+.item-complete-switch-guides {
+    margin: auto;
+}
+
+
+
+
+
+
+
+/* EXTRA PLACES SPECIFIC CSS */
+
+.extra-places-above-columns .above_columns_row .above_columns_item .div-outside-info {
+    width: calc(var(--width-info-items-at-top) / 1.5);
+}
+
+.item_container_div_extra_places {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.container_div_around_each_item_extra_places {
+    width: 45%;
+}
+
+.inner_div_extra_places {
+    width: 100%;
+}
+
+.item_title_div_extra_places {
+    font-size: calc(var(--font-size-item-title) * 1.25);
+
+}
+
+.place_title_div {
+    font-weight: var(--font-weight-main-oddsmatcher);
+    align-self: center;
+    font-size: calc(var(--font-size-filter-inputs) * 1.25);
+
+}
+
+.bookmakers_container {
+    font-size: calc(var(--font-size-filter-inputs) * 1.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MOBILE CHANGES */
+
+
+
+/* ! INDEX FOR MOBILE CHANGES ! */
+/* 1. ITEM ORGANISATION */
+/* 2. ABOVE COLUMNS STUFF */
+/* 3. WEEKLY/OFFER SPECIFIC ITEM CSS */
+/* 4. GUIDES SPECIFIC MOBILE CHANGES */
+/* 5. EXTRA PLACES SPECIFIC MOBILE CHANGES */
+
+
+
+
+
+
+/* ITEM ORGANISATION */ 
+
+.item_container_div_mobile {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+
+
+/* ABOVE COLUMNS STUFF */
+
+.above_columns_row_mobile, .above_columns_row_mobile_outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.above_columns_row_mobile_outer {
+    gap: calc(var(--gap-between-items-in-item) * 1.5);
+}
+
+.side_by_side_divs_in_row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.side_by_side_divs_in_row .above_columns_item .div-outside-info {
+    height: auto;
+}
+
+.side_by_side_divs_in_row .above_columns_item .div-outside-info div {
+    align-self: center;
+}
+
+.side_by_side_divs_in_row .above_columns_item {
+    flex: 1;
+}
+
+.side_by_side_divs_in_row .above_columns_item .div-outside-info .info_text {
+    margin-top: var(--margin-top-info-text-mobile);
+}
+
+.new-above-columns {
+    padding: var(--padding-main-containers);
+}
+
+
+
+
+/* WEEKLY/OFFER SPECIFIC ITEM CSS */
+
+.bottom_div_interaction_rows_mobile {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--gap-between-items-in-item);
+    width: 100%;
+
+}
+
+.bottom_div_for_interaction_items_mobile {
+    flex-direction: column;
+}
+
+.offer_button_mobile {
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--interaction-row-items-height) * 4.79);
+}
+
+.item_title_div_mobile {
+    margin-right: var(--margin-right-of-item-title-div-mobile);
+}
+
+.item_complete_switch_mobile {
+    margin-left: auto;
+}
+
+
+
+
+
+
+/*  GUIDES SPECIFIC MOBILE CHANGES ! */
+
+.above_columns_row_mobile .above_columns_item .div-outside-info div {
+    align-self: center;
+}
+
+.offer_button_mobile_guides {
+    margin-left: 0;
+}
+
+.item_title_div_guides_mobile {
+    margin-right: 0;
+}
+
+.bottom_div_for_interaction_items_mobile_guides {
+    align-items: center;
+}
+
+
+
+
+
+/* EXTRA PLACES SPECIFIC MOBILE CHANGES */
+
+.container_div_around_each_item_extra_places_mobile {
+    width: 100%;
+}
+
+.item_title_div_extra_places_mobile {
+    font-size: calc(var(--font-size-item-title) * 1.15);
+}
+
+.place_title_div_mobile, .bookmakers_container_mobile {
+    font-size: var(--font-size-filter-inputs);
+}
+
+
+
+
+
+

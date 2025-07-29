@@ -1,0 +1,172 @@
+
+
+<body>
+
+
+    <div id="outer-container-div">
+
+
+
+    <div class="above-columns">
+
+
+        <div class="above_columns_row">
+
+
+            <div class="above_columns_item above-columns-item-switch-item">
+
+                <div class="div-outside-switch">
+
+                    <div class="switch_container">
+                        <label class="switch">
+                            <input type="checkbox" class="show_filters_switch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="above_columns_item">
+
+                <button class="save-filter-button">Save Filter</button>
+                    
+            </div>
+
+
+
+
+
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns">
+
+                <div class="filter-dropdown-name-div">
+
+                    <div class="div-outside-filter-dropdown">
+
+                        <input class="text-input-filter-name"  id="get-filter-name" placeholder="Enter a Filter Name" autocomplete="off">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns">
+                <button class="confirm-filter-name">Confirm</button>
+            </div>
+
+
+            <div class="above_columns_item init_hidden_row_above_columns hidden_row_above_columns cancel-making-filter-div">
+
+                <button class="cancel-making-filter" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.3,5.71a1,1,0,0,0-1.41,0L12,10.59,7.11,5.7A1,1,0,0,0,5.7,7.11L10.59,12,5.7,16.89a1,1,0,1,0,1.41,1.41L12,13.41l4.89,4.89a1,1,0,0,0,1.41-1.41L13.41,12l4.89-4.89A1,1,0,0,0,18.3,5.71Z"/>
+                    </svg>            
+                </button>
+
+            </div>
+
+
+
+
+            
+
+            <div class="above_columns_item">
+
+
+                <div class="div-outside-filter-dropdown div-outside-filter-dropdown-select-filters">
+        
+                    <div id="filters-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
+    
+                        <div class="custom-select-trigger" >
+                            <input id="filters-select" type="text" value="Select Filter" readonly>
+                        </div>
+    
+                        <div class="dropdown-options" id="filters-dropdown-options">
+                
+                        </div>
+    
+                    </div>
+    
+                </div>
+
+
+                <button class="get-alerts-button"><img src="https://img.icons8.com/?size=100&id=84025&format=png&color=ffffff" alt="Get Better Bet Alerts Icon" class="get_alerts_img"></button>
+
+
+            </div>
+
+
+
+
+                
+
+
+
+
+        
+            <div class="above_columns_item timer_div refresh_row_item above_columns_row_timer">
+                <span id="data_timer" >00:00</span>
+                <button id="refresh_results" class="refresh_results" >Refresh Results <img src="https://img.icons8.com/?size=100&id=59872&format=png&color=ffffff" alt="Refresh Oddsmatcher Data" class="refresh_results_img"></button>
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="filter-panel-container">
+        <!-- Content will be dynamically generated -->
+    </div>
+
+
+
+
+    <!-- ! DIFFERENT FROM MOBILE HERE AS IT HAS AN ADDITIONAL DIV SO THAT SELECT BUTTONS ARE ON THE SIDE -->
+    <div id="outer-content-div">
+
+        <div id="content">
+                
+
+
+                <!-- ! ALSO HAS TABLE INSTEAD OF MOBILE CONTAINER - this should be different and copied from desktop-->
+                <div class="table-wrapper">
+                    <table class="table" >
+                        <thead class="table-header" >
+                            <!-- This is dynamically added in by the js, the html is in the state-->
+                        </thead>
+                        <tbody>
+                
+                            <!-- ROWS GET ADDED TO THE TABLE HERE  -->
+                
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div id="pagination-container" >
+                    <button id="prev-page">Previous</button>
+                    <span id="pagination-info"></span>
+                    <button id="next-page">Next</button>
+                </div>
+
+        </div>
+
+
+        <!-- ! DIFFERENT FROM MOBILE HERE AS IT HAS AN ADDITIONAL DIV SO THAT SELECT BUTTONS ARE ON THE SIDE -->
+
+
+    </div>
+
+
+</div>
+
+</body>

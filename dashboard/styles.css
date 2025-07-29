@@ -1,0 +1,853 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
+@import url('../../desktop_oddsmatchers/main/styles.css') screen and (min-width: 700px);
+@import url('../../oddsmatchers/main/styles.css') screen and (max-width: 699px);
+
+
+
+
+.dashboard-container {
+
+    --dashboard-container-width: 90%;
+    --var-main-dashboard-container-padding: 2.78vw;
+
+    --main-dashboard-container-gap: calc(var(--var-main-dashboard-container-padding) * 2);
+
+    --main-dashboard-border-radius: 1.39vw;
+
+    /* item global stuff */
+    --gap-main-dashboard-item-gap: 2.08vw; 
+    --global-main-dashboard-item-transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --shadow-main-dashboard-item: 0 0.28vw 0.42vw rgba(0, 0, 0, 0.15);
+
+    --hover-main-dashboard-item-transform: translateY(-0.28vw) scale(1.01);
+    --hover-main-dashboard-item-shadow: 0 0.42vw 0.56vw rgba(0, 0, 0, 0.25);
+
+    --padding-buttons-dashboard: 0.76vw 1.39vw;
+
+
+    /* header part */
+    --dashboard-border-colour: #1f1f1f;
+    --main-dashboard-border-bottom-design: var(--global-border-width-main) solid var(--dashboard-border-colour);
+
+    --font-size-dashboard-header-title: 2.78vw; /* smaller than title size on other pages */
+
+
+
+
+    /* feature cards part */
+    --height-filter-items-dashboard: 13.89vw;
+    --feature-overlay-background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    --feature-overlay-blur: 0.07vw;
+    --padding-feature-card-content: 1.94vw 1.67vw;
+
+    --feature-icon-size: 3.33vw;
+    --feature-icon-background: rgba(255, 255, 255, 0.2);
+    --feature-icon-border-radius: 0.83vw;
+    --vertical-gap-feature-icon: 0.56vw;
+    --feature-icon-blur-second: 0.69vw;
+    --feature-icon-border: var(--global-border-width-main) solid rgba(255, 255, 255, 0.3);
+    --feature-icon-icon-size: 1.67vw;
+
+    --feature-title-dashboard-font-size: 1.46vw;
+
+    --feature-text-dashboard-text-shadow: 0 0.14vw 0.28vw rgba(0, 0, 0, 0.3);
+    --feature-text-line-height: 1.3;
+
+    --feature-text-dashboard-smaller-font-size: 1vw;
+    --feature-text-dashboard-smaller-line-height: 1.5;
+    --feature-text-dashboard-smaller-text-shadow: 0 0.07vw 0.21vw rgba(0, 0, 0, 0.4);
+
+
+
+
+
+
+    /* main content cards */
+    --main-dashboard-item-background-colour: #2a2a2a;
+    --padding-dashboard-main-content-cards: 1.74vw;
+    --border-main-dashboard-items: var(--global-border-width-main) solid #333;
+
+    --font-size-dashboard-main-content-cards-title: 1.67vw;
+    --margin-below-tite-text-dashboard-main-content-cards: 1.74vw;
+
+    --main-dashboard-profit-section-only-item-background-colour: linear-gradient(135deg, #2a2a2a, #333);
+
+    --gap-main-dashboard-items-inner: 1.39vw;
+
+    --font-size-dashboard-main-content-text: 1.04vw;
+
+    --border-bottom-main-section-items: 0.07vw solid #404040;
+
+    --height-progress-bar-dashboard: 0.56vw;
+    --border-radius-progress-bar-dashboard: 0.28vw;
+    --progress-bar-fill-gradient-dashboard: linear-gradient(90deg, #ffffff, #ff00c6);
+
+    --padding-buttons-main-section-dashboard: 0.69vw 1.39vw;
+
+    --border-radius-buttons-dashboard: 0.56vw;
+
+
+
+
+    /* quick tools section */
+
+    --border-radius-tool-card-dashboard: 0.83vw;
+
+    --padding-tool-card-dashboard: 1.39vw;
+
+    --size-tool-card-dashboard: 10.07vw;
+
+    --size-tool-icon-card-dashboard: 3.33vw;
+
+    --size-of-icons-in-quick-tools-section: 1.39vw;
+
+    --tool-icon-inner-margin-top: 0.56vw;
+
+    --height-tool-title-text-quick-tools-section: 2.78vw;
+
+
+
+
+}
+
+
+
+/* Dashboard Specific Styles */
+.dashboard-container {
+    width: var(--dashboard-container-width);
+    margin: 0 auto;
+    padding: var(--var-main-dashboard-container-padding);
+    color: #ffffff;
+    background-color: var(--global-main-background-colour); 
+    border-radius: var(--main-dashboard-border-radius);
+    min-height: 100vh;
+    justify-content: flex-start;
+    font-family: var(--global-main-font);
+    display: flex;
+    flex-direction: column;
+    gap: var(--main-dashboard-container-gap);
+
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: calc(var(--var-main-dashboard-container-padding) / 2);
+    border-bottom: var(--main-dashboard-border-bottom-design);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--var-main-dashboard-container-padding) / 2.5);
+}
+
+.dashboard-icon {
+    height: var(--font-size-dashboard-header-title);
+    width: auto;
+    filter: invert(1);
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: var(--font-size-dashboard-header-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Feature Cards Section */
+.feature-cards-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--gap-main-dashboard-item-gap); 
+}
+
+.feature-card {
+    border-radius: var(--main-dashboard-border-radius);
+    padding: 0;
+    overflow: hidden;
+    transition: var(--global-main-dashboard-item-transition);
+    cursor: pointer;
+    height: var(--height-filter-items-dashboard);
+    width: calc((100% - (2 * var(--gap-main-dashboard-item-gap))) / 3);
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: var(--shadow-main-dashboard-item);
+}
+
+.feature-card:hover {
+    transform: var(--hover-main-dashboard-item-transform);
+    box-shadow: var(--hover-main-dashboard-item-shadow);
+}
+
+.feature-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--feature-overlay-background);
+    backdrop-filter: blur(var(--feature-overlay-blur));
+    z-index: 1;
+}
+
+.feature-content {
+    padding: var(--padding-feature-card-content);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+}
+
+.feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--feature-icon-size);
+    height: var(--feature-icon-size);
+    background: var(--feature-icon-background);
+    border-radius: var(--feature-icon-border-radius);
+    margin-bottom: calc(var(--vertical-gap-feature-icon) * 2);
+    backdrop-filter: blur(var(--feature-icon-blur-second));
+    border: var(--feature-icon-border);
+}
+
+.feature-icon i {
+    font-size: var(--feature-icon-icon-size);
+    color: #ffffff;
+}
+
+.feature-card h3 {
+    margin: 0 0 var(--vertical-gap-feature-icon) 0;
+    font-size: var(--feature-title-dashboard-font-size);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+    text-shadow: var(--feature-text-dashboard-text-shadow);
+    line-height: var(--feature-text-line-height);
+}
+
+.feature-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: var(--feature-text-dashboard-smaller-line-height);
+    font-size: var(--feature-text-dashboard-smaller-font-size);
+    text-shadow: var(--feature-text-dashboard-smaller-text-shadow);
+}
+
+
+
+/* Special styling for specific feature cards */
+.pro-card {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+}
+.guides-card {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+.signup-card {
+    background: linear-gradient(135deg, #be185d, #ec4899);
+}
+.weekly-card {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+.discord-card {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+.support-card {
+    background: linear-gradient(135deg, #06b6d4, #48d4e7);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Main Content Grid */
+.main-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--gap-main-dashboard-item-gap);
+}
+
+.card {
+    background: var(--main-dashboard-item-background-colour);
+    border-radius: var(--main-dashboard-border-radius);
+    padding: var(--padding-dashboard-main-content-cards);
+    border: var(--border-main-dashboard-items);
+    display: flex;
+    flex-direction: column;
+}
+
+.card h2 {
+    margin: 0 0 var(--margin-below-tite-text-dashboard-main-content-cards) 0;
+    font-size: var(--font-size-dashboard-main-content-cards-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+}
+
+div.offer-progress-section.card h2 {
+    margin: 0 0 calc(var(--margin-below-tite-text-dashboard-main-content-cards) * 1.5) 0;
+}
+
+/* Profit Section */
+.profit-section {
+    background: var(--main-dashboard-profit-section-only-item-background-colour);
+}
+
+.profit-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-main-dashboard-items-inner);
+}
+
+.profit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--gap-main-dashboard-items-inner) / 1.5) 0;
+    border-bottom: var(--border-bottom-main-section-items);
+}
+
+.profit-item:last-child {
+    border-bottom: none;
+}
+
+.profit-label {
+    font-size: var(--font-size-dashboard-main-content-text);
+    color: #ccc;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.profit-value {
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+}
+
+/* Offer Progress Section */
+.progress-items {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap-main-dashboard-items-inner) * 1.75);
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.75);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.progress-label {
+    font-size: var(--font-size-dashboard-main-content-text);
+    color: #ffffff;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.progress-count {
+    font-size: var(--font-size-dashboard-main-content-text);
+    color: #ccc;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.progress-bar {
+    width: 100%;
+    height: var(--height-progress-bar-dashboard);
+    background: #404040;
+    border-radius: var(--border-radius-progress-bar-dashboard);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--progress-bar-fill-gradient-dashboard);
+    border-radius: var(--border-radius-progress-bar-dashboard);
+    transition: width 0.6s ease;
+}
+
+/* Membership Status Section */
+.membership-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.membership-status {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-main-dashboard-items-inner);
+    height: 100%;
+}
+
+.status-badge {
+    padding: var(--padding-buttons-main-section-dashboard);
+    border-radius: var(--main-dashboard-border-radius);
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    text-transform: uppercase;
+    letter-spacing: 0.0.35vw;
+    text-align: center;
+    width: fit-content;
+}
+
+
+
+
+
+.status-badge.free {
+    background: #666;
+    color: #ffffff;
+}
+
+.status-badge.premium-trial {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    color: #1a1a1a;
+}
+
+.status-badge.premium {
+    background: linear-gradient(90deg, #4ecdc4, #44a08d);
+    color: #1a1a1a;
+}
+
+.status-badge.pro {
+    background: linear-gradient(90deg, #8b5cf6, #a855f7);
+    color: #ffffff;
+}
+
+
+
+
+
+.membership-details {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.75);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--gap-main-dashboard-items-inner) / 1.75) 0;
+    border-bottom: var(--border-bottom-main-section-items);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-size: var(--font-size-dashboard-main-content-text);
+    color: #ccc;
+    font-weight: var(--font-weight-main-oddsmatcher);
+}
+
+.detail-value {
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+}
+
+.membership-actions {
+    display: flex;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.25);
+    flex-direction: column;
+    margin-top: auto;
+}
+
+.subscription-btn,
+.upgrade-btn {
+    flex: 1;
+    min-width: 100%;
+    padding: var(--padding-buttons-dashboard);
+    border: none;
+    border-radius: var(--border-radius-buttons-dashboard);
+    font-size: var(--font-size-dashboard-main-content-text);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--gap-main-dashboard-items-inner) / 1.5);
+}
+
+.subscription-btn {
+    background: #333;
+    color: #ffffff;
+    border: var(--global-border-width-main) solid #555;
+}
+
+.subscription-btn:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.upgrade-btn {
+    background: linear-gradient(90deg, #ff00c6, #b300ff);
+    color: #ffffff;
+}
+
+.upgrade-btn:hover {
+    background: linear-gradient(90deg, #ff33d1, #cc00ff);
+}
+
+.upgrade-btn.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Quick Tools Section */
+.quick-tools-section {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap-main-dashboard-item-gap) * 1.5);
+}
+
+.tools-category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-main-dashboard-item-gap);
+}
+
+.category-title {
+    margin: 0;
+    font-size: var(--font-size-dashboard-main-content-cards-title);
+    font-weight: var(--font-weight-main-oddsmatcher);
+    color: #ffffff;
+    padding-bottom: calc(var(--gap-main-dashboard-item-gap) / 2);
+    border-bottom: var(--global-border-width-main) solid #333;
+    letter-spacing: 0.0.35vw;
+}
+
+.tools-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--gap-main-dashboard-item-gap);
+}
+
+.tool-card {
+    background: var(--main-dashboard-item-background-colour);
+    border-radius: var(--border-radius-tool-card-dashboard);
+    padding: var(--padding-tool-card-dashboard);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    height: var(--size-tool-card-dashboard);
+    width: var(--size-tool-card-dashboard);
+    padding-top: calc(var(--padding-tool-card-dashboard) / 2);
+    justify-content: flex-start;
+}
+
+.tool-card:hover {
+    background: #333;
+    transform: translateY(-0.14vw);
+}
+
+.tool-icon {
+    width: var(--size-tool-icon-card-dashboard);
+    aspect-ratio: 1;
+    background: #000000;
+    border-radius: var(--border-radius-tool-card-dashboard);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--size-of-icons-in-quick-tools-section);
+    color: white;
+    margin-top: var(--tool-icon-inner-margin-top);
+    margin-bottom: calc(var(--tool-icon-inner-margin-top) * 2);
+}
+
+.tool-title {
+    text-align: center;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: var(--font-size-dashboard-main-content-text);
+    color: #ffffff;
+    line-height: var(--feature-text-dashboard-smaller-line-height);
+    height: var(--height-tool-title-text-quick-tools-section);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin-top: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* THIS IS MOBILE AND SHOULD BE 700PX VERSION ANYWAY, WHERE IT SHALL ALSO NEED TO FIX THE TOP BOXES AND MORE */
+
+
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 699px) {
+
+
+    #outer-container-div {
+        background-color: var(--global-main-background-colour);
+    }
+
+
+    .dashboard-container {
+
+
+
+        border: none;
+        border-radius: 0;
+
+
+
+
+        --dashboard-container-width: 100%;
+
+        --main-dashboard-border-radius: 5.00vw;
+
+        --font-size-dashboard-header-title: 6.75vw;
+
+        --var-main-dashboard-container-padding: 5.00vw;
+
+        --main-dashboard-container-gap: 10.00vw;
+
+        --gap-main-dashboard-item-gap: 5.00vw;
+
+        --padding-buttons-dashboard: 2.75vw 5.00vw;
+
+
+
+
+    
+        
+    
+
+
+        /* feature cards part */
+        --height-filter-items-dashboard: 42.50vw;
+        --padding-feature-card-content: 5.75vw 4.50vw;
+
+        --feature-icon-size: 10.00vw;
+        --feature-icon-border-radius: 2.00vw;
+        --vertical-gap-feature-icon: 1.50vw;
+        --feature-icon-border: var(--global-border-width-main) solid rgba(255, 255, 255, 0.3);
+        --feature-icon-icon-size: 5.00vw;
+
+        --feature-title-dashboard-font-size: 5.00vw;
+
+        --feature-text-dashboard-smaller-font-size: 3.00vw;
+
+
+        
+        
+    
+
+
+
+
+
+        /* main content cards */
+        --padding-dashboard-main-content-cards: 5.50vw;
+
+        --font-size-dashboard-main-content-cards-title: 6.00vw;
+        --margin-below-tite-text-dashboard-main-content-cards: 6.25vw;
+
+
+        --gap-main-dashboard-items-inner: 5.00vw;
+
+        --font-size-dashboard-main-content-text: 3.25vw;
+
+
+        --height-progress-bar-dashboard: 1.50vw;
+        --border-radius-progress-bar-dashboard: 1.00vw;
+
+        --padding-buttons-main-section-dashboard: 2.25vw 5.00vw;
+
+        --border-radius-buttons-dashboard: 2.00vw;
+
+
+
+
+        
+
+
+
+        /* quick tools section */
+
+        --new-gap-for-mobile-quick-tools-section: 3.75vw; /* new */
+
+        --border-radius-tool-card-dashboard: 2.50vw;
+
+        --padding-tool-card-dashboard: 3.00vw;
+
+        --size-tool-card-dashboard: 109.1.00vw;
+
+        --size-tool-icon-card-dashboard: 9.00vw;
+
+        --size-of-icons-in-quick-tools-section: 3.50vw;
+
+        --tool-icon-inner-margin-top: 2.00vw;
+
+        --height-tool-title-text-quick-tools-section: 20.50vw;
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+    /* Feature Cards - Single Column */
+    .feature-card {
+        width: 100%;
+    }
+
+    /* Main Content Grid - Single Column */
+    .main-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+
+    .tools-grid {
+        gap: var(--new-gap-for-mobile-quick-tools-section);
+    }
+
+    .tool-icon {
+        margin-bottom: calc(var(--tool-icon-inner-margin-top) * 1.4);
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
