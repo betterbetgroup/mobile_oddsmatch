@@ -164,7 +164,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     Helpers.add_loading_row(this.shadowRoot, this.state);
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
-                    Helpers.handleResize(this.shadowRoot, true);
+                    Helpers.handleResize(this.shadowRoot, false);
                     ;
                 });
             });

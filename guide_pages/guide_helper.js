@@ -163,10 +163,8 @@ export class GuidePageManager {
             let oddsmatcherHTML = '';
             if (step.content?.oddsmatcher) {
                 const omType = step.content.oddsmatcher.type;
-                const oddsmatcherTag = omType === 'qualifying_bet' ? 'qualbet-oddsmatcher' : 
-                                     omType === 'free_bet' ? 'freebet-oddsmatcher' : 
-                                     `${omType.replace('_', '-')}-oddsmatcher`;
-                
+                const oddsmatcherTag = 'tutorial-oddsmatcher';
+                        
                 
                 // Load oddsmatcher if not already loaded
                 if (!this.loadedOddsmatchers.has(omType)) {
@@ -181,8 +179,10 @@ export class GuidePageManager {
                 // Prepare data with wix_filters
                 const oddsmatcherData = {
                     wix_filters: step.content.oddsmatcher.filters,
-                    is_first: true,
-                    premium_member: true
+                    tutorial_info: step.content.oddsmatcher.tutorial_info,
+                    is_first_send: true,
+                    premium_member: true,
+                    rows: globalOddsmatcherData
                 };
 
                 oddsmatcherHTML = `
@@ -190,8 +190,8 @@ export class GuidePageManager {
                         <div class="oddsmatcher-intro">
                             <div class="tool-icon">⚡</div>
                             <div class="tool-content">
-                                <h4>${omType.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())} Oddsmatcher</h4>
-                                <p>Use our odds matching tool to find the best selections for this step</p>
+                                <h4>${step.content.oddsmatcher.oddsmatcher_title}</h4>
+                                <p>Use the oddsmatcher below to help you with this step, simply click the plus icon to select the event</p>
                             </div>
                         </div>
                     </div>
@@ -367,7 +367,7 @@ export class GuidePageManager {
             // Prepare data with rows
             const oddsmatcherData = {
                 rows: globalOddsmatcherData,
-                is_first: false,
+                is_first_send: false,
             };
             
             oddsmatcherElement.setAttribute('data-odds', JSON.stringify(oddsmatcherData));
@@ -490,7 +490,7 @@ export function process_new_final_data(newData, shadowRoot) {
         // Extract and store global oddsmatcher data from .rows
         
         // Update the guide with new data
-        if (shadowRoot.guideManager && parsedData.is_first) {
+        if (shadowRoot.guideManager && parsedData.is_first_send) {
             shadowRoot.guideManager.guideData = parsedData.item_data;
             shadowRoot.guideManager.populateContent();
         } 

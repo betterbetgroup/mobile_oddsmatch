@@ -1,15 +1,19 @@
 import * as Helpers from '../../oddsmatchers/main/helper.js';
+import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.js'
+
 
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/qualifying_bet/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/styles.css';
 
 
+    styles_script = '../desktop_oddsmatchers/tutorial/styles.css'
 
-    class qualifyingBetOddsmatcher extends HTMLElement {
+
+    class tutorialOddsmatcher extends HTMLElement {
 
         constructor() {
             
@@ -133,9 +137,10 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     }
                 ],
                 is_tutorial: true,
-                oddsmatcher_type: 'qualifying_bet_tutorial',
+                oddsmatcher_type: 'tutorial',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'expected profit standard']
+                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'tutorial_profit'],
+                tutorial_info: {}
                 
             };
             
@@ -160,8 +165,8 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                     Helpers.runSpecificScript(this.shadowRoot, this.state); 
                     Helpers.add_loading_row(this.shadowRoot, this.state);
                     this.isContentLoaded = true;
+                    Helpers.handleResize(this.shadowRoot, true);
                     this.processQueuedAttributeChanges();
-                    Helpers.handleResize(this.shadowRoot, false);
                     ;
                 });
             });
@@ -257,36 +262,36 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
     
         create_row(row, scope, state) {
 
+            // given this takes state, then it must use the tutorial_info to do some of this stuff
+
             let sport_icon_url = Helpers.get_sport_icon_url(row.sport)
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
             let exchange_image = Helpers.get_exchange_image(row.exchange)
+
+            let data = {
+                back_odds: parseFloat(row.back_odds),
+                lay_odds: parseFloat(row.lay_odds),
+                lay_commission: parseFloat('0') / 100,
+                back_stake: parseFloat(state.tutorial_info.stake),
+                isfree: state.tutorial_info.isfree,
+                laytype: state.tutorial_info.laytype
+            }
         
             let qualifying_loss_class = 'positive_profit_data'
-            let potential_profit_class = 'positive_profit_data'
         
             let qualifying_loss = 0;
-            let potential_profit = 0;
+
+            data = calculateHelpers.calculate_standard(data);
         
-            if (row.qualifying_loss.toString().includes('-')) {
+
+            if (state.tutorial_info.isfree) {
+                qualifying_loss = ('£' + data.potential_profit).replace('£-', '-£');
+            } else {
+                qualifying_loss = ('£' + data.qualifying_loss).replace('£-', '-£');
                 qualifying_loss_class = 'negative_profit_data';
-                qualifying_loss = row.qualifying_loss;
-            } else {
-                qualifying_loss = '+' + (row.qualifying_loss).toString();
             }
-        
-            if (qualifying_loss == '+0.00') {
-                qualifying_loss = '£0.00'
-            }
-        
-            if (row.potential_profit.toString().includes('-')) {
-                potential_profit_class = 'negative_profit_data';
-                potential_profit = row.potential_profit;
-            } else {
-                potential_profit = '+' + (row.potential_profit).toString();
-            }
-            if (potential_profit == '+0.00') {
-                potential_profit = '£0.00'
-            }
+
+
         
             const tr = document.createElement('tr');
     
@@ -329,7 +334,6 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 <td class="no_padding_margin">
                     <div class="expected_profit_data">
                         <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
-                        <div id='potential_profit_${row._id}' class='${potential_profit_class}'>${potential_profit}</div>
                     </div>
                 </td>
             `;
@@ -408,7 +412,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
     }
 
-    customElements.define('qualbet-oddsmatcher', qualifyingBetOddsmatcher);
+    customElements.define('tutorial-oddsmatcher', tutorialOddsmatcher);
 
 
 

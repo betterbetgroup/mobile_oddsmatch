@@ -402,7 +402,7 @@ function create_select_div_inner_html(scope, state, div, row) {
 
         set_values_for_2up_bet_data(state, div, row, data_object, true);
 
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
 
         // get the values from the row
         data_object.back_stake = parseFloat('10');
@@ -427,7 +427,21 @@ function create_select_div_inner_html(scope, state, div, row) {
 
     } 
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == 'tutorial') {
+        data_object.back_stake = parseFloat(state.tutorial_info.stake);
+        data_object.isfree = state.tutorial_info.isfree;
+        data_object.laytype = state.tutorial_info.laytype;
+
+    
+        data_object.back_odds = parseFloat(row.back_odds);
+        data_object.lay_odds = parseFloat(row.lay_odds);
+        data_object.lay_commission = parseFloat('0') / 100;
+
+        data_object = calculateHelpers.calculate_standard(data_object);
+
+    }
+
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         set_values_for_standard(state, div, row, data_object, true);
     } 
     
@@ -950,7 +964,7 @@ function add_in_bet_controls_section(state, div, row, data_object, is_create) {
     // do it using div.innerHTML += and add certain classes, then add these to the styles.css in desktop_oddsmatchers/main/styles.css
 
 
-    let is_free_checked = (state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'free_bet_tutorial') ? true : false;
+    let is_free_checked = (state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') ? true : false;
     
     div.innerHTML += `
         <div class="select_div_item select_bet_controls_item">
@@ -977,7 +991,7 @@ function add_in_bet_controls_section(state, div, row, data_object, is_create) {
 
 
 
-    if (state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
 
         div.querySelector('.select_bet_controls_item').style.display = 'none';
 
@@ -1173,7 +1187,7 @@ function add_in_explanation_text_section(state, div, row, data_object, is_create
         state.truncated = true;
     }
 
-    state.normal_list = (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial');
+    state.normal_list = (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial');
 
     state.horse_list = (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place');
 
@@ -1497,7 +1511,7 @@ function add_in_first_outcome_text(state,div, row, data_object, is_create) {
 
     let outcome_text = row.outcome + ' win';
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         outcome_text = process_standard_outcome_text(row, data_object, true);
     } 
 
@@ -1541,7 +1555,7 @@ function add_in_second_outcome_text(state, div, row, data_object, is_create) {
         other_outcome_text = row.outcome + ` don't win and don't go 2 goals up at any point in the game`;
     }
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         other_outcome_text = process_standard_outcome_text(row, data_object, false);
     } 
 
@@ -2085,7 +2099,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
 
 
 
-        if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+        if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
             div.querySelector('#left_div_profit_and_log_' + row._id).innerHTML += `
                 <div class="profit_display_profit_and_log_div">
 
@@ -2257,7 +2271,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     let description = '';
     if (state.oddsmatcher_type == '2up') {
         description = row.outcome + ' to go 2 goals up in ' + row.fixture + ', back bet placed on ' + row.bookmaker + ' @ ' + data_object.back_odds + ', lay bet placed on ' + row.exchange + ' @ ' + data_object.lay_odds + ".";        
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         description = get_description_for_standard_bet(state, div, row, data_object);
     } else if (state.oddsmatcher_type == 'each_way' || state.oddsmatcher_type == 'extra_place') {
         description = get_description_for_each_way_or_ep_bet(div, row, data_object, state.oddsmatcher_type == 'extra_place');
@@ -2283,7 +2297,7 @@ function add_in_bottom_profit_and_log_section(state, div, row, data_object, is_c
     set_class_for_profit_info_item(qualifying_loss_element, data_object.qualifying_loss);
     
 
-    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'extra_place' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'extra_place' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         let potential_profit_element = div.querySelector('.profit_and_log__item_value_potential_profit')
         potential_profit_element.textContent = ('£' + data_object.potential_profit).replace('£-', '-£');
         set_class_for_profit_info_item(potential_profit_element, data_object.potential_profit);
@@ -2348,7 +2362,7 @@ function get_description_for_standard_bet(state, div, row, data_object) {
         }
     } else if (state.oddsmatcher_type == 'qualifying_bet_tutorial') {
         description += `Qualifying Bet `;
-    } else if (state.oddsmatcher_type == 'free_bet_tutorial') {
+    } else if (state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         description += `Free Bet `;
     }
 
@@ -2550,7 +2564,7 @@ function log_bet(scope, state, div, row, data_object) {
     let platforms = [];
 
 
-    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    if (state.oddsmatcher_type == '2up' || state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'bog' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
         data_object.backstake = div.querySelector('#Back-stake-input_' + row._id).value;
         // help me make my platforms array in here
         platforms.push({
@@ -2701,7 +2715,7 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
     
         data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
         data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);

@@ -119,7 +119,13 @@ const DesktopHeaderDictionary = {
         <div >
             <img id='sort_by_img_ql' class="sort_by" data-sort="final profit" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
         </div>
-    </th>`
+    </th>`,
+
+    'tutorial_profit': `<th id="expected_profit_header" class="header_with_sorting header_with_sorting_tutorial" >Bet<br>Profit
+        <div >
+            <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+        </div>
+    </th>`,
     
 };
 
@@ -186,11 +192,20 @@ export function process_new_final_data_tutorial(data, scope, state) {
     state.data_loaded_from_wix = true;
     data = JSON.parse(data);
 
-    if (data.is_first) {
-        add_filters(data.wix_filters, scope, state);
+    state.waiting_globalData = data.rows;
+
+    if (data.is_first_send) {
         state.is_premium_member = data.premium_member;
+        state.tutorial_info = data.tutorial_info;
+        add_filters(data.wix_filters, scope, state);
+        apply_tutorial_info(scope, state);
+        state.globalData = data.rows;
+        try{
+            filterData(scope, state);
+        } catch (error) {
+            console.log('probably failed sorting empty rows')
+        }
     } else {
-        state.waiting_globalData = data.rows;
         if (!state.loaded_tutorial_data) {
             state.globalData = data.rows;
             filterData(scope, state);
@@ -198,6 +213,18 @@ export function process_new_final_data_tutorial(data, scope, state) {
         state.loaded_tutorial_data = true;
     }
         
+}
+
+
+function apply_tutorial_info(scope, state) {
+    state.current_sort = state.tutorial_info.current_sort;
+
+    if (state.is_desktop) {
+        let tutorial_profit_header = scope.querySelector('.header_with_sorting_tutorial');
+        tutorial_profit_header.innerHTML = tutorial_profit_header.innerHTML.replace('Bet<br>Profit', state.tutorial_info.profit_header_text);
+        tutorial_profit_header.querySelector('img').setAttribute('data-sort', state.tutorial_info.current_sort);
+
+    }
 }
 
 
@@ -1904,6 +1931,7 @@ export function sort_data_on_click(sortValue, scope, state) {
 
 export function handleResize(scope, is_tutorial) {
 
+    console.log('is_tutorial', is_tutorial)
 
     if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
         return;
@@ -1912,7 +1940,7 @@ export function handleResize(scope, is_tutorial) {
     let width = window.innerWidth;
 
     if (is_tutorial) {
-        width = width * 0.72;
+        width = width * 0.725;
     }
 
     const contentDiv = scope.getElementById('outer-container-div');
@@ -2009,7 +2037,7 @@ function add_desktop_table_header(scope, state) {
 export function runSpecificScript(scope, state) {
 
     // use scope and on window resize run the function handleResize
-    window.addEventListener('resize', () => { handleResize(scope, (state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'qualifying_bet_tutorial')); });
+    window.addEventListener('resize', () => { handleResize(scope, state.oddsmatcher_type == 'tutorial'); });
 
     // set the inner html of the header using the js
     if (state.is_desktop) {
