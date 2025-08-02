@@ -91,7 +91,7 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
     add_refresh_button_div(scope, state, calculator_container_div);
 
 
-    if (state.calculator_type == 'Standard' || state.calculator_type == '2up' || state.calculator_type == 'Bonus') {
+    if (state.calculator_type == 'Standard' || state.calculator_type == '2up' || state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If') {
         add_input_section_for_standard_calculator(scope, state, calculator_container_div);
     }
 
@@ -139,6 +139,15 @@ function add_refresh_button_div(scope, state, calculator_container_div) {
 }
 
 
+function add_refund_if_only_div(if_div, scope, state) {
+    if_div.innerHTML += `
+        <span class="if_text_next_to_trigger_event">If</span>
+        <div class="filter-item trigger-filter-item">
+            <div class="filter-label">Trigger Event</div>
+            <input type="text" class="text-input" placeholder="Enter trigger event" id="trigger-event-input" autocomplete="off">
+        </div>
+    `;
+}
 
 
 
@@ -172,7 +181,7 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
         add_free_bet_mode_control(first_row_div);
     }
 
-    if (state.calculator_type == 'Bonus') {
+    if (state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If') {
         add_max_bonus_input(first_row_div);
         add_bonus_retention_input(first_row_div);
     }
@@ -184,13 +193,34 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
     add_commission_input(second_row_div, 'Lay', 2);
     add_platform_div_for_logging(second_row_div, 'Lay Bet Exchange', 2);
 
-
-
-
-
     // adding in lay bet info
     add_lay_bet_info_div(scope, state, second_row_div, 2, `at <span id="lay-odds-span-2"`);
 
+
+
+
+
+    if (state.calculator_type == 'Refund If') {
+
+        // ADD AN IF DIV
+        const if_div = document.createElement('div');
+        if_div.className = 'calculator-bet-info-section-div if-div-calculator-div';
+        input_section_div.appendChild(if_div);
+        add_refund_if_only_div(if_div, scope, state);
+
+        const third_row_div = document.createElement('div');
+        third_row_div.className = 'calculator-bet-info-section-div lay-bet-calculator-div-refund-if';
+        input_section_div.appendChild(third_row_div);
+
+        // select the lay-input-div
+        add_flag_div(third_row_div, true);
+        add_odds_input(third_row_div, 'Lay', 3);
+        add_commission_input(third_row_div, 'Lay', 3);
+        add_platform_div_for_logging(third_row_div, 'Lay Bet Exchange', 3);
+
+        // adding in lay bet info
+        add_lay_bet_info_div(scope, state, third_row_div, 3, `at <span id="lay-odds-span-3"`);
+    }
 
 
 
@@ -209,7 +239,7 @@ function add_input_section_for_standard_calculator(scope, state, calculator_cont
         calculator_container_div.appendChild(control_div_bonus);
         add_control_input_bonus(control_div_bonus);
 
-    } else if (state.calculator_type == 'Standard') {
+    } else if (state.calculator_type == 'Standard' || state.calculator_type == 'Refund If') {
 
         calculator_container_div.appendChild(lay_control_div);
         add_control_input_standard(lay_control_div);
@@ -1005,6 +1035,8 @@ function add_div_for_info_and_profit(scope, state, calculator_container_div) {
         add_desc_profit_div_dutching(info_and_profit_div);
     } else if (state.calculator_type == 'Sequential Lay') {
         add_desc_profit_div_sequential_lay(info_and_profit_div);
+    } else if (state.calculator_type == 'Refund If') {
+        add_desc_profit_div_refund_if(info_and_profit_div);
     }
 
 }
@@ -1075,6 +1107,66 @@ function add_desc_profit_div_standard(bottom_div) {
         </div>
     `;
 }
+
+
+function add_desc_profit_div_refund_if(bottom_div) {
+
+
+    bottom_div.innerHTML += `
+        <div class="div-in-bottom-div-info-and-profit">
+            
+        
+            <div class="profit_display_profit_and_log_div profit_display_div_calculator">
+
+
+
+                    <div class="filter-item filter-item-description">
+                        <label class="filter-label">Description</label>
+                        <textarea id="bet-description-input" class="bet-description-input bet-description-input-profit-tracker" placeholder="Add bet description..."></textarea>
+                    </div>
+
+
+
+                    <div class="div_around_profit_display_items div_around_profit_display_items_two_results">
+
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_qualifying_loss">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_qualifying_loss">
+                                Qualifying Loss
+                            </span>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_qualifying_loss">£0.00</span>
+                        </div>
+                        
+
+                        <div class="profit_display_profit_and_log_div_item profit_display_profit_and_log_div_item_potential_profit">
+                            <span class="profit_and_log__item_title profit_and_log__item_title_potential_profit">
+                                Potential Profit
+                            </span>
+
+                            <span class="profit_and_log__item_value profit_and_log__item_value_potential_profit profit_and_log__item_value_positive">£39.00</span>
+                        </div>
+
+
+                    </div>
+                    
+
+                    
+                    <div class="log-bet-button-div">
+                            <button id="log-bet-button" class="log-bet-button">Log Bet</button>
+                    </div>
+
+
+            </div>
+
+
+
+        </div>
+    `;
+}
+
+
+
 
 
 function add_desc_profit_div_2up(bottom_div) {
@@ -1459,11 +1551,13 @@ function add_values_for_calculator(scope, state, is_create) {
             }
         }
 
-        if (state.calculator_type == 'Bonus') {
+        if (state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If') {
             scope.querySelector('#max-bonus-input').value = state.data_object.max_bonus || state.data_object.backstake || '';
             scope.querySelector('#bonus-retention-input').value = parseFloat(state.data_object.bonus_retention) * 100 || '80';
+        }
 
-
+        if (state.calculator_type == 'Refund If') {
+            scope.querySelector('#trigger-event-input').value = state.data_object.trigger_text || '';
         }
         
 
@@ -1584,6 +1678,8 @@ function add_values_for_calculator(scope, state, is_create) {
         get_and_create_all_values_sequential_lay(scope, state);
     } else if (state.calculator_type == 'Bonus') {
         get_and_create_all_values_bonus(scope, state);
+    } else if (state.calculator_type == 'Refund If') {
+        get_and_create_all_values_refund_if(scope, state);
     }
 
 
@@ -1612,6 +1708,8 @@ function add_values_for_calculator(scope, state, is_create) {
         set_results_for_sequential_lay(scope, state);
     } else if (state.calculator_type == 'Bonus') {
         set_results_for_bonus(scope, state);
+    } else if (state.calculator_type == 'Refund If') {
+        set_results_for_refund_if(scope, state);
     }
 
 }
@@ -1782,12 +1880,77 @@ function calculate_bonus_bet(scope, state) {
     state.data_object.max_bonus = parseFloat(scope.querySelector('#max-bonus-input').value);
     state.data_object.bonus_retention = parseFloat(scope.querySelector('#bonus-retention-input').value) / 100;
 
-    console.log(state.data_object)
 
     state.data_object = calculator_helper.calculate_bonus(state.data_object);
 
 }
 
+
+
+function get_and_create_all_values_refund_if(scope, state) {
+
+
+    state.data_object.laytype = scope.querySelector('.active-lay-type').dataset.type;
+
+    state.data_object.max_bonus = scope.querySelector('#max-bonus-input').value;
+    state.data_object.bonus_retention = scope.querySelector('#bonus-retention-input').value;
+
+    state.data_object.trigger_text = scope.querySelector('#trigger-event-input').value;
+
+
+    state.data_object.platforms = [];
+
+
+    // set the platform data
+
+    state.data_object.platforms.push({
+        index: 1,
+        odds: scope.querySelector('#odds-input-1').value,
+        platform: scope.querySelector('#platform-select-1').value,
+    })
+
+    state.data_object.platforms.push({
+        index: 2,
+        odds: scope.querySelector('#odds-input-2').value,
+        platform: scope.querySelector('#platform-select-2').value,
+        commission: scope.querySelector('#commission-input-2').value
+    })
+
+    state.data_object.platforms.push({
+        index: 3,
+        odds: scope.querySelector('#odds-input-3').value,
+        platform: scope.querySelector('#platform-select-3').value,
+        commission: scope.querySelector('#commission-input-3').value
+    })
+
+
+
+    state.data_object.backstake = scope.querySelector('#back-stake-input').value;
+
+    state.data_object.description = scope.querySelector('#bet-description-input').value;
+
+    calculate_refund_if_bet(scope, state);
+
+}
+
+function calculate_refund_if_bet(scope, state) {
+
+    state.data_object.back_odds = parseFloat(scope.querySelector('#odds-input-1').value);
+    state.data_object.lay_odds = parseFloat(scope.querySelector('#odds-input-2').value);
+    state.data_object.lay_commission = (parseFloat(scope.querySelector('#commission-input-2').value)) / 100;
+    state.data_object.back_stake = parseFloat(scope.querySelector('#back-stake-input').value);
+
+    state.data_object.second_lay_odds = parseFloat(scope.querySelector('#odds-input-3').value);
+    state.data_object.second_lay_commission = (parseFloat(scope.querySelector('#commission-input-3').value)) / 100;
+
+    state.data_object.max_bonus = parseFloat(scope.querySelector('#max-bonus-input').value);
+    state.data_object.bonus_retention = parseFloat(scope.querySelector('#bonus-retention-input').value) / 100;
+
+    console.log(state.data_object)
+
+    state.data_object = calculator_helper.calculate_refund_if(state.data_object);
+
+}
 
 
 
@@ -2054,6 +2217,42 @@ function set_results_for_bonus(scope, state) {
     }
 
 }
+
+
+function set_results_for_refund_if(scope, state) {
+
+    if (!state.data_object.incomplete_data) {
+
+        // then set lay stake using #lay-stake-span
+        scope.querySelector('#lay-stake-span-2').textContent = ('£' + state.data_object.lay_stake).replace('£-', '-£') || '';
+        scope.querySelector('#lay-stake-span-2').classList.add('copy-on-click');
+        scope.querySelector('#copy-icon-2').classList.remove('hidden_row_above_columns');
+
+        scope.querySelector('#lay-odds-span-2').textContent = state.data_object.lay_odds + ' Lay Odds' || '';
+
+
+        scope.querySelector('#lay-stake-span-3').textContent = ('£' + state.data_object.second_lay_stake).replace('£-', '-£') || '';
+        scope.querySelector('#lay-stake-span-3').classList.add('copy-on-click');
+        scope.querySelector('#copy-icon-3').classList.remove('hidden_row_above_columns');
+
+        scope.querySelector('#lay-odds-span-3').textContent = state.data_object.second_lay_odds + ' Lay Odds' || '';
+
+
+        // then set the profit items
+        scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_qualifying_loss'), state.data_object.qualifying_loss);
+        scope.querySelector('.profit_and_log__item_value_potential_profit').textContent = ('£' + state.data_object.potential_profit).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_potential_profit'), state.data_object.potential_profit);
+
+
+    } else {
+
+        set_results_to_default(scope, state);
+
+    }
+
+}
+
 
 
 function set_results_for_each_way(scope, state) {
@@ -2489,7 +2688,7 @@ function add_event_listeners_for_calculator(scope, state, div) {
     div.querySelectorAll('input').forEach(input => { // CAPTURES FREE BET MODE SWITCH CHANGES TOO
         input.addEventListener('input', (event) => {
             add_values_for_calculator(scope, state, false);
-            if (input.id.includes('back-stake-input') && state.calculator_type == 'Bonus') {
+            if (input.id.includes('back-stake-input') && (state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If')) {
                 scope.querySelector('#max-bonus-input').value = input.value;
             }
         });

@@ -144,7 +144,7 @@
     padding-top: calc(var(--height-filter-inputs) / 1.75);
 }
 
-.select_bet_text_div span, .seq-lay-profit-row span {
+.select_bet_text_div span, .seq-lay-profit-row span, .if_text_next_to_trigger_event {
     font-size: var(--profit-item-title-font-size);
     text-align: left;
     font-weight: var(--font-weight-main-oddsmatcher);

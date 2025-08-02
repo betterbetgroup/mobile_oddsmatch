@@ -417,6 +417,95 @@ export function calculate_bonus(data) {
 
 
 
+export function calculate_refund_if(data) {
+    
+    data.incomplete_data = false;
+
+    if (isNaN(data.back_stake) || isNaN(data.back_odds) || isNaN(data.lay_odds) || isNaN(data.lay_commission) || isNaN(data.max_bonus) || isNaN(data.bonus_retention) || isNaN(data.second_lay_odds) || isNaN(data.second_lay_commission)) {
+        data.incomplete_data = true;
+    } else {
+
+        // Calculate refund worth
+        data.bonus_worth = data.max_bonus * data.bonus_retention;
+
+        // Calculate initial qualifying bet
+        data.back_return = data.back_stake * data.back_odds;
+        data.lay_stake = data.back_return / (data.lay_odds - data.lay_commission);
+        data.liability = data.lay_stake * (data.lay_odds - 1);
+        
+        // Calculate profits for both outcomes of initial bet
+        data.bookmaker_profit_if_back_win = data.back_stake - (data.back_return - data.liability);
+        data.exchange_profit_if_back_win = data.back_stake - data.lay_stake * (1 - data.lay_commission);
+        
+        // Take the worse outcome as qualifying loss
+        data.initial_loss = Math.min(data.bookmaker_profit_if_back_win, data.exchange_profit_if_back_win);
+        data.qualifying_loss = Math.abs(data.initial_loss);
+
+        // Calculate second lay stake based on laytype
+        if (data.laytype === 'Standard') {
+            // Standard: Optimal refund extraction
+            data.second_lay_stake = data.bonus_worth / ((100 - data.second_lay_commission * 100) / 100 + data.second_lay_odds - 1);
+            
+        } else if (data.laytype === 'Underlay') {
+            // Underlay: Minimize the second lay stake (can be negative = backing)
+            data.second_lay_stake = (100 * data.initial_loss) / (100 - data.second_lay_commission * 100);
+            
+        } else if (data.laytype === 'Overlay') {
+            // Overlay: Maximize profit from refund
+            data.second_lay_stake = (data.bonus_worth - data.initial_loss) / (data.second_lay_odds - 1);
+        }
+
+        // Calculate second bet liability
+        data.second_liability = data.second_lay_stake * (data.second_lay_odds - 1);
+
+        // Calculate final profits for trigger event occurring
+        if (data.laytype === 'Standard') {
+            data.trigger_profit_if_back_win = data.bonus_worth - data.second_liability - data.initial_loss;
+            data.trigger_profit_if_lay_win = data.second_lay_stake * (1 - data.second_lay_commission) - data.initial_loss;
+            
+        } else if (data.laytype === 'Underlay') {
+            data.trigger_profit_if_back_win = data.bonus_worth - data.second_liability - data.initial_loss;
+            data.trigger_profit_if_lay_win = data.second_lay_stake * (1 - data.second_lay_commission) - data.initial_loss;
+            
+        } else if (data.laytype === 'Overlay') {
+            data.trigger_profit_if_back_win = data.bonus_worth - data.second_liability - data.initial_loss;
+            data.trigger_profit_if_lay_win = data.second_lay_stake * (1 - data.second_lay_commission) - data.initial_loss;
+        }
+
+        // Calculate potential profit (best case scenario)
+        data.potential_profit = Math.max(data.trigger_profit_if_back_win, data.trigger_profit_if_lay_win);
+
+        // Set overall profit calculations
+        data.bookmaker_profit_if_back_win = data.trigger_profit_if_back_win;
+        data.exchange_profit_if_back_win = data.trigger_profit_if_lay_win;
+        data.bookmaker_profit_if_lay_win = -data.initial_loss;
+        data.exchange_profit_if_lay_win = -data.initial_loss;
+        
+        data.total_profit_if_back_win = data.trigger_profit_if_back_win;
+        data.total_profit_if_lay_win = data.trigger_profit_if_lay_win;
+
+
+
+        // note that not fully getting qualifying loss correctly, and just setting the ql to 0 for simplicity. 
+
+        // For Standard, both qualifying loss and potential profit should be around the same value
+         if (data.laytype === 'Standard') {
+             // Both outcomes should be very similar for Standard
+             let avg_profit = (data.trigger_profit_if_back_win + data.trigger_profit_if_lay_win) / 2;
+             data.qualifying_loss = avg_profit;
+             data.potential_profit = avg_profit;
+             
+         } else if (data.laytype === 'Underlay' || data.laytype === 'Overlay') {
+             data.qualifying_loss = 0;
+         } 
+    
+    }
+
+    data = process_and_round_numbers(data);
+    return data;
+}
+
+
 
 
 export function calculate_each_way_and_extra_place(data, is_extra_place) {
