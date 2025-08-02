@@ -293,9 +293,15 @@
     margin-right: 0;
     min-width: calc(100%);
     max-width: calc(100%);
+    width: 100%;
 }
 
 
 .above-columns, #content {
     width: 100%;
+}
+
+
+.data-buttons-row strong {
+    width: 25vw !important;
 }

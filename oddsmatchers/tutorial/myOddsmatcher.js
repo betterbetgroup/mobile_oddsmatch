@@ -1,16 +1,18 @@
-import * as Helpers from '../../oddsmatchers/main/helper.js';
+import * as Helpers from '../main/helper.js';
 import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.js'
+
 
 
 
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
-    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/styles.css';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/qualifying_bet/styles.css';
 
 
-    styles_script = '../desktop_oddsmatchers/tutorial/styles.css'
+    styles_script = '../../oddsmatchers/tutorial/styles.css';
+
 
 
     class tutorialOddsmatcher extends HTMLElement {
@@ -24,6 +26,7 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
             this.isContentLoaded = false;
             this.attributeChangeQueue = [];
 
+
             // Create state object
             this.state = {
                 is_premium_member: false,
@@ -31,7 +34,7 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
                 globalData: [],
                 filteredData: [],
                 currentPage: 1,
-                rowsPerPage: 10,
+                rowsPerPage: 3,
                 current_sort: 'qualifying loss',
                 globalFilters: {},
                 customFilters: {},
@@ -138,12 +141,11 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
                 ],
                 is_tutorial: true,
                 oddsmatcher_type: 'tutorial',
-                is_desktop: true,
-                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'tutorial_profit'],
                 tutorial_info: {}
-                
             };
-            
+
+    
+
             // Assign the actual functions to the state
             this.state.filter_function = this.function_using_global_data_and_global_filters_to_make_filtered_data;
             this.state.create_row_function = this.create_row;
@@ -165,9 +167,8 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
                     Helpers.runSpecificScript(this.shadowRoot, this.state); 
                     Helpers.add_loading_row(this.shadowRoot, this.state);
                     this.isContentLoaded = true;
-                    Helpers.handleResize(this.shadowRoot, true);
                     this.processQueuedAttributeChanges();
-                    ;
+                    Helpers.handleResize(this.shadowRoot, true);
                 });
             });
         }
@@ -189,6 +190,10 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
                 this.attributeChangeQueue.push({ name, oldValue, newValue });
             }
         }
+
+
+
+
 
 
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
@@ -262,152 +267,141 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
     
         create_row(row, scope, state) {
 
-            // given this takes state, then it must use the tutorial_info to do some of this stuff
+            function get_row_data(row) {
+        
+                let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
+                let exchange_image = Helpers.get_exchange_image(row.exchange)
+        
+                let data = {
+                    back_odds: parseFloat(row.back_odds),
+                    lay_odds: parseFloat(row.lay_odds),
+                    lay_commission: parseFloat('0') / 100,
+                    back_stake: parseFloat(state.tutorial_info.stake),
+                    isfree: state.tutorial_info.isfree,
+                    laytype: state.tutorial_info.laytype
+                }
+            
+                let qualifying_loss_class = 'positive_profit_data'
+            
+                let qualifying_loss = 0;
+    
+                data = calculateHelpers.calculate_standard(data);
+        
 
-            let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
-            let exchange_image = Helpers.get_exchange_image(row.exchange)
-
-            let data = {
-                back_odds: parseFloat(row.back_odds),
-                lay_odds: parseFloat(row.lay_odds),
-                lay_commission: parseFloat('0') / 100,
-                back_stake: parseFloat(state.tutorial_info.stake),
-                isfree: state.tutorial_info.isfree,
-                laytype: state.tutorial_info.laytype
+                if (state.tutorial_info.isfree) {
+                    qualifying_loss = ('£' + data.potential_profit).replace('£-', '-£');
+                } else {
+                    qualifying_loss = ('£' + data.qualifying_loss).replace('£-', '-£');
+                    qualifying_loss_class = 'negative_profit_data';
+                }
+        
+                return {
+                    bookmaker_image: bookmaker_image,
+                    exchange_image: exchange_image,
+                    qualifying_loss: qualifying_loss,
+                    qualifying_loss_class: qualifying_loss_class, 
+                }
             }
-        
-            let qualifying_loss_class = 'positive_profit_data'
-        
-            let qualifying_loss = 0;
 
-            data = calculateHelpers.calculate_standard(data);
+            let row_info = get_row_data(row);
         
-
-            if (state.tutorial_info.isfree) {
-                qualifying_loss = ('£' + data.potential_profit).replace('£-', '-£');
-            } else {
-                qualifying_loss = ('£' + data.qualifying_loss).replace('£-', '-£');
-                qualifying_loss_class = 'negative_profit_data';
-            }
+            const card = document.createElement('div');
+            card.className = 'mobile-card outer-mobile-card';
+            card.setAttribute('data-id', row._id);
 
 
-        
-            const tr = document.createElement('tr');
-    
-            tr.className = 'table_data_row';
-    
-            tr.setAttribute('data-id', row._id)
-    
-        
-            tr.innerHTML = `
-                <td class="date_and_time_data" id="date_time_${row._id}">${row.date_and_time}</td>
-                <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
-                <td class="outcome_data" id="outcome_${row._id}">${row.outcome}</td>
-        
-                <td id="back_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker">
-                        <div id="back_odds_value_${row._id}" class="back_odds_value">
-                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.back_odds}</a>
-                        </div>    
-                        <div class="at_symbol">@</div>
-                        <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
-                            <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
-                                <img class='bookmaker_logo_img' src="${bookmaker_image}" alt="${row.sport} ${row.bookmaker}">
-                            </a>
-                        </div>
-                    </div>                
-                </td>
-                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker">
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
-                            <a ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} class="odds-link">${row.lay_odds}</a>
-                        </div>
-                        <div class="at_symbol">@</div>
-                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
-                            <a class="div_around_logo" ${row.exchange_link ? `href="${row.exchange_link}" target="_blank"` : ''} target="_blank" >
-                                <img class='exchange_logo_img' src="${exchange_image}" alt="${row.sport} ${row.exchange}" >
-                            </a>
-                        </div>
-                    </div>                
-                </td>
-                <td class="no_padding_margin">
-                    <div class="expected_profit_data">
-                        <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
+            card.innerHTML = `
+                    <div class="mobile-card ${state.is_premium_member ? '' : 'blurred_tbody'}">
+                            <div class="mobile-row"><strong>Date & Time:</strong> <span>${row.date_and_time}</span></div>
+                            <div class="mobile-row"><strong>Event:</strong> <span>${row.fixture}</span></div>
+                            <div class="mobile-row"><strong>Selection:</strong> <span>${row.outcome}</span></div>
+                            <div class="mobile-row">
+                                <strong>Back Odds:</strong>
+                                <span class="odds-combo">
+                                    <a>${row.back_odds}</a> 
+                                    <span class="mobile_at_symbol" >@</span>
+                                    <a href="${row.bookmaker_link}" target="_blank" rel="noopener noreferrer">
+                                        <img src="${row_info.bookmaker_image}" class="logo-img">
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="mobile-row">
+                                <strong>Lay Odds:</strong>
+                                <span class="odds-combo">
+                                    <a>${row.lay_odds}</a> 
+                                    <span class="mobile_at_symbol" >@</span>
+                                    <a href="${row.exchange_link}" target="_blank" rel="noopener noreferrer">
+                                        <img src="${row_info.exchange_image}" class="logo-img">
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="mobile-row data-buttons-row">
+                                <strong>${state.tutorial_info.profit_header_text.replace('<br>', ' ')}</strong>
+                                <div class="expected-profit-box">
+                                    <div class="${parseFloat(row_info.qualifying_loss.replace('£', '')) < 0 ? 'loss-badge' : 'profit-badge'}">${row_info.qualifying_loss}</div>
+                                </div>
+                            </div>
                     </div>
-                </td>
             `;
         
-        
-        
-        
-        
-            const tableBody = scope.querySelector('table tbody');
-            tableBody.appendChild(tr);
-        
-            // Create and append button directly to the row
-            if (state.is_premium_member) {
-                let selectButton = document.createElement('button');
-                selectButton.innerHTML = '+';
-                selectButton.className = 'select_button';
-                selectButton.setAttribute('data-id', row._id);
-                selectButton.setAttribute('aria-label', row._id);
-                tr.appendChild(selectButton);
-            }
+            //<button class="select_button">Select</button>
 
-            
+            const mobileContainer = scope.querySelector('.mobile-container');
+            mobileContainer.appendChild(card);
+        
         }
-
 
         filter_bookmakers_and_exchanges(scope, state) {
 
-            bookmakerImages = Object.fromEntries(
-                Object.entries(bookmakerImages)
-                .filter(([key]) => STANDARD_BOOKMAKERS.includes(key))
-                .sort((a, b) => a[0].localeCompare(b[0]))  
+        bookmakerImages = Object.fromEntries(
+            Object.entries(bookmakerImages)
+            .filter(([key]) => STANDARD_BOOKMAKERS.includes(key))
+            .sort((a, b) => a[0].localeCompare(b[0]))  
+
+        );
+
+        exchangeImages = Object.fromEntries(
+            Object.entries(exchangeImages)
+            .filter(([key]) => STANDARD_EXCHANGES.includes(key))
+            .sort((a, b) => a[0].localeCompare(b[0]))  
+        );
     
-            );
-    
-            exchangeImages = Object.fromEntries(
-                Object.entries(exchangeImages)
-                .filter(([key]) => STANDARD_EXCHANGES.includes(key))
-                .sort((a, b) => a[0].localeCompare(b[0]))  
-            );
-        
-                state.customFilters = {
-    
-                    'No Filter':
-                        {
-                            "sports": Object.keys(sportIconUrlsStandard),
-                            "markets": marketsListStandard,
-                            "bookmakers": Object.keys(bookmakerImages),
-                            "exchanges": Object.keys(exchangeImages),
-                            "startTime": "",
-                            "minLiquidity": "null",
-                            "minBackOdds": "null",
-                            "maxBackOdds": "null",
-                            "minRating": "null",
-                            "maxRating": "null",
-                            "minQualifyingLoss": "null",
-                            "minPotentialProfit": "null"
-                        }
-                }
-        
-                state.globalFilters = {
-                    sports: Object.keys(sportIconUrlsStandard),
-                    markets: marketsListStandard,
-                    bookmakers: Object.keys(bookmakerImages),
-                    exchanges: Object.keys(exchangeImages),
-                    startTime: '',
-                    minLiquidity: null,
-                    minBackOdds: null,
-                    maxBackOdds: null,
-                    minRating: null,
-                    maxRating: null,
-                    minQualifyingLoss: null,
-                    minPotentialProfit: null
-                }
-               
+            state.customFilters = {
+
+                'No Filter':
+                    {
+                        "sports": Object.keys(sportIconUrlsStandard),
+                        "markets": marketsListStandard,
+                        "bookmakers": Object.keys(bookmakerImages),
+                        "exchanges": Object.keys(exchangeImages),
+                        "startTime": "",
+                        "minLiquidity": "null",
+                        "minBackOdds": "null",
+                        "maxBackOdds": "null",
+                        "minRating": "null",
+                        "maxRating": "null",
+                        "minQualifyingLoss": "null",
+                        "minPotentialProfit": "null"
+                    }
             }
+    
+            state.globalFilters = {
+                sports: Object.keys(sportIconUrlsStandard),
+                markets: marketsListStandard,
+                bookmakers: Object.keys(bookmakerImages),
+                exchanges: Object.keys(exchangeImages),
+                startTime: '',
+                minLiquidity: null,
+                minBackOdds: null,
+                maxBackOdds: null,
+                minRating: null,
+                maxRating: null,
+                minQualifyingLoss: null,
+                minPotentialProfit: null
+            }
+           
+        }
+    
 
     }
 

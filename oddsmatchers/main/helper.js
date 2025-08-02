@@ -1931,8 +1931,6 @@ export function sort_data_on_click(sortValue, scope, state) {
 
 export function handleResize(scope, is_tutorial) {
 
-    console.log('is_tutorial', is_tutorial)
-
     if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
         return;
     }
