@@ -1,0 +1,40 @@
+@import url('../main/styles.css');
+
+
+.calculator-container-div {
+    --width-filter-items-calculator: 14.35vw;
+
+    --bonus-controls-items-gap: 2.5vw;
+
+}
+
+
+.setting-mode-bonus-div {
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.bonus-mode-control-container {
+    --width-of-lay-bet-type-btn: 7.5vw;
+
+    --padding-for-buttons-bonus-mode: 0.75vw;
+}
+
+.bonus-mode-control-container button:nth-child(2) {
+    padding-right: var(--padding-for-buttons-bonus-mode);
+}
+.bonus-mode-control-container button:nth-child(1) {
+    padding-left: var(--padding-for-buttons-bonus-mode);
+}
+
+.setting-mode-bonus-div {
+    gap: calc(var(--padding-calculator-gaps) * 0.75);
+}
+
+
+.bonus-select-controls-item {
+    gap: var(--bonus-controls-items-gap);
+    padding: 1vw 0;
+}

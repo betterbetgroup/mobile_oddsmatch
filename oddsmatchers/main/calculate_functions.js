@@ -241,6 +241,163 @@ export function calculate_standard(data) {
 }
 
 
+export function calculate_bonus(data) {
+
+    data.incomplete_data = false;
+
+    // Calculate rating
+    if (!isNaN(data.back_odds) && !isNaN(data.lay_odds)) {
+        data.rating = (((data.back_odds / data.lay_odds) * 100).toFixed(2)).toString() + '%'
+    } else {
+        data.rating = '0%';
+    }
+
+    if (isNaN(data.back_stake) || isNaN(data.back_odds) || isNaN(data.lay_odds) || isNaN(data.lay_commission) || isNaN(data.max_bonus) || isNaN(data.bonus_retention)) {
+        data.incomplete_data = true;
+    } else {
+
+        // Calculate bonus worth
+        data.bonus_worth = data.max_bonus * data.bonus_retention;
+
+        if (data.laytype == 'Standard') {
+
+            // Standard lay calculations based on mode and isfree
+            if (data.mode == 'Wins') {
+                if (!data.isfree) {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) + data.back_stake + data.bonus_worth) / (data.lay_odds - data.lay_commission);
+                } else {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) + data.bonus_worth) / (data.lay_odds - data.lay_commission);
+                }
+            } else { // Loses
+                if (!data.isfree) {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) + data.back_stake - data.bonus_worth) / (data.lay_odds - data.lay_commission);
+                } else {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) - data.bonus_worth) / (data.lay_odds - data.lay_commission);
+                }
+            }
+
+            // Calculate profits
+            data.bookmaker_profit_if_back_win = data.back_stake * (data.back_odds - 1);
+            data.exchange_profit_if_back_win = -data.lay_stake * (data.lay_odds - 1);
+
+            if (!data.isfree) {
+                data.bookmaker_profit_if_lay_win = -data.back_stake;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            } else {
+                data.bookmaker_profit_if_lay_win = 0;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            }
+
+            // Add bonus based on mode
+            if (data.mode == 'Wins') {
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win + data.bonus_worth;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win;
+            } else { // Loses
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win + data.bonus_worth;
+            }
+
+        } else if (data.laytype == 'Underlay') {
+
+            // Underlay calculation: solve for lay stake that makes the worse outcome = 0
+            // This minimizes the potential loss
+            
+            if (data.mode == 'Wins') {
+                // Bonus applies when back bet wins
+                // Solve for: total_profit_if_lay_win = 0
+                // Formula: bookmaker_profit_if_lay_win + exchange_profit_if_lay_win = 0
+                if (!data.isfree) {
+                    // -back_stake + lay_stake * (1 - lay_commission) = 0
+                    data.lay_stake = data.back_stake / (1 - data.lay_commission);
+                } else {
+                    // 0 + lay_stake * (1 - lay_commission) = 0
+                    data.lay_stake = 0;
+                }
+            } else { // Loses
+                // Bonus applies when lay bet wins  
+                if (!data.isfree) {
+                    // Solve for: total_profit_if_lay_win = 0
+                    // Formula: bookmaker_profit_if_lay_win + exchange_profit_if_lay_win + bonus_worth = 0
+                    // -back_stake + lay_stake * (1 - lay_commission) + bonus_worth = 0
+                    // lay_stake * (1 - lay_commission) = back_stake - bonus_worth
+                    data.lay_stake = (data.back_stake - data.bonus_worth) / (1 - data.lay_commission);
+                } else {
+                    // For free bets, solve for: total_profit_if_lay_win = back_stake
+                    // Formula: bookmaker_profit_if_lay_win + exchange_profit_if_lay_win + bonus_worth = back_stake
+                    // 0 + lay_stake * (1 - lay_commission) + bonus_worth = back_stake
+                    // lay_stake * (1 - lay_commission) = back_stake - bonus_worth
+                    data.lay_stake = (data.back_stake - data.bonus_worth) / (1 - data.lay_commission);
+                }
+            }
+
+            // Calculate profits with underlay lay stake
+            data.bookmaker_profit_if_back_win = data.back_stake * (data.back_odds - 1);
+            data.exchange_profit_if_back_win = -data.lay_stake * (data.lay_odds - 1);
+
+            if (!data.isfree) {
+                data.bookmaker_profit_if_lay_win = -data.back_stake;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            } else {
+                data.bookmaker_profit_if_lay_win = 0;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            }
+
+            // Add bonus based on mode
+            if (data.mode == 'Wins') {
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win + data.bonus_worth;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win;
+            } else { // Loses
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win + data.bonus_worth;
+            }
+
+        } else if (data.laytype == 'Overlay') {
+
+            // Overlay calculations
+            if (!data.isfree) {
+                data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
+            } else {
+                data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
+            }
+
+            data.bookmaker_profit_if_back_win = data.back_stake * (data.back_odds - 1);
+            data.exchange_profit_if_back_win = -data.lay_stake * (data.lay_odds - 1);
+
+            if (!data.isfree) {
+                data.bookmaker_profit_if_lay_win = -data.back_stake;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            } else {
+                data.bookmaker_profit_if_lay_win = 0;
+                data.exchange_profit_if_lay_win = data.lay_stake * (1 - data.lay_commission);
+            }
+
+            // Add bonus based on mode
+            if (data.mode == 'Wins') {
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win + data.bonus_worth;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win;
+            } else { // Loses
+                data.total_profit_if_back_win = data.bookmaker_profit_if_back_win + data.exchange_profit_if_back_win;
+                data.total_profit_if_lay_win = data.bookmaker_profit_if_lay_win + data.exchange_profit_if_lay_win + data.bonus_worth;
+            }
+        }
+
+        // Calculate qualifying loss and potential profit
+        data.qualifying_loss = data.total_profit_if_back_win;
+        if (data.total_profit_if_back_win > data.total_profit_if_lay_win) {
+            data.qualifying_loss = data.total_profit_if_lay_win;
+        }
+
+        data.potential_profit = Math.max(data.total_profit_if_back_win, data.total_profit_if_lay_win);
+    }
+
+    data = process_and_round_numbers(data);
+    return data;
+}
+
+
+
+
+
 export function calculate_each_way_and_extra_place(data, is_extra_place) {
 
     data.incomplete_data = false;

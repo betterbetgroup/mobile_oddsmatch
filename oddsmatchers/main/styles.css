@@ -1615,7 +1615,7 @@ input[type="checkbox"] {
     width: calc(var(--width-of-target-type-btn) * 2.7); /* CHANGED */
 }
 
-.bet-type-btn.active-lay-type {
+.bet-type-btn.active-lay-type, .bet-type-btn.active-mode-type {
     background-color: var(--active-lay-type-background-color);
     font-weight: var(--font-weight-main-oddsmatcher);
 }

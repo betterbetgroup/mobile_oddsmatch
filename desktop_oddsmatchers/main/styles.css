@@ -1130,7 +1130,7 @@ tr:not(:last-child) td .select_button_div {
     width: var(--width-of-target-type-btn);
 }
 
-.bet-type-btn.active-lay-type {
+.bet-type-btn.active-lay-type, .bet-type-btn.active-mode-type {
     background-color: var(--active-lay-type-background-color);
     font-weight: var(--font-weight-main-oddsmatcher);
 }

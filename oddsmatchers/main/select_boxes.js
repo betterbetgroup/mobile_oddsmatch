@@ -2524,11 +2524,23 @@ export function change_lay_type_control_container(event) {
     const parentElement = event.target.closest('.lay_type_control_container');
     // selecg all bet-type-btn in parentElement
     const betTypeButtons = parentElement.querySelectorAll('.bet-type-btn');
+
+    let is_mode_type = false;
     betTypeButtons.forEach(button => {
+        if (button.classList.contains('active-mode-type')) {
+            is_mode_type = true;
+        }
         button.classList.remove('active-lay-type');
+        button.classList.remove('active-mode-type');
     });
+
+    
     // change the class of the button to active-lay-type
-    event.target.classList.add('active-lay-type');
+    if (is_mode_type) {
+        event.target.classList.add('active-mode-type');
+    } else {
+        event.target.classList.add('active-lay-type');
+    }
     
 }
 
