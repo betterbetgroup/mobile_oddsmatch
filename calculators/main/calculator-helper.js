@@ -1707,6 +1707,8 @@ function add_values_for_calculator(scope, state, is_create) {
                 }
                 try {
                     scope.querySelector(`#platform-select-${index + 1}`).value = platform.platform || 'Other';
+                    console.log(scope.querySelector(`#platform-dropdown-options-${index + 1} .platform-option-on-click[data-value="${platform.platform}"]`))
+                    pt_helper.set_background_for_current_option_profit_tracker(platform.platform, scope.querySelector(`#platform-dropdown-options-${index + 1} .platform-option-on-click[data-value="${platform.platform}"]`).parentElement);
                 } catch (error) {
                     // pass
                 }
