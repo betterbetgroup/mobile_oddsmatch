@@ -241,6 +241,61 @@ export function calculate_standard(data) {
 }
 
 
+export function calculate_dd_hh(data) {
+
+    data.incomplete_data = false;
+
+    if (!isNaN(data.back_odds) && !isNaN(data.lay_odds)) {
+        data.rating = (((data.back_odds / data.lay_odds) * 100).toFixed(2)).toString() + '%';
+    
+    } else {
+        data.rating = '0%';
+    }
+
+    if (isNaN(data.back_stake) || isNaN(data.back_odds) || isNaN(data.lay_odds) || isNaN(data.lay_commission)) {
+
+        data.incomplete_data = true;
+
+    } else {
+
+        // Commission is already in decimal format (0.02 = 2%)
+        data.lay_commission_decimal = data.lay_commission;
+
+        // Calculate lay stake
+        data.lay_stake = data.back_stake * data.back_odds / (data.lay_odds - data.lay_commission_decimal);
+
+        // Calculate liability
+        data.liability = data.lay_stake * (data.lay_odds - 1);
+
+        // Calculate back profit
+        data.back_profit = data.back_stake * (data.back_odds - 1);
+
+        // Calculate qualifying loss (back profit - liability) as absolute amount
+        data.qualifying_loss = data.back_profit - data.liability;
+
+        // Player scores first profit (back wins, lay loses)
+        data.player_scores_first = data.back_profit - data.liability;
+
+        // Player doesn't score first profit (back loses, lay wins)
+        data.player_doesnt_score_first = data.lay_stake * (1 - data.lay_commission_decimal) - data.back_stake;
+
+        // Double delight profit (back wins + back wins again)
+        data.double_delight = data.back_profit + data.player_scores_first;
+
+        // Hattrick heaven profit (back wins + back wins twice more)
+        data.hatrick_heaven = data.back_profit * 2 + data.player_scores_first;
+
+        // loop over all values in data and if number then round to fixed (2)
+        data = process_and_round_numbers(data);
+
+    }
+    
+    return data;
+
+}
+
+
+
 export function calculate_bonus(data) {
 
     data.incomplete_data = false;

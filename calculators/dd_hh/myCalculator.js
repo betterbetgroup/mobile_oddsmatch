@@ -14,7 +14,7 @@ import * as Helpers from '../main/calculator-helper.js';
 
 
 
-    class raceRefundCalculator extends HTMLElement {
+    class ddhhCalculator extends HTMLElement {
 
         constructor() {
             
@@ -33,7 +33,7 @@ import * as Helpers from '../main/calculator-helper.js';
                 loaded_from_tracker: false,
                 local_calc_data: {},
                 data_object: {},
-                calculator_type: 'Race Refund',
+                calculator_type: 'DD/HH',
             };
             
 
@@ -82,7 +82,7 @@ import * as Helpers from '../main/calculator-helper.js';
 
     }
 
-    customElements.define('race-refund-calculator', raceRefundCalculator);
+    customElements.define('ddhh-calculator', ddhhCalculator);
 
 
 
