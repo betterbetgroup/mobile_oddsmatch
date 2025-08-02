@@ -107,6 +107,10 @@ function add_html_for_calculator(scope, state, calculator_container_div) {
         add_input_section_for_sequential_lay_calculator(scope, state, calculator_container_div);
     }
 
+    if (state.calculator_type == 'Odds Converter') {
+        add_input_section_for_odds_converter(scope, state, calculator_container_div);
+    }
+
     add_event_listeners_for_dropdowns(scope, state, calculator_container_div);
 
 
@@ -148,6 +152,42 @@ function add_refund_if_only_div(if_div, scope, state) {
         </div>
     `;
 }
+
+
+function add_input_section_for_odds_converter(scope, state, calculator_container_div) {
+
+    // take the container and add a div with three divs in it, dividing the space equally
+    const input_section_div = document.createElement('div');
+    input_section_div.className = 'input-section-div input-section-div-outer';
+    calculator_container_div.appendChild(input_section_div);
+
+    // add back bet div
+    const first_row_div = document.createElement('div');
+    first_row_div.className = 'calculator-bet-info-section-div back-bet-calculator-div odds-converter-div';
+
+    input_section_div.appendChild(first_row_div);
+
+    // select the back-input-div
+    add_odds_converter_input(first_row_div, 'Fractional', 'fractional_odds_input');
+    add_odds_converter_input(first_row_div, 'Decimal', 'decimal_odds_input');
+    add_odds_converter_input(first_row_div, 'American', 'american_odds_input');
+    add_odds_converter_input(first_row_div, 'Probability', 'probability_odds_input');
+}
+
+
+function add_odds_converter_input(div, name, class_name) {
+    div.innerHTML += `
+        <div class="filter-item">
+            <div class="filter-label">${name} Odds</div>
+            <div class="text-input-container place_lay_fraction_input ${class_name}">
+                <input type="text" class="text-input text-input-container currency_in_input" placeholder="Enter odds" id="${name.toLowerCase()}-odds-input" autocomplete="off">
+            </div>        
+        </div>
+
+    `;
+}
+
+
 
 
 
@@ -1899,7 +1939,7 @@ function add_values_for_calculator(scope, state, is_create) {
         get_and_create_all_values_race_refund(scope, state);
     } else if (state.calculator_type == 'DD/HH') {
         get_and_create_all_values_dd_hh(scope, state);
-    }
+    } 
 
 
 

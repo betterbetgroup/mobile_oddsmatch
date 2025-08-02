@@ -1,0 +1,86 @@
+@import url('../main/styles.css');
+
+
+@media screen and (min-width: 700px) {  
+
+    .calculator-container-div {
+        --width-filter-items-calculator: 14.35vw;
+
+        --bonus-controls-items-gap: 2.5vw;
+        
+
+        padding-bottom: 0;
+
+    }
+
+    .odds-converter-div .filter-item {
+        width: 100%;
+        min-width: none;
+        max-width: none;
+    }
+
+    .fractional_odds_input:before {
+        content: '/';
+        font-size: var(--font-size-filter-inputs);
+    }
+
+    .decimal_odds_input:before {
+        content: '.';
+        font-size: calc(var(--font-size-filter-inputs) * 1.5);
+    }
+
+    .american_odds_input:before {
+        content: '#';
+        font-size: calc(var(--font-size-filter-inputs) * 1.2);
+    }
+
+    .probability_odds_input:before {
+        content: '%';
+        font-size: var(--font-size-filter-inputs);
+    }
+
+
+
+}
+
+@media screen and (max-width: 699px) {  
+
+
+    .calculator-container-div {
+        --width-filter-items-calculator: 100%;
+
+        padding-bottom: 0;
+
+
+    }
+
+    .odds-converter-div .filter-item {
+        width: 100%;
+        min-width: none;
+        max-width: none;
+    }
+
+    .fractional_odds_input:before {
+        content: '/';
+        font-size: var(--font-size-filter-inputs);
+    }
+
+    .decimal_odds_input:before {
+        content: '.';
+        font-size: calc(var(--font-size-filter-inputs) * 1.5);
+    }
+
+    .american_odds_input:before {
+        content: '#';
+        font-size: calc(var(--font-size-filter-inputs) * 1.2);
+    }
+
+    .probability_odds_input:before {
+        content: '%';
+        font-size: var(--font-size-filter-inputs);
+    }
+
+
+
+
+}

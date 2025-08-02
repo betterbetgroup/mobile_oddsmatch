@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+
+</head>
+
+<body style="background: black; align-self: center; justify-self: center; align-items: center; justify-content: center; display: flex; margin-top: 6vw;">
+
+    <div id="app"  >
+        <odds-converter></odds-converter>
+    </div>
+
+    <script type="module" src="myCalculator.js"></script>
+
+    <script>
+        
+
+
+        let finalData = {
+        "premium_member": false,
+        "is_desktop": false,
+        "is_calc": false,
+        "is_calc_data": {},
+        "local_calc_data": {}
+}
+            setTimeout(() => {
+                document.querySelector('odds-converter').setAttribute('data-odds', JSON.stringify(finalData))
+
+            }, 500);
+
+            document.querySelector('odds-converter').addEventListener('Get-Alerts', (event)=>{
+                console.log(event)
+            })
+
+            document.querySelector('odds-converter').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
+            document.querySelector('odds-converter').addEventListener('local_calc_data', (event)=>{
+                console.log(event)
+            })
+
+
+    </script>
+
+</body>
+</html>
