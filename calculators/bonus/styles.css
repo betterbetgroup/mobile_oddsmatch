@@ -1,40 +1,77 @@
 @import url('../main/styles.css');
 
 
-.calculator-container-div {
-    --width-filter-items-calculator: 14.35vw;
+@media screen and (min-width: 700px) {  
 
-    --bonus-controls-items-gap: 2.5vw;
+    .calculator-container-div {
+        --width-filter-items-calculator: 14.35vw;
+
+        --bonus-controls-items-gap: 2.5vw;
+
+    }
+
+
+    .setting-mode-bonus-div {
+        display: flex; 
+        flex-direction: row;
+        align-items: center;
+    }
+
+
+    .bonus-mode-control-container {
+        --width-of-lay-bet-type-btn: 7.5vw;
+
+        --padding-for-buttons-bonus-mode: 0.75vw;
+    }
+
+    .bonus-mode-control-container button:nth-child(2) {
+        padding-right: var(--padding-for-buttons-bonus-mode);
+    }
+    .bonus-mode-control-container button:nth-child(1) {
+        padding-left: var(--padding-for-buttons-bonus-mode);
+    }
+
+    .setting-mode-bonus-div {
+        gap: calc(var(--padding-calculator-gaps) * 0.75);
+    }
+
+
+    .bonus-select-controls-item {
+        gap: var(--bonus-controls-items-gap);
+        padding: 1vw 0;
+    }
 
 }
 
-
-.setting-mode-bonus-div {
-    display: flex; 
-    flex-direction: row;
-    align-items: center;
-}
+@media screen and (max-width: 699px) {  
 
 
-.bonus-mode-control-container {
-    --width-of-lay-bet-type-btn: 7.5vw;
+    .calculator-container-div {
+        --width-filter-items-calculator: 100%;
 
-    --padding-for-buttons-bonus-mode: 0.75vw;
-}
+    }
 
-.bonus-mode-control-container button:nth-child(2) {
-    padding-right: var(--padding-for-buttons-bonus-mode);
-}
-.bonus-mode-control-container button:nth-child(1) {
-    padding-left: var(--padding-for-buttons-bonus-mode);
-}
-
-.setting-mode-bonus-div {
-    gap: calc(var(--padding-calculator-gaps) * 0.75);
-}
+    .dutching-select-controls-item, .sequential-lay-select-controls-item {
+        gap: calc(var(--padding-calculator-gaps) * 1.25);
+    }
 
 
-.bonus-select-controls-item {
-    gap: var(--bonus-controls-items-gap);
-    padding: 1vw 0;
+    .setting-mode-bonus-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(var(--padding-calculator-gaps) * 0.75);
+    }
+
+    .bonus-mode-control-container .bet-type-btn {
+        width: calc(var(--width-of-lay-bet-type-btn) * 2);
+    }
+
+    .free-bet-mode-input-dutching-select {
+        justify-content: center;
+    }
+
+
+
+
 }

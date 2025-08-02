@@ -389,7 +389,7 @@ function add_outcome_div_dutching(scope, state, input_section_div) {
         <div class="add-button-div">
             Add Outcome
             <button class="add-row-button add-outcome-on-click" id="add-row-button">
-            +
+                <i class="fa-solid fa-plus"></i>
             </button>
         </div>
     `;
@@ -504,7 +504,7 @@ function add_outcome_div_sequential_lay(scope, state, input_section_div) {
         <div class="add-button-div">
             Add Leg
             <button class="add-row-button add-outcome-on-click-sequential-lay" id="add-row-button-sequential-lay">
-            +
+                <i class="fa-solid fa-plus"></i>
             </button>
         </div>
     `;
@@ -664,7 +664,7 @@ function add_minus_button(div, index, is_sequential_lay) {
     div.innerHTML += `
         <div class="minus-button-div">
             <button class="${class_name_minus_button}" id="minus-button-${index}" data-index="${index}">
-            ×
+                <i class="fa-solid fa-trash"></i>
             </button>
         </div>
     `;
@@ -1458,6 +1458,13 @@ function add_values_for_calculator(scope, state, is_create) {
     
             }
         }
+
+        if (state.calculator_type == 'Bonus') {
+            scope.querySelector('#max-bonus-input').value = state.data_object.max_bonus || state.data_object.backstake || '';
+            scope.querySelector('#bonus-retention-input').value = parseFloat(state.data_object.bonus_retention) * 100 || '80';
+
+
+        }
         
 
         // stake with back stake
@@ -1510,10 +1517,13 @@ function add_values_for_calculator(scope, state, is_create) {
         // then lay type
         // remove all active-lay-type classes
         let have_lay_type_buttons = false;
+        let have_mode_type_buttons = false;
         scope.querySelectorAll('.active-lay-type').forEach(btn => {
             btn.classList.remove('active-lay-type');
             have_lay_type_buttons = true;
         });
+
+
         // then add the active-lay-type class to the correct button
         if (have_lay_type_buttons) {
             if (state.data_object.laytype == 'Underlay') {
@@ -1534,7 +1544,16 @@ function add_values_for_calculator(scope, state, is_create) {
                 scope.querySelector('.bet-type-btn[data-type="Standard Bet"]').classList.add('active-lay-type');
             } else if (state.data_object.method == 'Standard Free') {
                 scope.querySelector('.bet-type-btn[data-type="Standard Free"]').classList.add('active-lay-type');
-            } else if (state.data_object.mode == 'Wins') {
+            }
+        }
+
+        scope.querySelectorAll('.active-mode-type').forEach(btn => {
+            btn.classList.remove('active-mode-type');
+            have_mode_type_buttons = true;
+        });
+
+        if (have_mode_type_buttons) {
+            if (state.data_object.mode == 'Wins') {
                 scope.querySelector('.bet-type-btn[data-type="Wins"]').classList.add('active-mode-type');
             } else if (state.data_object.mode == 'Loses') {
                 scope.querySelector('.bet-type-btn[data-type="Loses"]').classList.add('active-mode-type');
@@ -1591,6 +1610,8 @@ function add_values_for_calculator(scope, state, is_create) {
         set_results_for_dutching(scope, state);
     } else if (state.calculator_type == 'Sequential Lay') {
         set_results_for_sequential_lay(scope, state);
+    } else if (state.calculator_type == 'Bonus') {
+        set_results_for_bonus(scope, state);
     }
 
 }
@@ -1987,6 +2008,36 @@ function set_results_for_standard(scope, state) {
             }
 
         }
+
+        // then set the profit items
+        scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';
+        scope.querySelector('.profit_and_log__item_value_qualifying_loss').textContent = ('£' + state.data_object.qualifying_loss).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_qualifying_loss'), state.data_object.qualifying_loss);
+        scope.querySelector('.profit_and_log__item_value_potential_profit').textContent = ('£' + state.data_object.potential_profit).replace('£-', '-£');
+        select_boxes_helper.set_class_for_profit_info_item(scope.querySelector('.profit_and_log__item_value_potential_profit'), state.data_object.potential_profit);
+
+
+    } else {
+
+        set_results_to_default(scope, state);
+
+    }
+
+}
+
+
+
+function set_results_for_bonus(scope, state) {
+
+    if (!state.data_object.incomplete_data) {
+
+        // then set lay stake using #lay-stake-span
+        scope.querySelector('#lay-stake-span-2').textContent = '£' + state.data_object.lay_stake || '';
+        scope.querySelector('#lay-stake-span-2').classList.add('copy-on-click');
+        scope.querySelector('#copy-icon-2').classList.remove('hidden_row_above_columns');
+
+        scope.querySelector('#lay-odds-span-2').textContent = state.data_object.lay_odds + ' Lay Odds' || '';
+
 
         // then set the profit items
         scope.querySelector('.profit_and_log__item_value_rating').textContent = state.data_object.rating || '0%';

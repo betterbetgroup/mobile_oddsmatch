@@ -1,5 +1,6 @@
 @import url('../../desktop_oddsmatchers/main/styles.css') screen and (min-width: 700px);
 @import url('../../oddsmatchers/main/styles.css') screen and (max-width: 699px);
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'); /* css has to import too or it doesn't work in shadow dom */
 
 
 .calculator-container-div {
@@ -310,7 +311,19 @@
     border: none;
     color: white;
     font-weight: var(--font-weight-main-oddsmatcher);
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
+
+.add-row-button i {
+    font-size: calc(var(--font-size-select-button) * 0.9);
+}
+.minus-button i, .minus-button-sequential-lay i {
+    font-size: calc(var(--font-size-select-button) * 0.7);
+}
+
+
 
 
 .dutching-control-div-calculator {
@@ -589,6 +602,15 @@
     .minus-button-div {
         margin: auto;
         align-self: center;
+    }
+
+
+
+    .add-row-button i {
+        font-size: calc(var(--font-size-select-button) * 0.7);
+    }
+    .minus-button i, .minus-button-sequential-lay i {
+        font-size: calc(var(--font-size-select-button) * 0.65);
     }
 
 

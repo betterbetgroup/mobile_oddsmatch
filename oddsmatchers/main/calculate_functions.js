@@ -304,14 +304,18 @@ export function calculate_bonus(data) {
             
             if (data.mode == 'Wins') {
                 // Bonus applies when back bet wins
-                // Solve for: total_profit_if_lay_win = 0
-                // Formula: bookmaker_profit_if_lay_win + exchange_profit_if_lay_win = 0
                 if (!data.isfree) {
+                    // Solve for: total_profit_if_lay_win = 0
+                    // Formula: bookmaker_profit_if_lay_win + exchange_profit_if_lay_win = 0
                     // -back_stake + lay_stake * (1 - lay_commission) = 0
                     data.lay_stake = data.back_stake / (1 - data.lay_commission);
                 } else {
-                    // 0 + lay_stake * (1 - lay_commission) = 0
-                    data.lay_stake = 0;
+                    // For free bets underlay, solve for: total_profit_if_back_win - total_profit_if_lay_win = lay_odds - 1
+                    // total_profit_if_back_win = back_stake * (back_odds - 1) - lay_stake * (lay_odds - 1) + bonus_worth
+                    // total_profit_if_lay_win = lay_stake * (1 - lay_commission)
+                    // Constraint: back_stake * (back_odds - 1) - lay_stake * (lay_odds - 1) + bonus_worth = lay_stake * (1 - lay_commission) + (lay_odds - 1)
+                    // Rearranging: back_stake * (back_odds - 1) + bonus_worth - (lay_odds - 1) = lay_stake * (lay_odds - lay_commission)
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) + data.bonus_worth - (data.lay_odds - 1)) / (data.lay_odds - data.lay_commission);
                 }
             } else { // Loses
                 // Bonus applies when lay bet wins  
@@ -353,13 +357,30 @@ export function calculate_bonus(data) {
 
         } else if (data.laytype == 'Overlay') {
 
-            // Overlay calculations
-            if (!data.isfree) {
-                data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
-            } else {
-                data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
+            // Overlay calculation: solve for lay stake that maximizes minimum profit
+            if (data.mode == 'Wins') {
+                // Bonus applies when back bet wins
+                // Solve for: total_profit_if_back_win = 0 (minimize the worse outcome)
+                // Formula: back_stake * (back_odds - 1) - lay_stake * (lay_odds - 1) + bonus_worth = 0
+                if (!data.isfree) {
+                    // back_stake * (back_odds - 1) - lay_stake * (lay_odds - 1) + bonus_worth = 0
+                    // lay_stake * (lay_odds - 1) = back_stake * (back_odds - 1) + bonus_worth
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1) + data.bonus_worth) / (data.lay_odds - 1);
+                } else {
+                    // For free bets overlay, solve for total_profit_if_lay_win = back_stake
+                    data.lay_stake = data.back_stake / (1 - data.lay_commission);
+                }
+            } else { // Loses
+                // Bonus applies when lay bet wins
+                // Use standard overlay formula but optimize for maximum profit
+                if (!data.isfree) {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
+                } else {
+                    data.lay_stake = (data.back_stake * (data.back_odds - 1)) / (data.lay_odds - 1);
+                }
             }
 
+            // Calculate profits with overlay lay stake
             data.bookmaker_profit_if_back_win = data.back_stake * (data.back_odds - 1);
             data.exchange_profit_if_back_win = -data.lay_stake * (data.lay_odds - 1);
 

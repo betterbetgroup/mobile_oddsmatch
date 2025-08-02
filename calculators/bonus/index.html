@@ -23,9 +23,96 @@
         let finalData = {
         "premium_member": false,
         "is_desktop": false,
-        "is_calc": false,
-        "is_calc_data": {},
-        "local_calc_data": {},
+        "is_calc": true,
+        "is_calc_data": {
+    "laytype": "Underlay",
+    "mode": "Wins",
+    "isfree": true,
+    "max_bonus": "10.00",
+    "bonus_retention": "0.90",
+    "platforms": [
+        {
+            "index": 1,
+            "odds": "3.5",
+            "platform": "10Bet",
+            "commission": "",
+            "link": ""
+        },
+        {
+            "index": 2,
+            "odds": "3.4",
+            "platform": "Matchbook",
+            "commission": "4",
+            "link": ""
+        }
+    ],
+    "backstake": "15",
+    "description": "",
+    "back_odds": "3.50",
+    "lay_odds": "3.40",
+    "lay_commission": "0.04",
+    "back_stake": "15.00",
+    "incomplete_data": false,
+    "rating": "102.94%",
+    "qualifying_loss": "15.00",
+    "potential_profit": "33.75",
+    "bonus_worth": "13.50",
+    "lay_stake": "1.56",
+    "bookmaker_profit_if_back_win": "37.50",
+    "exchange_profit_if_back_win": "-3.75",
+    "bookmaker_profit_if_lay_win": "0.00",
+    "exchange_profit_if_lay_win": "1.50",
+    "total_profit_if_back_win": "33.75",
+    "total_profit_if_lay_win": "15.00",
+    "date": "02/08/2025",
+    "date_and_time": "02/08/25 12:00",
+    "iscalc": true,
+    "complete": false,
+    "betId": "fonsrh911dl_1754137210405",
+    "oddsmatcher_type": "Manual",
+    "event": "",
+    "actualprofit": "",
+    "bet_outcome": "",
+    "calculator": "Bonus"
+},
+        "local_calc_data": {
+    "laytype": "Underlay",
+    "mode": "Loses",
+    "isfree": true,
+    "max_bonus": "10.00",
+    "bonus_retention": "0.80",
+    "platforms": [
+        {
+            "index": 1,
+            "odds": "2.5",
+            "platform": "10Bet"
+        },
+        {
+            "index": 2,
+            "odds": "2.4",
+            "platform": "Matchbook",
+            "commission": "2"
+        }
+    ],
+    "backstake": "10",
+    "description": "",
+    "back_odds": "2.50",
+    "lay_odds": "2.40",
+    "lay_commission": "0.02",
+    "back_stake": "10.00",
+    "incomplete_data": false,
+    "rating": "104.17%",
+    "qualifying_loss": "10.00",
+    "potential_profit": "12.14",
+    "bonus_worth": "8.00",
+    "lay_stake": "2.04",
+    "bookmaker_profit_if_back_win": "15.00",
+    "exchange_profit_if_back_win": "-2.86",
+    "bookmaker_profit_if_lay_win": "0.00",
+    "exchange_profit_if_lay_win": "2.00",
+    "total_profit_if_back_win": "12.14",
+    "total_profit_if_lay_win": "10.00"
+},
 }
             setTimeout(() => {
                 document.querySelector('bonus-calculator').setAttribute('data-odds', JSON.stringify(finalData))
