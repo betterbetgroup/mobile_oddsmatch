@@ -1,0 +1,100 @@
+@import url('../main/styles.css');
+
+
+@media screen and (min-width: 700px) {  
+
+    .calculator-container-div {
+        --width-filter-items-calculator: 14.35vw;
+
+        --bonus-controls-items-gap: 2.5vw;
+
+    }
+
+
+    .setting-mode-bonus-div {
+        display: flex; 
+        flex-direction: row;
+        align-items: center;
+    }
+
+
+
+
+    .lay_type_control_container .bet-type-btn {
+        width: calc(var(--width-of-lay-bet-type-btn) * 1.45);
+    }
+
+
+    
+
+    .race-refund-div {
+        padding: 1vw 0vw;
+        justify-content: center;
+        display: flex;
+    }
+
+    .label_for_mode {
+        font-size: var(--profit-item-title-font-size);
+    }
+
+
+    .setting-mode-bonus-div {
+        gap: calc(var(--padding-calculator-gaps) * 0.75);
+        display: flex;
+        flex-direction: column;
+    }
+
+
+
+}
+
+@media screen and (max-width: 699px) {  
+
+
+    .calculator-container-div {
+        --width-filter-items-calculator: 100%;
+
+    }
+
+    .dutching-select-controls-item, .sequential-lay-select-controls-item {
+        gap: calc(var(--padding-calculator-gaps) * 1.25);
+    }
+
+
+    .setting-mode-bonus-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(var(--padding-calculator-gaps) * 0.75);
+    }
+
+    .bonus-mode-control-container .bet-type-btn {
+        width: calc(var(--width-of-lay-bet-type-btn) * 2);
+    }
+
+    .free-bet-mode-input-dutching-select {
+        justify-content: center;
+    }
+
+
+
+    .if-div-calculator-div {
+        display: flex;
+        flex-direction: row !important;
+        align-items: flex-end;
+    }
+
+    .trigger-filter-item {
+        min-width: auto !important;
+        max-width: auto !important;
+    }
+
+    .if-div-calculator-div span {
+        height: var(--height-filter-inputs);
+        font-size: calc(var(--profit-item-title-font-size) * 1.5);
+        width: var(--height-filter-inputs);
+        text-align: center;
+    }
+
+
+}

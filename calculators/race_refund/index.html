@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+
+</head>
+
+<body style="background: black; align-self: center; justify-self: center; align-items: center; justify-content: center; display: flex; margin-top: 6vw;">
+
+    <div id="app"  >
+        <race-refund-calculator></race-refund-calculator>
+    </div>
+
+    <script type="module" src="myCalculator.js"></script>
+
+    <script>
+        
+
+
+        let finalData = {
+        "premium_member": false,
+        "is_desktop": false,
+        "is_calc": false,
+        "is_calc_data": {},
+        "local_calc_data": {
+    "platforms": [
+        {
+            "odds": "10",
+            "platform": "Bet600"
+        },
+        {
+            "odds": "10.5",
+            "commission": "2",
+            "platform": "Matchbook"
+        },
+        {
+            "odds": "3",
+            "commission": "3",
+            "platform": "Betfair Exchange"
+        }
+    ],
+    "places": "2nd",
+    "max_bonus": "15.00",
+    "bonus_retention": "0.75",
+    "backstake": "25",
+    "description": "",
+    "back_odds": "10.00",
+    "exchange_win_odds": "10.50",
+    "exchange_place_odds": "3.00",
+    "exchange_win_commission": "0.02",
+    "exchange_place_commission": "0.03",
+    "back_stake": "25.00",
+    "incomplete_data": false,
+    "qualifying_loss": "1.00",
+    "potential_profit": "1.00",
+    "bonus_value": "11.25",
+    "win_lay_stake": "22.78",
+    "win_liability": "216.42",
+    "place_lay_stake": "3.79",
+    "place_liability": "7.58",
+    "profit_if_win": "1.00",
+    "profit_if_place": "1.00",
+    "profit_if_lose": "1.00",
+    "minimum_profit": "1.00",
+    "maximum_profit": "1.00"
+},
+}
+            setTimeout(() => {
+                document.querySelector('race-refund-calculator').setAttribute('data-odds', JSON.stringify(finalData))
+
+            }, 500);
+
+            document.querySelector('race-refund-calculator').addEventListener('Get-Alerts', (event)=>{
+                console.log(event)
+            })
+
+            document.querySelector('race-refund-calculator').addEventListener('Upgrade', (event)=>{
+                console.log(event)
+            })
+
+            document.querySelector('race-refund-calculator').addEventListener('local_calc_data', (event)=>{
+                console.log(event)
+            })
+
+
+    </script>
+
+</body>
+</html>

@@ -507,6 +507,65 @@ export function calculate_refund_if(data) {
 
 
 
+export function calculate_race_refund(data) {
+    
+    data.incomplete_data = false;
+
+    if (isNaN(data.back_stake) || isNaN(data.back_odds) || isNaN(data.exchange_win_odds) || isNaN(data.exchange_win_commission) || isNaN(data.exchange_place_odds) || isNaN(data.exchange_place_commission) || isNaN(data.max_bonus) || isNaN(data.bonus_retention)) {
+        data.incomplete_data = true;
+    } else {
+
+        // Convert commissions to decimals (assuming they come as percentages)
+        let win_commission = data.exchange_win_commission / 100;
+        let place_commission = data.exchange_place_commission / 100;
+        
+        // If platforms array exists, use commission values from there
+        if (data.platforms && data.platforms.length >= 3) {
+            win_commission = parseFloat(data.platforms[1].commission) / 100;
+            place_commission = parseFloat(data.platforms[2].commission) / 100;
+        }
+
+        // Calculate effective bonus value (for display purposes)
+        data.bonus_value = data.max_bonus * data.bonus_retention;
+
+        // Calculate win lay stake using retained bonus value (bonus_value)
+        // Formula: (back_stake * back_odds - bonus_value) / (exchange_win_odds - win_commission)
+        data.win_lay_stake = (data.back_stake * data.back_odds - data.bonus_value) / (data.exchange_win_odds - win_commission);
+        data.win_liability = data.win_lay_stake * (data.exchange_win_odds - 1);
+
+        // Calculate place lay stake using retained bonus value (bonus_value)
+        // Formula: bonus_value / (exchange_place_odds - place_commission)
+        data.place_lay_stake = data.bonus_value / (data.exchange_place_odds - place_commission);
+        data.place_liability = data.place_lay_stake * (data.exchange_place_odds - 1);
+
+        // Calculate profits for each outcome
+        
+        // If horse wins (both back and lay win, place lay loses)
+        data.profit_if_win = data.back_stake * (data.back_odds - 1) - data.win_liability - data.place_liability;
+        
+        // If horse places but doesn't win (back loses, win lay wins, place lay loses, get bonus)
+        data.profit_if_place = data.bonus_value - data.back_stake - data.place_liability + data.win_lay_stake * (1 - data.exchange_win_commission);
+        
+        // If horse loses (back loses, both lays win)
+        data.profit_if_lose = data.win_lay_stake * (1 - data.exchange_win_commission) + data.place_lay_stake * (1 - data.exchange_place_commission) - data.back_stake;
+
+        // Calculate minimum profit (worst case scenario)
+        data.minimum_profit = Math.min(data.profit_if_win, data.profit_if_place, data.profit_if_lose);
+        data.maximum_profit = Math.max(data.profit_if_win, data.profit_if_place, data.profit_if_lose);
+
+        // Set the main profit values for display
+        data.qualifying_loss = data.minimum_profit;
+        data.potential_profit = data.maximum_profit;
+
+    }
+
+    data = process_and_round_numbers(data);
+    return data;
+}
+
+
+
+
 
 export function calculate_each_way_and_extra_place(data, is_extra_place) {
 
