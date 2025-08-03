@@ -10,207 +10,7 @@
 <body style="margin: 0; background-color: #0a0a0a;">
 
     <div id="app">
-        <guide-page data-item-data='
-        {
-                "bookmaker": {
-                    "name": "Coral",
-                    "logo": "https://static.wixstatic.com/media/7a0e3a_0203374d89e4480f9686d5581f599a29~mv2.png",
-                    "signupUrl": "https://www.coral.co.uk/en/sports/promotions/details/newcustomeroffer",
-                    "offerTitle": "£20 in Free Bets"
-                },
-                "offer": {
-                    "type": "Bet & Get",
-                    "profit": "£15.75"
-                },
-                "steps": [
-                                    {
-                    "id": 1,
-                    "title": "Account Setup",
-                    "content": {
-                        "items": [
-                            {
-                                "type": "text",
-                                "content": "1) Open a Smarkets account if you do not have one already. You will require this to match bets placed with bookmakers."
-                            },
-                            {
-                                "type": "button",
-                                "content": "Sign up to Smarkets",
-                                "url": "https://smarkets.com/en/sports",
-                                "style": "primary"
-                            },
-                            {
-                                "type": "text",
-                                "content": "2) Create an account with Coral."
-                            },
-                            {
-                                "type": "button",
-                                "content": "Open Coral Account",
-                                "url": "https://www.coral.co.uk/en/sports/promotions/details/newcustomeroffer",
-                                "style": "secondary"
-                            },
-                            {
-                                "type": "text",
-                                "content": "3) Fund your account with £5 via debit card."
-                            },
-                            {
-                                "type": "text",
-                                "content": "4) Change your odds display to decimal format."
-                            },
-                            {
-                                "type": "tip",
-                                "content": "Make sure to use accurate personal details when signing up to avoid verification issues later."
-                            }
-                        ]
-                    }
-                },
-
-                {
-                    "id": 2,
-                    "title": "Change Odds",
-                    "content": {
-                        "items": [
-                            {
-                                "type": "text",
-                                "content": "1) Now you need to change your odds display on Coral to decimal format. Head over to settings in the top right"
-                            },
-                            {
-                                "type": "text",
-                                "content": "2) Click on the odds display option and select decimal"
-                            },
-                            {
-                                "type": "text",
-                                "content": "3) You can now close the settings window"
-                            },
-                            {
-                                "type": "info",
-                                "content": "This is important as you will need to use decimal odds to calculate your lay stake"
-                            }
-                        ]
-                    }
-                },
-                                    {
-                    "id": 3,
-                    "title": "Qualifying Bet",
-                    "content": {
-                        "items": [
-                            {
-                                "type": "text",
-                                "content": "1) Identify an appropriate selection by comparing the back odds on Coral with the lay odds on Smarkets, ensuring your qualifying bet meets the minimum odds requirement of 1.50 (1/2)."
-                            },
-                            {
-                                "type": "warning",
-                                "content": "Your bet must be placed within 14 days of registration to qualify for the promotion"
-                            },
-                            {
-                                "type": "text",
-                                "content": "2) Determine your required lay stake using the Qualifying Bet feature in the Matched Betting Calculator."
-                            },
-                            {
-                                "type": "button",
-                                "content": "Access Calculator",
-                                "url": "#calculator-section",
-                                "style": "secondary"
-                            },
-                            {
-                                "type": "text",
-                                "content": "3) Within 14 days of registration, place a £5 back bet at Coral as your qualifying wager."
-                            },
-                            {
-                                "type": "text",
-                                "content": "4) Position your lay bet at Smarkets opposing the identical selection."
-                            },
-                            {
-                                "type": "tip",
-                                "content": "Aim for a small qualifying loss of around £0.25 to maximize overall profit."
-                            }
-                        ],
-                        "oddsmatcher": {
-                            "oddsmatcher_title": "Qualifying Bet Oddsmatcher",
-                            "type": "tutorial",
-                            "filters": {
-                                "minOdds": 1.50,
-                                "maxQualifyingLoss": 0.50,
-                                "bookmaker": "coral"
-                            },
-                            "tutorial_info": {
-                                "current_sort": "potential profit",
-                                "profit_header_text": "Bet<br>Profit",
-                                "stake": "1",
-                                "isfree": true,
-                                "laytype": "Standard"
-                            }
-                        }
-                    }
-                },
-                                    {
-                    "id": 4,
-                    "title": "Free Bets",
-                    "content": {
-                        "items": [
-                            {
-                                "type": "info",
-                                "content": "You will receive four £5 free bets once you have placed your qualifying bet"
-                            },
-                            {
-                                "type": "text",
-                                "content": "1) Identify a suitable selection by comparing the back odds on Coral and the lay odds on Smarkets."
-                            },
-                            {
-                                "type": "text",
-                                "content": "2) Calculate your lay stake using the Free Bet option in the Matched Betting Calculator."
-                            },
-                            {
-                                "type": "text",
-                                "content": "3) Use your first £5 free back bet at Coral (valid for 7 days from when it is credited)."
-                            },
-                            {
-                                "type": "warning",
-                                "content": "Free bets expire after 7 days - make sure to use them in time!"
-                            },
-                            {
-                                "type": "text",
-                                "content": "4) Place a corresponding lay bet on the identical selection at Smarkets."
-                            },
-                            {
-                                "type": "text",
-                                "content": "5) Repeat steps 1-4 for each of your three remaining £5 free bets."
-                            },
-                            {
-                                "type": "button",
-                                "content": "Track Your Free Bets",
-                                "url": "https://www.coral.co.uk/my-account",
-                                "style": "secondary"
-                            },
-                            {
-                                "type": "tip",
-                                "content": "Place free bets on high odds selections to maximize returns. Aim for 80% conversion rate (£16 from £20 in free bets)."
-                            }
-                        ],
-                        "oddsmatcher": {
-                            "oddsmatcher_title": "Free Bet Oddsmatcher",
-                            "type": "tutorial",
-                            "filters": {
-                                "minOdds": 4.0,
-                                "bookmaker": "coral",
-                                "betType": "free_bet"
-                            },
-                            "tutorial_info": {
-                                "current_sort": "potential profit",
-                                "profit_header_text": "Qualifying<br>Loss",
-                                "stake": "15",
-                                "isfree": true,
-                                "laytype": "Standard"
-                            }
-                        }
-                    }
-                }
-                ]
-            }
-            
-            
-        
-        
-        '></guide-page>
+        <guide-page></guide-page>
     </div>
 
     <script src="guidePage.js" type="module"></script>
@@ -694,11 +494,234 @@
 
     "premium_member": true,
     "is_first": false,
+
+
+    
 }
+
+
+let data_item_data = {
+    "bookmaker": "Coral",
+    "bookmaker_image": "https://static.wixstatic.com/media/7a0e3a_c2ecfb4964e3445a8989ac350cc547a6~mv2.png",
+    "title": "Coral New Customer Offer",
+    "final_profit_text": "£16.00 Profit",
+    "is_signup_guide": true,
+
+
+
+
+
+    "guide_data_manual": {
+
+"steps": [
+  {
+    "id": 1,
+    "title": "Account Setup",
+    "content": {
+      "items": [
+        {
+          "type": "text",
+          "content": "1) Open a Smarkets account if you do not have one already. You will require this to place lay bets."
+        },
+        {
+          "type": "button",
+          "content": "Sign up to Smarkets",
+          "url": "https://smarkets.com/members/login",
+          "style": "secondary"
+        },
+        {
+          "type": "text",
+          "content": "2) Create an account with Coral. Use the button below to automatically apply the promotion."
+        },
+        {
+        "type": "button",
+        "content": "Sign up to Coral",
+        "url": "https://www.coral.co.uk/en/sports/promotions/details/newcustomeroffer", 
+        "style": "primary"
+        },
+        {
+            "type": "text",
+            "content": "3) Once registered, deposit £5 into your account using a debit card, you will need this for the qualifying bet."
+          }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "title": "Change Odds",
+    "content": {
+      "items": [
+        {
+          "type": "info",
+          "content": "It's important to set the odds format to decimal to make calculations and comparisons easier."
+        },
+        {
+          "type": "text",
+          "content": "1) Visit the Skybet homepage or click the button below."
+        },
+        {
+            "type": "button",
+            "content": "Skybet Homepage",
+            "url": "https://skybet.com/", 
+            "style": "secondary"
+            },
+            {
+                "type": "text",
+                "content": "2) Scroll to the bottom of the page and switch it from fractional to decimal odds display."
+              },
+              {
+                "type": "text",
+                "content": "3) If you cannot find it simply use Ctrl + F (Cmd + F on Mac) and search for 'Odds Display'."
+              },
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "title": "Qualifying Bet",
+    "content": {
+      "items": [
+        {
+            "type": "text",
+            "content": "1) To unlock your free bets, you first need to place a £5 qualifying back bet on Skybet."
+          },
+          {
+            "type": "info",
+            "content": "The minimum required stake is actually 5p, but you should use £5 in order to mimic a real customer."
+          },
+        {
+          "type": "text",
+          "content": "2) Use the oddsmatcher below to find a suitable event. Once your bet has settled, you should receive £30 in free bets, which you can profit from in the next step."
+        },
+
+        {
+          "type": "warning",
+          "content": "Your bet must be at minimum 2.00 odds to qualify for the promotion (the oddsmatcher automatically filters out events below 2.00)."
+        },
+        
+      ],
+      "oddsmatcher": {
+        "oddsmatcher_title": "Qualifying Bet Oddsmatcher",
+        "type": "tutorial",
+        "filters": {
+            "sports": [
+                "Football",
+                "Horse Racing"
+            ],
+            "markets": [
+                "Match Odds",
+                "Winner",
+            ],
+            "bookmakers": [
+                "Skybet"
+            ],
+            "exchanges": [
+                "Smarkets",
+                "Betfair Exchange",
+                "Matchbook"
+            ],
+            "startTime": "",
+            "minLiquidity": null,
+            "minBackOdds": 2,
+            "maxBackOdds": null,
+            "minRating": null,
+            "maxRating": null,
+            "minQualifyingLoss": null,
+            "minPotentialProfit": null
+        },
+        "tutorial_info": {
+          "current_sort": "qualifying loss",
+          "profit_header_text": "Qualifying<br>Loss",
+          "stake": "5",
+          "isfree": false,
+          "laytype": "Standard"
+        }
+      }
+    }
+  },
+  {
+    "id": 4,
+    "title": "Free Bets",
+    "content": {
+      "items": [
+        {
+            "type": "info",
+            "content": "Once your qualifying bet settles, Skybet will credit your account with 3 X £10 free bets. This usually happens within 10 hours of your qualifying bet settling."
+          },
+          {
+            "type": "text",
+            "content": "1) Once the free bets arrive, you should use all three at once on the same selection. This way, you only need to place one lay bet. However, if you prefer, you can do them one at a time by changing the stake to £10 in the oddsmatcher dropdown."
+          },
+          {
+            "type": "text",
+            "content": "2) Use the Oddsmatcher below to find a suitable event, this oddsmatcher automatically sorts the events by their profitablitity."
+          },
+          {
+            "type": "warning",
+            "content": "Higher odds mean higher liability. You'll need to deposit more into Smarkets to cover the lay side."
+          },
+
+      ],
+      "oddsmatcher": {
+        "oddsmatcher_title": "Free Bet Oddsmatcher",
+        "type": "tutorial",
+        "filters": {
+            "sports": [
+                "Football",
+            ],
+            "markets": [
+                "Match Odds",
+            ],
+            "bookmakers": [
+                "Skybet"
+            ],
+            "exchanges": [
+                "Smarkets"
+            ],
+            "startTime": "",
+            "minLiquidity": null,
+            "minBackOdds": null,
+            "maxBackOdds": null,
+            "minRating": null,
+            "maxRating": null,
+            "minQualifyingLoss": null,
+            "minPotentialProfit": null
+        },
+        "tutorial_info": {
+          "current_sort": "potential profit",
+          "profit_header_text": "Bet<br>Profit",
+          "stake": "30",
+          "isfree": true,
+          "laytype": "Standard"
+        }
+      }
+    }
+  }
+]
+
+}
+
+
+
+
+
+
+
+
+
+    
+}
+
+
+            setTimeout(() => {
+                document.querySelector('guide-page').setAttribute('data-item-data', JSON.stringify(data_item_data))
+            }, 500);
+
+
             setTimeout(() => {
                 document.querySelector('guide-page').setAttribute('data-odds', JSON.stringify(finalData))
 
-            }, 500);
+            }, 1500);
 
             
             document.querySelector('guide-page').addEventListener('Select-Event', (event)=>{

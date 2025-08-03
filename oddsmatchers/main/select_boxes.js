@@ -2727,7 +2727,7 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
-    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
+    } else if (state.oddsmatcher_type == 'standard' || state.oddsmatcher_type == 'standard_free' || state.oddsmatcher_type == 'qualifying_bet_tutorial' || state.oddsmatcher_type == 'free_bet_tutorial') {
     
         data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
         data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);
@@ -2748,6 +2748,24 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         div.setAttribute('data-current-data-object', JSON.stringify(data_object));
 
+    } else if (state.oddsmatcher_type == 'tutorial') {
+
+        data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
+        data_object.back_odds = parseFloat(scope.querySelector(`#Back-odds-input_${row._id}`).value);
+        data_object.lay_odds = parseFloat(scope.querySelector(`#Lay-odds-input_${row._id}`).value);
+        data_object.lay_commission = parseFloat(scope.querySelector(`#commission-input_${row._id}`).value) / 100;
+        data_object.isfree = state.tutorial_info.isfree
+
+        data_object.laytype = 'Standard';
+
+        data_object = calculateHelpers.calculate_standard(data_object);
+
+        set_values_for_standard(state, div, row, data_object, false);
+
+        div.setAttribute('data-current-data-object', JSON.stringify(data_object));
+
+        
+    
     } else if (state.oddsmatcher_type == 'bog') {
 
         data_object.back_stake = parseFloat(scope.querySelector(`#Back-stake-input_${row._id}`).value);
@@ -2759,7 +2777,6 @@ function calculate_and_display_bet_data(scope, state, div, row) {
 
         data_object = calculateHelpers.calculate_standard(data_object);
 
-        console.log(data_object)
 
         set_values_for_bog(state, div, row, data_object, false);
 

@@ -197,7 +197,7 @@ export function process_new_final_data_tutorial(data, scope, state) {
     if (data.is_first_send) {
         state.is_premium_member = data.premium_member;
         state.tutorial_info = data.tutorial_info;
-        add_filters(data.wix_filters, scope, state);
+        state.globalFilters = data.wix_filters;
         apply_tutorial_info(scope, state);
         state.globalData = data.rows;
         try{
@@ -854,6 +854,8 @@ export function filterData(scope, state) {
     if (state.oddsmatcher_type == 'profit tracker') {
         calculate_and_display_total_profit(scope, state);
     }
+
+    console.log(state.globalFilters)
 
 }
 

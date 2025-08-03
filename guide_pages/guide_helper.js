@@ -30,32 +30,32 @@ export class GuidePageManager {
         const subtitle = this.shadowRoot.querySelector('.offer-subtitle');
         const badge = this.shadowRoot.querySelector('.profit-badge');
 
-        if (logo && this.guideData &&this.guideData.bookmaker.logo) {
-            logo.src = this.guideData.bookmaker.logo;
+        if (logo && this.guideData && this.guideData.bookmaker_image) {
+            logo.src = this.guideData.bookmaker_image;
         }
         
-        if (bookmakerName && this.guideData.bookmaker.name) {
-            bookmakerName.textContent = this.guideData.bookmaker.name;
+        if (bookmakerName && this.guideData.bookmaker) {
+            bookmakerName.textContent = this.guideData.bookmaker;
         }
         
-        if (title && this.guideData && this.guideData.bookmaker.offerTitle) {
-            title.textContent = this.guideData.bookmaker.offerTitle;
+        if (title && this.guideData && this.guideData.title) {
+            title.textContent = this.guideData.title;
         }
         
-        if (subtitle && this.guideData && this.guideData.bookmaker.name) {
-            subtitle.textContent = `Complete ${this.guideData.bookmaker.name} Sign-up Guide`;
+        if (subtitle && this.guideData && this.guideData.bookmaker) {
+            subtitle.textContent = `Complete ${this.guideData.bookmaker} Sign-up Guide`;
         }
         
-        if (badge && this.guideData && this.guideData.offer.profit) {
-            badge.textContent = this.guideData.offer.profit;
+        if (badge && this.guideData && this.guideData.final_profit_text) {
+            badge.textContent = this.guideData.final_profit_text;
         }
     }
 
     populateStepList() {
         const stepList = this.shadowRoot.querySelector('.step-list');
-        if (!stepList || !this.guideData || !this.guideData.steps) return;
+        if (!stepList || !this.guideData || !this.guideData. guide_data_manual.steps) return;
 
-        const stepsHTML = this.guideData.steps.map((step, index) => {
+        const stepsHTML = this.guideData. guide_data_manual.steps.map((step, index) => {
             const isFirst = index === 0;
             return `
                 <div class="guide-step-item ${isFirst ? 'active' : ''}" data-step="${step.id}">
@@ -74,13 +74,13 @@ export class GuidePageManager {
             return;
         }
         
-        if (!this.guideData || !this.guideData.steps || this.guideData.steps.length === 0) {
+        if (!this.guideData || !this.guideData. guide_data_manual.steps || this.guideData. guide_data_manual.steps.length === 0) {
             return;
         }
 
         let stepsHTML = '';
 
-        for (const step of this.guideData.steps) {            
+        for (const step of this.guideData. guide_data_manual.steps) {            
             // Format step content - support both old text format and new items format
             let formattedContent = '';
             
@@ -191,7 +191,7 @@ export class GuidePageManager {
                             <div class="tool-icon">⚡</div>
                             <div class="tool-content">
                                 <h4>${step.content.oddsmatcher.oddsmatcher_title}</h4>
-                                <p>Use the oddsmatcher below to help you with this step, simply click the plus icon to select the event</p>
+                                <p>Simply click the plus icon next to the event of your choosing and follow the instructions</p>
                             </div>
                         </div>
                     </div>
@@ -201,7 +201,7 @@ export class GuidePageManager {
                     `;
             }
 
-            // Build complete step section
+            // Build complete step sectionf
             stepsHTML += `
                 <div class="step-section" id="step-${step.id}" data-step="${step.id}">
                     <h2 class="step-title">Step ${step.id}: ${step.title}</h2>
@@ -381,14 +381,14 @@ export class GuidePageManager {
 
     // Add confirmation step to every guide
     addConfirmationStep() {
-        if (!this.guideData || !this.guideData.steps) return;
+        if (!this.guideData || !this.guideData. guide_data_manual.steps) return;
 
         // Check if confirmation step already exists (by checking if title contains "Confirm Completion")
-        const hasConfirmationStep = this.guideData.steps.some(step => step.title === "Confirm Completion");
+        const hasConfirmationStep = this.guideData. guide_data_manual.steps.some(step => step.title === "Confirm Completion");
         if (hasConfirmationStep) return;
 
         // Get the next step number
-        const nextStepNumber = this.guideData.steps.length + 1;
+        const nextStepNumber = this.guideData. guide_data_manual.steps.length + 1;
 
         const confirmationStep = {
             id: nextStepNumber,
@@ -428,7 +428,7 @@ export class GuidePageManager {
         };
 
         // Add as the last step
-        this.guideData.steps.push(confirmationStep);
+        this.guideData. guide_data_manual.steps.push(confirmationStep);
     }
 }
 
