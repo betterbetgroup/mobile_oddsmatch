@@ -106,7 +106,7 @@
             "_owner": null,
             "_updatedDate": null,
             "back_odds": "8.50",
-            "bookmaker": "Virgin Bet",
+            "bookmaker": "BoyleSports",
             "bookmaker_link": "https://www.virginbet.com/sports/horse-racing/newbury-15-00/sev/SBTE_2_1021432383?marketGroupId=758",
             "date_and_time": "17/08/24 15:00",
             "exchange": "Smarkets",
@@ -132,7 +132,7 @@
             "_owner": null,
             "_updatedDate": null,
             "back_odds": "8.50",
-            "bookmaker": "Virgin Bet",
+            "bookmaker": "BoyleSports",
             "bookmaker_link": "https://www.virginbet.com/sports/horse-racing/newmarket-14-05/sev/SBTE_2_1021432391",
             "date_and_time": "17/08/24 14:05",
             "exchange": "Smarkets",
@@ -158,7 +158,7 @@
             "_owner": null,
             "_updatedDate": null,
             "back_odds": "8.50",
-            "bookmaker": "Virgin Bet",
+            "bookmaker": "BoyleSports",
             "bookmaker_link": "https://www.virginbet.com/sports/horse-racing/newmarket-14-05/sev/SBTE_2_1021432391",
             "date_and_time": "17/08/24 14:05",
             "exchange": "Smarkets",
@@ -520,6 +520,10 @@ let data_item_data = {
     "content": {
       "items": [
         {
+            "type": "info",
+            "content": "You can use a different betting exchange if you prefer, but we recommend Smarkets for beginners."
+          },
+        {
           "type": "text",
           "content": "1) Open a Smarkets account if you do not have one already. You will require this to place lay bets."
         },
@@ -531,17 +535,21 @@ let data_item_data = {
         },
         {
           "type": "text",
-          "content": "2) Create an account with Coral. Use the button below to automatically apply the promotion."
+          "content": "2) Create an account with Skybet. Use the button below to automatically apply the promotion."
         },
         {
         "type": "button",
-        "content": "Sign up to Coral",
-        "url": "https://www.coral.co.uk/en/sports/promotions/details/newcustomeroffer", 
+        "content": "Sign up to Skybet",
+        "url": "https://register.skybet.com/account/registration?promotionCode=AB5G30&returnURL=https%3A%2F%2Fpromos.skybet.com%2Fpromotion%3FpromoCode%3Dbg30freebet04", 
         "style": "primary"
         },
         {
             "type": "text",
             "content": "3) Once registered, deposit £5 into your account using a debit card, you will need this for the qualifying bet."
+        },
+          {
+            "type": "warning",
+            "content": "Customers using Neteller or Skrill for deposits are excluded."
           }
       ]
     }
@@ -583,15 +591,19 @@ let data_item_data = {
       "items": [
         {
             "type": "text",
-            "content": "1) To unlock your free bets, you first need to place a £5 qualifying back bet on Skybet."
+            "content": "1) To unlock your free bets, you first need to place a £5 qualifying back bet on Skybet. You can use the oddsmatcher below to find a suitable event."
           },
           {
             "type": "info",
             "content": "The minimum required stake is actually 5p, but you should use £5 in order to mimic a real customer."
           },
+          {
+            "type": "text",
+            "content": "2) Simply follow the instructions in the oddsmatcher dropdown, placing a back bet on Skybet as well as placing a lay bet on the same event on Smarkets."
+          },
         {
           "type": "text",
-          "content": "2) Use the oddsmatcher below to find a suitable event. Once your bet has settled, you should receive £30 in free bets, which you can profit from in the next step."
+          "content": "3) Once your bet has settled, you should receive £30 in free bets, which you can profit from in the next step."
         },
 
         {
@@ -606,19 +618,15 @@ let data_item_data = {
         "filters": {
             "sports": [
                 "Football",
-                "Horse Racing"
             ],
             "markets": [
                 "Match Odds",
-                "Winner",
             ],
             "bookmakers": [
                 "Skybet"
             ],
             "exchanges": [
-                "Smarkets",
-                "Betfair Exchange",
-                "Matchbook"
+                "Smarkets"
             ],
             "startTime": "",
             "minLiquidity": null,
@@ -646,7 +654,7 @@ let data_item_data = {
       "items": [
         {
             "type": "info",
-            "content": "Once your qualifying bet settles, Skybet will credit your account with 3 X £10 free bets. This usually happens within 10 hours of your qualifying bet settling."
+            "content": "Within 10 hours of your qualifying bet settling, Skybet will credit your account with 3 X £10 free bets."
           },
           {
             "type": "text",
@@ -654,11 +662,11 @@ let data_item_data = {
           },
           {
             "type": "text",
-            "content": "2) Use the Oddsmatcher below to find a suitable event, this oddsmatcher automatically sorts the events by their profitablitity."
+            "content": "2) Use the Oddsmatcher below to find a suitable event, this oddsmatcher automatically sorts the events by their profitability."
           },
           {
             "type": "warning",
-            "content": "Higher odds mean higher liability. You'll need to deposit more into Smarkets to cover the lay side."
+            "content": "Higher odds mean higher profit, but also higher liability. You'll need to deposit more into Smarkets to cover the lay side."
           },
 
       ],
@@ -700,7 +708,6 @@ let data_item_data = {
 ]
 
 }
-
 
 
 
