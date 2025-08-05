@@ -326,3 +326,8 @@
     margin: 0 !important;
 }
 
+
+tbody tr:last-child td:last-child:last-child, /* this is for making sure it always gets corners right by checking if it's both first and last child */
+tbody tr:last-child td:nth-last-child(2) div {
+    border-bottom-right-radius: var(--global-border-radius);
+}

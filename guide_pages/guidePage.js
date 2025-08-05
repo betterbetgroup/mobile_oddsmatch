@@ -25,7 +25,6 @@ import * as Helpers from './guide_helper.js';
             .then(() => {
                 Helpers.addStyles(this.shadowRoot, this.state, styles_script)
                 .then(() => {
-                    this.style.visibility = 'visible'; 
                     Helpers.runSpecificScript(this.shadowRoot, this.state); 
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
@@ -48,6 +47,7 @@ import * as Helpers from './guide_helper.js';
                 }
                 if (name === 'data-item-data') {
                     Helpers.process_item_data(newValue, this.shadowRoot);
+                    this.style.visibility = 'visible'; 
                 }
             } else {
                 this.attributeChangeQueue.push({ name, oldValue, newValue });

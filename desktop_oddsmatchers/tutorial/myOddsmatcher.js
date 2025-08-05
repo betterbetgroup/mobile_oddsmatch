@@ -139,7 +139,7 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
                 is_tutorial: true,
                 oddsmatcher_type: 'tutorial',
                 is_desktop: true,
-                desktop_header_columns: ['date and time', 'event', 'selection', 'back odds', 'lay odds', 'tutorial_profit'],
+                desktop_header_columns: ['date and time', 'sport', 'event', 'selection', 'back odds', 'lay odds', 'tutorial_profit'],
                 tutorial_info: {}
                 
             };
@@ -263,7 +263,7 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
         create_row(row, scope, state) {
 
             // given this takes state, then it must use the tutorial_info to do some of this stuff
-
+            let sport_icon_url = Helpers.get_sport_icon_url(row.sport)
             let bookmaker_image = Helpers.get_bookmaker_image(row.bookmaker)
             let exchange_image = Helpers.get_exchange_image(row.exchange)
 
@@ -301,6 +301,7 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
         
             tr.innerHTML = `
                 <td class="date_and_time_data" id="date_time_${row._id}">${row.date_and_time}</td>
+                <td class="sport_data" id="sport_${row._id}"><img src="${sport_icon_url}" alt="${row.sport}" style="width: 1.8vw; height: 1.8vw;"></td>
                 <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
                 <td class="outcome_data" id="outcome_${row._id}">${row.outcome}</td>
         

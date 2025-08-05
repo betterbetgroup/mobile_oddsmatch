@@ -96,7 +96,7 @@ import * as Helpers from '../main/helper.js'
             let offer_id = state.create_offer_id_function(row, state);
             
             let odds_details = 'No Minimum Odds'
-            if (row.have_min_odds && row.have_min_odds == 'true') {
+            if (row.have_min_odds && row.have_min_odds == true) {
                 row.min_odds = parseFloat(row.min_odds).toFixed(2);
                 odds_details = `${row.min_odds} Minimum Odds`;
             }
