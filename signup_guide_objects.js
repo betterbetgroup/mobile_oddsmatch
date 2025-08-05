@@ -4782,7 +4782,7 @@ let betmgm_object = {
   
                 {
                   "type": "text",
-                  "content": "4) Once you have profited from your first £10 bet builder free bet, repeat the process for the second £10 bet builder free bet."
+                  "content": "5) Once you have profited from your first £10 bet builder free bet, repeat the process for the second £10 bet builder free bet."
                 }
     
    
@@ -5271,7 +5271,7 @@ let parimatch_object = {
   
                 {
                   "type": "text",
-                  "content": "4) Once you have profited from your £5 bet builder free bet, move on to the next step to profit from your £5 accumulator free bet."
+                  "content": "5) Once you have profited from your £5 bet builder free bet, move on to the next step to profit from your £5 accumulator free bet."
                 }
     
    
