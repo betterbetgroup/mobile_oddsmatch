@@ -134,14 +134,14 @@ export class GuidePageManager {
                         
                         case 'checkbox':
                             return `
+                                <div class="step-item-checkbox-container">
                                 <div class="switch_container">
                                     <label class="switch">
-                                        <input type="checkbox" class="show_filters_switch offer_complete_checkbox">
+                                            <input type="checkbox" id="offer-complete-checkbox" class="show_filters_switch offer_complete_checkbox">
                                         <span class="slider"></span>
                                     </label>
-
-                                    <span class="step-item-checkbox-text">${item.content}</span>
-
+                                        <span class="step-item-checkbox-text"><span class="availability-text">Available</span></span>
+                                    </div>
                                 </div>
                             `;
 
@@ -464,7 +464,7 @@ export class GuidePageManager {
     }
 }
 
-export function handleResize(scope, is_tutorial) {
+export function handleResize(scope) {
 
 
     if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
@@ -473,9 +473,6 @@ export function handleResize(scope, is_tutorial) {
 
     let width = window.innerWidth;
 
-    if (is_tutorial) {
-        width = width * 0.72;
-    }
 
     const contentDiv = scope.getElementById('outer-container-div');
     contentDiv.style.width = `${width}px`; 
@@ -538,9 +535,242 @@ export function process_new_final_data(newData, shadowRoot) {
     }
 }
 
-export function process_user_suo_object(userSuoObject, shadowRoot) {
+// Helper function to get day of week as number (0 = Sunday, 1 = Monday, etc.)
+function getDayOfWeekNumber(dayName) {
+    const days = {
+        'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
+        'Thursday': 4, 'Friday': 5, 'Saturday': 6
+    };
+    return days[dayName];
+}
+
+// Helper function to get the next end day of the cycle after the updated time
+function getNextCycleEndDate(updatedTime, startDay, endDay) {
+    const startDayNum = getDayOfWeekNumber(startDay);
+    const endDayNum = getDayOfWeekNumber(endDay);
+    const updatedDay = updatedTime.getDay();
+    
+    let nextEndDate = new Date(updatedTime);
+    
+    if (startDayNum <= endDayNum) {
+        // Same week cycle (e.g., Monday to Sunday)
+        if (updatedDay <= endDayNum) {
+            // Same week
+            nextEndDate.setDate(updatedTime.getDate() + (endDayNum - updatedDay));
+        } else {
+            // Next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        }
+    } else {
+        // Cross-week cycle (e.g., Wednesday to Tuesday)
+        if (updatedDay >= startDayNum) {
+            // This cycle ends next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        } else if (updatedDay <= endDayNum) {
+            // This cycle ends this week
+            nextEndDate.setDate(updatedTime.getDate() + (endDayNum - updatedDay));
+        } else {
+            // Between cycles, next cycle ends next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        }
+    }
+    
+    return nextEndDate;
+}
 
 
+
+// Get availability text for weekly offers
+function get_availability_text_for_guide(guideData, userSuoItem) {
+    if (!userSuoItem || userSuoItem.is_available) {
+        return 'Available';
+    }
+
+    // For signup guides, just return unavailable
+    if (guideData.is_signup_guide) {
+        return 'Complete';
+    }
+
+    // For weekly guides, calculate based on weekly_days
+    if (!guideData.weekly_days || guideData.weekly_days.length !== 2) {
+        return 'Complete';
+    }
+
+    const updatedTime = new Date(userSuoItem.updated_time);
+    const currentTime = new Date();
+    const [startDay, endDay] = guideData.weekly_days;
+
+    // Calculate when this offer becomes available again (day after cycle ends)
+    const nextCycleEndDate = getNextCycleEndDate(updatedTime, startDay, endDay);
+    const availableDate = new Date(nextCycleEndDate);
+    availableDate.setDate(availableDate.getDate() + 1); // Available the day after cycle ends
+    
+    // Calculate time difference between now and when it becomes available
+    const timeDifference = availableDate - currentTime;
+
+    if (timeDifference <= 0) {
+        return 'Available';
+    }
+
+    // Convert time difference to a more understandable format
+    const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    console.log('this is the days', days)
+
+    if (days > 0) {
+        return `Available In ${days} Days`;
+    } else if (hours > 0) {
+        return `Available In ${hours} Hours`;
+    } else {
+        return `Available In ${minutes} Minutes`;
+    }
+}
+
+// Update availability status based on weekly cycle logic
+function update_availability_status(guideData, userSuoItem) {
+    if (!userSuoItem || userSuoItem.is_available) {
+        return; // Already available, no need to update
+    }
+
+    // For signup guides, availability doesn't change automatically
+    if (guideData.is_signup_guide) {
+        return;
+    }
+
+    // For weekly guides, check if it should become available again
+    if (!guideData.weekly_days || guideData.weekly_days.length !== 2) {
+        return;
+    }
+
+    const updatedTime = new Date(userSuoItem.updated_time);
+    const currentTime = new Date();
+    const [startDay, endDay] = guideData.weekly_days;
+
+    // Calculate when this offer becomes available again (day after cycle ends)
+    const nextCycleEndDate = getNextCycleEndDate(updatedTime, startDay, endDay);
+    const availableDate = new Date(nextCycleEndDate);
+    availableDate.setDate(availableDate.getDate() + 1); // Available the day after cycle ends
+
+    // Check if current time has passed the available date
+    if (currentTime >= availableDate) {
+        userSuoItem.is_available = true;
+    }
+}
+
+function create_offer_id(row, is_signup_guide) {
+
+    if (!is_signup_guide) {
+        return (row.adjusted_title).toLowerCase().replace(/[^a-z0-9]/g, '_');
+    } else {
+        return (row.bookmaker).replace(/\s+/g, '-');
+    }
+
+}
+
+
+
+export function process_user_suo_object(userSuoObjectData, shadowRoot) {
+    if (!shadowRoot.guideManager || !shadowRoot.guideManager.guideData) {
+        return;
+    }
+
+    // Parse the data if it's a string
+    const userSuoObject = typeof userSuoObjectData === 'string' ? JSON.parse(userSuoObjectData) : userSuoObjectData;
+
+    const guideData = shadowRoot.guideManager.guideData;
+
+    
+    // Find the matching user suo object item
+    let userSuoItem = userSuoObject.user_suo_object.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
+    
+    // Update availability status for weekly offers
+    if (userSuoItem && !guideData.is_signup_guide) {
+        update_availability_status(guideData, userSuoItem);
+    }
+
+    // Find the checkbox in the confirmation step
+    const checkbox = shadowRoot.querySelector('#offer-complete-checkbox');
+    const availabilityText = shadowRoot.querySelector('.availability-text');
+
+    console.log('this is the user suo item', userSuoItem);
+    
+    if (checkbox) {
+        // Set checkbox state based on availability
+        if (userSuoItem) {
+            checkbox.checked = !userSuoItem.is_available;
+            
+            // Update availability text if element exists
+            if (availabilityText) {
+                if (!userSuoItem.is_available) {
+                    const availText = get_availability_text_for_guide(guideData, userSuoItem);
+                    availabilityText.textContent = availText;
+            } else {
+                    availabilityText.textContent = 'Available';
+                
+            }
+            }
+        } else {
+            // No user suo object found, assume available
+            checkbox.checked = false;
+            if (availabilityText) {
+                availabilityText.textContent = 'Available';
+            }
+        }
+
+        // Remove existing event listeners to avoid duplicates
+        const newCheckbox = checkbox.cloneNode(true);
+        checkbox.parentNode.replaceChild(newCheckbox, checkbox);
+        
+        // Add event listener for checkbox changes
+        newCheckbox.addEventListener('change', function(e) {
+            const isChecked = e.target.checked;
+            const currentTime = new Date().toISOString();
+            
+            // Find or create user suo object item
+            let targetUserSuoItem = userSuoObject.user_suo_object.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
+            
+            if (!targetUserSuoItem) {
+                // Create new suo object item if it doesn't exist
+                targetUserSuoItem = {
+                    bookmaker_name: guideData.bookmaker,
+                    is_available: true,
+                    updated_time: new Date().toISOString(), // Default timestamp, will be updated when completed
+                    offer_id: create_offer_id(guideData, guideData.is_signup_guide)
+                };
+                userSuoObject.user_suo_object.push(targetUserSuoItem);
+            }
+            
+            // Update the item
+            const wasAvailable = targetUserSuoItem.is_available;
+            targetUserSuoItem.is_available = !isChecked;
+            
+            // Only update the timestamp when going from available to unavailable (marking as complete)
+            if (isChecked) {
+                targetUserSuoItem.updated_time = currentTime;
+            }
+            
+            // Update availability text
+            if (availabilityText) {
+                const availText = get_availability_text_for_guide(guideData, targetUserSuoItem);
+                availabilityText.textContent = availText;
+            }
+            
+            // Dispatch event to notify parent (similar to list pages)
+            let message = {
+                suo_array: userSuoObject
+            };
+            const raise_event = new CustomEvent('suo_array', {
+                detail: message,  
+                bubbles: true,       
+                composed: true        
+            });
+            shadowRoot.dispatchEvent(raise_event); 
+
+
+        });
+    }
 }
 
 
@@ -550,14 +780,18 @@ export function process_item_data(newData, shadowRoot) {
     try {
         const parsedData = typeof newData === 'string' ? JSON.parse(newData) : newData;
         
-        // Update the guide with new data
-        if (shadowRoot.guideManager && parsedData) {
+        // Set up the guide manager with the new data
+        if (!shadowRoot.guideManager) {
+            shadowRoot.guideManager = new GuidePageManager(shadowRoot, parsedData);
+        } else {
             shadowRoot.guideManager.guideData = parsedData;
-            shadowRoot.guideManager.populateContent();
         } 
 
+        // Populate the content
+        shadowRoot.guideManager.populateContent();
+
     } catch (error) {
-        console.error('Failed to process guide data:', error);
+        console.error('Failed to process item data:', error);
     }
 }
 

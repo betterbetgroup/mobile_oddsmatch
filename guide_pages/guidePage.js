@@ -15,7 +15,7 @@ import * as Helpers from './guide_helper.js';
         }
 
         static get observedAttributes() {
-            return ['data-odds', 'data-item-data']; 
+            return ['data-odds', 'data-item-data', 'user-suo-object']; 
         }
 
         connectedCallback() {
