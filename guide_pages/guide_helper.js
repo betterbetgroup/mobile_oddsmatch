@@ -237,9 +237,9 @@ export class GuidePageManager {
 
     async loadOddsmatcher(type) {
 
-        let scriptPath = `../desktop_oddsmatchers/${type}/myOddsmatcher.js`;
+        let scriptPath = `https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/${type}/myOddsmatcher.js`;
         if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
-            scriptPath = `../oddsmatchers/${type}/myOddsmatcher.js`;
+            scriptPath = `https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/${type}/myOddsmatcher.js`;
         } 
         
         return new Promise((resolve, reject) => {

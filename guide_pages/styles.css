@@ -2,7 +2,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 
 * {
-    margin: auto;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -16,6 +16,10 @@ body {
     overflow-x: hidden !important;
     min-height: 100vh !important;
     height: auto !important;
+}
+
+#outer-container-div {
+    margin: 0 auto;
 }
 
 html {
