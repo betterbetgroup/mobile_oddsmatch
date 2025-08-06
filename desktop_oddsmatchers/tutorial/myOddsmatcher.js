@@ -1,5 +1,5 @@
-import * as Helpers from '../../oddsmatchers/main/helper.js';
-import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.js'
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as calculateHelpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/calculate_functions.js'
 
 
 
@@ -9,8 +9,6 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/styles.css';
 
-
-    styles_script = '../desktop_oddsmatchers/tutorial/styles.css'
 
 
     class tutorialOddsmatcher extends HTMLElement {

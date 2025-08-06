@@ -1,4 +1,14 @@
 // Global oddsmatcher data storage
+
+
+let desktop_tutorial_matcher_script_path = './tutorialmatcher.js';
+let mobile_tutorial_matcher_script_path = './mobiletutorialmatcher.js';
+
+desktop_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/myOddsmatcher.js';
+mobile_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/tutorial/myOddsmatcher.js';
+
+
+
 let globalOddsmatcherData = {};
 
 let MAX_WIDTH_FOR_MOBILE = 700;
@@ -237,9 +247,9 @@ export class GuidePageManager {
 
     async loadOddsmatcher(type) {
 
-        let scriptPath = `https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/${type}/myOddsmatcher.js`;
+        let scriptPath = desktop_tutorial_matcher_script_path;
         if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
-            scriptPath = `https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/${type}/myOddsmatcher.js`;
+            scriptPath = mobile_tutorial_matcher_script_path;
         } 
         
         return new Promise((resolve, reject) => {

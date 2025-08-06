@@ -31,7 +31,7 @@ import * as Helpers from './guide_helper.js';
                     Helpers.runSpecificScript(this.shadowRoot, this.state); 
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
-                    Helpers.handleResize(this.shadowRoot);
+                    window.addEventListener('resize', () => { Helpers.handleResize(this.shadowRoot); });
                 });
             });
         }
