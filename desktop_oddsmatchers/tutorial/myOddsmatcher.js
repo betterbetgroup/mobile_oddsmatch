@@ -191,6 +191,7 @@ import * as calculateHelpers from 'https://betterbetgroup.github.io/mobile_oddsm
 
         function_using_global_data_and_global_filters_to_make_filtered_data(globalData, globalFilters) {
 
+
             function parseDateAndTime_filterData(dateString) {
                 const [date, time] = dateString.split(' ');
                 const [day, month, year] = date.split('/');
