@@ -1,5 +1,6 @@
-import * as Helpers from '../main/helper.js';
-import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.js'
+import * as Helpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/helper.js';
+import * as calculateHelpers from 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/calculate_functions.js'
+
 
 
 

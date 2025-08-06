@@ -64,7 +64,7 @@ let weekly_888sport_acca_club_object = {
                   {
                 "type": "text",
                 "content": "6) Once your whole accumulator bet has settled you will immediately receive a £5 free bet which you can profit from in the next step."
-              },
+              }
                     
         
               ]
@@ -97,7 +97,7 @@ let weekly_888sport_acca_club_object = {
               {
                 "type": "text",
                 "content": "3) You can actually repeat this offer up to 3 times per week. So if you place £60 worth of qualifying accumulator bets within the week you will receive 3 X £5 free bets."
-              },
+              }
     
     
     
@@ -165,7 +165,7 @@ let betuk_football_always_on_object = {
               {
                 "type": "text",
                 "content": "2) Find the 'Football Always On' offer and click to opt in."
-              },
+              }
     
             ]
           }
@@ -238,7 +238,7 @@ let betuk_football_always_on_object = {
                   {
                     "type": "text",
                     "content": "2) Use the oddsmatcher below to find a suitable event. This oddsmatcher automatically sorts the events by their profitability."
-                  },
+                  }
     
         
         
@@ -312,7 +312,7 @@ let betway_club_object = {
                 "content": "Betway Free Bet Club Opt in",
                 "url": "https://betway.com/gb/en/dyn/freeBetClub",
                 "style": "secondary"
-              },
+              }
     
             ]
           }
@@ -389,7 +389,7 @@ let betway_club_object = {
                   {
                     "type": "text",
                     "content": "2) Use the oddsmatcher below to find a suitable event for your £5 free bets. This oddsmatcher automatically sorts the events by their profitability."
-                  },
+                  }
     
         
         
@@ -463,7 +463,7 @@ let boylesports_weekly_15_in_free_bets_object = {
                 "content": "BOYLE Xtra Card",
                 "url": "https://www.boylesports.com/promotions/boylesports-promotions/25337",
                 "style": "secondary"
-              },
+              }
     
             ]
           }
@@ -491,7 +491,7 @@ let boylesports_weekly_15_in_free_bets_object = {
                 {
                   "type": "text",
                   "content": "3) Simply use the oddsmatcher below and bet on 4 different events using a £10 stake each time. Then once you have done £40 worth you can do the other £10 in-shop, and you should receive £15 in free bets to profit from in the next step."
-                },
+                                    }
                 
        
         
@@ -553,7 +553,7 @@ let boylesports_weekly_15_in_free_bets_object = {
                   {
                     "type": "text",
                     "content": "3) For your other 2 free bets consider using our site on your phone while in-shop to find the best odds."
-                  },
+                  }
     
         
         
@@ -626,7 +626,7 @@ let lottoland_bet_club_object = {
                     "content": "Lottoland Bet Club",
                     "url": "https://www.lottoland.co.uk/betclub",
                     "style": "secondary"
-                  },
+                  }
         
                 ]
               }
@@ -678,7 +678,7 @@ let lottoland_bet_club_object = {
                   "content": "Standard Calculator",
                   "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
                   "style": "secondary"
-                  },
+                  }
       
     
                     
@@ -713,7 +713,7 @@ let lottoland_bet_club_object = {
               {
                 "type": "text",
                 "content": "3) For the £3 in-play free bet we recommend you use our standard calculator in free bet mode on a bet that you find manually where the match is at half time. This is so that the odds don't change suddenly while you are placing your bets."
-              },
+              }
     
     
     
@@ -782,7 +782,7 @@ let midnite_acca_club_object = {
                     "content": "Midnite Acca Club",
                     "url": "https://www.midnite.com/rewards/3046",
                     "style": "secondary"
-                  },
+                  }
         
                 ]
               }
@@ -839,7 +839,7 @@ let midnite_acca_club_object = {
                   {
                 "type": "text",
                 "content": "6) Then once your second £10 accumulator free bet has settled you should immediately receive a £10 accumulator free bet which you can profit from in the next step."
-              },
+              }
       
     
                     
@@ -894,7 +894,7 @@ let midnite_acca_club_object = {
                     "content": "Standard Calculator",
                     "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
                     "style": "secondary"
-                    },
+                    }
         
         
         
@@ -932,7 +932,7 @@ let midnite_bet_club_object = {
                         "content": "Midnite Bet Club",
                         "url": "https://www.midnite.com/rewards/3038",
                         "style": "secondary"
-                      },
+                      }
             
                     ]
                   }
@@ -961,11 +961,11 @@ let midnite_bet_club_object = {
             {
               "type": "text",
               "content": "3) Repeat the process until you have placed all 5 of your £5 qualifying bets."
-            },
-    
-    
-            
-          ],
+                                }
+                
+       
+        
+              ],
           "oddsmatcher": {
             "oddsmatcher_title": "Qualifying Bet Oddsmatcher",
             "type": "tutorial",
@@ -1021,7 +1021,7 @@ let midnite_bet_club_object = {
               {
                 "type": "warning",
                 "content": "The free bet will expire after 7 days."
-                },
+                }
     
     
           ],
@@ -1086,7 +1086,7 @@ let paddy_power_rewards_club_object = {
                         "content": "Paddy's Rewards Club",
                         "url": "https://www.paddypower.com/paddys-rewards-club",
                         "style": "secondary"
-                      },
+                      }
             
                     ]
                   }
@@ -1115,11 +1115,11 @@ let paddy_power_rewards_club_object = {
             {
               "type": "text",
               "content": "3) Repeat the process until you have placed all 5 of your £5 qualifying bets. Then, Paddy Power will reward you with a free bet value varying between £5 and £50. You will also receive one power up."
-            },
-    
-    
-            
-          ],
+                                }
+                
+       
+        
+              ],
           "oddsmatcher": {
             "oddsmatcher_title": "Qualifying Bet Oddsmatcher",
             "type": "tutorial",
@@ -1179,7 +1179,7 @@ let paddy_power_rewards_club_object = {
               {
                 "type": "warning",
                 "content": "The free bet and power up will expire after 7 days."
-                },
+                }
     
     
           ],
@@ -1243,7 +1243,7 @@ let skybet_club_object = {
                         "content": "Skybet Club",
                         "url": "https://promos.skybet.com/skybetclub",
                         "style": "secondary"
-                      },
+                      }
             
                     ]
                   }
@@ -1264,11 +1264,11 @@ let skybet_club_object = {
               {
               "type": "text",
               "content": "2) Simply follow the instructions in the oddsmatcher dropdown, placing a back bet on Skybet as well as placing a lay bet on the same event on Smarkets."
-            },
-    
-    
-            
-          ],
+                                }
+                
+       
+        
+              ],
           "oddsmatcher": {
             "oddsmatcher_title": "Qualifying Bet Oddsmatcher",
             "type": "tutorial",
@@ -1321,11 +1321,11 @@ let skybet_club_object = {
               {
                 "type": "text",
                 "content": "2) Since these 'BuildABet' free bets are only £2.50 each we recommend you just punt them instead of taking the time to lay them."
-              },
-    
-    
-    
-          ],
+                                  }
+                
+       
+        
+              ]
     
         }
       }

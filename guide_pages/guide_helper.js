@@ -1,11 +1,9 @@
 // Global oddsmatcher data storage
 
 
-let desktop_tutorial_matcher_script_path = './tutorialmatcher.js';
-let mobile_tutorial_matcher_script_path = './mobiletutorialmatcher.js';
 
-desktop_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/myOddsmatcher.js';
-mobile_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/tutorial/myOddsmatcher.js';
+let desktop_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/tutorial/myOddsmatcher.js';
+let mobile_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/tutorial/myOddsmatcher.js';
 
 
 
@@ -279,9 +277,42 @@ export class GuidePageManager {
                 });
             });
 
+            // Add event forwarding for oddsmatcher events
+            this.setupOddsmatcherEventForwarding();
+
             // Initialize scroll detection for step highlighting
             this.initializeScrollDetection();
         }, 100);
+    }
+
+    setupOddsmatcherEventForwarding() {
+        // Find all oddsmatcher elements
+        const oddsmatcherElements = this.shadowRoot.querySelectorAll('.added_oddsmatcher');
+        
+        // List of events that oddsmatchers dispatch that should be forwarded
+        const eventsToForward = [
+            'logbet',
+            'Upgrade', 
+            'Get-Alerts',
+            'submit-email'
+
+        ];
+        
+        oddsmatcherElements.forEach(oddsmatcher => {
+            eventsToForward.forEach(eventType => {
+                oddsmatcher.addEventListener(eventType, (event) => {
+                    // Create a new event with the same details and forward it
+                    const forwardedEvent = new CustomEvent(eventType, {
+                        detail: event.detail,
+                        bubbles: true,
+                        composed: true
+                    });
+                    
+                    // Dispatch it from the shadowRoot to bubble up to parent
+                    this.shadowRoot.dispatchEvent(forwardedEvent);
+                });
+            });
+        });
     }
 
     scrollToStep(stepId) {
@@ -412,14 +443,14 @@ export class GuidePageManager {
 
     // Add confirmation step to every guide
     addConfirmationStep() {
-        if (!this.guideData || !this.guideData. guide_data_manual.steps) return;
+        if (!this.guideData || !this.guideData.guide_data_manual?.steps) return;
 
         // Check if confirmation step already exists (by checking if title contains "Confirm Completion")
-        const hasConfirmationStep = this.guideData. guide_data_manual.steps.some(step => step.title === "Confirm Completion");
+        const hasConfirmationStep = this.guideData.guide_data_manual.steps.some(step => step.title === "Confirm Completion");
         if (hasConfirmationStep) return;
 
         // Get the next step number
-        const nextStepNumber = this.guideData. guide_data_manual.steps.length + 1;
+        const nextStepNumber = this.guideData.guide_data_manual.steps.length + 1;
 
 
         let button_text = "Sign-up Offer List";
@@ -470,7 +501,7 @@ export class GuidePageManager {
         };
 
         // Add as the last step
-        this.guideData. guide_data_manual.steps.push(confirmationStep);
+        this.guideData.guide_data_manual.steps.push(confirmationStep);
     }
 }
 
@@ -682,31 +713,42 @@ function create_offer_id(row, is_signup_guide) {
 
 
 export function process_user_suo_object(userSuoObjectData, shadowRoot) {
+
+
+    
     if (!shadowRoot.guideManager || !shadowRoot.guideManager.guideData) {
         return;
     }
 
+
+    
+
     // Parse the data if it's a string
     const userSuoObject = typeof userSuoObjectData === 'string' ? JSON.parse(userSuoObjectData) : userSuoObjectData;
 
+
+    
     const guideData = shadowRoot.guideManager.guideData;
 
     
     // Find the matching user suo object item
-    let userSuoItem = userSuoObject.user_suo_object.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
+    let userSuoItem = userSuoObject.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
+
+
     
     // Update availability status for weekly offers
     if (userSuoItem && !guideData.is_signup_guide) {
         update_availability_status(guideData, userSuoItem);
     }
 
-    // Find the checkbox in the confirmation step
-    const checkbox = shadowRoot.querySelector('#offer-complete-checkbox');
-    const availabilityText = shadowRoot.querySelector('.availability-text');
 
-    console.log('this is the user suo item', userSuoItem);
-    
-    if (checkbox) {
+    // Wait for checkbox to load with 5 second timeout
+    waitForElement(shadowRoot, '#offer-complete-checkbox', 5000).then(checkbox => {
+        console.log('✅ Checkbox found, setting up event handlers');
+        
+        // Also get availability text element
+        const availabilityText = shadowRoot.querySelector('.availability-text');
+
         // Set checkbox state based on availability
         if (userSuoItem) {
             checkbox.checked = !userSuoItem.is_available;
@@ -716,10 +758,9 @@ export function process_user_suo_object(userSuoObjectData, shadowRoot) {
                 if (!userSuoItem.is_available) {
                     const availText = get_availability_text_for_guide(guideData, userSuoItem);
                     availabilityText.textContent = availText;
-            } else {
+                } else {
                     availabilityText.textContent = 'Available';
-                
-            }
+                }
             }
         } else {
             // No user suo object found, assume available
@@ -739,7 +780,7 @@ export function process_user_suo_object(userSuoObjectData, shadowRoot) {
             const currentTime = new Date().toISOString();
             
             // Find or create user suo object item
-            let targetUserSuoItem = userSuoObject.user_suo_object.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
+            let targetUserSuoItem = userSuoObject.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
             
             if (!targetUserSuoItem) {
                 // Create new suo object item if it doesn't exist
@@ -749,7 +790,7 @@ export function process_user_suo_object(userSuoObjectData, shadowRoot) {
                     updated_time: new Date().toISOString(), // Default timestamp, will be updated when completed
                     offer_id: create_offer_id(guideData, guideData.is_signup_guide)
                 };
-                userSuoObject.user_suo_object.push(targetUserSuoItem);
+                userSuoObject.push(targetUserSuoItem);
             }
             
             // Update the item
@@ -771,6 +812,7 @@ export function process_user_suo_object(userSuoObjectData, shadowRoot) {
             let message = {
                 suo_array: userSuoObject
             };
+
             const raise_event = new CustomEvent('suo_array', {
                 detail: message,  
                 bubbles: true,       
@@ -780,7 +822,10 @@ export function process_user_suo_object(userSuoObjectData, shadowRoot) {
 
 
         });
-    }
+    }).catch(error => {
+        console.warn('⚠️ Checkbox not found within 5 seconds:', error);
+        console.log('Continuing without checkbox functionality');
+    });
 }
 
 
@@ -831,4 +876,33 @@ function getInlineHTML() {
             </div>
         </div>
     `;
+}
+
+// Helper function to wait for an element to appear with timeout
+function waitForElement(container, selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+        const element = container.querySelector(selector);
+        
+        // If element already exists, resolve immediately
+        if (element) {
+            resolve(element);
+            return;
+        }
+        
+        // Set up polling to check for element
+        const startTime = Date.now();
+        const checkInterval = 100; // Check every 100ms
+        
+        const intervalId = setInterval(() => {
+            const element = container.querySelector(selector);
+            
+            if (element) {
+                clearInterval(intervalId);
+                resolve(element);
+            } else if (Date.now() - startTime > timeout) {
+                clearInterval(intervalId);
+                reject(new Error(`Element ${selector} not found within ${timeout}ms`));
+            }
+        }, checkInterval);
+    });
 }
