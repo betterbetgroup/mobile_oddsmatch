@@ -503,9 +503,11 @@
 let data_item_data = {
     "bookmaker": "Coral",
     "bookmaker_image": "https://static.wixstatic.com/media/7a0e3a_c2ecfb4964e3445a8989ac350cc547a6~mv2.png",
+    "guide_page_offer_link": "https://www.Skybet.com/sports/horse-racing/event/27726802",
     "title": "Coral New Customer Offer",
     "final_profit_text": "£16.00 Profit",
-    "is_signup_guide": true,
+    "is_signup_guide": false,
+    "weekly_days": ['Monday', 'Sunday'],
 
 
 
@@ -610,8 +612,6 @@ let data_item_data = {
             "content": "2) Since these 'BuildABet' free bets are only £2.50 each we recommend you just punt them instead of taking the time to lay them."
           },
 
-
-
       ],
 
     }
@@ -627,13 +627,79 @@ let data_item_data = {
 
 
 
-
     
 }
+
+let user_suo_object = {
+    
+    "user_suo_object": [
+    {
+        "bookmaker_name": "Midnite",
+        "is_available": false,
+        "updated_time": "2025-08-06T11:43:33.846Z",
+        "offer_id": "midnite___bet_club"
+    },
+    {
+        "bookmaker_name": "Skybet",
+        "is_available": false,
+        "updated_time": "2025-08-06T11:43:35.246Z",
+        "offer_id": "sky_bet___club"
+    },
+    {
+        "bookmaker_name": "Lottoland",
+        "is_available": false,
+        "updated_time": "2025-08-06T11:43:38.695Z",
+        "offer_id": "lottoland___bet_club"
+    },
+    {
+        "bookmaker_name": "888Sport",
+        "is_available": false,
+        "updated_time": "2025-08-03T11:43:37.179Z",
+        "offer_id": "888sport___acca_club"
+    },
+    {
+        "bookmaker_name": "BoyleSports",
+        "is_available": true,
+        "updated_time": "2025-08-06T11:43:32.592Z",
+        "offer_id": "boylesports___weekly__15_in_free_bets"
+    },
+    {
+        "bookmaker_name": "Betway",
+        "is_available": true,
+        "updated_time": "2025-08-06T11:43:32.592Z",
+        "offer_id": "betway___free_bet_club"
+    },
+    {
+        "bookmaker_name": "Paddy Power",
+        "is_available": false,
+        "updated_time": "2025-08-06T11:43:32.592Z",
+        "offer_id": "paddy_power___paddy_s_rewards_club"
+    },
+    {
+        "bookmaker_name": "Midnite",
+        "is_available": true,
+        "updated_time": "2025-08-06T11:43:32.592Z",
+        "offer_id": "midnite___acca_club"
+    },
+    {
+        "bookmaker_name": "BetUK",
+        "is_available": true,
+        "updated_time": "2025-08-06T11:43:32.592Z",
+        "offer_id": "bet_uk___football_always_on"
+    }
+] 
+
+}
+
 
 
             setTimeout(() => {
                 document.querySelector('guide-page').setAttribute('data-item-data', JSON.stringify(data_item_data))
+            }, 500);
+
+
+            setTimeout(() => {
+                document.querySelector('guide-page').setAttribute('user-suo-object', JSON.stringify(user_suo_object))
             }, 500);
 
 

@@ -45,6 +45,9 @@ import * as Helpers from './guide_helper.js';
                 if (name === 'data-odds') {
                     Helpers.process_new_final_data(newValue, this.shadowRoot);
                 }
+                if (name === 'user-suo-object') {
+                    Helpers.process_user_suo_object(newValue, this.shadowRoot);
+                }
                 if (name === 'data-item-data') {
                     Helpers.process_item_data(newValue, this.shadowRoot);
                     this.style.visibility = 'visible'; 

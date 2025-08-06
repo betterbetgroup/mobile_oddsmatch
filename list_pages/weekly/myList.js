@@ -116,7 +116,7 @@ import * as Helpers from '../main/helper.js'
             let availability_text = 'Available';
     
             if (!state.is_available) {
-                availability_text = state.get_availability_text_function(scope, state, offer_id);
+                availability_text = state.get_availability_text_function(scope, state, row, offer_id);
                 if (availability_text.includes('In 1 ')) {
                     availability_text = availability_text.replace('Hours', 'Hour').replace('Minutes', 'Minute').replace('Days', 'Day')
                 }

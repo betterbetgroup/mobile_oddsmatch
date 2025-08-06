@@ -1097,25 +1097,83 @@ function remove_all_option_style(scope, option_name) {
 
 
 
+// Helper function to get day of week as number (0 = Sunday, 1 = Monday, etc.)
+function getDayOfWeekNumber(dayName) {
+    const days = {
+        'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
+        'Thursday': 4, 'Friday': 5, 'Saturday': 6
+    };
+    return days[dayName];
+}
+
+
+
+// Helper function to get the next end day of the cycle after the updated time
+function getNextCycleEndDate(updatedTime, startDay, endDay) {
+    const startDayNum = getDayOfWeekNumber(startDay);
+    const endDayNum = getDayOfWeekNumber(endDay);
+    const updatedDay = updatedTime.getDay();
+    
+    let nextEndDate = new Date(updatedTime);
+    
+    if (startDayNum <= endDayNum) {
+        // Same week cycle (e.g., Monday to Sunday)
+        if (updatedDay <= endDayNum) {
+            // Same week
+            nextEndDate.setDate(updatedTime.getDate() + (endDayNum - updatedDay));
+        } else {
+            // Next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        }
+    } else {
+        // Cross-week cycle (e.g., Wednesday to Tuesday)
+        if (updatedDay >= startDayNum) {
+            // This cycle ends next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        } else if (updatedDay <= endDayNum) {
+            // This cycle ends this week
+            nextEndDate.setDate(updatedTime.getDate() + (endDayNum - updatedDay));
+        } else {
+            // Between cycles, next cycle ends next week
+            nextEndDate.setDate(updatedTime.getDate() + (7 - updatedDay + endDayNum));
+        }
+    }
+    
+    return nextEndDate;
+}
+
 // ! WEEKLY ONLY FUNCTION
 // This is a weekly only function - getting the days until it's available based on weekly
-function get_availability_text(scope, state, offer_id) {
+function get_availability_text(scope, state, row, offer_id) {
 
     const bookmakerData = state.user_suo_object.find(b => b.offer_id === offer_id);
     if (!bookmakerData) {
+        console.log('1')
+        return 'Available Now';
+    }
+
+    // Find the corresponding offer data to get weekly_days
+    const offerData = row;
+    if (!offerData || !offerData.weekly_days || offerData.weekly_days.length !== 2) {
+        // Fallback to old logic if weekly_days not found
+        console.log('2')
         return 'Available Now';
     }
 
     const updatedTime = new Date(bookmakerData.updated_time);
     const currentTime = new Date();
+    const [startDay, endDay] = offerData.weekly_days;
 
-    // Calculate the end of the seven-day period from the updated time
-    const sevenDaysLater = new Date((updatedTime.getTime() + 7 * 24 * 60 * 60 * 1000) - 3600000);
-
-    // Calculate time difference between now and seven days after the updated time
-    const timeDifference = sevenDaysLater - currentTime;
+    // Calculate when this offer becomes available again (day after cycle ends)
+    const nextCycleEndDate = getNextCycleEndDate(updatedTime, startDay, endDay);
+    const availableDate = new Date(nextCycleEndDate);
+    availableDate.setDate(availableDate.getDate() + 1); // Available the day after cycle ends
+    
+    // Calculate time difference between now and when it becomes available
+    const timeDifference = availableDate - currentTime;
 
     if (timeDifference <= 0) {
+        console.log('3')
         return 'Available Now';
     }
 
@@ -1140,15 +1198,36 @@ function change_available_status_on_object(scope, state) {
     }
     
     const currentDate = new Date();
-    const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     state.user_suo_object.forEach(obj => {
 
         if (!obj.is_available) {
-            if (new Date(obj.updated_time) < sevenDaysAgo) {
+            // Find the corresponding offer data to get weekly_days
+            const offerData = state.globalData.find(offer => create_offer_id(offer, state) === obj.offer_id);
+            
+            if (!offerData || !offerData.weekly_days || offerData.weekly_days.length !== 2) {
+                // Fallback to old logic if weekly_days not found
+                const sevenDaysAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+                if (new Date(obj.updated_time) < sevenDaysAgo) {
+                    obj.is_available = true;
+                }
+                return;
+            }
+
+            const updatedTime = new Date(obj.updated_time);
+            const [startDay, endDay] = offerData.weekly_days;
+
+            // Calculate when this offer becomes available again (day after cycle ends)
+            const nextCycleEndDate = getNextCycleEndDate(updatedTime, startDay, endDay);
+            const availableDate = new Date(nextCycleEndDate);
+            availableDate.setDate(availableDate.getDate() + 1); // Available the day after cycle ends
+
+            // Check if current time has passed the available date
+            if (currentDate >= availableDate) {
                 obj.is_available = true;
             }
-        };
+        }
+        
     });
 
 }

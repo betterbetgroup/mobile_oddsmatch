@@ -25,6 +25,7 @@ export class GuidePageManager {
 
     populateHeader() {
         const logo = this.shadowRoot.querySelector('.bookmaker-logo');
+        const bookmakerLink = this.shadowRoot.querySelector('.bookmaker-link');
         const bookmakerName = this.shadowRoot.querySelector('.bookmaker-name');
         const title = this.shadowRoot.querySelector('.main-title');
         const subtitle = this.shadowRoot.querySelector('.offer-subtitle');
@@ -32,6 +33,7 @@ export class GuidePageManager {
 
         if (logo && this.guideData && this.guideData.bookmaker_image) {
             logo.src = this.guideData.bookmaker_image;
+            bookmakerLink.href = this.guideData.guide_page_offer_link;
         }
         
         if (bookmakerName && this.guideData.bookmaker) {
@@ -42,7 +44,7 @@ export class GuidePageManager {
             title.textContent = this.guideData.title;
         }
         
-        if (subtitle && this.guideData && this.guideData.bookmaker) {
+        if (subtitle && this.guideData && this.guideData.bookmaker && this.guideData.is_signup_guide) {
             subtitle.textContent = `Complete ${this.guideData.bookmaker} Sign-up Guide`;
         }
         
@@ -132,15 +134,34 @@ export class GuidePageManager {
                         
                         case 'checkbox':
                             return `
-                                <div class="step-item-checkbox">
-                                    <label class="checkbox-container">
-                                        <input type="checkbox" class="step-checkbox">
-                                        <span class="checkbox-checkmark"></span>
-                                        <span class="checkbox-text">${item.content}</span>
+                                <div class="switch_container">
+                                    <label class="switch">
+                                        <input type="checkbox" class="show_filters_switch offer_complete_checkbox">
+                                        <span class="slider"></span>
                                     </label>
+
+                                    <span class="step-item-checkbox-text">${item.content}</span>
+
                                 </div>
                             `;
-                        
+
+                        case 'div for buttons':
+                            return `
+                                <div class="step-item-buttons">
+                                    ${item.content.map(button => {
+                                        return `
+                                            <div class="step-item-button">
+                                                <a href="${button.url}" class="${button.style === 'secondary' ? 'step-button-secondary' : 'step-button-primary'}">
+                                                    <i class="fas fa-angle-right"></i>
+                                                    ${button.content}
+                                                </a>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            `;
+
+
                         default:
                             return `<div class="step-item-text">${item.content}</div>`;
                     }
@@ -390,6 +411,15 @@ export class GuidePageManager {
         // Get the next step number
         const nextStepNumber = this.guideData. guide_data_manual.steps.length + 1;
 
+
+        let button_text = "Sign-up Offer List";
+        let button_url = "https://www.betterbetgroup.com/sign-up-offer-list";
+
+        if (!this.guideData.is_signup_guide) {
+            button_text = "Weekly Offer List";
+            button_url = "https://www.betterbetgroup.com/weekly-bet-club-offer-list";
+        }
+
         const confirmationStep = {
             id: nextStepNumber,
             title: "Confirm Offer",
@@ -397,32 +427,34 @@ export class GuidePageManager {
                 items: [
                     {
                         type: "text",
-                        content: "Great work! You're almost done with this offer."
+                        content: "You should have now completed this offer. Click the checkbox below to confirm you have completed all of the steps."
                     },
                     {
                         type: "checkbox",
-                        content: "I confirm that I have completed all the steps for this offer and received my free bets/bonus"
-                    },
-                    {
-                        type: "info",
-                        content: "Make sure you've received and used all your free bets before moving on to maximize your profit"
+                        content: "Complete"
                     },
                     {
                         type: "text",
                         content: "What would you like to do next?"
                     },
                     {
-                        type: "button",
-                        content: "Move to Next Offer",
-                        url: "/next-offer",
-                        style: "primary"
-                    },
-                    {
-                        type: "button",
-                        content: "View Profit Tracker",
-                        url: "/profit-tracker", 
-                        style: "secondary"
+                        type: "div for buttons",
+                        content: [            
+                        {
+                            type: "button",
+                            content: button_text,
+                            url: button_url,
+                            style: "primary"
+                        },
+                        {
+                            type: "button",
+                            content: "Profit Tracker",
+                            url: "https://www.betterbetgroup.com/betting-profit-tracker", 
+                            style: "secondary"
+                        }
+                    ]
                     }
+
                 ]
             }
         };
@@ -505,6 +537,13 @@ export function process_new_final_data(newData, shadowRoot) {
         console.error('Failed to process guide data:', error);
     }
 }
+
+export function process_user_suo_object(userSuoObject, shadowRoot) {
+
+
+}
+
+
 
 
 export function process_item_data(newData, shadowRoot) {
