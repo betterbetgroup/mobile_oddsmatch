@@ -182,7 +182,7 @@ import * as Helpers from '../main/helper.js'
                         ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
                         
                         <div class="item_button">
-                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}">
                                 Offer Guide
                                 <i class="fa-solid fa-book offer_guide_icon"></i>
                             </a>

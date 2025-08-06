@@ -1940,7 +1940,7 @@ export function handleResize(scope, is_tutorial) {
     let width = window.innerWidth;
 
     if (is_tutorial) {
-        width = width * 0.725;
+        width = width * 0.7;
     }
 
     const contentDiv = scope.getElementById('outer-container-div');

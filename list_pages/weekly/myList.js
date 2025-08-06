@@ -163,7 +163,7 @@ import * as Helpers from '../main/helper.js'
                     <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
 
                         <div class="div_around_bookmaker_exhange_images"> 
-                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''} target="_blank" >
+                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''}>
                                 <img class='bookmaker_img' src="${row.bookmaker_image}" alt='${row.bookmaker} Weekly Bet Club Offer'>
                             </a>
                         </div>

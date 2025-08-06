@@ -752,7 +752,9 @@ div[class='odds_and_bookmaker'], .each_way_back_bet_odds_and_bookmaker {
 #email-input-oddsmatcher {
     width: 30vw !important;
 }
-
+.button-no-data-div {
+    border: 0 !important;
+}
 
 
 

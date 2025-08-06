@@ -8,10 +8,8 @@ import * as calculateHelpers from '../../oddsmatchers/main/calculate_functions.j
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/qualifying_bet/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/oddsmatchers/tutorial/styles.css';
 
-
-    styles_script = '../../oddsmatchers/tutorial/styles.css';
 
 
 

@@ -2,8 +2,11 @@ import * as Helpers from './guide_helper.js';
 
 (function () {
 
-    let html_script = 'z.html';
-    let styles_script = 'styles.css';
+    let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/guide_pages/z.html';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/guide_pages/styles.css';
+
+    /*html_script = 'z.html';
+    styles_script = 'styles.css';*/
 
     class GuidePage extends HTMLElement {
 
@@ -15,7 +18,7 @@ import * as Helpers from './guide_helper.js';
         }
 
         static get observedAttributes() {
-            return ['data-odds', 'data-item-data', 'user-suo-object']; 
+            return ['data-odds', 'data-item-data', 'data-user-suo-object']; 
         }
 
         connectedCallback() {
@@ -45,7 +48,7 @@ import * as Helpers from './guide_helper.js';
                 if (name === 'data-odds') {
                     Helpers.process_new_final_data(newValue, this.shadowRoot);
                 }
-                if (name === 'user-suo-object') {
+                if (name === 'data-user-suo-object') {
                     Helpers.process_user_suo_object(newValue, this.shadowRoot);
                 }
                 if (name === 'data-item-data') {

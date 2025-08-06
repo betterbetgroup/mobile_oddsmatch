@@ -301,6 +301,11 @@ body {
 #email-input-oddsmatcher {
     width: 65vw !important;
 }
+
+.button-no-data-div {
+    border: 0.15vw solid black !important;
+}
+
 .loading-text {
     text-transform: uppercase;
 }

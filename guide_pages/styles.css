@@ -2,7 +2,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css');
 
 * {
-    margin: 0;
+    margin: auto;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -26,7 +26,7 @@ html {
 /* Blog Container */
 .blog-container {
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 3.47vw;
     background: #000;
     color: #fff;
 }
@@ -34,8 +34,8 @@ html {
 /* Premium Header Design */
 .blog-header {
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    padding: 60px 40px 80px 40px;
-    border-bottom: 3px solid #ff00c6;
+    padding: 4.17vw 2.78vw 5.56vw 2.78vw;
+    border-bottom: 0.21vw solid #ff00c6;
     position: relative;
     overflow: hidden;
 }
@@ -54,45 +54,45 @@ html {
 .header-content {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
+    max-width: 83.33vw;
     margin: 0 auto;
     text-align: center;
 }
 
 .bookmaker-section {
-    margin-bottom: 32px;
+    margin-bottom: 2.22vw;
 }
 
 .bookmaker-logo {
-    height: 60px;
+    height: 4.17vw;
     width: auto;
     object-fit: contain;
     filter: brightness(1.1) contrast(1.1);
-    border-radius: 8px;
+    border-radius: 0.56vw;
     background: rgba(255, 255, 255, 0.1);
-    padding: 8px;
-    backdrop-filter: blur(10px);
+    padding: 0.56vw;
+    backdrop-filter: blur(0.69vw);
 }
 
 .title-section {
-    margin-bottom: 40px;
+    margin-bottom: 2.78vw;
 }
 
 .main-title {
-    font-size: 50px;
+    font-size: 3.47vw;
     font-weight: 800;
     background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin: 0 0 16px 0;
+    margin: 0 0 1.11vw 0;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    text-shadow: 0 0 40px rgba(255, 0, 198, 0.3);
+    text-shadow: 0 0 2.78vw rgba(255, 0, 198, 0.3);
 }
 
 .offer-subtitle {
-    font-size: 20px;
+    font-size: 1.39vw;
     color: #ccc;
     font-weight: 500;
     margin: 0;
@@ -103,14 +103,14 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.56vw;
     background: linear-gradient(135deg, #2d5a3d, #1e3a28);
-    padding: 12px 20px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 0.83vw 1.39vw;
+    border-radius: 1.11vw;
+    box-shadow: 0 0.28vw 0.83vw rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0.07vw solid rgba(255, 255, 255, 0.1);
 }
 
 .profit-section::before {
@@ -127,30 +127,31 @@ html {
 .profit-badge {
     background: rgba(255, 255, 255, 0.12);
     color: #a8d4b8;
-    padding: 6px 12px;
-    border-radius: 10px;
+    padding: 0.42vw 0.83vw;
+    border-radius: 0.69vw;
     font-weight: 600;
-    font-size: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
+    font-size: 0.97vw;
+    border: 0.07vw solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(0.56vw);
     position: relative;
     z-index: 2;
 }
 
 .profit-label {
-    font-size: 11px;
+    font-size: 0.76vw;
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0.35vw;
 }
 
 /* Blog Content Layout - Isolated from sales page CSS */
 .blog-content {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 50px;
-    padding: 50px 40px;
+    grid-template-columns: 13.89vw 1fr;
+    gap: 6.94vw;
+    padding: 3.47vw 2.78vw;
+    padding-right: 6.94vw;
     contain: layout style;
     isolation: isolate;
 }
@@ -170,37 +171,37 @@ html {
 /* Step activation animation */
 @keyframes stepActivate {
     0% {
-        transform: translateX(8px) scale(1);
-        box-shadow: 0 4px 20px rgba(255, 0, 198, 0.3);
+        transform: translateX(0.56vw) scale(1);
+        box-shadow: 0 0.28vw 1.39vw rgba(255, 0, 198, 0.3);
     }
     50% {
-        transform: translateX(12px) scale(1.05);
-        box-shadow: 0 8px 30px rgba(255, 0, 198, 0.5);
+        transform: translateX(0.83vw) scale(1.05);
+        box-shadow: 0 0.56vw 2.08vw rgba(255, 0, 198, 0.5);
     }
     100% {
-        transform: translateX(8px) scale(1);
-        box-shadow: 0 4px 20px rgba(255, 0, 198, 0.3);
+        transform: translateX(0.56vw) scale(1);
+        box-shadow: 0 0.28vw 1.39vw rgba(255, 0, 198, 0.3);
     }
 }
 
 /* Step Progress Container Enhancement */
 .step-progress {
     background: #0f0f0f;
-    border-radius: 12px;
-    padding: 18px;
-    border: 1px solid #2a2a2a;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-radius: 0.83vw;
+    padding: 1.25vw;
+    border: 0.07vw solid #2a2a2a;
+    box-shadow: inset 0 0.07vw 0 rgba(255, 255, 255, 0.1);
 }
 
 .step-progress h3 {
-    font-size: 16px;
-    margin-bottom: 14px;
+    font-size: 1.11vw;
+    margin-bottom: 0.97vw;
     color: #fff;
     text-align: center;
-    padding-bottom: 8px;
+    padding-bottom: 0.56vw;
     position: relative;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0.35vw;
 }
 
 .step-progress h3::after {
@@ -209,9 +210,9 @@ html {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 0.28vw;
     background: #1a1a1a;
-    border-radius: 2px;
+    border-radius: 0.14vw;
 }
 
 .step-progress h3::before {
@@ -220,30 +221,30 @@ html {
     bottom: 0;
     left: 0;
     width: var(--progress-width, 33%);
-    height: 4px;
+    height: 0.28vw;
     background: linear-gradient(90deg, #ff00c6, #b300ff);
-    border-radius: 2px;
+    border-radius: 0.14vw;
     transition: width 0.5s ease;
     z-index: 1;
-    box-shadow: 0 0 8px rgba(255, 0, 198, 0.4);
+    box-shadow: 0 0 0.56vw rgba(255, 0, 198, 0.4);
 }
 
 .step-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.56vw;
 }
 
 .guide-step-item {
-    padding: 10px 14px;
-    border-radius: 8px;
+    padding: 0.69vw 0.97vw;
+    border-radius: 0.56vw;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid #2a2a2a;
-    font-size: 13px;
+    border: 0.07vw solid #2a2a2a;
+    font-size: 0.90vw;
     color: #ccc;
     background: #1a1a1a;
-    margin-bottom: 4px;
+    margin-bottom: 0.28vw;
     position: relative;
     overflow: hidden;
     font-weight: 500;
@@ -255,7 +256,7 @@ html {
     position: absolute;
     left: 0;
     top: 0;
-    width: 3px;
+    width: 0.21vw;
     height: 100%;
     background: transparent;
     transition: all 0.3s ease;
@@ -265,12 +266,12 @@ html {
     background: #252525;
     border-color: #404040;
     color: #fff;
-    transform: translateX(4px);
+    transform: translateX(0.28vw);
 }
 
 .guide-step-item:hover::before {
     background: #ff00c6;
-    width: 4px;
+    width: 0.28vw;
 }
 
 .guide-step-item.active {
@@ -278,21 +279,21 @@ html {
     color: white;
     font-weight: 600;
     border-color: #ff00c6;
-    transform: translateX(8px);
-    box-shadow: 0 4px 16px rgba(255, 0, 198, 0.25);
+    transform: translateX(0.56vw);
+    box-shadow: 0 0.28vw 1.11vw rgba(255, 0, 198, 0.25);
 }
 
 .guide-step-item.active::before {
     background: rgba(255, 255, 255, 0.8);
-    width: 4px;
+    width: 0.28vw;
 }
 
 
 /* Enhanced Step Section */
 .step-section {
-    margin-bottom: 80px;
-    scroll-margin-top: 40px;
-    padding: 32px 0 40px 0;
+    margin-bottom: 5.56vw;
+    scroll-margin-top: 2.78vw;
+    padding: 2.22vw 0 2.78vw 0;
     position: relative;
 }
 
@@ -302,19 +303,19 @@ html {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
+    width: 4.17vw;
+    height: 0.14vw;
     background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
-    border-radius: 1px;
+    border-radius: 0.07vw;
 }
 
 .step-title {
-    font-size: 32px;
+    font-size: 2.22vw;
     font-weight: 600;
-    margin-bottom: 60px;
+    margin-bottom: 4.17vw;
     color: #fff;
     position: relative;
-    padding-left: 16px;
+    padding-left: 1.11vw;
 }
 
 .step-title::before {
@@ -323,44 +324,44 @@ html {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 4px;
-    height: 50px;
+    width: 0.28vw;
+    height: 3.47vw;
     background: linear-gradient(180deg, #ff00c6, #b300ff);
-    border-radius: 2px;
+    border-radius: 0.14vw;
 }
 
 .step-text {
-    font-size: 14px;
+    font-size: 0.97vw;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 1.39vw;
     color: #fff;
 }
 
 .step-text p {
-    margin-bottom: 12px;
+    margin-bottom: 0.83vw;
     color: #fff;
-    font-size: 14px;
+    font-size: 0.97vw;
 }
 
 /* Step Content Styling - Enhanced Design */
 .step-content {
-    margin-bottom: 32px;
+    margin-bottom: 2.22vw;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 1.67vw;
 }
 
 .step-instruction {
     background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 20px 24px;
+    border: 0.07vw solid #2a2a2a;
+    border-radius: 0.83vw;
+    padding: 1.39vw 1.67vw;
     margin: 0;
-    border-left: 4px solid #ff00c6;
+    border-left: 0.28vw solid #ff00c6;
     color: #e0e0e0;
-    font-size: 15px;
+    font-size: 1.04vw;
     line-height: 1.6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.28vw 0.83vw rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -371,22 +372,22 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 0.07vw;
     background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
 }
 
 /* Enhanced Step Item Types */
 .step-item-text {
     background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
-    padding: 20px 24px;
+    border: 0.07vw solid #2a2a2a;
+    border-radius: 0.83vw;
+    padding: 1.39vw 1.67vw;
     margin: 0;
-    border-left: 4px solid #ff00c6;
+    border-left: 0.28vw solid #ff00c6;
     color: #e0e0e0;
-    font-size: 15px;
+    font-size: 1.04vw;
     line-height: 1.6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.28vw 0.83vw rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -397,38 +398,38 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
+    height: 0.07vw;
     background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
 }
 
 /* Enhanced Button Design */
 .step-item-button {
-    margin: 8px 0;
+    margin: 0.56vw 0;
     text-align: center;
-    padding: 16px 0;
+    padding: 1.11vw 0;
 }
 
 .step-button-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0.69vw;
     background: linear-gradient(135deg, #ff00c6, #b300ff);
     color: #fff;
-    padding: 16px 32px;
-    border-radius: 30px;
+    padding: 1.11vw 2.22vw;
+    border-radius: 2.08vw;
     text-decoration: none;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 1.04vw;
     border: none;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-        0 8px 25px rgba(255, 0, 198, 0.4),
-        0 4px 12px rgba(0, 0, 0, 0.3);
+        0 0.56vw 1.74vw rgba(255, 0, 198, 0.4),
+        0 0.28vw 0.83vw rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
-    min-width: 200px;
+    min-width: 13.89vw;
 }
 
 .step-button-primary::before {
@@ -447,10 +448,10 @@ html {
 }
 
 .step-button-primary:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-0.21vw) scale(1.02);
     box-shadow: 
-        0 12px 35px rgba(255, 0, 198, 0.5),
-        0 6px 15px rgba(0, 0, 0, 0.4);
+        0 0.83vw 2.43vw rgba(255, 0, 198, 0.5),
+        0 0.42vw 1.04vw rgba(0, 0, 0, 0.4);
     color: #fff;
     text-decoration: none;
 }
@@ -459,22 +460,22 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0.69vw;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
     color: #fff;
-    padding: 16px 32px;
-    border-radius: 30px;
+    padding: 1.11vw 2.22vw;
+    border-radius: 2.08vw;
     text-decoration: none;
     font-weight: 500;
-    font-size: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 1.04vw;
+    border: 0.07vw solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(1.04vw);
     box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    min-width: 200px;
+        0 0.28vw 1.04vw rgba(0, 0, 0, 0.2),
+        inset 0 0.07vw 0 rgba(255, 255, 255, 0.1);
+    min-width: 13.89vw;
     position: relative;
     overflow: hidden;
 }
@@ -497,10 +498,10 @@ html {
 .step-button-secondary:hover {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
     border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-0.14vw) scale(1.02);
     box-shadow: 
-        0 6px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        0 0.42vw 1.39vw rgba(0, 0, 0, 0.3),
+        inset 0 0.07vw 0 rgba(255, 255, 255, 0.2);
     color: #fff;
     text-decoration: none;
 }
@@ -508,18 +509,18 @@ html {
 /* Enhanced Info and Warning Boxes */
 .step-item-info {
     background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(0, 200, 255, 0.08));
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-radius: 16px;
-    padding: 20px 24px;
+    border: 0.07vw solid rgba(0, 255, 255, 0.25);
+    border-radius: 1.11vw;
+    padding: 1.39vw 1.67vw;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: 14px;
+    gap: 1.11vw;
+    font-size: 0.97vw;
     color: #e8e8e8;
     box-shadow: 
-        0 4px 15px rgba(0, 255, 255, 0.1),
-        0 2px 8px rgba(0, 0, 0, 0.2);
+        0 0.28vw 1.04vw rgba(0, 255, 255, 0.1),
+        0 0.14vw 0.56vw rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
     line-height: 1.6;
@@ -531,32 +532,32 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 0.14vw;
     background: linear-gradient(90deg, transparent, #00ffff, transparent);
 }
 
 .step-item-info i {
     color: #00ffff;
-    font-size: 18px;
+    font-size: 1.25vw;
     flex-shrink: 0;
-    margin-top: 2px;
-    filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.5));
+    margin-top: 0.14vw;
+    filter: drop-shadow(0 0 0.28vw rgba(0, 255, 255, 0.5));
 }
 
 .step-item-warning {
     background: linear-gradient(135deg, rgba(255, 170, 0, 0.12), rgba(255, 140, 0, 0.08));
-    border: 1px solid rgba(255, 170, 0, 0.3);
-    border-radius: 16px;
-    padding: 20px 24px;
+    border: 0.07vw solid rgba(255, 170, 0, 0.3);
+    border-radius: 1.11vw;
+    padding: 1.39vw 1.67vw;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: 14px;
+    gap: 1.11vw;
+    font-size: 0.97vw;
     color: #e8e8e8;
     box-shadow: 
-        0 4px 15px rgba(255, 170, 0, 0.1),
-        0 2px 8px rgba(0, 0, 0, 0.2);
+        0 0.28vw 1.04vw rgba(255, 170, 0, 0.1),
+        0 0.14vw 0.56vw rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
     line-height: 1.6;
@@ -568,30 +569,30 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 0.14vw;
     background: linear-gradient(90deg, transparent, #ffaa00, transparent);
 }
 
 .step-item-warning i {
     color: #ffaa00;
-    font-size: 18px;
+    font-size: 1.25vw;
     flex-shrink: 0;
-    margin-top: 2px;
-    filter: drop-shadow(0 0 4px rgba(255, 170, 0, 0.5));
+    margin-top: 0.14vw;
+    filter: drop-shadow(0 0 0.28vw rgba(255, 170, 0, 0.5));
 }
 
 /* Enhanced Tip Design */
 .step-item-tip {
     background: linear-gradient(135deg, rgba(255, 170, 0, 0.15), rgba(255, 140, 0, 0.08));
-    border: 1px solid rgba(255, 170, 0, 0.4);
-    border-radius: 16px;
-    padding: 24px;
+    border: 0.07vw solid rgba(255, 170, 0, 0.4);
+    border-radius: 1.11vw;
+    padding: 1.67vw;
     margin: 0;
-    font-size: 14px;
+    font-size: 0.97vw;
     line-height: 1.6;
     box-shadow: 
-        0 6px 20px rgba(255, 170, 0, 0.15),
-        0 2px 8px rgba(0, 0, 0, 0.2);
+        0 0.42vw 1.39vw rgba(255, 170, 0, 0.15),
+        0 0.14vw 0.56vw rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -602,30 +603,30 @@ html {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 0.21vw;
     background: linear-gradient(90deg, transparent, #ffaa00, transparent);
 }
 
 .step-item-tip .tip-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 0.83vw;
+    margin-bottom: 0.83vw;
     color: #ffaa00;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 1.04vw;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0.35vw;
 }
 
 .step-item-tip .tip-header i {
-    font-size: 20px;
-    filter: drop-shadow(0 0 6px rgba(255, 170, 0, 0.6));
+    font-size: 1.39vw;
+    filter: drop-shadow(0 0 0.42vw rgba(255, 170, 0, 0.6));
 }
 
 .step-item-tip p {
     color: #f0f0f0;
-    font-size: 14px;
+    font-size: 0.97vw;
     margin: 0;
     line-height: 1.6;
 }
@@ -667,10 +668,10 @@ html {
   .slider:before {
     position: absolute;
     content: "";
-    height: calc(2.5vw - 2 * 1px);
-    width: calc(2.5vw - 2 * 1px);
-    left: 1px;
-    bottom: 1px;
+    height: calc(2.5vw - 2 * 0.07vw);
+    width: calc(2.5vw - 2 * 0.07vw);
+    left: 0.07vw;
+    bottom: 0.07vw;
     background-color: white;
     transition: .4s;
     border-radius: 3.57vw; /* Circular shape for the toggle */
@@ -688,14 +689,14 @@ html {
     align-content: center;
     display: flex;
     justify-content: flex-start;
-    padding: 20px 0;
+    padding: 1.39vw 0;
 }
 
 .step-item-checkbox-text {
-    font-size: 22px;
+    font-size: 1.53vw;
     font-weight: bold;
     line-height: 2.5vw;
-    margin-left: 20px;
+    margin-left: 1.39vw;
 }
   
 
@@ -704,449 +705,563 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    gap: 40px;
+    gap: 2.78vw;
 }
 
 
 .step-tips {
     background: rgba(255, 170, 0, 0.1);
-    border: 1px solid #ffaa00;
-    border-radius: 8px;
-    padding: 14px;
-    margin: 20px 0 32px 0;
-    font-size: 13px;
+    border: 0.07vw solid #ffaa00;
+    border-radius: 0.56vw;
+    padding: 0.97vw;
+    margin: 1.39vw 0 2.22vw 0;
+    font-size: 0.90vw;
     line-height: 1.4;
 }
 
 .tips-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
+    gap: 0.56vw;
+    margin-bottom: 0.42vw;
     color: #ffaa00;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 0.90vw;
 }
 
 .step-tips p {
     color: #fff;
-    font-size: 13px;
+    font-size: 0.90vw;
     margin: 0;
 }
 
 /* Oddsmatcher Tool Section */
 .oddsmatcher-wrapper {
-    margin: 24px 0 36px 0;
-    border-radius: 12px;
+    margin: 1.67vw 0 2.50vw 0;
+    border-radius: 0.83vw;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.28vw 1.39vw rgba(0, 0, 0, 0.3);
 }
 
 .oddsmatcher-intro {
     background: linear-gradient(135deg, #ff00c6, #b300ff);
-    padding: 16px 20px;
+    padding: 1.11vw 1.39vw;
     display: flex;
     align-items: center;
-    gap: 16px;
-    border-radius: 12px 12px 0 0;
+    gap: 1.11vw;
+    border-radius: 0.83vw 0.83vw 0 0;
 }
 
 .tool-icon {
-    font-size: 24px;
+    font-size: 1.67vw;
     background: rgba(255, 255, 255, 0.2);
-    width: 44px;
-    height: 44px;
-    border-radius: 22px;
+    width: 3.06vw;
+    height: 3.06vw;
+    border-radius: 1.53vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(0.69vw);
+    border: 0.14vw solid rgba(255, 255, 255, 0.3);
 }
 
 .tool-content h4 {
     color: #fff;
-    font-size: 16px;
+    font-size: 1.11vw;
     font-weight: 600;
-    margin: 0 0 4px 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 0 0 0.28vw 0;
+    text-shadow: 0 0.07vw 0.14vw rgba(0, 0, 0, 0.2);
 }
 
 .tool-content p {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
+    font-size: 0.97vw;
     margin: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0.07vw 0.14vw rgba(0, 0, 0, 0.2);
 }
 
 .oddsmatcher-container {
     background: linear-gradient(145deg, #0a0a0a, #151515);
-    border: 1px solid #2a2a2a;
+    border: 0.07vw solid #2a2a2a;
     border-top: none;
-    border-radius: 0 0 12px 12px;
-    padding: 20px;
+    border-radius: 0 0 0.83vw 0.83vw;
+    padding: 1.39vw;
 }
-
 
 
 /* Mobile Responsive */
 @media (max-width: 700px) {
         /* Header Section - Mobile Optimized */
 
-    .blog-container {
-        margin-bottom: 30px;
-    }
-
-
-
-    .blog-header {
-        padding: 24px 20px 36px 20px;
-        min-height: auto;
-    }
-
-    .step-title::before {
-        height: 20px;
-    }
-
-    .header-content {
-        text-align: center;
-        gap: 16px;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
+        .blog-container {
+            margin-bottom: 9.38vw;
+        }
     
-    .bookmaker-section {
-        margin-bottom: 16px;
-    }
-
-    .bookmaker-logo {
-        height: 48px;
-        border-radius: 14px;
-    }
-
-    .main-title {
-        font-size: 27px;
-        line-height: 1.2;
-        margin-bottom: 14px;
-        max-width: 100%;
-        word-wrap: break-word;
-    }
-
-    .offer-subtitle {
-        font-size: 16px;
-    }
     
-    .profit-section {
-        flex-direction: row;
-        gap: 6px;
-        padding: 10px 18px;
-        border-radius: 14px;
-        max-width: 240px;
-        margin: 0 auto;
-        box-sizing: border-box;
-    }
+    
+        .blog-header {
+            padding: 7.50vw 6.25vw 11.25vw 6.25vw;
+            min-height: auto;
+            border-bottom: 0.62vw solid #ff00c6
+        }
+    
+        .step-title::before {
+            height: 9.38vw;
+            width: 1.8vw;
+            border-radius: 0.8vw;
 
-    .profit-badge {
-        font-size: 13px;
-        padding: 5px 10px;
-        border-radius: 8px;
-    }
+        }
+    
+        .header-content {
+            text-align: center;
+            gap: 5.00vw;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .bookmaker-section {
+            margin-bottom: 5.00vw;
+        }
+    
+        .bookmaker-logo {
+            height: 15.00vw;
+            border-radius: 4.38vw;
 
-    .profit-label {
-        font-size: 10px;
-        opacity: 0.9;
-    }
+            padding: 2vw;
+            backdrop-filter: blur(2vw);
+        }
+    
+        .main-title {
+            font-size: 7.81vw;
+            line-height: 1.2;
+            margin-bottom: 4.38vw;
+            max-width: 100%;
+            word-wrap: break-word;
+            text-shadow: none;
+        }
+    
+        .offer-subtitle {
+            font-size: 5.00vw;
+            display: none;
+        }
+        
+        .profit-section {
+            flex-direction: row;
+            gap: 1.88vw;
+            padding: 1.56vw 2.50vw;
+            border-radius: 4.38vw;
+            max-width: 75.00vw;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+    
+        .profit-badge {
+            font-size: 3.75vw;
+            padding: 1.56vw 2.50vw;
+            border-radius: 2.50vw;
+        }
+    
+        .profit-label {
+            font-size: 3.12vw;
+            opacity: 0.9;
+        }
+    
+        /* Layout - Mobile Grid */
+        .blog-content {
+            grid-template-columns: 1fr;
+            gap: 6.25vw;
+            padding: 8.00vw 6.25vw;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+    
+        /* Sidebar - Horizontal Navigation */
+        .step-sidebar {
+            display: none;
+        }
+    
+        .step-list {
+            flex-direction: row;
+            overflow-x: auto;
+            padding: 2.50vw 0 5.00vw 0;
+            gap: 2.50vw;
+            scrollbar-width: thin;
+            scrollbar-color: #ff00c6 transparent;
+        }
+    
+        .step-list::-webkit-scrollbar {
+            height: 1.25vw;
+        }
+    
+        .step-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.62vw;
+        }
+    
+        .step-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, #ff00c6, #b300ff);
+            border-radius: 0.62vw;
+        }
+    
+        .guide-step-item {
+            flex-shrink: 0;
+            min-width: 31.25vw;
+            text-align: center;
+            color: #fff;
+            padding: 3.75vw 5.00vw;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3.75vw;
+            border: 0.31vw solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            font-size: 4.06vw;
+            font-weight: 500;
+            backdrop-filter: blur(3.12vw);
+            white-space: nowrap;
+            touch-action: manipulation;
+        }
+    
+        .tool-icon {
+            display: none;
+        }
+    
+        .guide-step-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 0, 198, 0.4);
+            transform: translateY(-0.31vw);
+        }
 
-    /* Layout - Mobile Grid */
-    .blog-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 16px 20px;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+        .tool-content h4 {
+            font-size: 4.5vw;
 
-    /* Sidebar - Horizontal Navigation */
-    .step-sidebar {
-        display: none;
-    }
+            margin: 0 0 1.5vw 0;
+            text-shadow: 0 0.21vw 0.4vw rgba(0, 0, 0, 0.2);
+        }
+    
+        .guide-step-item.active {
+            background: linear-gradient(135deg, #ff00c6, #b300ff);
+            color: white;
+            font-weight: 600;
+            border-color: #ff00c6;
+            transform: translateY(-0.62vw);
+            box-shadow: 0 2.50vw 7.81vw rgba(255, 0, 198, 0.4);
+        }
+    
+        .main-content {
+            order: 2;
+        }
+    
+        /* Step Sections - Mobile Optimized */
+        .step-section {
+            margin-bottom: 17.5vw;
+            padding-bottom: 5vw;
+            scroll-margin-top: 25.00vw;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .title-section {
+            margin-bottom: 6.38vw;
+        }
+    
+        .step-title {
+            font-size: 6vw;
+            line-height: 1.3;
+            margin-bottom: 6.25vw;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding-left: 5vw;
+        }
+    
+        .step-instruction {
+            padding: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4.38vw;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 0;
+        }
+    
+        /* Step Items - Mobile Friendly */
+        .step-item-text {
+            padding: 4.38vw 5.00vw;
+            border-radius: 3.75vw;
+            font-size: 4.06vw;
+            line-height: 1.5;
+            border-left: 0.94vw solid #ff00c6;
+            margin: 0;
+            touch-action: manipulation;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .step-item-text::before {
+            display: none; /* Simplify for mobile */
+        }
+    
+        /* Buttons - Mobile Touch Optimized */
+        .step-item-button {
+            margin: 3.75vw 0;
+            text-align: center;
+            padding: 0;
+        }
+    
+        .step-button-primary,
+        .step-button-secondary {
+            width: 100%;
+            max-width: 93.75vw;
+            margin: 0 auto;
+            padding: 4.38vw 6.25vw;
+            font-size: 4.38vw;
+            border-radius: 6.25vw;
+            min-height: 12.50vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2.50vw;
+            touch-action: manipulation;
+            min-width: auto;
+            box-sizing: border-box;
+        }
+    
+        .step-button-primary:hover,
+        .step-button-secondary:hover {
+            transform: translateY(-0.31vw) scale(1.01);
+        }
 
-    .step-list {
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 8px 0 16px 0;
-        gap: 8px;
-        scrollbar-width: thin;
-        scrollbar-color: #ff00c6 transparent;
-    }
+        .step-button-primary {
+            box-shadow: 0 1.5vw 3.74vw rgba(255, 0, 198, 0.4),
+            0 0.88vw 1.53vw rgba(0, 0, 0, 0.3);
+        }
 
-    .step-list::-webkit-scrollbar {
-        height: 4px;
-    }
+        .step-button-secondary {
+            box-shadow: 0 1.5vw 3.74vw rgba(0, 0, 0, 0.2),
+            inset 0 0.3vw 0 rgba(255, 255, 255, 0.1)
 
-    .step-list::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-    }
+        }
 
-    .step-list::-webkit-scrollbar-thumb {
-        background: linear-gradient(90deg, #ff00c6, #b300ff);
-        border-radius: 2px;
-    }
+        .step-section::after {
+            width: 12.17vw;
+            height: 0.4vw;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 198, 0.3), transparent);
+            border-radius: 0.2vw;
+        }
+    
+        /* Info/Warning/Tip Boxes - Mobile Optimized */
+        .step-item-info,
+        .step-item-warning,
+        .step-item-tip {
+            padding: 4.38vw 5.00vw;
+            border-radius: 3.75vw;
+            font-size: 4.06vw;
+            line-height: 1.5;
+            gap: 5vw;
+            margin: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .step-item-info i,
+        .step-item-warning i {
+            font-size: 5.00vw;
+            margin-top: 0.31vw;
+        }
+    
+        .step-item-info::before,
+        .step-item-warning::before,
+        .step-item-tip::before {
+            height: 0.62vw;
+        }
+    
+        /* Checkbox Section - Mobile Touch Friendly */
+        .step-item-checkbox {
+            padding: 5.00vw;
+            border-radius: 3.75vw;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .checkbox-container {
+            gap: 3.75vw;
+            font-size: 4.38vw;
+        }
+    
+        .step-checkbox {
+            width: 6.25vw;
+            height: 6.25vw;
+            border-radius: 1.88vw;
+            flex-shrink: 0;
+        }
+    
+        .checkbox-checkmark {
+            width: 3.75vw;
+            height: 3.75vw;
+        }
+    
+        .added_oddsmatcher {
+            display: block;
+        }
+    
+    
+    
+        /* Oddsmatcher - Mobile Responsive */
+        .oddsmatcher-wrapper {
+            margin: 5.00vw 0;
+            padding: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .oddsmatcher-intro {
+            padding: 4.38vw 5.00vw;
+            border-radius: 3.75vw;
+            font-size: 4.06vw;
+            margin-bottom: 3.75vw;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .oddsmatcher-container {
+            border-radius: 3.75vw;
+            overflow: hidden;
+            box-shadow: 0 1.88vw 7.50vw rgba(0, 0, 0, 0.4);
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+    
+    
+        /* Progress Bar - Mobile */
+        .step-progress {
+            display: none; /* Hide progress bar on mobile for cleaner look */
+        }
+    
+        /* Typography Improvements */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.3;
+            word-wrap: break-word;
+        }
+    
+        p {
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+    
+        .tool-content p, .step-item-tip p, .step-item-info span, .step-item-warning span {
+            font-size: 4.06vw;
+        }
+    
+        /* Touch Improvements */
+        a, button, .guide-step-item, .step-button-primary, .step-button-secondary {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+    
+        /* Global mobile width constraints */
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    
+        .step-item-buttons {
+            flex-direction: column;
+            gap: 0;
+        }
+    
+        /* Ensure no elements overflow horizontally */
+        .main-content,
+        .step-content > *,
+        .step-item-button > *,
+        .step-instruction > * {
+            max-width: 100%;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    
+        /* Accessibility - Larger touch targets */
+        .guide-step-item {
+            min-height: 13.75vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+    
+    
+    
+    
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: calc(2 * 8.5vw); 
+            height: 8.5vw; 
+          }
+          
+          .switch:hover {
+              cursor: pointer
+          }
+          
+          .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #bbb; /* Off state color */
+            transition: .4s;
+            border-radius: 12.5vw; /* Round borders for the slider */
+          }
+          
+          .slider:before {
+            position: absolute;
+            content: "";
+            height: calc(8.5vw - 2 * 0.31vw);
+            width: calc(8.5vw - 2 * 0.31vw);
+            left: 0.31vw;
+            bottom: 0.31vw;
+            background-color: white;
+            transition: .4s;
+            border-radius: 12.5vw; /* Circular shape for the toggle */
+          }
+          
+          input:checked + .slider {
+            background-color: #ff00c6; /* Pink color when the switch is ON */
+          }
+          
+          input:checked + .slider:before {
+            transform: translateX(8.5vw); /* Move the toggle on switch activation */
+          }
+        
+        .switch_container {
+            align-content: center;
+            display: flex;
+            justify-content: flex-start;
+            padding: 6.25vw 0;
+        }
+        
+        .step-item-checkbox-text {
+            font-size: 5.62vw;
+            font-weight: bold;
+            line-height: 8.5vw;
+            margin-left: 3.12vw;
+        }
+          
+        
+    
 
-    .guide-step-item {
-        flex-shrink: 0;
-        min-width: 100px;
-        text-align: center;
-        color: #fff;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        transition: all 0.3s ease;
-        font-size: 13px;
-        font-weight: 500;
-        backdrop-filter: blur(10px);
-        white-space: nowrap;
-        touch-action: manipulation;
-    }
-
-    .guide-step-item:hover {
-        background: rgba(255, 255, 255, 0.12);
-        border-color: rgba(255, 0, 198, 0.4);
-        transform: translateY(-1px);
-    }
-
-    .guide-step-item.active {
-        background: linear-gradient(135deg, #ff00c6, #b300ff);
-        color: white;
-        font-weight: 600;
-        border-color: #ff00c6;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 0, 198, 0.4);
-    }
-
-    .main-content {
-        order: 2;
-    }
-
-    /* Step Sections - Mobile Optimized */
-    .step-section {
-        margin-bottom: 28px;
-        padding-bottom: 16px;
-        scroll-margin-top: 80px;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .title-section {
-        margin-bottom: 30px;
-    }
-
-    .step-title {
-        font-size: 24px;
-        line-height: 1.3;
-        margin-bottom: 20px;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .step-instruction {
-        padding: 0;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .step-content {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        max-width: 100%;
-        box-sizing: border-box;
-        margin-bottom: 20px;
-    }
-
-    /* Step Items - Mobile Friendly */
-    .step-item-text {
-        padding: 14px 16px;
-        border-radius: 12px;
-        font-size: 14px;
-        line-height: 1.5;
-        border-left: 3px solid #ff00c6;
-        margin: 0;
-        touch-action: manipulation;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .step-item-text::before {
-        display: none; /* Simplify for mobile */
-    }
-
-    /* Buttons - Mobile Touch Optimized */
-    .step-item-button {
-        margin: 12px 0;
-        text-align: center;
-        padding: 0;
-    }
-
-    .step-button-primary,
-    .step-button-secondary {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        padding: 14px 20px;
-        font-size: 15px;
-        border-radius: 20px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        touch-action: manipulation;
-        min-width: auto;
-        box-sizing: border-box;
-    }
-
-    .step-button-primary:hover,
-    .step-button-secondary:hover {
-        transform: translateY(-1px) scale(1.01);
-    }
-
-    /* Info/Warning/Tip Boxes - Mobile Optimized */
-    .step-item-info,
-    .step-item-warning,
-    .step-item-tip {
-        padding: 14px 16px;
-        border-radius: 12px;
-        font-size: 13px;
-        line-height: 1.5;
-        gap: 10px;
-        margin: 0;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .step-item-info i,
-    .step-item-warning i {
-        font-size: 16px;
-        margin-top: 1px;
-    }
-
-    .step-item-info::before,
-    .step-item-warning::before,
-    .step-item-tip::before {
-        height: 2px;
-    }
-
-    /* Checkbox Section - Mobile Touch Friendly */
-    .step-item-checkbox {
-        padding: 16px;
-        border-radius: 12px;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .checkbox-container {
-        gap: 12px;
-        font-size: 14px;
-    }
-
-    .step-checkbox {
-        width: 20px;
-        height: 20px;
-        border-radius: 6px;
-        flex-shrink: 0;
-    }
-
-    .checkbox-checkmark {
-        width: 12px;
-        height: 12px;
-    }
-
-    .added_oddsmatcher {
-        display: block;
-    }
-
-
-
-    /* Oddsmatcher - Mobile Responsive */
-    .oddsmatcher-wrapper {
-        margin: 16px 0;
-        padding: 0;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .oddsmatcher-intro {
-        padding: 14px 16px;
-        border-radius: 12px;
-        font-size: 13px;
-        margin-bottom: 12px;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .oddsmatcher-container {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-
-
-    /* Progress Bar - Mobile */
-    .step-progress {
-        display: none; /* Hide progress bar on mobile for cleaner look */
-    }
-
-    /* Typography Improvements */
-    h1, h2, h3, h4, h5, h6 {
-        line-height: 1.3;
-        word-wrap: break-word;
-    }
-
-    p {
-        line-height: 1.5;
-        word-wrap: break-word;
-    }
-
-    .tool-content p, .step-item-tip p, .step-item-info span, .step-item-warning span {
-        font-size: 12px;
-    }
-
-    /* Touch Improvements */
-    a, button, .guide-step-item, .step-button-primary, .step-button-secondary {
-        -webkit-tap-highlight-color: transparent;
-        user-select: none;
-    }
-
-    /* Global mobile width constraints */
-    * {
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* Ensure no elements overflow horizontally */
-    .main-content,
-    .step-content > *,
-    .step-item-button > *,
-    .step-instruction > * {
-        max-width: 100%;
-        box-sizing: border-box;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-
-    /* Accessibility - Larger touch targets */
-    .guide-step-item {
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
     /* Reduce motion for mobile users who prefer it */
     @media (prefers-reduced-motion: reduce) {
@@ -1164,12 +1279,18 @@ html {
     }
 }
 
+
+
+
+
+
+
 /* Desktop-only sticky positioning */
 @media (min-width: 701px) {
     .step-sidebar {
         position: -webkit-sticky !important;
         position: sticky !important;
-        top: 20px !important;
+        top: 1.39vw !important;
         height: fit-content !important;
         z-index: 999 !important;
         contain: layout style !important;
