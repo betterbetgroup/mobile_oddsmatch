@@ -204,7 +204,8 @@ export function process_new_final_data_tutorial(data, scope, state) {
         return; // Exit early if JSON parsing fails
     }
 
-    state.waiting_globalData = data.rows;
+    state.waiting_globalData = data.rows || [];
+    state.globalData = [];
 
     if (data.is_first_send) {
         state.is_premium_member = data.premium_member;

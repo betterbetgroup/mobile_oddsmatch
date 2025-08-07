@@ -2927,6 +2927,15 @@ function set_results_to_default(scope, state) {
 
 function set_all_values_to_default(scope, state) {
 
+    if (state.calculator_type == 'Odds Converter') {
+        scope.querySelector('#decimal-odds-input').value = '';
+        scope.querySelector('#american-odds-input').value = '';
+        scope.querySelector('#probability-odds-input').value = '';
+        scope.querySelector('#fractional-odds-input').value = '';
+        console.log('yes')
+        return;
+    }
+
     // remove all active-lay-type classes
     let have_lay_type_buttons = false;
     scope.querySelectorAll('.active-lay-type').forEach(btn => {
@@ -3026,7 +3035,11 @@ function set_all_values_to_default(scope, state) {
 
 
     // then also set the description to ''
-    scope.querySelector('#bet-description-input').value = '';
+    try {
+        scope.querySelector('#bet-description-input').value = '';
+    } catch {
+        // pass
+    }
 
 
     set_results_to_default(scope, state);
@@ -3067,7 +3080,11 @@ function add_event_listeners_for_calculator(scope, state, div) {
 
         if (event.target.classList.contains('refresh-button-calculator-click')) {
             state.loaded_from_tracker = false;
-            scope.querySelector('#log-bet-button').textContent = 'Log Bet';
+            try {
+                scope.querySelector('#log-bet-button').textContent = 'Log Bet';
+            } catch {
+                // pass
+            }
             set_all_values_to_default(scope, state); // should find commission inputs and set to 0, then rest of inputs to ''    
             add_values_for_calculator(scope, state, false);
 
@@ -3118,6 +3135,9 @@ function add_event_listeners_for_calculator(scope, state, div) {
             if (input.id.includes('back-stake-input') && (state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If' || state.calculator_type == 'Race Refund')) {
                 scope.querySelector('#max-bonus-input').value = input.value;
             }
+            if (state.calculator_type == 'Odds Converter') {
+                calculate_and_display_new_values_odds_converter(scope, state, input)
+            }
         });
     });
 
@@ -3133,6 +3153,33 @@ function add_event_listeners_for_calculator(scope, state, div) {
 
 }
 
+
+function calculate_and_display_new_values_odds_converter(scope, state, input) {
+
+    let odds_input_type = input.id.split('-')[0];
+    let odds_input_value = input.value;
+
+    let data = calculator_helper.calculate_odds_converter_values(odds_input_type, odds_input_value);
+
+    if (odds_input_type == 'fractional') {
+        scope.querySelector('#decimal-odds-input').value = data.decimal;
+        scope.querySelector('#american-odds-input').value = data.american;
+        scope.querySelector('#probability-odds-input').value = data.probability;
+    } else if (odds_input_type == 'decimal') {
+        scope.querySelector('#fractional-odds-input').value = data.fractional;
+        scope.querySelector('#american-odds-input').value = data.american;
+        scope.querySelector('#probability-odds-input').value = data.probability;
+    } else if (odds_input_type == 'american') {
+        scope.querySelector('#decimal-odds-input').value = data.decimal;
+        scope.querySelector('#fractional-odds-input').value = data.fractional;
+        scope.querySelector('#probability-odds-input').value = data.probability;
+    } else if (odds_input_type == 'probability') {
+        scope.querySelector('#decimal-odds-input').value = data.decimal;
+        scope.querySelector('#american-odds-input').value = data.american;
+        scope.querySelector('#fractional-odds-input').value = data.fractional;
+    }
+
+}
 
 function make_adjustments_for_removing_row_dutching(scope, state, index) {
 

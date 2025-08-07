@@ -7,7 +7,7 @@ let mobile_tutorial_matcher_script_path = 'https://betterbetgroup.github.io/mobi
 
 
 
-let globalOddsmatcherData = {};
+let globalOddsmatcherData = [];
 
 let MAX_WIDTH_FOR_MOBILE = 700;
 
@@ -589,6 +589,7 @@ export function process_new_final_data(newData, shadowRoot) {
 
         if (parsedData && parsedData.rows) {
             globalOddsmatcherData = parsedData.rows;
+            console.log('globalOddsmatcherData', globalOddsmatcherData);
             shadowRoot.guideManager.setGlobalOddsmatcherData(globalOddsmatcherData);
         }
 

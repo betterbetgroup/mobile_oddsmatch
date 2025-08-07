@@ -1275,3 +1275,99 @@ function calculate_sequential_lay_underlay_lock_in(data) {
 }
 
 
+
+
+export function calculate_odds_converter_values(odds_input_type, odds_input_value) {
+
+    let data = {
+        fractional: '',
+        decimal: '',
+        american: '',
+        probability: ''
+    };
+
+    // Helper function to convert decimal to fraction
+    function toFraction(decimal) {
+        const tolerance = 1.0E-6;
+        let h1 = 1, h2 = 0, k1 = 0, k2 = 1;
+        let b = decimal;
+        
+        do {
+            const a = Math.floor(b);
+            let aux = h1; h1 = a * h1 + h2; h2 = aux;
+            aux = k1; k1 = a * k1 + k2; k2 = aux;
+            b = 1 / (b - a);
+        } while (Math.abs(decimal - h1 / k1) > decimal * tolerance);
+        
+        return `${h1}/${k1}`;
+    }
+
+    // Return empty values if no input
+    if (!odds_input_value) {
+        return data;
+    }
+
+    // Fractional to Decimal, american, and Probability
+    if (odds_input_type === 'fractional') {
+        const parts = odds_input_value.split('/');
+        if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1]) && parts[1] !== '0') {
+            const decimalValue = (parts[0] / parts[1] + 1);
+            const americanValue = decimalValue >= 2 ? `+${Math.round((decimalValue - 1) * 100)}` : `-${Math.round(100 / (decimalValue - 1))}`;
+            const probabilityValue = (1 / decimalValue) * 100;
+
+            data.fractional = odds_input_value;
+            data.decimal = decimalValue.toFixed(2);
+            data.american = americanValue;
+            data.probability = `${probabilityValue.toFixed(2)}%`;
+        }
+    }
+
+    // Decimal to Fractional, american, and Probability
+    if (odds_input_type === 'decimal') {
+        const decimalInput = parseFloat(odds_input_value);
+        if (!isNaN(decimalInput) && decimalInput > 1) {
+            const fractional = (decimalInput - 1);
+            const americanValue = decimalInput >= 2 ? `+${Math.round((decimalInput - 1) * 100)}` : `-${Math.round(100 / (decimalInput - 1))}`;
+            const probabilityValue = (1 / decimalInput) * 100;
+
+            data.decimal = odds_input_value;
+            data.fractional = toFraction(fractional.toFixed(10)) || '0/1';
+            data.american = americanValue;
+            data.probability = `${probabilityValue.toFixed(2)}%`;
+        }
+    }
+
+    // american to Decimal, Fractional, and Probability
+    if (odds_input_type === 'american') {
+        const americanInput = parseInt(odds_input_value);
+        if (!isNaN(americanInput) && americanInput !== 0) {
+            const decimalValue = americanInput >= 100 ? (americanInput / 100 + 1) : ((-100 / americanInput) + 1);
+            const fractional = (decimalValue - 1);
+            const probabilityValue = (1 / decimalValue) * 100;
+
+            data.american = odds_input_value;
+            data.decimal = decimalValue.toFixed(2);
+            data.fractional = toFraction(fractional.toFixed(10)) || '0/1';
+            data.probability = `${probabilityValue.toFixed(2)}%`;
+        }
+    }
+
+    // Probability to Decimal, Fractional, and american
+    if (odds_input_type === 'probability') {
+        const probabilityInput = parseFloat(odds_input_value);
+        if (!isNaN(probabilityInput) && probabilityInput > 0 && probabilityInput <= 100) {
+            const decimalValue = 100 / probabilityInput;
+            const fractional = decimalValue - 1;
+            const americanValue = decimalValue >= 2 ? `+${Math.round((decimalValue - 1) * 100)}` : `-${Math.round(100 / (decimalValue - 1))}`;
+
+            data.probability = `${odds_input_value}%`;
+            data.decimal = decimalValue.toFixed(2);
+            data.fractional = toFraction(fractional.toFixed(10)) || '0/1';
+            data.american = americanValue;
+        }
+    }
+
+    return data;
+
+}
+
