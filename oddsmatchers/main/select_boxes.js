@@ -2362,7 +2362,7 @@ function get_description_for_standard_bet(state, div, row, data_object) {
         }
     } else if (state.oddsmatcher_type == 'qualifying_bet_tutorial') {
         description += `Qualifying Bet `;
-    } else if (state.oddsmatcher_type == 'free_bet_tutorial' || state.oddsmatcher_type == 'tutorial') {
+    } else if (state.oddsmatcher_type == 'free_bet_tutorial' || data_object.isfree) {
         description += `Free Bet `;
     }
 
