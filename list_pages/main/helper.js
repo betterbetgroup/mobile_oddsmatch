@@ -1103,7 +1103,12 @@ function getDayOfWeekNumber(dayName) {
         'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
         'Thursday': 4, 'Friday': 5, 'Saturday': 6
     };
-    return days[dayName];
+    
+    // Strip any extra quotes that Wix adds when saving to database
+    // Handles formats like "'Monday'" or "['Monday'"
+    const cleanDayName = dayName.replace(/^['"\[]*|['"\]]*$/g, '');
+    
+    return days[cleanDayName] !== undefined ? days[cleanDayName] : days['Monday']; // Default to Monday if invalid
 }
 
 
