@@ -2597,8 +2597,6 @@ function log_bet(scope, state, div, row, data_object) {
         data_object.calculator = 'Standard';
         
         if (state.oddsmatcher_type == 'tutorial') {
-            console.log('this is the state', state)
-            data_object.oddsmatcher_type = 'standard';
             div.querySelector('.log-bet-button').innerHTML = `Logged`;
             div.querySelector('.log-bet-button').classList.add('log-bet-button-confirm');
             div.querySelector('.log-bet-button').disabled = true; // make it unclickable using javascript
@@ -2697,6 +2695,7 @@ function log_bet(scope, state, div, row, data_object) {
         'each_way': 'Each Way',
         'extra_place': 'Extra Place',
         'dutching': 'Dutching',
+        'tutorial': 'Standard'
     }
 
 

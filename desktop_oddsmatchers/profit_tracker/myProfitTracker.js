@@ -263,7 +263,9 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
                 //console.log(startTimeMatch, endTimeMatch)
                 //console.log(globalFilters)
-                //console.log(bookmakerMatch, exchangeMatch, oddsmatcherMatch, calculatorMatch, qualifyingLossMatch, potentialProfitMatch, minActualProfitMatch, maxActualProfitMatch, startTimeMatch, endTimeMatch)
+                if (row.description.includes('e Bet on a draw for Godoy Cruz v Gimnasia La ')) {
+                    console.log(bookmakerMatch, exchangeMatch, oddsmatcherMatch, calculatorMatch, qualifyingLossMatch, potentialProfitMatch, minActualProfitMatch, maxActualProfitMatch, startTimeMatch, endTimeMatch)
+                }
 
                 return bookmakerMatch && exchangeMatch && oddsmatcherMatch && calculatorMatch && qualifyingLossMatch && potentialProfitMatch && minActualProfitMatch && maxActualProfitMatch && startTimeMatch && endTimeMatch ;
             
