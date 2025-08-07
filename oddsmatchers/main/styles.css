@@ -1946,7 +1946,9 @@ tr.select_button_div_row td.select_td div.select_button_div div.select_div_item.
 
 
 
-
+.log-bet-button-confirm {
+    background: var(--background-colour-for-positive-profit-data) !important;
+}
 
 
 

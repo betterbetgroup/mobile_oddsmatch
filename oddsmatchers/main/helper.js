@@ -190,7 +190,13 @@ export function process_new_final_data(data, scope, state) {
 
 export function process_new_final_data_tutorial(data, scope, state) {
     state.data_loaded_from_wix = true;
-    data = JSON.parse(data);
+    try {
+        data = JSON.parse(data);
+    } catch (error) {
+        console.error('Failed to parse JSON data in tutorial matcher:', error);
+        console.error('Raw data:', data);
+        return; // Exit early if JSON parsing fails
+    }
 
     state.waiting_globalData = data.rows;
 
@@ -2406,9 +2412,10 @@ function createFilterItem(filter, state) {
         // Set default value based on whether it's start or end date
         if (filter.input_id === 'date-range-end') {
             const today = new Date();
-            const todayStr = today.toISOString().split('T')[0];
-            input.value = todayStr;
-            const [year, month, day] = todayStr.split('-');
+            const oneWeekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const oneWeekFromNowStr = oneWeekFromNow.toISOString().split('T')[0];
+            input.value = oneWeekFromNowStr;
+            const [year, month, day] = oneWeekFromNowStr.split('-');
             state.globalFilters[filter.name] = `${day}/${month}/${year}`;
         } else if (filter.input_id === 'date-range-start') {
             input.value = '2016-01-01';

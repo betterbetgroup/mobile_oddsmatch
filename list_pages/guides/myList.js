@@ -1,5 +1,7 @@
 import * as Helpers from '../main/helper.js'
 
+
+
 (function () {
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/guides.js'

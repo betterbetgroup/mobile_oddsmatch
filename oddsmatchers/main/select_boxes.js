@@ -2595,6 +2595,20 @@ function log_bet(scope, state, div, row, data_object) {
         })
 
         data_object.calculator = 'Standard';
+        
+        if (state.oddsmatcher_type == 'tutorial') {
+            console.log('this is the state', state)
+            data_object.oddsmatcher_type = 'standard';
+            div.querySelector('.log-bet-button').innerHTML = `Logged`;
+            div.querySelector('.log-bet-button').classList.add('log-bet-button-confirm');
+            div.querySelector('.log-bet-button').disabled = true; // make it unclickable using javascript
+            setTimeout(() => {
+                div.querySelector('.log-bet-button').classList.remove('log-bet-button-confirm');
+                div.querySelector('.log-bet-button').innerHTML = `Log Bet`;
+                div.querySelector('.log-bet-button').disabled = false;
+            }, 2000);
+        }
+
     }
 
     if (state.oddsmatcher_type == '2up') {

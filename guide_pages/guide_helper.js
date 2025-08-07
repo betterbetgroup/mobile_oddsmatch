@@ -214,7 +214,9 @@ export class GuidePageManager {
                     rows: globalOddsmatcherData
                 };
 
-                oddsmatcherHTML = `
+                // Create oddsmatcher element using DOM instead of HTML string to avoid JSON escaping issues
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = `
                     <div class="oddsmatcher-wrapper">
                         <div class="oddsmatcher-intro">
                             <div class="tool-icon">⚡</div>
@@ -224,10 +226,14 @@ export class GuidePageManager {
                             </div>
                         </div>
                     </div>
-
-                    <${oddsmatcherTag} class="added_oddsmatcher" data-odds='${JSON.stringify(oddsmatcherData)}'></${oddsmatcherTag}>
-
-                    `;
+                    <${oddsmatcherTag} class="added_oddsmatcher"></${oddsmatcherTag}>
+                `;
+                
+                // Set the data-odds attribute safely using setAttribute to avoid JSON escaping issues
+                const oddsmatcherElement = tempDiv.querySelector(oddsmatcherTag);
+                oddsmatcherElement.setAttribute('data-odds', JSON.stringify(oddsmatcherData));
+                
+                oddsmatcherHTML = tempDiv.innerHTML;
             }
 
             // Build complete step sectionf
@@ -714,33 +720,37 @@ function create_offer_id(row, is_signup_guide) {
 
 export function process_user_suo_object(userSuoObjectData, shadowRoot) {
 
+    console.log('1')
 
-    
     if (!shadowRoot.guideManager || !shadowRoot.guideManager.guideData) {
         return;
     }
 
+    console.log('2')
 
-    
 
     // Parse the data if it's a string
     const userSuoObject = typeof userSuoObjectData === 'string' ? JSON.parse(userSuoObjectData) : userSuoObjectData;
 
+    console.log('3')
 
-    
     const guideData = shadowRoot.guideManager.guideData;
+    console.log('4')
 
     
     // Find the matching user suo object item
     let userSuoItem = userSuoObject.find(item => item.offer_id === create_offer_id(guideData, guideData.is_signup_guide));
 
-
+    console.log('5')
     
     // Update availability status for weekly offers
     if (userSuoItem && !guideData.is_signup_guide) {
         update_availability_status(guideData, userSuoItem);
     }
 
+    console.log('6')
+
+    console.log('7')
 
     // Wait for checkbox to load with 5 second timeout
     waitForElement(shadowRoot, '#offer-complete-checkbox', 5000).then(checkbox => {
