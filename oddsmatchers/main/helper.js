@@ -184,7 +184,13 @@ export function process_new_final_data(data, scope, state) {
             }
             filterData(scope, state);
         }
-    }   
+    } else {
+        if (data.is_first || state.oddsmatcher_type == 'profit tracker') {
+            state.globalData = [];
+            state.waiting_globalData = [];
+            filterData(scope, state);
+        }
+    }  
 }
 
 
@@ -205,7 +211,7 @@ export function process_new_final_data_tutorial(data, scope, state) {
         state.tutorial_info = data.tutorial_info;
         state.globalFilters = data.wix_filters;
         apply_tutorial_info(scope, state);
-        state.globalData = data.rows;
+        state.globalData = data.rows || [];
         try{
             filterData(scope, state);
         } catch (error) {
@@ -213,7 +219,7 @@ export function process_new_final_data_tutorial(data, scope, state) {
         }
     } else {
         if (!state.loaded_tutorial_data) {
-            state.globalData = data.rows;
+            state.globalData = data.rows || [];
             filterData(scope, state);
         }
         state.loaded_tutorial_data = true;
@@ -2173,6 +2179,10 @@ function run_script_for_profit_tracker(scope, state) {
 function add_event_listener_for_log_bet_button(scope, state) {
 
     scope.querySelector('.log-bet-button').addEventListener('click', () => {
+        let no_data_row = scope.querySelector('#noDataRow');
+        if (no_data_row) {
+            no_data_row.remove();
+        }
         select_boxes_helpers.select_clicked(scope, state, null);
     });
 

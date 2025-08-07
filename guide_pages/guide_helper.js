@@ -292,6 +292,11 @@ export class GuidePageManager {
     }
 
     setupOddsmatcherEventForwarding() {
+
+        return;
+        // DO NOT NEED THIS AS EVENTS ALREADY GO ALL THE WAY UP
+
+
         // Find all oddsmatcher elements
         const oddsmatcherElements = this.shadowRoot.querySelectorAll('.added_oddsmatcher');
         
@@ -305,8 +310,22 @@ export class GuidePageManager {
         ];
         
         oddsmatcherElements.forEach(oddsmatcher => {
+            // Check if we've already set up event forwarding for this element
+            if (oddsmatcher.hasAttribute('data-events-forwarded')) {
+                return; // Skip if already set up
+            }
+            
+            // Mark this element as having event forwarding set up
+            oddsmatcher.setAttribute('data-events-forwarded', 'true');
+
+            console.log('adding event listener for', oddsmatcher);
+            
             eventsToForward.forEach(eventType => {
+
                 oddsmatcher.addEventListener(eventType, (event) => {
+
+                    console.log('event', event);
+                    
                     // Create a new event with the same details and forward it
                     const forwardedEvent = new CustomEvent(eventType, {
                         detail: event.detail,
@@ -514,9 +533,6 @@ export class GuidePageManager {
 export function handleResize(scope) {
 
 
-    if (window.innerWidth < MAX_WIDTH_FOR_MOBILE) {
-        return;
-    }
 
     let width = window.innerWidth;
 

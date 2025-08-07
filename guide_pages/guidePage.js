@@ -32,7 +32,9 @@ import * as Helpers from './guide_helper.js';
                     this.isContentLoaded = true;
                     this.processQueuedAttributeChanges();
                     Helpers.handleResize(this.shadowRoot);
-                    window.addEventListener('resize', () => { Helpers.handleResize(this.shadowRoot); });
+                    if (window.innerWidth < 700) {
+                        window.addEventListener('resize', () => { Helpers.handleResize(this.shadowRoot); });
+                    }                
                 });
             });
         }

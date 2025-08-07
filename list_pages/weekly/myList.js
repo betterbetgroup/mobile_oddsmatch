@@ -163,7 +163,7 @@ import * as Helpers from '../main/helper.js'
                     <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile' : ''}">
 
                         <div class="div_around_bookmaker_exhange_images"> 
-                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''}>
+                            <a class="anchor_round_bookmaker" ${row.guide_page_offer_link ? `href="${row.guide_page_offer_link}"` : ''} target="_blank">
                                 <img class='bookmaker_img' src="${row.bookmaker_image}" alt='${row.bookmaker} Weekly Bet Club Offer'>
                             </a>
                         </div>
@@ -173,7 +173,7 @@ import * as Helpers from '../main/helper.js'
                         ${!state.is_desktop ? `<div class="bottom_div_interaction_rows_mobile">` : ``}
                         
                         <div class="item_button">
-                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}" target="_blank">
+                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile' : ''}" href="${row.guide_page_link}">
                                 Offer Guide
                                 <i class="fa-solid fa-book offer_guide_icon"></i>
                             </a>
