@@ -9,6 +9,9 @@ import * as Helpers from '../main/helper.js'
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
+    styles_script = 'styles.css'
+
+
     
     class GuidesList extends HTMLElement {
     
@@ -82,10 +85,62 @@ import * as Helpers from '../main/helper.js'
 
 
 
-
-
         
         create_row(scope, state, row) {
+
+
+
+        // Helper functions for guide content
+        function getGuideIcon(title) {
+            const icons = {
+                'Signup Offer Tutorial': 'fa-user-plus',
+                'Backing and Laying Guide': 'fa-exchange-alt',
+                'Betting Exchange Guide': 'fa-chart-line',
+                'Price Boost Guide': 'fa-rocket',
+                'Arbitrage Betting Guide': 'fa-balance-scale',
+                '2up Betting Guide': 'fa-dice-two'
+            };
+            return icons[title] || 'fa-book';
+        }
+
+        function getGuideDescription(title) {
+            const descriptions = {
+                'Signup Offer Tutorial': 'Learn how to maximize value from new customer offers with step-by-step instructions.',
+                'Backing and Laying Guide': 'Master the fundamentals of backing and laying bets for guaranteed profits.',
+                'Betting Exchange Guide': 'Understand how betting exchanges work and how to use them effectively.',
+                'Price Boost Guide': 'Discover strategies to profit from bookmaker price boosts and enhanced odds.',
+                'Arbitrage Betting Guide': 'Learn advanced arbitrage techniques for risk-free betting profits.',
+                '2up Betting Guide': 'Master the 2up strategy for consistent long-term matched betting profits.'
+            };
+            return descriptions[title] || 'Comprehensive guide to help you master this betting strategy.';
+        }
+
+        function getGuideDifficulty(title) {
+            const difficulties = {
+                'Signup Offer Tutorial': 'Beginner',
+                'Backing and Laying Guide': 'Beginner',
+                'Betting Exchange Guide': 'Beginner',
+                'Price Boost Guide': 'Intermediate',
+                'Arbitrage Betting Guide': 'Advanced',
+                '2up Betting Guide': 'Advanced'
+            };
+            return difficulties[title] || 'Intermediate';
+        }
+
+        function getGuideTime(title) {
+            const times = {
+                'Signup Offer Tutorial': '5 min',
+                'Backing and Laying Guide': '8 min',
+                'Betting Exchange Guide': '6 min',
+                'Price Boost Guide': '12 min',
+                'Arbitrage Betting Guide': '15 min',
+                '2up Betting Guide': '18 min'
+            };
+            return times[title] || '10 min';
+        }
+
+
+
 
 
             const div = document.createElement('div');
@@ -98,48 +153,54 @@ import * as Helpers from '../main/helper.js'
 
 
             div.innerHTML = `
-
+                <div class="guide_card ${!state.is_desktop ? 'guide_card_mobile' : ''}">
                     
-                <div class="inner_div inner_div_guides" >
-
-                    <div class="div_around_bookmaker_exhange_images"> 
-                        <a class="anchor_round_bookmaker" ${row.guide ? `href="${row.guide}"` : ''} target="_blank" >
-                            <img class='guide_image_main' src="${row.main_image}" alt='${row.title}'>
-                        </a>
-                    </div>
-
-                    <div class="item_title_div item_title_div_guides ${!state.is_desktop ? 'item_title_div_mobile item_title_div_guides_mobile' : ''}" >
-                        ${row.title}
-                    </div>
-
-
-                    <div class="bottom_div_for_interaction_items ${!state.is_desktop ? 'bottom_div_for_interaction_items_mobile bottom_div_for_interaction_items_mobile_guides' : ''}"
-                    
-                    
-                        <div class="item_button">
-                            <a class="offer_button ${!state.is_desktop ? 'offer_button_mobile offer_button_mobile_guides' : ''}" href="${row.guide}" target="_blank">
-                                Read Guide
-                                <i class="fa-solid fa-book offer_guide_icon"></i>
-                            </a>
+                    <!-- Guide Icon Header -->
+                    <div class="guide_icon_header">
+                        <div class="guide_icon_container">
+                            <i class="fas ${getGuideIcon(row.title)} guide_main_icon"></i>
+                            <div class="guide_icon_gradient"></div>
                         </div>
+                        <div class="guide_status_badge ${state.is_available ? 'available' : 'completed'}">
+                            ${state.is_available ? 'Unread' : 'Read'}
+                        </div>
+                    </div>
 
-
-                        <div class="div-outside-switch item-complete-switch item-complete-switch-guides">
-                            <div class="switch_container" >
-                                <label class="switch">
-                                    <input type="checkbox" class="show_filters_switch item_complete_switch ${!state.is_desktop ? 'item_complete_switch_mobile' : ''}" data-id=${offer_id} id="item-complete-switch-${row.title}" ${!state.is_available ? 'checked' : ''}>
-                                    <span class="slider"></span>
-                                </label>
+                    <!-- Guide Content -->
+                    <div class="guide_content">
+                        <h3 class="guide_title">${row.title}</h3>
+                        <p class="guide_description">${getGuideDescription(row.title)}</p>
+                        
+                        <div class="guide_meta">
+                            <div class="guide_difficulty" data-difficulty="${getGuideDifficulty(row.title)}">
+                                <i class="fas fa-signal"></i>
+                                <span>${getGuideDifficulty(row.title)}</span>
+                            </div>
+                            <div class="guide_time">
+                                <i class="far fa-clock"></i>
+                                <span>${getGuideTime(row.title)}</span>
                             </div>
                         </div>
-
-
                     </div>
 
+                    <!-- Guide Actions -->
+                    <div class="guide_actions">
+                        <a class="guide_button_primary ${!state.is_desktop ? 'guide_button_mobile' : ''}" href="${row.guide}" target="_blank">
+                            <i class="fas fa-book-open"></i>
+                            <span>Read Guide</span>
+                        </a>
+                        
+                        <div class="guide_completion_toggle">
+                            <label class="completion_switch">
+                                <input type="checkbox" class="show_filters_switch item_complete_switch" data-id="${offer_id}" id="item-complete-switch-${row.title}" ${!state.is_available ? 'checked' : ''}>
+                                <span class="completion_slider">
+                                </span>
+                            </label>
+                            <span class="completion_label">${state.is_available ? 'Mark as Read' : 'Mark as Unread'}</span>
+                        </div>
+                    </div>
 
                 </div>
-
-
             `
             const tableBody = scope.querySelector('.item_container_div');
             tableBody.appendChild(div);
