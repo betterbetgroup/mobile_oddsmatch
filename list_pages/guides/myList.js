@@ -105,12 +105,16 @@ import * as Helpers from '../main/helper.js'
 
         function getGuideDescription(title) {
             const descriptions = {
-                'Signup Offer Tutorial': 'Learn how to maximize value from new customer offers with step-by-step instructions.',
-                'Backing and Laying Guide': 'Master the fundamentals of backing and laying bets for guaranteed profits.',
-                'Betting Exchange Guide': 'Understand how betting exchanges work and how to use them effectively.',
-                'Price Boost Guide': 'Discover strategies to profit from bookmaker price boosts and enhanced odds.',
-                'Arbitrage Betting Guide': 'Learn advanced arbitrage techniques for risk-free betting profits.',
-                '2up Betting Guide': 'Master the 2up strategy for consistent long-term matched betting profits.'
+                'Signup Offer Tutorial': 'Learn how to complete your first signup offer by following our step-by-step tutorial.',
+                'Backing and Laying Guide': 'Understand the concepts of back bets and lay bets.',
+                'Betting Exchange Guide': 'Learn how a betting exchange works, and how we use it to make guaranteed profits.',
+                'Price Boost Guide': 'Learn how to use price boost offers to make a risk free profit.',
+                'Arbitrage Betting Guide': 'Learn how we use arbitrage to make guaranteed profits from bookmaker mistakes.',
+                '2up Betting Guide': 'Learn how to take advantage of early payout offers and multiply your profits.',
+                'Extra Place Betting Guide': 'Extra place offers are a great way to earn more profits once you get your head around it.',
+                'Guide to Laying Accumulators': 'Learn how to profit from any type of free bet including accumulators and bet builders.',
+                'Dutching Betting Guide': 'Dutching is where you use back bets on all outcomes of an event to guarantee a profit.',
+                'Sequential Lay Betting Guide': 'Use this strategy to guarantee profits from accumulator bets with sequential events.'
             };
             return descriptions[title] || 'Comprehensive guide to help you master this betting strategy.';
         }
@@ -120,9 +124,14 @@ import * as Helpers from '../main/helper.js'
                 'Signup Offer Tutorial': 'Beginner',
                 'Backing and Laying Guide': 'Beginner',
                 'Betting Exchange Guide': 'Beginner',
-                'Price Boost Guide': 'Intermediate',
-                'Arbitrage Betting Guide': 'Advanced',
-                '2up Betting Guide': 'Advanced'
+                'Price Boost Guide': 'Beginner',
+                'Arbitrage Betting Guide': 'Beginner',
+                '2up Betting Guide': 'Intermediate',
+                'Extra Place Betting Guide': 'Intermediate',
+                'Guide to Laying Accumulators': 'Advanced',
+                'Dutching Betting Guide': 'Intermediate',
+                'Sequential Lay Betting Guide': 'Advanced'
+
             };
             return difficulties[title] || 'Intermediate';
         }
@@ -186,7 +195,7 @@ import * as Helpers from '../main/helper.js'
                     <!-- Guide Actions -->
                     <div class="guide_actions">
                         <a class="guide_button_primary ${!state.is_desktop ? 'guide_button_mobile' : ''}" href="${row.guide}">
-                            <i class="fas fa-book-open"></i>
+                            <i class="fa-solid fa-book"></i>
                             <span>Read Guide</span>
                         </a>
                         

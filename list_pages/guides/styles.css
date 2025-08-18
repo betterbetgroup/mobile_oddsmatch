@@ -7,40 +7,40 @@
 
 /* Guide-specific variables for consistent sizing */
 #outer-container-div {
-    /* Guide card dimensions - exactly 3 per row, more square aspect ratio */
+    /* Guide card dimensions - exactly 3 per row, 20% smaller with much larger gaps between cards */
     --guide-card-width: calc((100% - (var(--global-gap-between-main-items) * 2)) / 3);
-    --guide-card-gap: var(--global-gap-between-main-items);
+    --guide-card-gap: calc(var(--global-gap-between-main-items) * 2.5);
     
-    /* Guide card sections - normal sizing without description */
-    --guide-header-padding: calc(var(--padding-main-containers) * 0.8);
-    --guide-header-min-height: calc(var(--height-filter-inputs) * 1.8);
-    --guide-content-padding: calc(var(--padding-main-containers) * 0.9);
-    --guide-content-min-height: calc(var(--height-filter-inputs) * 1.8);
-    --guide-actions-padding: calc(var(--padding-main-containers) * 0.8);
+    /* Guide card sections - 20% smaller, keep original padding ratios */
+    --guide-header-padding: calc(var(--padding-main-containers) * 0.64);
+    --guide-header-min-height: calc(var(--height-filter-inputs) * 1.44);
+    --guide-content-padding: calc(var(--padding-main-containers) * 0.72);
+    --guide-content-min-height: calc(var(--height-filter-inputs) * 1.44);
+    --guide-actions-padding: calc(var(--padding-main-containers) * 0.64);
     
-    /* Guide typography */
-    --guide-title-font-size: calc(var(--global-main-font-size) * 1.4);
-    --guide-description-font-size: calc(var(--global-main-font-size) * 1.1);
-    --guide-meta-font-size: var(--global-main-font-size);
-    --guide-button-font-size: calc(var(--global-main-font-size) * 1.1);
+    /* Guide typography - 20% smaller */
+    --guide-title-font-size: calc(var(--global-main-font-size) * 1.12);
+    --guide-description-font-size: calc(var(--global-main-font-size) * 0.88);
+    --guide-meta-font-size: calc(var(--global-main-font-size) * 0.8);
+    --guide-button-font-size: calc(var(--global-main-font-size) * 0.88);
     
-    /* Guide icon sizing */
-    --guide-icon-container-size: calc(var(--height-filter-inputs) * 1.3);
-    --guide-icon-size: calc(var(--global-main-font-size) * 1.6);
-    --guide-badge-font-size: calc(var(--global-main-font-size) * 0.85);
+    /* Guide icon sizing - 20% smaller */
+    --guide-icon-container-size: calc(var(--height-filter-inputs) * 1.04);
+    --guide-icon-size: calc(var(--global-main-font-size) * 1.28);
+    --guide-badge-font-size: calc(var(--global-main-font-size) * 0.68);
     
-    /* Guide spacing - normal spacing without description */
-    --guide-title-margin-bottom: calc(var(--global-gap-between-main-items) * 0.6);
-    --guide-meta-padding-top: calc(var(--global-gap-between-main-items) * 0.5);
-    --guide-meta-gap: calc(var(--global-gap-between-main-items) * 0.8);
-    --guide-actions-gap: calc(var(--global-gap-between-main-items) * 0.65);
+    /* Guide spacing - keep original proportional spacing */
+    --guide-title-margin-bottom: calc(var(--global-gap-between-main-items) * 0.48);
+    --guide-meta-padding-top: calc(var(--global-gap-between-main-items) * 0.4);
+    --guide-meta-gap: calc(var(--global-gap-between-main-items) * 0.64);
+    --guide-actions-gap: calc(var(--global-gap-between-main-items) * 0.52);
     
-    /* Button sizing */
-    --guide-button-padding: calc(var(--global-gap-between-main-items) * 0.45) calc(var(--global-gap-between-main-items) * 0.8);
+    /* Button sizing - 20% smaller, keep original padding proportions */
+    --guide-button-padding: calc(var(--global-gap-between-main-items) * 0.36) calc(var(--global-gap-between-main-items) * 0.64);
     
-    /* Toggle sizing */
-    --guide-toggle-width: calc(var(--height-filter-inputs) * 1.5);
-    --guide-toggle-height: calc(var(--height-filter-inputs) * 0.8);
+    /* Toggle sizing - 20% smaller */
+    --guide-toggle-width: calc(var(--height-filter-inputs) * 1.2);
+    --guide-toggle-height: calc(var(--height-filter-inputs) * 0.64);
 }
 
 /* Grid layout using variables - exactly 3 columns */
@@ -52,6 +52,7 @@
     width: var(--global-container-width);
     margin-left: auto;
     margin-right: auto;
+    padding: 0 calc(var(--global-gap-between-main-items) * 0.5);
 }
 
 /* Clean guide card design using variables - more square aspect ratio */
@@ -63,7 +64,6 @@
     overflow: hidden;
     transition: none;
     box-shadow: none;
-    aspect-ratio: 1 / 1; /* Perfect square without description */
     display: flex;
     flex-direction: column;
     width: 100%; /* Take full width of container */
@@ -139,7 +139,7 @@
 }
 
 .guide_description {
-    display: none; /* Hide description for guides by default */
+    display: flex; /* Hide description for guides by default */
     margin: 0 0 var(--guide-title-margin-bottom) 0;
     font-size: var(--guide-description-font-size);
     color: #b0b0b0;
@@ -212,6 +212,7 @@
 .calculators-page .guide_description,
 .oddsmatchers-page .guide_description {
     display: block !important; /* Show description for calculators and oddsmatchers */
+    margin: 0;
 }
 
 .calculators-page .guide_content,
@@ -223,7 +224,6 @@
 .oddsmatchers-page .guide_card {
     aspect-ratio: auto;
 }
-
 
 
 
@@ -496,8 +496,15 @@ input:checked + .completion_slider::before {
     }
 
 
+    .calculators-page .guide_description,
+    .oddsmatchers-page .guide_description {
+        margin: 0;
+    }
 
 
+    .guide_description {
+        font-size: calc(var(--guide-description-font-size) * 1.2);
+    }
 
 
 

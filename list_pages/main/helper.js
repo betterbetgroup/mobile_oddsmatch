@@ -233,6 +233,13 @@ export function process_new_final_data(data, scope, state, page) {
 
 function adjust_classes_based_on_is_desktop(scope, state) {
 
+    if (state.list_type == 'calculators') {
+        scope.querySelector('.item_container_div').classList.add('calculators-page');
+    }
+    if (state.list_type == 'oddsmatchers') {
+        scope.querySelector('.item_container_div').classList.add('oddsmatchers-page');
+    }
+
     if (window.innerWidth > MAX_WIDTH_FOR_MOBILE) {
         if (state.list_type == 'guides') {
             scope.querySelector('.above-columns').classList.add('guides-above-columns');
@@ -246,12 +253,6 @@ function adjust_classes_based_on_is_desktop(scope, state) {
         if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
             scope.querySelector('.above-columns').classList.add('guides-above-columns');
             scope.querySelector('.item_container_div').classList.add('item_container_div_guides');
-            if (state.list_type == 'calculators') {
-                scope.querySelector('.item_container_div').classList.add('calculators-page');
-            }
-            if (state.list_type == 'oddsmatchers') {
-                scope.querySelector('.item_container_div').classList.add('oddsmatchers-page');
-            }
         }
         return;
     }
@@ -702,8 +703,8 @@ function add_in_above_columns_items(scope, state) {
         });
     } else {
 
-        if (state.list_type == 'guides' || state.list_type == 'extra_places' || state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
-            // For guides, calculators, and oddsmatchers, put first 2 items in separate rows
+        if (state.list_type == 'guides' || state.list_type == 'extra_places') {
+            // For guides, extra places, put first 2 items in separate rows
             for (let i = 0; i < 2; i++) {
                 const row = document.createElement('div');
                 row.className = 'above_columns_row_mobile';
@@ -716,6 +717,22 @@ function add_in_above_columns_items(scope, state) {
 
                 scope.querySelector('.above_columns_row').appendChild(row);
             }
+        } else if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+
+
+            for (let i = 0; i < 1; i++) {
+                const row = document.createElement('div');
+                row.className = 'above_columns_row_mobile';
+
+                const itemHtml = above_columns_items_dict[state.above_columns_items[i]];
+                const div = document.createElement('div');
+                div.className = 'above_columns_item';
+                div.innerHTML = itemHtml;
+                row.appendChild(div);
+
+                scope.querySelector('.above_columns_row').appendChild(row);
+            }
+
         } else {
             // First row with 2 items side by side
             const firstRow = document.createElement('div');
