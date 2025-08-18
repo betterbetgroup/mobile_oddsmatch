@@ -10,6 +10,10 @@ import * as Helpers from '../main/helper.js'
 
 
 
+    styles_script = '../main/styles.css'
+
+
+
     class SignUpOfferList extends HTMLElement {
     
         constructor() {

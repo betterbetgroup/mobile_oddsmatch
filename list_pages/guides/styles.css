@@ -284,6 +284,86 @@ input:checked + .completion_slider::before {
     user-select: none;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* SEPARATE SECTION FOR WRITING CSS FOR FIXING ABOVE COLUMNS */
+
+/* Enhanced above columns control panel styling */
+
+
+
+
+
+
+
+
+
+/* Enhanced info display items */
+
+
+
+
+.div-outside-info {
+    background: #333;
+    border: var(--global-border-width-main) solid #444;
+    border-radius: calc(var(--global-border-radius) * 5);
+    padding: 0 calc(var(--padding-left-filter-inputs) * 4);
+    transition: all 0.3s ease;
+    position: relative;
+    flex-direction: row;
+    width: min-content;
+    gap: calc(var(--padding-left-filter-inputs) * 1.25);
+}
+
+/* Info text styling */
+.title_text {
+    color: #ffffff;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    letter-spacing: 0.03em;
+    font-size: var(--font-size-filter-inputs);
+    width: min-content;
+    white-space: nowrap;
+    line-height: var(--height-filter-inputs);
+}
+
+
+
+.info_text {
+    color: #ff00c6;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    margin-top: 0;
+}
+
+
+
+.guides-above-columns {
+    padding: var(--padding-main-containers) calc(var(--padding-main-containers) * 5)
+}
+
+
+
+
+/* end of separate section for writing css for fixing above columns */
+
+
+
+
+
+
+
+
+
+
 /* Mobile styles using proper mobile variables */
 @media (max-width: 700px) {
     #outer-container-div {
