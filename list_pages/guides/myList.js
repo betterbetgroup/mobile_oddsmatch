@@ -6,7 +6,7 @@ import * as Helpers from '../main/helper.js'
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/guides.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
+    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/guides/styles.css';
 
 
     styles_script = 'styles.css'

@@ -72,7 +72,7 @@
 
 /* Header section using variables */
 .guide_icon_header {
-    background: linear-gradient(135deg, #ff00c6, #b300ff);
+    background: linear-gradient(135deg, #4a3456, #5d4e6d);
     padding: var(--guide-header-padding);
     display: flex;
     justify-content: space-between;
@@ -88,14 +88,14 @@
     justify-content: center;
     width: var(--guide-icon-container-size);
     height: var(--guide-icon-container-size);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(179, 0, 255, 0.15);
     border-radius: var(--global-smaller-border-radius);
-    border: var(--global-border-width-main) solid rgba(255, 255, 255, 0.3);
+    border: var(--global-border-width-main) solid rgba(179, 0, 255, 0.3);
 }
 
 .guide_main_icon {
     font-size: var(--guide-icon-size);
-    color: #ffffff;
+    color: #b300ff;
 }
 
 .guide_status_badge {
@@ -139,7 +139,11 @@
 }
 
 .guide_description {
-    display: none; /* Hide description completely */
+    display: none; /* Hide description for guides by default */
+    margin: 0 0 var(--guide-title-margin-bottom) 0;
+    font-size: var(--guide-description-font-size);
+    color: #b0b0b0;
+    line-height: 1.4;
 }
 
 .guide_meta {
@@ -196,6 +200,37 @@
     border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
     flex-shrink: 0; /* Prevent actions from shrinking */
 }
+
+
+
+
+
+
+
+
+/* Calculator and Oddsmatcher specific styling - show descriptions and adjust layout */
+.calculators-page .guide_description,
+.oddsmatchers-page .guide_description {
+    display: block !important; /* Show description for calculators and oddsmatchers */
+}
+
+.calculators-page .guide_content,
+.oddsmatchers-page .guide_content {
+    flex-grow: 0;
+}
+
+.calculators-page .guide_card,
+.oddsmatchers-page .guide_card {
+    aspect-ratio: auto;
+}
+
+
+
+
+
+
+
+
 
 .guide_button_primary {
     display: inline-flex;
@@ -313,36 +348,6 @@ input:checked + .completion_slider::before {
 
 
 
-.div-outside-info {
-    background: #333;
-    border: var(--global-border-width-main) solid #444;
-    border-radius: calc(var(--global-border-radius) * 5);
-    padding: 0 calc(var(--padding-left-filter-inputs) * 4);
-    transition: all 0.3s ease;
-    position: relative;
-    flex-direction: row;
-    width: min-content;
-    gap: calc(var(--padding-left-filter-inputs) * 1.25);
-}
-
-/* Info text styling */
-.title_text {
-    color: #ffffff;
-    font-weight: var(--font-weight-main-oddsmatcher);
-    letter-spacing: 0.03em;
-    font-size: var(--font-size-filter-inputs);
-    width: min-content;
-    white-space: nowrap;
-    line-height: var(--height-filter-inputs);
-}
-
-
-
-.info_text {
-    color: #ff00c6;
-    font-weight: var(--font-weight-main-oddsmatcher);
-    margin-top: 0;
-}
 
 
 
@@ -489,4 +494,20 @@ input:checked + .completion_slider::before {
     .completion_label {
         font-size: var(--guide-meta-font-size);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

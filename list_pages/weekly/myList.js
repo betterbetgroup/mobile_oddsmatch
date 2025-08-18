@@ -8,6 +8,10 @@ import * as Helpers from '../main/helper.js'
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
+
+    styles_script = '../main/styles.css'
+
+
     class WeeklyBetClubList extends HTMLElement {
     
         constructor() {
@@ -34,7 +38,7 @@ import * as Helpers from '../main/helper.js'
                     { text: 'Sort A-Z', value: 'a-z' },
                     { text: 'Sort Z-A', value: 'z-a' },
                 ], 
-                above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch'],
+                above_columns_items: ['offers available', 'profit available', 'search', 'hidden switch'],
                 is_desktop: true,
             };
             

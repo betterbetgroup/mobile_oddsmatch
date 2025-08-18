@@ -383,6 +383,49 @@
     visibility: hidden;
 }
 
+
+
+
+
+
+
+.div-outside-info {
+    background: #333;
+    border: var(--global-border-width-main) solid #444;
+    border-radius: calc(var(--global-border-radius) * 5);
+    padding: 0 calc(var(--padding-left-filter-inputs) * 4);
+    transition: all 0.3s ease;
+    position: relative;
+    flex-direction: row;
+    width: min-content;
+    gap: calc(var(--padding-left-filter-inputs) * 1.25);
+
+}
+
+/* Info text styling */
+.title_text {
+    color: #ffffff;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    font-size: var(--font-size-filter-inputs);
+    width: min-content;
+    white-space: nowrap;
+    line-height: calc(var(--height-filter-inputs) - (2 * var(--global-border-width-main)));
+}
+
+
+
+.info_text {
+    color: #ff00c6;
+    font-weight: var(--font-weight-main-oddsmatcher);
+    margin-top: 0;
+}
+
+
+
+
+
+
+
 [data-tooltip] {
     position: relative;
 }
@@ -608,9 +651,6 @@
 
 /* EXTRA PLACES SPECIFIC CSS */
 
-.extra-places-above-columns .above_columns_row .above_columns_item .div-outside-info {
-    width: calc(var(--width-info-items-at-top) / 1.5);
-}
 
 .item_container_div_extra_places {
     grid-template-columns: repeat(1, 1fr);

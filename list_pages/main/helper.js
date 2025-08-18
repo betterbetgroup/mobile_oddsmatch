@@ -38,6 +38,14 @@ let above_columns_items_dict = {
         <input class="text-input"  id="search-bookmakers" placeholder="Search races..." autocomplete="off">
     </div>`,
 
+    'search calculators': `<div class="div-outside-filter-dropdown">
+        <input class="text-input"  id="search-bookmakers" placeholder="Search calculators..." autocomplete="off">
+    </div>`,
+
+    'search oddsmatchers': `<div class="div-outside-filter-dropdown">
+        <input class="text-input"  id="search-bookmakers" placeholder="Search oddsmatchers..." autocomplete="off">
+    </div>`,
+
 
     'sort': `<div class="div-outside-filter-dropdown">
                 <div id="sorting-dropdown-select-container" class="custom-select-container select-filters-container" tabindex="0">
@@ -151,6 +159,14 @@ function add_no_data_row(scope, state) {
         no_data_text = 'No Extra Places Races Left...'
     }
 
+    if (state.list_type == 'calculators') {
+        no_data_text = 'No Calculators Available...'
+    }
+
+    if (state.list_type == 'oddsmatchers') {
+        no_data_text = 'No Oddsmatchers Available...'
+    }
+
     let no_data_row;
     let no_data_content = `
         <div class="no-data-div">
@@ -196,6 +212,10 @@ export function process_new_final_data(data, scope, state, page) {
         }
     }
 
+    if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+        state.globalData = data.offer_data || data.tools || [];
+    }
+
     runSpecificScript(scope, state);
 
     page.style.visibility = 'visible'; 
@@ -226,6 +246,16 @@ function adjust_classes_based_on_is_desktop(scope, state) {
             scope.querySelector('.above-columns').classList.add('extra-places-above-columns');            
             scope.querySelector('.item_container_div').classList.add('item_container_div_extra_places');
         }
+        if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+            scope.querySelector('.above-columns').classList.add('guides-above-columns');
+            scope.querySelector('.item_container_div').classList.add('item_container_div_guides');
+            if (state.list_type == 'calculators') {
+                scope.querySelector('.item_container_div').classList.add('calculators-page');
+            }
+            if (state.list_type == 'oddsmatchers') {
+                scope.querySelector('.item_container_div').classList.add('oddsmatchers-page');
+            }
+        }
         return;
     }
     
@@ -246,10 +276,10 @@ export function render(scope, state, html_script, general_info_script) {
         .then(response => response.text())
         .then(html => {
             scope.innerHTML = html;
-            if (state.list_type != 'guides') {
-                return;
-            } else {
+            if (state.list_type == 'guides' || state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
                 return loadExternalScript(general_info_script);
+            } else {
+                return;
             }
         })
         .then(() => {
@@ -263,6 +293,24 @@ export function render(scope, state, html_script, general_info_script) {
                     }));
                 } else {
                     console.error('all_guides_object is undefined');
+                }
+            }
+            if (state.list_type == 'calculators') {
+                if (typeof calculator_items !== 'undefined') {
+                    state.globalData = calculator_items;
+                    state.data_loaded_from_wix = true;
+                    display_items(scope, state);
+                } else {
+                    console.error('calculator_items is undefined');
+                }
+            }
+            if (state.list_type == 'oddsmatchers') {
+                if (typeof oddsmatcher_items !== 'undefined') {
+                    state.globalData = oddsmatcher_items;
+                    state.data_loaded_from_wix = true;
+                    display_items(scope, state);
+                } else {
+                    console.error('oddsmatcher_items is undefined');
                 }
             }
         })
@@ -288,11 +336,14 @@ export function runSpecificScript(scope, state) {
     add_in_above_columns_items(scope, state);
 
     // add in sorting options using js
+    if (state.list_type != 'calculators' && state.list_type != 'oddsmatchers') {
     state.sort_options.forEach(option => {
-        append_sort_to_sort_options(option.text, option.value, scope, state);
-    });
+            append_sort_to_sort_options(option.text, option.value, scope, state);
+        });
+    }
     
     add_event_listeners(scope, state);
+
 
 }
 
@@ -328,6 +379,8 @@ function create_offer_id(row, state) {
         return (row.bookmaker).replace(/\s+/g, '-');
     } else if (state.list_type == 'reload') {
         return (row.bookmaker + '_' + row.reworded_title + '_' + new Date().toISOString().split('T')[0]).toLowerCase().replace(/[^a-z0-9]/g, '_');
+    } else if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+        return (row.name).toLowerCase().replace(/[^a-z0-9]/g, '_');
     }
 
 
@@ -413,8 +466,13 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
 
     });
 
-    filter_bookmakers_using_search(scope, state);
-    sort_filtered_data(scope, state);
+    try {
+
+        filter_bookmakers_using_search(scope, state);
+        sort_filtered_data(scope, state);
+    } catch (error) {
+        // doens't have search
+    }
 
 }
 
@@ -425,6 +483,7 @@ function display_items(scope, state) {
     }
 
     make_filtered_data_using_global_and_suo_object(scope, state);
+
     
     scope.querySelector('.item_container_div').innerHTML = '';
 
@@ -432,11 +491,13 @@ function display_items(scope, state) {
         noDataRow.style.display = 'none';
     });
 
+
     if (state.filteredData.length == 0) {
         add_no_data_row(scope, state);
     } 
 
     state.filteredData.forEach(row => {
+        console.log(row)
         state.create_item_function(scope, state, row);
     });
     add_event_listener_for_switches(scope, state);
@@ -445,6 +506,9 @@ function display_items(scope, state) {
         get_and_display_guides_read(scope, state);
     } else if (state.list_type == 'extra_places') {
         get_and_display_races_left(scope, state);
+    } else if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+        // No profit tracking for calculators/oddsmatchers
+        return;
     } else {
         get_and_display_profit_left_and_offers_left(scope, state);
     }
@@ -642,8 +706,8 @@ function add_in_above_columns_items(scope, state) {
         });
     } else {
 
-        if (state.list_type == 'guides' || state.list_type == 'extra_places') {
-            // For guides, put first 2 items in separate rows
+        if (state.list_type == 'guides' || state.list_type == 'extra_places' || state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+            // For guides, calculators, and oddsmatchers, put first 2 items in separate rows
             for (let i = 0; i < 2; i++) {
                 const row = document.createElement('div');
                 row.className = 'above_columns_row_mobile';
@@ -697,6 +761,10 @@ function add_in_above_columns_items(scope, state) {
 
 function append_sort_to_sort_options(name_for_sort, value, scope, state) {
 
+    // currently returning as not sorting
+    return;
+
+
     const container = scope.getElementById('sorting-dropdown-options');
 
     // Create the option container
@@ -739,6 +807,21 @@ function sort_filtered_data(scope, state) {
                 break;
             case 'z-a':
                 state.filteredData.sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            case 'none':
+            default:
+                // No sort applied, data could be reset to initial state if needed
+                break;
+        }
+
+    } else if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+
+        switch (state.current_sort) {
+            case 'a-z':
+                state.filteredData.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'z-a':
+                state.filteredData.sort((a, b) => b.name.localeCompare(a.name));
                 break;
             case 'none':
             default:
@@ -807,7 +890,8 @@ function sort_filtered_data(scope, state) {
 
 function filter_bookmakers_using_search(scope, state) {
 
-    const searchText = scope.getElementById('search-bookmakers').value.trim().toLowerCase();
+
+    const searchText = scope.querySelector('#search-bookmakers').value.trim().toLowerCase();
 
     if (state.list_type == 'guides') {
         if (searchText.length === 0) {
@@ -820,6 +904,12 @@ function filter_bookmakers_using_search(scope, state) {
             state.filteredData = state.filteredData.slice(); 
         } else {
             state.filteredData = state.filteredData.filter(item => item.race_title.toLowerCase().includes(searchText));
+        }
+    } else if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
+        if (searchText.length === 0) {
+            state.filteredData = state.filteredData.slice(); 
+        } else {
+            state.filteredData = state.filteredData.filter(item => item.name.toLowerCase().includes(searchText));
         }
     } else {
 
@@ -845,8 +935,13 @@ function closeAllDropdowns(scope, state) {
         dropdown.classList.remove('border-radius-bottom-none')
     });
 
-    scope.querySelector('#sorting-dropdown-options').style.display = 'none';
-    scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
+
+    try {
+        scope.querySelector('#sorting-dropdown-options').style.display = 'none';
+        scope.querySelector('#sorting-dropdown-select-container').classList.remove('border-radius-bottom-none')
+    } catch (error) {
+        // doens't have dropdowns
+    }
 
 }
 
@@ -872,7 +967,7 @@ function closeAllDropdowns(scope, state) {
 
 function add_event_listeners(scope, state) {
 
-    if (state.list_type != 'extra_places') {
+    if (state.list_type != 'extra_places' && state.list_type != 'calculators' && state.list_type != 'oddsmatchers') {
         add_event_listener_for_toggle_button(scope, state);
     }
 
@@ -882,7 +977,9 @@ function add_event_listeners(scope, state) {
 
     add_event_listener_for_closing_dropdowns(scope, state);
 
-    add_event_listener_for_sorting(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options', state);
+    if (state.list_type != 'calculators' && state.list_type != 'oddsmatchers') {
+        add_event_listener_for_sorting(scope, '#sorting-dropdown-select-container', '#sorting-dropdown-options', state);
+    }
 
 }
 
@@ -907,6 +1004,10 @@ function add_event_listener_for_search_text(scope, state) {
 }
 
 function add_event_listener_for_sorting(scope, button_select, button_options, state) {
+
+    // currently returning as not sorting
+    return;
+
     let container = scope.querySelector(button_select)
 
     container.addEventListener('click', (event) => {

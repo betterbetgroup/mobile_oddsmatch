@@ -40,7 +40,7 @@ import * as Helpers from '../main/helper.js'
                     { text: 'Sort A-Z', value: 'a-z' },
                     { text: 'Sort Z-A', value: 'z-a' },
                 ], 
-                above_columns_items: ['offers available', 'profit available', 'search', 'sort', 'hidden switch'],
+                above_columns_items: ['offers available', 'profit available', 'search', 'hidden switch'],
                 is_desktop: true,
             };
 
