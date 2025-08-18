@@ -3131,10 +3131,10 @@ function add_event_listeners_for_calculator(scope, state, div) {
 
     div.querySelectorAll('input').forEach(input => { // CAPTURES FREE BET MODE SWITCH CHANGES TOO
         input.addEventListener('input', (event) => {
-            add_values_for_calculator(scope, state, false);
             if (input.id.includes('back-stake-input') && (state.calculator_type == 'Bonus' || state.calculator_type == 'Refund If' || state.calculator_type == 'Race Refund')) {
                 scope.querySelector('#max-bonus-input').value = input.value;
             }
+            add_values_for_calculator(scope, state, false);
             if (state.calculator_type == 'Odds Converter') {
                 calculate_and_display_new_values_odds_converter(scope, state, input)
             }

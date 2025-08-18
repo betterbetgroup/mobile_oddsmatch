@@ -1,4 +1,4 @@
-import * as Helpers from '../main/calculator-helper.js';
+import * as Helpers from './calculator-helper.js';
 
 
 
@@ -9,7 +9,6 @@ import * as Helpers from '../main/calculator-helper.js';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/calculators/refund_if/styles.css';
 
 
-    styles_script = 'styles.css'
 
 
 

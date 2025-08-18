@@ -1,4 +1,4 @@
-import * as Helpers from '../main/calculator-helper.js';
+import * as Helpers from './calculator-helper.js';
 
 
 
@@ -7,10 +7,6 @@ import * as Helpers from '../main/calculator-helper.js';
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/calculators/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/calculators/bonus/styles.css';
-
-
-    styles_script = 'styles.css'
-
 
 
 
