@@ -36,7 +36,7 @@ let weekly_888sport_acca_club_object = {
             {
                 "type": "button",
                 "content": "How to Lay an Accumulator",
-                "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
+                "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
                 "style": "secondary"
                 },
     
@@ -47,7 +47,7 @@ let weekly_888sport_acca_club_object = {
             {
                   "type": "button",
                   "content": "Standard Oddsmatcher",
-                  "url": "https://www.betterbetgroup.com/oddsmatcher", 
+                  "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher", 
                   "style": "secondary"
                   },
                   {
@@ -57,7 +57,7 @@ let weekly_888sport_acca_club_object = {
               {
                   "type": "button",
                   "content": "Standard Calculator",
-                  "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                  "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                   "style": "secondary"
                   },
       
@@ -208,7 +208,7 @@ let betuk_football_always_on_object = {
                 {
                     "type": "button",
                     "content": "Standard Calculator",
-                    "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                    "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                     "style": "secondary"
                     },
       
@@ -359,7 +359,7 @@ let betway_club_object = {
                 {
                     "type": "button",
                     "content": "Standard Calculator",
-                    "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                    "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                     "style": "secondary"
                     },
       
@@ -655,7 +655,7 @@ let lottoland_bet_club_object = {
             {
                 "type": "button",
                 "content": "How to Lay an Accumulator",
-                "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
+                "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
                 "style": "secondary"
                 },
     
@@ -666,7 +666,7 @@ let lottoland_bet_club_object = {
             {
                   "type": "button",
                   "content": "Standard Oddsmatcher",
-                  "url": "https://www.betterbetgroup.com/oddsmatcher", 
+                  "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher", 
                   "style": "secondary"
                   },
                   {
@@ -676,7 +676,7 @@ let lottoland_bet_club_object = {
               {
                   "type": "button",
                   "content": "Standard Calculator",
-                  "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                  "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                   "style": "secondary"
                   }
       
@@ -811,7 +811,7 @@ let midnite_acca_club_object = {
             {
                 "type": "button",
                 "content": "How to Lay an Accumulator",
-                "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
+                "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
                 "style": "secondary"
                 },
     
@@ -822,7 +822,7 @@ let midnite_acca_club_object = {
             {
                   "type": "button",
                   "content": "Standard Oddsmatcher",
-                  "url": "https://www.betterbetgroup.com/oddsmatcher", 
+                  "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher", 
                   "style": "secondary"
                   },
                   {
@@ -832,7 +832,7 @@ let midnite_acca_club_object = {
               {
                   "type": "button",
                   "content": "Standard Calculator",
-                  "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                  "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                   "style": "secondary"
                   },
     
@@ -871,7 +871,7 @@ let midnite_acca_club_object = {
                 {
                     "type": "button",
                     "content": "How to Lay an Accumulator",
-                    "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
+                    "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets", 
                     "style": "secondary"
                     },
         
@@ -882,7 +882,7 @@ let midnite_acca_club_object = {
                 {
                     "type": "button",
                     "content": "Standard Oddsmatcher",
-                    "url": "https://www.betterbetgroup.com/oddsmatcher", 
+                    "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher", 
                     "style": "secondary"
                     },
                     {
@@ -892,7 +892,7 @@ let midnite_acca_club_object = {
                 {
                     "type": "button",
                     "content": "Standard Calculator",
-                    "url": "https://www.betterbetgroup.com/matched-betting-calculator", 
+                    "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator", 
                     "style": "secondary"
                     }
         

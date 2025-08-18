@@ -2517,7 +2517,7 @@ let livescore_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -2752,7 +2752,7 @@ let betfred_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -2763,7 +2763,7 @@ let betfred_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -2773,7 +2773,7 @@ let betfred_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3074,7 +3074,7 @@ let betuk_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3358,7 +3358,7 @@ let kwiff_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -3369,7 +3369,7 @@ let kwiff_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -3379,7 +3379,7 @@ let kwiff_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3573,7 +3573,7 @@ let dazn_bet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3602,7 +3602,7 @@ let dazn_bet_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -3613,7 +3613,7 @@ let dazn_bet_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -3623,7 +3623,7 @@ let dazn_bet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3818,7 +3818,7 @@ let unibet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -3847,7 +3847,7 @@ let unibet_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -3858,7 +3858,7 @@ let unibet_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -3868,7 +3868,7 @@ let unibet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -4012,7 +4012,7 @@ let vbet_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -4022,7 +4022,7 @@ let vbet_object = {
           {
             "type": "button",
             "content": "Bonus Calculator",
-            "url": "https://www.betterbetgroup.com/bonus-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/bonus-calculator",
             "style": "secondary"
           },
           {
@@ -4339,7 +4339,7 @@ let netbet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
           {
@@ -4392,7 +4392,7 @@ let netbet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -4422,7 +4422,7 @@ let netbet_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -4433,7 +4433,7 @@ let netbet_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -4443,7 +4443,7 @@ let netbet_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -4776,7 +4776,7 @@ let betmgm_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -4891,7 +4891,7 @@ let midnite_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -4902,7 +4902,7 @@ let midnite_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -4912,7 +4912,7 @@ let midnite_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -5265,7 +5265,7 @@ let parimatch_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -5299,7 +5299,7 @@ let parimatch_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -5310,7 +5310,7 @@ let parimatch_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -5320,7 +5320,7 @@ let parimatch_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -5672,7 +5672,7 @@ let leovegas_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -5967,7 +5967,7 @@ let sport888_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -6172,7 +6172,7 @@ let betvictor_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           },
 
@@ -6206,7 +6206,7 @@ let betvictor_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -6217,7 +6217,7 @@ let betvictor_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -6227,7 +6227,7 @@ let betvictor_object = {
           {
             "type": "button",
             "content": "Standard Calculator",
-            "url": "https://www.betterbetgroup.com/matched-betting-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/matched-betting-calculator",
             "style": "secondary"
           }
 
@@ -6364,7 +6364,7 @@ let bwin_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -6375,7 +6375,7 @@ let bwin_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -6385,7 +6385,7 @@ let bwin_object = {
           {
             "type": "button",
             "content": "Bonus Calculator",
-            "url": "https://www.betterbetgroup.com/bonus-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/bonus-calculator",
             "style": "secondary"
           },
 
@@ -6581,7 +6581,7 @@ let betway_object = {
           {
             "type": "button",
             "content": "How to Lay an Accumulator",
-            "url": "https://www.betterbetgroup.com/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
+            "url": "https://www.betterbetgroup.com/all-matched-betting-guides/guide-to-laying-accumulators#laying-an-accumulator-on-smarkets",
             "style": "secondary"
           },
 
@@ -6592,7 +6592,7 @@ let betway_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -6602,7 +6602,7 @@ let betway_object = {
           {
             "type": "button",
             "content": "Bonus Calculator",
-            "url": "https://www.betterbetgroup.com/bonus-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/bonus-calculator",
             "style": "secondary"
           },
 
@@ -7442,7 +7442,7 @@ let fafabet_object = {
           {
             "type": "button",
             "content": "Standard Oddsmatcher",
-            "url": "https://www.betterbetgroup.com/oddsmatcher",
+            "url": "https://www.betterbetgroup.com/oddsmatchers/oddsmatcher",
             "style": "secondary"
           },
           {
@@ -7452,7 +7452,7 @@ let fafabet_object = {
           {
             "type": "button",
             "content": "Bonus Calculator",
-            "url": "https://www.betterbetgroup.com/bonus-calculator",
+            "url": "https://www.betterbetgroup.com/calculators/bonus-calculator",
             "style": "secondary"
           },
           {
