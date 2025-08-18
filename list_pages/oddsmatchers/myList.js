@@ -4,13 +4,13 @@ import * as Helpers from '../main/helper.js'
 
 (function () {
 
-    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/guides.js'
+    let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/oddsmatchers.js'
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/z.html';
     let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/list_pages/main/styles.css';
 
 
     
-    class GuidesList extends HTMLElement {
+    class OddsmatchersList extends HTMLElement {
     
         constructor() {
             
@@ -28,14 +28,14 @@ import * as Helpers from '../main/helper.js'
                 globalData: {},
                 filteredData: [],
                 current_sort: 'none',
-                list_type: 'guides',
+                list_type: 'oddsmatchers',
                 data_loaded_from_wix: false,
                 sort_options: [
                     { text: 'Sort By Difficulty', value: 'none' },
                     { text: 'Sort A-Z', value: 'a-z' },
                     { text: 'Sort Z-A', value: 'z-a' },
                 ], 
-                above_columns_items: ['guides read', 'search guides', 'sort', 'hidden switch guides'],
+                above_columns_items: ['search guides'],
                 is_desktop: true,
             };
 
@@ -156,7 +156,7 @@ import * as Helpers from '../main/helper.js'
     }
 
 
-    customElements.define('allguides-page', GuidesList);
+    customElements.define('oddsmatchers-page', OddsmatchersList);
     
     
 })();

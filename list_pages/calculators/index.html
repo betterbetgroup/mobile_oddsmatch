@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guides List</title>
+    <title>Calculators List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 
@@ -14,90 +14,20 @@
 <body style="background: black; margin-top: 0;">
 
     <div id="app"  >
-        <allguides-page ></allguides-page>
+        <calculators-page ></calculators-page>
     </div>
 
     <script type="module" src="myList.js"></script>
 
     <script>
         
-        let finalData = {
-        
-            "user_suo_object": [
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": false,
-        "updated_time": "2025-06-08T13:16:37.261Z",
-        "offer_id": "guide____signup_offer_tutorial"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": false,
-        "updated_time": "2025-06-08T13:16:38.248Z",
-        "offer_id": "guide____backing_and_laying_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": false,
-        "updated_time": "2025-06-08T13:16:39.007Z",
-        "offer_id": "guide____betting_exchange_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____price_boost_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____arbitrage_betting_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____2up_betting_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____extra_place_betting_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____guide_to_laying_accumulators"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____dutching_betting_guide"
-    },
-    {
-        "bookmaker_name": "Guide - ",
-        "is_available": true,
-        "updated_time": "2025-06-08T13:16:35.944Z",
-        "offer_id": "guide____sequential_lay_betting_guide"
-    }
-], 
-            "premium_member": false
-    
+        let finalData = {    
         }
 
             setTimeout(() => {
-                document.querySelector('allguides-page').setAttribute('data-odds', JSON.stringify(finalData));
+                document.querySelector('calculators-page').setAttribute('data-odds', JSON.stringify(finalData));
             }, 500);
 
-
-
-            document.querySelector('allguides-page').addEventListener('suo_array', (event)=>{
-                console.log(event)
-            })
 
 
 

@@ -415,7 +415,7 @@ table {
     box-shadow: var(--global-box-shadow-main);
     overflow: visible;
     transition: box-shadow 0.3s;
-    margin-top: var(--global-gap-between-main-items);
+    margin-top: calc(var(--global-gap-between-main-items) * 1.5);
 }
 
 
