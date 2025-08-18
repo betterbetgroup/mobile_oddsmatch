@@ -185,7 +185,7 @@ import * as Helpers from '../main/helper.js'
 
                     <!-- Guide Actions -->
                     <div class="guide_actions">
-                        <a class="guide_button_primary ${!state.is_desktop ? 'guide_button_mobile' : ''}" href="${row.guide}" target="_blank">
+                        <a class="guide_button_primary ${!state.is_desktop ? 'guide_button_mobile' : ''}" href="${row.guide}">
                             <i class="fas fa-book-open"></i>
                             <span>Read Guide</span>
                         </a>

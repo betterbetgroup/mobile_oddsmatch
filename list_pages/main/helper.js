@@ -212,9 +212,6 @@ export function process_new_final_data(data, scope, state, page) {
         }
     }
 
-    if (state.list_type == 'calculators' || state.list_type == 'oddsmatchers') {
-        state.globalData = data.offer_data || data.tools || [];
-    }
 
     runSpecificScript(scope, state);
 
@@ -467,7 +464,6 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
     });
 
     try {
-
         filter_bookmakers_using_search(scope, state);
         sort_filtered_data(scope, state);
     } catch (error) {
@@ -479,12 +475,12 @@ function make_filtered_data_using_global_and_suo_object(scope, state) {
 function display_items(scope, state) {
 
     if (!state.data_loaded_from_wix) {
+        console.log('data not loaded from wix')
         return;
     }
 
     make_filtered_data_using_global_and_suo_object(scope, state);
 
-    
     scope.querySelector('.item_container_div').innerHTML = '';
 
     scope.querySelectorAll('#noDataRow').forEach(noDataRow => {
@@ -762,8 +758,9 @@ function add_in_above_columns_items(scope, state) {
 function append_sort_to_sort_options(name_for_sort, value, scope, state) {
 
     // currently returning as not sorting
-    return;
-
+    if (state.list_type != 'guides' && state.list_type != 'extra_places') {
+        return;
+    }
 
     const container = scope.getElementById('sorting-dropdown-options');
 
@@ -1006,7 +1003,9 @@ function add_event_listener_for_search_text(scope, state) {
 function add_event_listener_for_sorting(scope, button_select, button_options, state) {
 
     // currently returning as not sorting
-    return;
+    if (state.list_type != 'guides' && state.list_type != 'extra_places') {
+        return;
+    }
 
     let container = scope.querySelector(button_select)
 
