@@ -19,6 +19,7 @@ const DesktopHeaderDictionary = {
     'fixture': `<th id="fixture_header">Fixture</th>`,
 
     'event': `<th id="fixture_header">Event</th>`,
+    'boost': `<th id="fixture_header">Boost</th>`,
 
     'description': `<th id="fixture_header">Description</th>`,
 
@@ -112,6 +113,12 @@ const DesktopHeaderDictionary = {
             <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
         </div>
     </th>`,
+
+    '10profit': `<th id="expected_profit_header" class="header_with_sorting" >£100 Bet<br>Profit
+    <div >
+        <img id='sort_by_img_ql' class="sort_by" data-sort="qualifying loss" src="https://img.icons8.com/?size=100&id=69881&format=png&color=ffffff" alt="sort by qualifying loss" >
+    </div>
+</th>`,
 
     'bet settled': `<th id="bet_settled_header" >Bet<br>Settled</th>`,
 
