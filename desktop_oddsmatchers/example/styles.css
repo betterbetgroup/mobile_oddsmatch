@@ -29,6 +29,12 @@
 
 
 
+    --width-odds-and-bookmaker: 20vw;
+
+    --min-width-odds-button: 5vw;
+    --height-odds-and-bookmaker-images: 2.5vw;
+
+
 }
 
 /* this is for dutching with less than 3 bets */ 
@@ -44,4 +50,47 @@ td.hide_data > * {
 .outcome_data, .fixture_data {
     padding-bottom: 0;
     padding-top: 0;
+}
+
+#outcome_header {
+    text-align: center !important;
+}
+
+.total_lay_odds_header {
+    min-width: 100px !important;
+}
+.no_padding_margin {
+    text-align: center !important;
+    font-weight: bold;
+}
+
+.fixture_data {
+    padding: 10px !important;
+    line-height: 1.8 !important;
+    padding-left: 20px !important;
+}
+
+th {
+    font-size: 14px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+td {
+    font-size: 12px !important;
+}
+
+.expected_profit_data div {
+    background: none !important;
+}
+
+.lay_odds_value {
+    max-width: var(--min-width-odds-button) !important;
+}
+
+div.lay_odds_value {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: auto !important;
 }

@@ -14,9 +14,13 @@ const DesktopHeaderDictionary = {
         </div>
     </th>`,
 
+    'start date': `<th id="date_and_time_header">Start Date</th>`,
+    'end date': `<th id="date_and_time_header">End Date</th>`,
+
     'sport': `<th id="sport_header">Sport</th>`,
     
     'fixture': `<th id="fixture_header">Fixture</th>`,
+    'events': `<th id="fixture_header">Events</th>`,
 
     'event': `<th id="fixture_header">Event</th>`,
     'boost': `<th id="fixture_header">Boost</th>`,
@@ -26,6 +30,7 @@ const DesktopHeaderDictionary = {
     'race': `<th id="fixture_header">Race</th>`,
     
     'outcome': `<th id="outcome_header">Team</th>`,
+    'total lay odds': `<th id="outcome_header" class="total_lay_odds_header">Total Lay Odds</th>`,
 
     'bet': `<th id="outcome_header">Bet</th>`,
 

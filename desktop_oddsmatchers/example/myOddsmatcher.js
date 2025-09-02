@@ -5,7 +5,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
 
     let general_info_script = 'https://betterbetgroup.github.io/betterbet_html/general_info.js';
     let html_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/main/z.html';
-    let styles_script = 'https://betterbetgroup.github.io/mobile_oddsmatch/desktop_oddsmatchers/extra_place_matcher/styles.css';
+    let styles_script = 'styles.css';
 
 
 
@@ -146,7 +146,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
                 is_tutorial: false,  
                 oddsmatcher_type: 'extra_place',
                 is_desktop: true,
-                desktop_header_columns: ['race', 'horse', 'each way back bet', 'win lay bet', 'place lay bet', 'expected profit extra place', 'implied odds']
+                desktop_header_columns: ['start date', 'end date', 'events', 'back odds', 'total lay odds', 'qualifying loss', 'rating']
                 
             };
 
@@ -215,12 +215,7 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
             let place_exchange_image = Helpers.get_exchange_image(row.place_exchange)
         
         
-            let bookmakerFraction = row.bookmaker_fraction.split('/');
-            let numerator = parseInt(bookmakerFraction[0], 10);
-            let denominator = parseInt(bookmakerFraction[1], 10);
-            bookmakerFraction = numerator / denominator;
-            let implied_back_place_odds = (((row.bookmaker_each_way_odds - 1) * bookmakerFraction) + 1).toFixed(2)
-            
+
         
             let qualifying_loss_class = 'positive_profit_data'
             let potential_profit_class = 'positive_profit_data'
@@ -258,66 +253,46 @@ import * as Helpers from '../../oddsmatchers/main/helper.js';
         
             tr.innerHTML = `
                 
-                <td class="fixture_data" id="fixture_${row._id}">${row.fixture}</td>
-                <td class="outcome_data" id="outcome_${row._id}">${row.horse}</td>
+                <td class="date_and_time_data" id="date_time_${row._id}">${row.game_day}</td>
+                <td class="end_date_and_time_data" id="end_date_time_${row._id}">${row.end_day_and_time}</td>
+                <td class="fixture_data" id="fixture_${row._id}">${row.events.replace(/\n/g, '<br>')}</td>
 
-        
-        
                 <td id="back_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker each_way_back_bet_odds_and_bookmaker" id='back_each_way_odds_and_bookmaker'>
+                    <div class="odds_and_bookmaker">
                         <div id="back_odds_value_${row._id}" class="back_odds_value">
-                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.bookmaker_each_way_odds}</a>
-                        </div>    
-                        <div class="and_symbol">&</div>
-                        <div id="back_ew_odds_value_${row._id}" class="back_odds_value">
-                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${implied_back_place_odds}</a>
+                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.total_back_odds}</a>
                         </div>    
                         <div class="at_symbol">@</div>
                         <div id="bookmaker_logo_${row._id}" class="bookmaker_logo_div">
                             <a class="div_around_logo" ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} >
-                                <img class='bookmaker_logo_img' src="${bookmaker_image}" alt="${row.sport} ${row.bookmaker} extra place bet">
+                                <img class='bookmaker_logo_img' src="${bookmaker_image}" alt="${row.sport} ${row.bookmaker}">
                             </a>
                         </div>
                     </div>                
+                </td>
+
+                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
+                        <div id="back_odds_value_${row._id}" class="lay_odds_value">
+
+                            <a ${row.bookmaker_link ? `href="${row.bookmaker_link}" target="_blank"` : ''} class="odds-link">${row.total_lay_odds}</a>
+
+
+                            </div>
+
                 </td>
         
-                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker" id='win_lay_odds_and_bookmaker'>
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
-                            <a ${row.win_exchange_link ? `href="${row.win_exchange_link}" target="_blank"` : ''} class="odds-link">${row.exchange_win_odds}</a>
-                        </div>
-                        <div class="at_symbol">@</div>
-                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
-                            <a class="div_around_logo" ${row.win_exchange_link ? `href="${row.win_exchange_link}" target="_blank"` : ''} >
-                                <img class='exchange_logo_img' src="${win_exchange_image}" alt="${row.sport} ${row.win_exchange}" >
-                            </a>
-                        </div>
-                    </div>                
-                </td>
+
         
-                <td id="lay_odds_data_${row._id}" class="no_padding_margin">
-                    <div class="odds_and_bookmaker" id='place_lay_odds_and_bookmaker'>
-                        <div id="lay_odds_value_${row._id}" class="lay_odds_value">
-                            <a ${row.place_exchange_link ? `href="${row.place_exchange_link}" target="_blank"` : ''} class="odds-link">${row.exchange_place_odds}</a>
-                        </div>
-                        <div class="at_symbol">@</div>
-                        <div id="exchange_logo_${row._id}" class="exchange_logo_div">
-                            <a class="div_around_logo" ${row.place_exchange_link ? `href="${row.place_exchange_link}" target="_blank"` : ''} >
-                                <img class='exchange_logo_img' src="${place_exchange_image}" alt="${row.sport} ${row.place_exchange}" >
-                            </a>
-                        </div>
-                    </div>                
-                </td>
+
                 
                 <td class="no_padding_margin">
                     <div class="expected_profit_data">
                         <div id='qualifying_loss_${row._id}' class='${qualifying_loss_class}'>${qualifying_loss}</div>
-                        <div id='potential_profit_${row._id}' class='${potential_profit_class}'>${potential_profit}</div>
                     </div>
                 </td>
         
                 <td id="rating_${row._id}">
-                    ${row.implied_odds}
+                    ${row.rating}
                 </td>
         
             `;
